@@ -43,6 +43,8 @@
         <springframework-boot.version>1.5.4.RELEASE</springframework-boot.version>
         <metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
         <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
        <!-- <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <assertj.version>3.6.2</assertj.version>
@@ -222,7 +224,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-web</module>
