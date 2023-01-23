@@ -1,0 +1,45 @@
+<div class="m-30">
+    <mat-card mat-elevation-z15>
+        <mat-card-header>
+            <mat-card-title>CONCEPTOS</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+            <div class="container">
+                <div class="search-results" [style.display]="dataChildrensLoaded ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]="dataChildrens" (clickEvent)="onClickChildren($event)"></app-table-tree>
+                </div>
+                <div class="search-results" *ngIf="!dataChildrensLoaded">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div> 
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div class="m-30">
+    <mat-card mat-elevation-z15>
+        <mat-card-header>
+            <mat-card-title>DETALLES CONCEPTO</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+            <div [formGroup]="detailForm" class="container">
+                <mat-form-field appearance="outline" class="mlr input">
+                    <mat-label>ID</mat-label>
+                    <input formControlName="id" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mlr input">
+                    <mat-label>NOMBRE</mat-label>
+                    <input formControlName="name" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mlr input">
+                    <mat-label>URN</mat-label>
+                    <input formControlName="urn" matInput placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mlr input">
+                    <mat-label>DESCRIPCIÓN</mat-label>
+                    <input formControlName="description" matInput placeholder="Placeholder">
+                </mat-form-field>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

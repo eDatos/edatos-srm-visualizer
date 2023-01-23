@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Visualizador</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+</head>
+<body class="mat-typography">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    window.CONFIGURATION = {};
+
+    window.CONFIGURATION.endpoint = {};
+    window.CONFIGURATION.endpoint.appUrl = /*[[${@metadataProperties.externalAppUrl}]]*/ 'http://localhost:4200';
+
+    window.CONFIGURATION.metadata = {};
+    window.CONFIGURATION.metadata.defaultLanguage = /*[[${@metadataProperties.defaultLanguage}]]*/ 'es';
+    window.CONFIGURATION.metadata.languageCookie = /*[[${@metadataProperties.languageCookie}]]*/ 'chosenLocale';
+
+    window.CONFIGURATION.template = {};
+    window.CONFIGURATION.template.headerUrl = /*[[${headerUrl}]]*/ "http://localhost:8080/complementos-apps-5.0.3-SNAPSHOT/organisations/istac/common/header/header.html?appName=Mi%20%C3%A1rea%20personal";
+    window.CONFIGURATION.template.footerUrl = /*[[${footerUrl}]]*/ "http://localhost:8080/complementos-apps-5.0.3-SNAPSHOT/organisations/istac/common/footer/footer.html";
+    /*]]>*/
+  </script>
+  <script src="https://estadisticas.arte-consultores.com/external-users-external/api/captcha/authentication.js" th:src="${captchaAuthenticationUrl}"></script>
+  <!-- <div class="container-fluid h-100 w-100"> 
+  </div>-->
+  <app-root></app-root>
+</body>
+</html>

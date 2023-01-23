@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ConceptsDetailComponent } from './components/concepts-detail/concepts-detail.component';
+import { ConceptsSchemesDetailComponent } from './components/concepts-schemes-detail/concepts-schemes-detail.component';
+import { ConceptsSchemesSearchComponent } from './components/concepts-schemes-search/concepts-schemes-search.component';
+import { ConceptsSearchComponent } from './components/concepts-search/concepts-search.component';
+import { ConceptsComponent } from './concepts/concepts.component';
+
+const routes: Routes = [{
+  path: '', component: ConceptsComponent,
+  children: [
+    { path: '', redirectTo: 'schemes', pathMatch: 'full' },
+    { path: 'schemes', component: ConceptsSchemesSearchComponent },
+    { path: 'schemes/:agency/:idScheme/:version/detail', component: ConceptsSchemesDetailComponent },
+    { path: 'concepts', component: ConceptsSearchComponent },
+    { path: 'concepts/:agency/:idScheme/:id/:version/detail', component: ConceptsDetailComponent }
+  ]
+}];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ConceptsRoutingModule { }
