@@ -13,6 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <node.version>v18.12.1</node.version>
+        <npm.version>9.1.2</npm.version>
     </properties>
     <dependencies>
     </dependencies>
@@ -49,6 +50,7 @@
                         </goals>
                         <configuration>
                             <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
