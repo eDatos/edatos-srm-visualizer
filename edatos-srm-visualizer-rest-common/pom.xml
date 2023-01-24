@@ -5,7 +5,7 @@
     <parent>
         <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
         <artifactId>edatos-srm-visualizer</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>edatos-srm-visualizer-rest-common</artifactId>
@@ -16,10 +16,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
-            <artifactId>edatos-srm-visualizer-core</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

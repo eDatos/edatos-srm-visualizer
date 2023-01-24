@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
 		<artifactId>edatos-srm-visualizer</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>edatos-srm-visualizer-rest</artifactId>
@@ -14,6 +14,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -21,21 +22,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
-			<artifactId>edatos-srm-visualizer-rest-common</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.siemac.metamac.metamac-srm</groupId>
 			<artifactId>metamac-srm-rest-internal-api</artifactId>
 			<version>${metamac-srm-rest-internal-api.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${jee.servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -43,59 +34,31 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
 		</dependency>
-
-<!--
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.awaitility</groupId>
-			<artifactId>awaitility</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.siemac.metamac</groupId>
-			<artifactId>edatos-core-common</artifactId>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency> -->
 	</dependencies>
 
 	<build>
-		<defaultGoal>spring-boot:run</defaultGoal>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
 				<configuration>
+					<archive>
+						<manifest>
+							<packageName>es.gobcan.istac.edatos.visualizer.rest</packageName>
+							<mainClass>Application</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Created-By>Arte</Created-By>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -103,18 +66,29 @@
 	<profiles>
 		<profile>
 			<id>env</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<spring.profiles.active>env</spring.profiles.active>
 			</properties>
 		</profile>
 		<profile>
 			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<spring.profiles.active>dev</spring.profiles.active>
 			</properties>
+		</profile>
+		<profile>
+			<id>jar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 

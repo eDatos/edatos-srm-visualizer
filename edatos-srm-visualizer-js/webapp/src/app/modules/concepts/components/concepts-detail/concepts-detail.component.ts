@@ -35,7 +35,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent {
 
   loadTreeData () {
     //let URL = 'http://localhost:8080/structural-resources-internal-4.0.1-SNAPSHOT/apis/structural-resources-internal/v1.0/conceptschemes/~all/~all/~all/concepts?limit=100&offset=0&query=PARENT%20eq %20%27a11_subconcepto%27';
-    let URL = 'http://localhost:8081/concepts/'.concat(this.dataDetail!.urn);
+    let URL = 'http://https://estadisticas.arte-consultores.com/edatos-srm-visualizer/concepts/'.concat(this.dataDetail!.urn);
     console.log(URL);
     this.apiService.getData(URL).subscribe ((data) => {
       if (data) {

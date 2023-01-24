@@ -4,7 +4,7 @@
     <parent>
         <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
         <artifactId>edatos-srm-visualizer</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>edatos-srm-visualizer-core</artifactId>
@@ -138,6 +138,9 @@
     <profiles>
         <profile>
             <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
@@ -153,9 +156,7 @@
 
         <profile>
             <id>env</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+
             <dependencies>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>

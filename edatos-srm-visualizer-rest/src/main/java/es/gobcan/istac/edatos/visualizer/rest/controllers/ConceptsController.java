@@ -15,7 +15,7 @@ import java.util.List;
 public class ConceptsController {
 
     private String idConcepto = "a1_subconcepto";
-    private String URL_API_CHILDREN = "http://localhost:8080/structural-resources-internal-4.0.1-SNAPSHOT/apis/structural-resources-internal/v1.0/conceptschemes/~all/~all/~latest/concepts?limit=100&offset=0&query=PARENT%20eq%20%27#ID#%27";
+    private String URL_API_CHILDREN = "https://estadisticas.arte-consultores.com/structural-resources/v1.0/conceptschemes/~all/~all/~latest/concepts?limit=100&offset=0&query=PARENT%20eq%20%27#ID#%27";
 
 
     @GetMapping("/{urn}")

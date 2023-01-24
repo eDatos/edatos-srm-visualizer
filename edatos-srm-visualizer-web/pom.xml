@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
 		<artifactId>edatos-srm-visualizer</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>edatos-srm-visualizer-web</artifactId>
@@ -13,6 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>es.gobcan.istac.edatos.visualizer.rest.Application</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -40,49 +41,10 @@
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>default-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>target/classes</outputDirectory>
-							<useDefaultDelimiters>false</useDefaultDelimiters>
-							<delimiters>
-								<delimiter>#</delimiter>
-							</delimiters>
-							<resources>
-								<resource>
-									<directory>src/main/resources/</directory>
-									<filtering>true</filtering>
-									<includes>
-										<include>**/*.xml</include>
-										<include>**/application.yml</include>
-										<include>**/*-${spring.profiles.active}.yml</include>
-									</includes>
-								</resource>
-								<resource>
-									<directory>src/main/resources/</directory>
-									<filtering>false</filtering>
-									<excludes>
-										<exclude>**/*.xml</exclude>
-										<exclude>**/*.yml</exclude>
-									</excludes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<mainClass>es.gobcan.istac.edatos.visualizer.rest.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -90,6 +52,9 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<!-- log configuration -->
 				<logback.loglevel>DEBUG</logback.loglevel>
