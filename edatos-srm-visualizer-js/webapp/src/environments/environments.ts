@@ -1,5 +1,5 @@
-//const url_domain = 'https://estadisticas.arte-consultores.com/structural-resources/v1.0/';
-const url_domain = 'http://localhost:8080/structural-resources-internal-4.0.1-SNAPSHOT/apis/structural-resources-internal/v1.0/';
+const url_domain = 'https://estadisticas.arte-consultores.com/structural-resources/v1.0/';
+//const url_domain = 'http://localhost:8080/structural-resources-internal-4.0.1-SNAPSHOT/apis/structural-resources-internal/v1.0/';
 
 export const environment = {
     production: false,

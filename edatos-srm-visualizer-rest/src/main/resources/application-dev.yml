@@ -1,0 +1,3 @@
+logging:
+  file:
+    path: /Users/dani/Desarrollo/Arte/OpenData/Servidores/apache-tomcat-8.5.84/logs

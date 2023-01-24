@@ -16,7 +16,6 @@ export class LocaleService {
   }
 
   public getTextValue (texts: LocalisedString []) {
-    console.log(texts);
     if (texts) {
       let localeText: LocalisedString [] = texts.filter((element: LocalisedString) => {
         return element.lang === this.lang

@@ -26,7 +26,7 @@ export class BasicDetailComponent {
 
   dataChildrensLoaded: boolean = false;
   dataChildrens: TreeNode[] = [];
-  dataChildrensPath: string = 'concept';
+  dataChildrensPath: string = '';
 
   constructor(public formBuilder: FormBuilder, public apiService: ApiService) { }
 

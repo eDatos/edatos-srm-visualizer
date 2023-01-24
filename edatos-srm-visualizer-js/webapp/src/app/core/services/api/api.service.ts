@@ -24,7 +24,6 @@ export class ApiService {
     if (query) {
       return this.httpClient.get<any>(URL.concat(this.getResultLimit(searchConfig)).concat(query));
     }
-    console.log(URL.concat(this.getResultLimit(searchConfig)));
     return this.httpClient.get<any>(URL.concat(this.getResultLimit(searchConfig)));
   }
 

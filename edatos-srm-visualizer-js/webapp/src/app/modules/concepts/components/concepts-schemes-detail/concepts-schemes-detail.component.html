@@ -1,22 +1,16 @@
 <div class="m-30">
     <mat-card mat-elevation-z15>
+        <div  *ngIf="!dataChildrensLoaded">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div> 
         <mat-card-header>
             <mat-card-title>CONCEPTOS</mat-card-title>
         </mat-card-header>
-        <mat-card-actions>
-            <div class="container">
-              <!--  <div class="search-results" [scrollWindow]="false" infinite-scroll
-                    (scrolled)="onScrollDown($event)" (scrolledUp)="onScrollUp($event)">
+        <mat-card-content>
+                <div class="search-results"  [style.display]="dataChildrensLoaded ? 'block' : 'none'">
                     <app-table-tree [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
-                </div> -->
-                <div class="search-results" [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
                 </div>
-                <div class="search-results" *ngIf="!dataChildrensLoaded">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div> 
-            </div>
-        </mat-card-actions>
+        </mat-card-content>
     </mat-card>
 </div>
 
@@ -25,7 +19,7 @@
         <mat-card-header>
             <mat-card-title>DETALLES ESQUEMA DE CONCEPTO</mat-card-title>
         </mat-card-header>
-        <mat-card-actions>
+        <mat-card-content>
             <div [formGroup]="detailForm" class="container">
                 <mat-form-field appearance="outline" class="mlr input">
                     <mat-label>ID</mat-label>
@@ -53,9 +47,9 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
                     <mat-label>COMENTARIOS</mat-label>
-                    <input formControlName="comentarios" matInput placeholder="Placeholder">
+                    <input formControlName="comments" matInput placeholder="Placeholder">
                 </mat-form-field>
             </div>
-        </mat-card-actions>
+        </mat-card-content>
     </mat-card>
 </div>

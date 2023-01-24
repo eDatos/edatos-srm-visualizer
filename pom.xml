@@ -14,7 +14,7 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>eDatos External Users</name>
+    <name>eDatos SRM Visualizer</name>
 
     <scm>
         <connection>scm:git:http://git.arte-consultores.com/istac/edatos-srm-visualizer/</connection>
@@ -45,6 +45,7 @@
         <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <jee.servlet.version>3.1.0</jee.servlet.version>
 
        <!-- <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <assertj.version>3.6.2</assertj.version>
@@ -220,12 +221,10 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <modules>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
+                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
 
             </modules>
@@ -233,8 +232,10 @@
 
         <profile>
             <id>env</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <modules>
-                <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-js</module>

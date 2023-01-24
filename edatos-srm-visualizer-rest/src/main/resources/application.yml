@@ -1,6 +1,20 @@
+
 server:
   port: 8081
+  servlet:
+    context-path: /api
 
 security:
   basic:
     enabled: false
+
+spring:
+  application:
+    name: edatos_srm_visualizer
+  profiles:
+    active: @spring.profiles.active@
+  banner:
+    location: classpath:banner.txt
+info:
+  project:
+    version: #project.version#

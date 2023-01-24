@@ -31,6 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .box {
     flex: 1;
+    width: 100%;
 }
 
 .row2 {
@@ -99,7 +100,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .search-results{
     height: 100px;
-    width: 100%;
+    width: 98%;
+    padding: 10px;
     min-height: 300px;
     overflow-y: auto;
 }
