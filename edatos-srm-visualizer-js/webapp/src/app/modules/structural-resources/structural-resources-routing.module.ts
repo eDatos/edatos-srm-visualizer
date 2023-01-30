@@ -1,14 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriesSearchComponent } from './components/categories-search/categories-search.component';
-import { CodelistsSearchComponent } from './components/codelists-search/codelists-search.component';
-import { ConceptsSchemesDetailComponent } from '../concepts/components/concepts-schemes-detail/concepts-schemes-detail.component';
-import { ConceptsSchemesSearchComponent } from '../concepts/components/concepts-schemes-search/concepts-schemes-search.component';
-import { ConceptsSearchComponent } from '../concepts/components/concepts-search/concepts-search.component';
-import { DsdSearchComponent } from './components/dsd-search/dsd-search.component';
 import { NavigationSearchComponent } from './components/navigation-search/navigation-search.component';
-import { OrganizationsSearchComponent } from './components/organizations-search/organizations-search.component';
-import { CodelistComponent } from './components/codelists-search/codelist/codelist.component';
+
+
 
 
 const routes: Routes = [
@@ -18,10 +12,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'concepts', pathMatch: 'full' },
       { path: 'concepts', loadChildren: () => import ('../concepts/concepts.module').then ( m => m.ConceptsModule)},
-      { path: 'dsd', component: DsdSearchComponent },
-      { path: 'organizations', component: OrganizationsSearchComponent },
-      { path: 'categories', component: CategoriesSearchComponent },
-      { path: 'classifications', component: CodelistComponent }
+      { path: 'dsd', loadChildren: () => import ('../dsd/dsd.module').then ( m => m.DsdModule)},
+      { path: 'organizations', loadChildren: () => import ('../organizations/organizations.module').then ( m => m.OrganizationsModule)},
+      { path: 'categories', loadChildren: () => import ('../categories/categories.module').then ( m => m.CategoriesModule)},
+      { path: 'codelists', loadChildren: () => import ('../codelists/codelists.module').then ( m => m.CodelistsModule)}
     ]
   }
 ];

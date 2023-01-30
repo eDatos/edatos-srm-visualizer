@@ -8,7 +8,7 @@ import { Constants } from 'src/app/shared/models/constants';
 import { environment } from '../../../../../environments/environments';
 
 @Component({
-  selector: 'app-concepts-search',
+  selector: 'app-concepts-navbar-search',
   templateUrl: './concepts-search.component.html',
   styleUrls: ['./concepts-search.component.scss']
 })

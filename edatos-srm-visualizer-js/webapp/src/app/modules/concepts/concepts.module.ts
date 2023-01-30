@@ -7,13 +7,15 @@ import { ConceptsSchemesSearchComponent } from './components/concepts-schemes-se
 import { ConceptsSchemesDetailComponent } from './components/concepts-schemes-detail/concepts-schemes-detail.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.component';
 
 @NgModule({
   declarations: [
     ConceptsDetailComponent,
     ConceptsSearchComponent,
     ConceptsSchemesSearchComponent,
-    ConceptsSchemesDetailComponent
+    ConceptsSchemesDetailComponent,
+    ConceptsNavbarComponent
   ],
   imports: [
     CommonModule,

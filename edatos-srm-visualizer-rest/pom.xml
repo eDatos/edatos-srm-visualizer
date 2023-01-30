@@ -14,9 +14,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
+		<metamac-srm-rest-internal-api.version>2.6.0</metamac-srm-rest-internal-api.version>
+		<start-class>es.gobcan.istac.edatos.visualizer.Application</start-class>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
+			<artifactId>edatos-srm-visualizer-core</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -25,6 +31,11 @@
 			<groupId>org.siemac.metamac.metamac-srm</groupId>
 			<artifactId>metamac-srm-rest-internal-api</artifactId>
 			<version>${metamac-srm-rest-internal-api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.siemac.metamac</groupId>
+			<artifactId>edatos-core-common</artifactId>
 		</dependency>
 
 		<dependency>

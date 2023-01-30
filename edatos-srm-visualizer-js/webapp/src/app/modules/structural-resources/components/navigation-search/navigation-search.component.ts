@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { StructuralResources } from 'src/app/shared/models/enums/structural-resources';
+
 
 @Component({
   selector: 'app-navigation-search',
@@ -19,7 +18,7 @@ export class NavigationSearchComponent {
         link: 'concepts'
       }, {
         label: 'Clasificaciones',
-        link: 'classifications'
+        link: 'codelists'
       }, {
         label: 'Definición de Estructuras de Datos(DSD)',
         link: 'dsd'
@@ -31,7 +30,8 @@ export class NavigationSearchComponent {
         link: 'categories'
       }
     ];
-    this.activeLink = this.navLinks[0].label;
+
+    this.activeLink = this.navLinks.filter(element => router.url.includes('/' + element.link))[0].label;
   }
 
 }

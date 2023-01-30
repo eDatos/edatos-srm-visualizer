@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ConfigService } from './core/services/config/config.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent{
   
   title = 'visualizador';
+  
+  public constructor(private config: ConfigService) {
 
+  }
 }

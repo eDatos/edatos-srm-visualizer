@@ -1,5 +1,9 @@
+
 logging:
   file:
     path: /Users/dani/Desarrollo/Arte/OpenData/Servidores/apache-tomcat-8.5.84/logs
   level:
-    root: debug
+    es.gobcan.istac.edatos.visualizer: debug
+server:
+  servlet:
+    context-path: /edatos-srm-visualizer

@@ -8,11 +8,18 @@ export const environment = {
     apiUrlConceptsSchemeDetail: url_domain + 'conceptschemes/#AGENCY#/#RESOURCEID#/#VERSION#/',
     apiUrlConceptsSchemes: url_domain + 'conceptschemes/',
     apiUrlCodeLists: url_domain + 'codelists',
-    apiUrlCodeListsFamilies: url_domain + 'codelistfamilies',
+    apiUrlCodeListsFamilies: url_domain + 'codelistfamilies/',
+    apiUrlCodeListsFamiliesDetail: url_domain + 'codelistfamilies/#ID#/',
     apiUrlCodeListsCodes: url_domain + 'codelists/~all/~all/~latest/codes',
-    apiUrlDSD: url_domain + 'datastructures',
+    apiUrlCodeListsCodesDetail: url_domain + 'codelists/#AGENCY#/#RESOURCEID#/#VERSION#/codes/#ID#',
+    apiUrlDSD: url_domain + 'datastructures/#AGENCY#/#RESOURCEID#/#VERSION#/',
+    apiUrlDSDDetail: url_domain + 'datastructures',
     apiUrlOrganizations: url_domain + 'organisationschemes/~all/~all/~latest/organisations',
+    apiUrlOrganizationsDetail: url_domain + 'organisationschemes/#AGENCY#/#RESOURCEID#/#VERSION#/organisations/#ID#',
     apiUrlOrganizationsScheme: url_domain + 'organisationschemes',
+    apiUrlOrganizationsSchemeDetail: url_domain + 'organisationschemes/#AGENCY#/#RESOURCEID#/#VERSION#',
     apiUrlCategories: url_domain + 'categoryschemes/~all/~all/~latest/categories',
-    apiUrlCategoriesSchemes: url_domain + 'categoryschemes'
+    apiUrlCategoriesDetail: url_domain + 'categoryschemes/#AGENCY#/#RESOURCEID#/#VERSION#/categories/#ID#',
+    apiUrlCategoriesSchemes: url_domain + 'categoryschemes',
+    apiUrlCategoriesSchemesDetail: url_domain + 'categoryschemes/#AGENCY#/#RESOURCEID#/#VERSION#'
   };

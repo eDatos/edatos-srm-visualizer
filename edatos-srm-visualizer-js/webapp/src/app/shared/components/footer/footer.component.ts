@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ComplementosService } from 'src/app/core/services/html/complementos.service';
 
 @Component({
@@ -6,16 +7,12 @@ import { ComplementosService } from 'src/app/core/services/html/complementos.ser
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
-public  footer = '';
+  public footer: Observable<string>;
 
-constructor ( private elementRef : ElementRef,
-  private complementosService : ComplementosService) {}
-  
-ngOnInit(): void {
-    this.complementosService.getFooter().subscribe ( data => {
-      this.footer = data.toString();
-    })
+  constructor(private complementosService: ComplementosService) {
+    this.footer = this.complementosService.getFooter();
   }
+
 }

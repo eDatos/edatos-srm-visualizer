@@ -4,7 +4,6 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { Constants } from 'src/app/shared/models/constants';
 import { environment } from '../../../../../environments/environments';
 
 @Component({

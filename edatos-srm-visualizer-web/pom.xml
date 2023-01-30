@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>es.gobcan.istac.edatos.visualizer.rest.Application</start-class>
+		<start-class>es.gobcan.istac.edatos.visualizer.Application</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,7 +44,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>es.gobcan.istac.edatos.visualizer.rest.Application</mainClass>
+					<mainClass>es.gobcan.istac.edatos.visualizer.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
