@@ -1,6 +1,6 @@
 logging:
   file:
-    path: /data/edatos-external/edatos-srm-visualizer/logs
+    path:
   level:
     root: info
 
