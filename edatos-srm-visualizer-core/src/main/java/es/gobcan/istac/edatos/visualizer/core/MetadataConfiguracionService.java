@@ -7,5 +7,7 @@ public interface MetadataConfiguracionService extends ConfigurationService {
 
     public String getConfiguracionFooter();
 
-    String getConfigurationHeader();
+    public String getConfigurationHeader();
+
+    public String getStructuralResourcesApi();
 }

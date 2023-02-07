@@ -44,7 +44,6 @@ export class OrganizationsSearchComponent extends BasicSearchComponent implement
  
 
   updateDetailForm(): void {
-    console.log (this.dataDetail);
     this.detailForm.patchValue({
       id: this.dataDetail!.id,
       urn: this.dataDetail!.urn,

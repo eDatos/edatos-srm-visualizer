@@ -14,7 +14,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<metamac-srm-rest-internal-api.version>2.6.0</metamac-srm-rest-internal-api.version>
+		<metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
 		<start-class>es.gobcan.istac.edatos.visualizer.Application</start-class>
 	</properties>
 	<dependencies>
@@ -23,19 +23,30 @@
 			<artifactId>edatos-srm-visualizer-core</artifactId>
 		</dependency>
 
+<!--		<dependency>
+			<groupId>es.gobcan.istac.edatos-external-users</groupId>
+			<artifactId>edatos-external-users-rest-common</artifactId>
+		</dependency>-->
+
+		<dependency>
+			<groupId>org.siemac.metamac.metamac-srm</groupId>
+			<artifactId>metamac-srm-rest-external-api</artifactId>
+			<version>${metamac-srm-rest-external-api.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.siemac.metamac.metamac-srm</groupId>
-			<artifactId>metamac-srm-rest-internal-api</artifactId>
-			<version>${metamac-srm-rest-internal-api.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.siemac.metamac</groupId>
-			<artifactId>edatos-core-common</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -55,7 +66,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -97,6 +107,9 @@
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<executable>true</executable>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>

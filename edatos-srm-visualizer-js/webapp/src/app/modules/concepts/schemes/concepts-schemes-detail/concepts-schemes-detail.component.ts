@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
@@ -8,36 +8,32 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { environment } from 'src/environments/environments';
 
-
 @Component({
-  selector: 'app-concepts-detail',
-  templateUrl: './concepts-detail.component.html',
-  styleUrls: ['./concepts-detail.component.scss']
+  selector: 'app-concepts-schemes-detail',
+  templateUrl: './concepts-schemes-detail.component.html',
+  styleUrls: ['./concepts-schemes-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConceptsDetailComponent extends BasicDetailComponent {
+export class ConceptsSchemesDetailComponent extends BasicDetailComponent implements OnInit {
 
   @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-  constructor(formBuilder: FormBuilder, apiService: ApiService, private router: Router, route: ActivatedRoute, localeService: LocaleService) {
+  constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
     this.dataPathElement = 'concept';
-    this.apiDetail = environment.apiUrlConceptDetail;
-    this.apiChildrens = 'http://localhost:8081/edatos-srm-visualizer/api/concepts/';
+    this.apiDetail = environment.apiUrlConceptsSchemeDetail;
+    this.apiChildrens = environment.apiCoreConceptsSchemes;
+    this.dataChildrensPath = 'concept';
+
     this.detailForm = this.formBuilder.group({
       id: '',
       name: '',
       urn: '',
-      description: ''
+      description: '',
+      version: '',
+      agency: '',
+      comments: ''
     })
-    /*   route.params.subscribe(params => {
-         this.loadDetail();
-       }) */
-  }
-
-  public updateTableChildrensTreeNode(data: any): void {
-    this.tabletreenode.data = [];
-    this.tabletreenode.dataSource.data = data;
-    this.tabletreenode.treeControl.expandAll();
   }
 
   public updateDataDetail(data: any): void {
@@ -47,14 +43,25 @@ export class ConceptsDetailComponent extends BasicDetailComponent {
     this.detailForm.patchValue({
       id: this.dataDetail.id,
       urn: this.dataDetail.urn,
-      name: this.dataDetail.name
-    });
-    this.apiChildrens = this.apiChildrens.concat(this.dataDetail!.urn);
-    console.log(this.apiChildrens);
+      name: this.dataDetail.name,
+      version: this.dataDetail.version,
+      agency: this.dataDetail.agency
+    })
+    this.apiChildrens = this.apiChildrens.replace('#urn#',this.dataDetail!.urn);
   }
 
-  onClickChildren(element: string) {
+  public updateTableChildrensTreeNode(data: any): void {
+    this.tabletreenode.data = [];
+    this.tabletreenode.dataSource.data = data;
+    this.tabletreenode.treeControl.expandAll();
+  }
+  
+  onLoadDetail(element: string) {
     let resource = new Resource(element);
     this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
   }
+
 }
+
+
+

@@ -1,15 +1,17 @@
 <div class="m-30">
-    <mat-card mat-elevation-z15>
-        <div  *ngIf="!dataChildrensLoaded">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div> 
+    <mat-card mat-elevation-z15> 
         <mat-card-header>
             <mat-card-title>CONCEPTOS</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <div class="container">
                 <div class="search-results"  [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
+                    <app-table-tree #tabletreenode [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
                 </div>
+                <div class="search-results" *ngIf="!dataChildrensLoaded">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

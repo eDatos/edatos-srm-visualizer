@@ -3,7 +3,6 @@ package es.gobcan.istac.edatos.visualizer.rest.controllers;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.siemac.metamac.rest.structural_resources_internal.v1_0.domain.Concept;
 
 import java.util.ArrayList;
 import java.util.List;

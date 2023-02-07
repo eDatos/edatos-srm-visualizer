@@ -6,7 +6,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.7</version>
+        <version>2.1.18.RELEASE</version>
     </parent>
 
     <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
@@ -40,7 +40,8 @@
     </distributionManagement>
 
     <properties>
-        <springframework-boot.version>2.7.7</springframework-boot.version>
+        <springframework-boot.version>2.1.18.RELEASE</springframework-boot.version>
+        <tomcat.version>8.5.85</tomcat.version>
         <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -49,12 +50,13 @@
         <postgresql.version>9.4.1212</postgresql.version>
 
         <metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
+        <metamac-srm-rest-external-api.version>2.2.0</metamac-srm-rest-external-api.version>
+        <edatos-external-user.version>1.0.1-SNAPSHOT</edatos-external-user.version>
         <edatos-core-common.version>1.0.2-SNAPSHOT</edatos-core-common.version>
         <edatos-rest-common.version>1.0.0</edatos-rest-common.version>
-
-
-
     </properties>
+
+
 
 
     <build>
@@ -81,7 +83,6 @@
             </activation>
             <modules>
                 <module>edatos-srm-visualizer-core</module>
-                <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
@@ -133,8 +134,9 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- METAMAC APIs -->
 
+
+            <!--
             <dependency>
                 <groupId>org.siemac.metamac.metamac-statistical-operations</groupId>
                 <artifactId>metamac-statistical-operations-rest-api</artifactId>
@@ -145,7 +147,7 @@
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency> -->
 
             <dependency>
                 <groupId>org.siemac.metamac</groupId>
@@ -157,20 +159,16 @@
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${springframework-boot.version}</version>
-                <optional>true</optional>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.vaadin.external.google</groupId>
-                        <artifactId>android-json</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${springframework-boot.version}</version>
+            </dependency>
+
+             <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${jee.servlet.version}</version>
+                <scope>provided</scope>
             </dependency>
 
 

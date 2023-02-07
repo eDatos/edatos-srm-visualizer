@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SearchConfig } from 'src/app/shared/models/search-config';
+import { ConfigService } from '../config/config.service';
 
 
 @Injectable({
@@ -11,7 +12,9 @@ import { SearchConfig } from 'src/app/shared/models/search-config';
 export class ApiService {
   ALL_ELEMENTS: string = '~all';
 
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private httpClient: HttpClient) {}
+
 
   getData (URL: string, query?: string): Observable<any> {
     if (query) {
@@ -22,9 +25,9 @@ export class ApiService {
   
   getDataWithOffset (URL: string, searchConfig: SearchConfig, query?: string): Observable<any> {
     if (query) {
-      return this.httpClient.get<any>(URL.concat(this.getResultLimit(searchConfig)).concat(query));
+      return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)).concat(query));
     }
-    return this.httpClient.get<any>(URL.concat(this.getResultLimit(searchConfig)));
+    return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)));
   }
 
   public getDataFromForm(URL: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
@@ -35,20 +38,14 @@ export class ApiService {
           query = query.concat(encodeURIComponent(element + ' ilike "' + form.get(element)?.value + '"'));
         }
       }
-      return this.httpClient.get<any>(URL.concat(query));
+      return this.getData(URL, query);
     }
-    return this.httpClient.get<any>(URL);
+    return this.getData(URL);
   }
 
-  private isApiFromDetail (url: string): boolean {
-    if (url.search(this.ALL_ELEMENTS)) {
-      return false;
-    } 
-    return true;
-  }
-
-  private getResultLimit(searchConfig: SearchConfig): string {
-    return '?limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
+  private getResultLimit(URL: string, searchConfig: SearchConfig): string {
+    let beginParamURL = URL.includes('?')? '&': '?';
+    return beginParamURL + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
   }
 
   private getQuery(query: string): string {

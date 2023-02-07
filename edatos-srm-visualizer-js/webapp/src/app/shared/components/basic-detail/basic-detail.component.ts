@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { environment } from 'src/environments/environments';
 import { Constants } from '../../models/constants';
 import { Resource } from '../../models/resources/resource.model';
 import { SearchConfig } from '../../models/search-config';
@@ -48,10 +47,7 @@ export abstract class BasicDetailComponent implements OnInit {
       .replace('#RESOURCEID#', resourceId)
       .replace('#VERSION#', version)
       .replace('#ID#', id);
-
     this.apiService.getData(URL).subscribe((data) => {
-      console.log(URL);      
-      console.log(data);
       this.updateDataDetail(data);
       if (this.isDataWithChildrensTree) {
         this.loadChildrensTreeData()

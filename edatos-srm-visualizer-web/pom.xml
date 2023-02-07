@@ -19,6 +19,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
@@ -27,6 +33,12 @@
 		<dependency>
 			<groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
 			<artifactId>edatos-srm-visualizer-rest</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- TEST -->
@@ -38,6 +50,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${parent.artifactId}</finalName>
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<plugins>
 			<plugin>
@@ -45,6 +58,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>es.gobcan.istac.edatos.visualizer.Application</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>

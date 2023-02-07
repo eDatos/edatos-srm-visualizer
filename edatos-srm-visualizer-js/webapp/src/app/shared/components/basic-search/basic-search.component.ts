@@ -45,10 +45,8 @@ export abstract class BasicSearchComponent {
 
 
   loadInitialData () {
-    console.log('Buscando ' + this.api)
     this.apiService.getDataWithOffset(this.api, this.searchConfig)
       .subscribe((data) => {
-        console.log(data);
         this.dataSearch = data[this.dataSearchPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {
@@ -58,7 +56,6 @@ export abstract class BasicSearchComponent {
             urn: resource.urn
           }
         })
-        console.log('Buscando1')
         this.dataChildrensLoaded = true; 
       })
   }
@@ -81,12 +78,9 @@ export abstract class BasicSearchComponent {
   }
 
   onSearch(): void {
-    console.log('Busqueda1');
     if (this.searchForm.valid) {
       this.apiService.getDataFromForm(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
-        console.log('Busqueda');
-        console.log (data[this.dataSearchPath]);
-        
+
         this.dataChildrens = data[this.dataSearchPath].map( (element: any) => {
           return {
             name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
@@ -104,15 +98,12 @@ export abstract class BasicSearchComponent {
 
 
   onLoadDetail(urn: string): void {
-    console.log(urn);
     this.dataDetail = new Resource(urn);
-    console.log(this.apiDetail)
     let URL = this.apiDetail
       .replace('#AGENCY#', this.dataDetail.agency)
       .replace('#RESOURCEID#', this.dataDetail.resourceId)
       .replace('#VERSION#', this.dataDetail.version)
       .replace('#ID#', this.dataDetail.id);
-      console.log(URL)
     this.apiService.getData(URL).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
         this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',

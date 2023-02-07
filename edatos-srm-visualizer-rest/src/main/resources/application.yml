@@ -7,6 +7,7 @@ server:
 security:
   basic:
     enabled: false
+
 spring:
   application:
     name: edatos_srm_visualizer

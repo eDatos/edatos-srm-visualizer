@@ -44,7 +44,6 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
  
 
   updateDetailForm(): void {
-    console.log (this.dataDetail);
     this.detailForm.patchValue({
       id: this.dataDetail!.id,
       urn: this.dataDetail!.urn,

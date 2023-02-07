@@ -7,14 +7,16 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
 
     @Override
     public String getConfiguracionFooter() {
-        return retrieveProperty("metamac.app.style.footer.url");
+        return retrieveAppStyleFooterUrl();
     }
 
     @Override
     public String getConfigurationHeader() {
-        return retrieveProperty("metamac.app.style.header.url");
+        return retrieveAppStyleHeaderUrl ();
     }
 
-
+    public String getStructuralResourcesApi() {
+        return retrieveSrmExternalApiUrlBase ();
+    }
 
 }

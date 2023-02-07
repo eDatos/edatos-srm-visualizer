@@ -15,7 +15,6 @@ export class PaginationsComponent implements OnInit {
   
   ngOnInit(): void {
     this.calculateNumberPages();
-    console.log("Oninit " + this.pages);
   }
   
   onPreviusPage() {
@@ -25,14 +24,12 @@ export class PaginationsComponent implements OnInit {
     }
   }
   onNextPage() {
-    console.log(this.pages.length);
     if (this.currentPage < this.pages.length -1) {
       this.currentPage = this.currentPage  + 1;
       this.changePage.emit(this.currentPage);
     }
   }
   onChangePage(newCurrentPage: number): void {
-    console.log ('Componente paginacion ' + newCurrentPage)
     this.currentPage = newCurrentPage;
     this.changePage.emit(newCurrentPage);
   }

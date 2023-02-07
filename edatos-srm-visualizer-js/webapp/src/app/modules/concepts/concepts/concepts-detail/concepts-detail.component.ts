@@ -1,38 +1,43 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
-import { Constants } from 'src/app/shared/models/constants';
+import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { environment } from 'src/environments/environments';
 
+
 @Component({
-  selector: 'app-concepts-schemes-detail',
-  templateUrl: './concepts-schemes-detail.component.html',
-  styleUrls: ['./concepts-schemes-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-concepts-detail',
+  templateUrl: './concepts-detail.component.html',
+  styleUrls: ['./concepts-detail.component.scss']
 })
-export class ConceptsSchemesDetailComponent extends BasicDetailComponent implements OnInit {
+export class ConceptsDetailComponent extends BasicDetailComponent {
 
+  @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-  constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
+  constructor(formBuilder: FormBuilder, apiService: ApiService, private router: Router, route: ActivatedRoute, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
     this.dataPathElement = 'concept';
-    this.apiDetail = environment.apiUrlConceptsSchemeDetail;
-    this.apiChildrens = environment.apiUrlConcepts;
-    this.dataChildrensPath = 'concept';
-
+    this.apiDetail =  environment.apiUrlConceptDetail;
+    this.apiChildrens = environment.apiCoreConcepts;
     this.detailForm = this.formBuilder.group({
       id: '',
       name: '',
       urn: '',
-      description: '',
-      version: '',
-      agency: '',
-      comments: ''
+      description: ''
     })
+    /*   route.params.subscribe(params => {
+         this.loadDetail();
+       }) */
+  }
+
+  public updateTableChildrensTreeNode(data: any): void {
+    this.tabletreenode.data = [];
+    this.tabletreenode.dataSource.data = data;
+    this.tabletreenode.treeControl.expandAll();
   }
 
   public updateDataDetail(data: any): void {
@@ -42,22 +47,13 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     this.detailForm.patchValue({
       id: this.dataDetail.id,
       urn: this.dataDetail.urn,
-      name: this.dataDetail.name,
-      version: this.dataDetail.version,
-      agency: this.dataDetail.agency
-    })
+      name: this.dataDetail.name
+    });
+    this.apiChildrens = this.apiChildrens.replace('#urn#',this.dataDetail!.urn);
   }
 
-  public updateTableChildrensTreeNode(data: any): void {
-    throw new Error('Method not implemented.');
-  }
-  
-  onLoadDetail(element: string) {
+  onClickChildren(element: string) {
     let resource = new Resource(element);
     this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
   }
-
 }
-
-
-

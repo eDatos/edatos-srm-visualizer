@@ -6,4 +6,5 @@ logging:
     es.gobcan.istac.edatos.visualizer: debug
 server:
   servlet:
-    context-path: /edatos-srm-visualizer
+    context-path: /
+

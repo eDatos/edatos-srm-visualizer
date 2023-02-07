@@ -21,4 +21,7 @@ public class ConfigurationController {
     @GetMapping("/header-url")
     public String getHeaderUrl () { return metadataConfigurationService.getConfigurationHeader();}
 
+    @GetMapping("/structural-resource-api")
+    public String getStructuralResourceAPI () { return metadataConfigurationService.getStructuralResourcesApi();}
+
 }
