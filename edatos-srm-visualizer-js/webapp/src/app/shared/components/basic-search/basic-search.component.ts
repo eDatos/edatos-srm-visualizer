@@ -38,23 +38,15 @@ export abstract class BasicSearchComponent {
   dataChildrensLoaded: boolean = false;
   dataChildrens: TreeNode[] = [];
 
-  //treeControl: FlatTreeControl<DynamicFlatNode>;
-  /*getLevel = (node: DynamicFlatNode) => node.level;
-  isExpandable = (node: DynamicFlatNode) => node.expandable;
-  hasChild = (_: number, _nodeData: DynamicFlatNode) => _nodeData.expandable;
-  */
 
   constructor(public apiService: ApiService, private localeServie?: LocaleService) {
-    //this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
+
   }
 
 
-
   loadInitialData () {
-    console.log('Buscando')
     this.apiService.getDataWithOffset(this.api, this.searchConfig)
       .subscribe((data) => {
-        console.log(data);
         this.dataSearch = data[this.dataSearchPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {
@@ -64,7 +56,6 @@ export abstract class BasicSearchComponent {
             urn: resource.urn
           }
         })
-        console.log('Buscando1')
         this.dataChildrensLoaded = true; 
       })
   }
@@ -87,12 +78,9 @@ export abstract class BasicSearchComponent {
   }
 
   onSearch(): void {
-    console.log('Busqueda1');
     if (this.searchForm.valid) {
       this.apiService.getDataFromForm(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
-        console.log('Busqueda');
-        console.log (data[this.dataSearchPath]);
-        
+
         this.dataChildrens = data[this.dataSearchPath].map( (element: any) => {
           return {
             name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
@@ -109,20 +97,6 @@ export abstract class BasicSearchComponent {
   }
 
 
-  /*public getDataFromApi() {
-    this.apiService.getDataFromForm(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
-      //this.dataSearch.push(data[this.dataSearchPath])
-      
-      this.dataChildrens = data.map(resource => {
-        return {
-          name: this.localeServie ? this.localeServie.getTextValue(resource.name.text) : ' ',
-          id: resource.id,
-          urn: resource.urn
-        }
-    });
-  });
-  */
-
   onLoadDetail(urn: string): void {
     this.dataDetail = new Resource(urn);
     let URL = this.apiDetail
@@ -130,7 +104,6 @@ export abstract class BasicSearchComponent {
       .replace('#RESOURCEID#', this.dataDetail.resourceId)
       .replace('#VERSION#', this.dataDetail.version)
       .replace('#ID#', this.dataDetail.id);
-
     this.apiService.getData(URL).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
         this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',

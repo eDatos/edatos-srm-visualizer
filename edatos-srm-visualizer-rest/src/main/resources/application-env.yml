@@ -1,5 +1,15 @@
 logging:
   file:
-    path: /data/edatos-external/edatos-srm-visualizer/logs
+    path:
   level:
     root: info
+
+environment:
+  edatos:
+    configuration:
+      db:
+        driverName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/metamac_common_metadata_bd
+        username: metamac_common_metadata_bd
+        password: iQs/i+zysWktMLClrjDfUp6Z91xbXpg3qxfrYroSLD9dsYLR9jHrtw==
+

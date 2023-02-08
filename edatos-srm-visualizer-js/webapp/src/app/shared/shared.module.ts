@@ -4,7 +4,6 @@ import { SchemePipe } from 'src/app/core/pipes/scheme/scheme.pipe';
 import { VersionPipe } from 'src/app/core/pipes/concepts/version/version.pipe';
 import { AgencyPipe } from 'src/app/core/pipes/concepts/agency/agency.pipe';
 import { PaginationsComponent } from './components/paginations/paginations.component';
-import { BasicDetailComponent } from './components/basic-detail/basic-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {A11yModule} from '@angular/cdk/a11y';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
@@ -62,7 +61,6 @@ import { CookieService } from 'ngx-cookie-service';
     VersionPipe,
     AgencyPipe,
     PaginationsComponent,
-    BasicDetailComponent,
     TableTreeComponent,
   ],
   imports: [
@@ -78,7 +76,6 @@ import { CookieService } from 'ngx-cookie-service';
     VersionPipe,
     AgencyPipe,
     PaginationsComponent,
-    BasicDetailComponent,
     TableTreeComponent,
     A11yModule,
     CdkAccordionModule,

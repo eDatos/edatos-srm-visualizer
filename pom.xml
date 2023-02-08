@@ -6,7 +6,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.7</version>
+        <version>2.1.18.RELEASE</version>
     </parent>
 
     <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
@@ -40,139 +40,24 @@
     </distributionManagement>
 
     <properties>
-        <springframework-boot.version>2.7.7</springframework-boot.version>
-        <metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
+        <springframework-boot.version>2.1.18.RELEASE</springframework-boot.version>
+        <tomcat.version>8.5.85</tomcat.version>
         <frontend-maven-plugin.version>1.4</frontend-maven-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <jee.servlet.version>3.1.0</jee.servlet.version>
         <java.version>1.8</java.version>
-
-       <!-- <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
-        <assertj.version>3.6.2</assertj.version>
-        <awaitility.version>2.0.0</awaitility.version>
-        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>-->
-        <!-- Overridden to get metrics-jcache -->
-        <!--<dropwizard-metrics.version>3.2.2</dropwizard-metrics.version>
-        <quartz.version>2.3.2</quartz.version>
-        <quartz-job.version>2.3.2</quartz-job.version>
-
-        <hibernate.version>5.2.8.Final</hibernate.version>
-        <hikaricp.version>2.6.0</hikaricp.version>
-        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
-        <java.version>1.8</java.version>
-        <jcache.version>1.0.0</jcache.version>
-        <jhipster.server.version>1.1.8</jhipster.server.version>
-        <jjwt.version>0.7.0</jjwt.version>
-        <liquibase.version>3.10.1</liquibase.version>
-        <liquibase-hibernate5.version>3.10.1</liquibase-hibernate5.version>
-        <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
-        <logstash-logback-encoder.version>4.9</logstash-logback-encoder.version>
-        <m2e.apt.activation>jdt_apt</m2e.apt.activation>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-        <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
-        <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
-        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.version>3.0.0</maven.version>
-        <metrics-spring.version>3.1.3</metrics-spring.version>
         <postgresql.version>9.4.1212</postgresql.version>
 
-        <profile.no-liquibase />-->
-        <!-- Sonar properties -->
-        <!--<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
-        <run.addResources>false</run.addResources>
-        <sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
-
-        <sonar.exclusions>src/main/webapp/assets/**/*.*,
-            src/main/webapp/bower_components/**/*.*,
-            src/main/webapp/i18n/*.js,
-            src/main/webapp/dist/**/*.*
-        </sonar.exclusions>
-
-        <sonar.issue.ignore.multicriteria>S3437,UndocumentedApi,BoldAndItalicTagsCheck
-        </sonar.issue.ignore.multicriteria>-->
-
-        <!-- Rule https://sonarqube.com/coding_rules#rule_key=Web%3ABoldAndItalicTagsCheck is ignored. Even if we agree that using the "i" tag is an awful practice,
-            this is what is recommended by http://fontawesome.io/examples/ -->
-        <sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>src/main/webapp/**/*.*
-        </sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.resourceKey>
-        <sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>Web:BoldAndItalicTagsCheck
-        </sonar.issue.ignore.multicriteria.BoldAndItalicTagsCheck.ruleKey>
-        <!-- Rule https://sonarqube.com/coding_rules#rule_key=squid%3AS3437 is ignored, as a JPA-managed field cannot be transient -->
-        <sonar.issue.ignore.multicriteria.S3437.resourceKey>src/main/java/**/*
-        </sonar.issue.ignore.multicriteria.S3437.resourceKey>
-        <sonar.issue.ignore.multicriteria.S3437.ruleKey>squid:S3437</sonar.issue.ignore.multicriteria.S3437.ruleKey>
-        <!-- Rule http://sonarqube.com/coding_rules#rule_key=squid%3AUndocumentedApi is ignored, as we want to follow "clean code" guidelines and classes, methods
-            and arguments names should be self-explanatory -->
-        <sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>src/main/java/**/*
-        </sonar.issue.ignore.multicriteria.UndocumentedApi.resourceKey>
-        <sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi
-        </sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
-
-        <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec
-        </sonar.jacoco.itReportPath>
-        <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
-        <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
-
-        <sonar.javascript.jstestdriver.reportsPath>${project.testresult.directory}/karma
-        </sonar.javascript.jstestdriver.reportsPath>
-        <!-- For Sonar < 6.2 -->
-        <sonar.javascript.lcov.reportPath>${project.testresult.directory}/coverage/report-lcov/lcov.info
-        </sonar.javascript.lcov.reportPath>
-        <!-- For Sonar >= 6.2 -->
-        <sonar.javascript.lcov.reportPaths>${project.testresult.directory}/coverage/report-lcov/lcov.info
-        </sonar.javascript.lcov.reportPaths>
-
-        <sonar.sources>${project.basedir}/src/main/</sonar.sources>
-        <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.tests>${project.basedir}/src/test/</sonar.tests>
-
-       <!-- <validation-api.version>1.1.0.Final</validation-api.version>
-        <java.cas.client.version>3.4.1</java.cas.client.version>
-
-        <cxf.version>3.3.5</cxf.version>
-
-        <jackson.version>2.12.2</jackson.version>
-        <jackson-core-asl.version>1.9.4</jackson-core-asl.version>
-        <jackson-es.gobcan.istac.edatos.external.users.rest.external.mapper-asl.version>1.9.4
-        </jackson-es.gobcan.istac.edatos.external.users.rest.external.mapper-asl.version>
-        <jackson-jaxrs.version>1.9.4</jackson-jaxrs.version>
-        <jackson-xc.version>1.9.4</jackson-xc.version>
-
-        <arte-libs-grammar.version>2.4.0</arte-libs-grammar.version>
-
-        <commons-io.version>2.5</commons-io.version>
-        <commons-lang.version>3.5</commons-lang.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-
+        <metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
+        <metamac-srm-rest-external-api.version>2.2.0</metamac-srm-rest-external-api.version>
+        <edatos-external-user.version>1.0.1-SNAPSHOT</edatos-external-user.version>
         <edatos-core-common.version>1.0.2-SNAPSHOT</edatos-core-common.version>
         <edatos-rest-common.version>1.0.0</edatos-rest-common.version>
-
-        <metamac-notifications-rest-internal-api.version>3.2.1-SNAPSHOT</metamac-notifications-rest-internal-api.version>
-        <metamac-statistical-operations-rest-internal-api.version>2.2.0</metamac-statistical-operations-rest-internal-api.version>
-        <metamac-statistical-operations-rest-external-api.version>3.2.0</metamac-statistical-operations-rest-external-api.version>
-        <metamac-statistical-operations.version>2.6.0</metamac-statistical-operations.version>
-        <metamac-statistical-resources.version>6.0.1-SNAPSHOT</metamac-statistical-resources.version>
-        <metamac-common-metadata-rest-external-api.version>2.3.0</metamac-common-metadata-rest-external-api.version>
-        <metamac-srm-rest-internal-api.version>2.2.0</metamac-srm-rest-internal-api.version>
-        <metamac-srm-rest-external-api.version>2.2.0</metamac-srm-rest-external-api.version>
-
-        <hibernate-types.version>2.10.4</hibernate-types.version>
-        <h2.version>1.4.200</h2.version>
-
-        <kafka-avro-serializer.version>6.1.5</kafka-avro-serializer.version>
-        <spring-kafka.version>1.3.11.RELEASE</spring-kafka.version>
-
-        <thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
-    	<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
-
-    	<simple-captcha.version>1.1.1</simple-captcha.version>
-    	<cxf-version>2.2.8</cxf-version>
-    	<jaxb-commons-lang-plugin-version>2.1.3</jaxb-commons-lang-plugin-version>-->
     </properties>
+
+
+
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -186,36 +71,7 @@
                         <tagNameFormat>${maven.build.timestamp}-v@{project.version}</tagNameFormat>
                     </configuration>
                 </plugin>
-                <!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. Remove when the m2e plugin
-                    can correctly bind to Maven lifecycle -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jacoco</groupId>
-                                        <artifactId>
-                                            jacoco-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            ${jacoco-maven-plugin.version}
-                                        </versionRange>
-                                        <goals>
-                                            <goal>prepare-agent</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
@@ -226,7 +82,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>edatos-srm-visualizer-rest-common</module>
+                <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
@@ -238,6 +94,7 @@
             <id>env</id>
 
             <modules>
+                <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-js</module>
@@ -277,8 +134,9 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- METAMAC APIs -->
 
+
+            <!--
             <dependency>
                 <groupId>org.siemac.metamac.metamac-statistical-operations</groupId>
                 <artifactId>metamac-statistical-operations-rest-api</artifactId>
@@ -289,26 +147,28 @@
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency> -->
+
+            <dependency>
+                <groupId>org.siemac.metamac</groupId>
+                <artifactId>edatos-core-common</artifactId>
+                <version>${edatos-core-common.version}</version>
             </dependency>
 
             <!-- Spring -->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${springframework-boot.version}</version>
-                <optional>true</optional>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.vaadin.external.google</groupId>
-                        <artifactId>android-json</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${springframework-boot.version}</version>
+            </dependency>
+
+             <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${jee.servlet.version}</version>
+                <scope>provided</scope>
             </dependency>
 
 

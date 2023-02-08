@@ -1,0 +1,11 @@
+<div class="in-line m-50">
+    <button mat-raised-button color="primary" [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('schemes')"
+        class="ml">
+        Esquemas de temas
+    </button>
+    <button mat-raised-button color="primary" [routerLink]="['categories']" [class.mat-primary]="isRouteActive('categories')"
+        class="ml">
+        Temas
+    </button>
+</div>
+<router-outlet></router-outlet>

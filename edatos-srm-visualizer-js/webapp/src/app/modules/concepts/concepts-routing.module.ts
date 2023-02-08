@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ConceptsDetailComponent } from './components/concepts-detail/concepts-detail.component';
-import { ConceptsSchemesDetailComponent } from './components/concepts-schemes-detail/concepts-schemes-detail.component';
-import { ConceptsSchemesSearchComponent } from './components/concepts-schemes-search/concepts-schemes-search.component';
-import { ConceptsSearchComponent } from './components/concepts-search/concepts-search.component';
-import { ConceptsComponent } from './concepts/concepts.component';
+import { ConceptsDetailComponent } from './concepts/concepts-detail/concepts-detail.component';
+import { ConceptsSchemesDetailComponent } from './schemes/concepts-schemes-detail/concepts-schemes-detail.component';
+import { ConceptsSchemesSearchComponent } from './schemes/concepts-schemes-search/concepts-schemes-search.component';
+import { ConceptsSearchComponent } from './concepts/concepts-search/concepts-search.component';
+import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.component';
 
 const routes: Routes = [{
-  path: '', component: ConceptsComponent,
+  path: '', component: ConceptsNavbarComponent,
   children: [
     { path: '', redirectTo: 'schemes', pathMatch: 'full' },
     { path: 'schemes', component: ConceptsSchemesSearchComponent },
