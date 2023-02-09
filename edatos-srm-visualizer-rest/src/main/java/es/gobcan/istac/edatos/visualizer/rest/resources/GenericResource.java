@@ -2,6 +2,7 @@ package es.gobcan.istac.edatos.visualizer.rest.resources;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.services.URNService;
+import lombok.extern.slf4j.Slf4j;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
@@ -11,6 +12,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GenericResource {
 
     protected final String URL_API_CHILDREN;
@@ -22,8 +24,7 @@ public class GenericResource {
     }
 
     protected List<TreeNode> loadChildren (String urn, String lang) {
-        System.out.println("Buscando hijos de " + urn);
-
+        log.debug("Buscando hijos de " + urn);
         String id = urnService.extractID(urn);
         URI urlApi = URI.create (URL_API_CHILDREN.replace("#ID#", id));
         RestTemplate restTemplate = new RestTemplate();

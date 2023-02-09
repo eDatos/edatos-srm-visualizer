@@ -39,7 +39,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath" : "../../edatos-srm-visualizer-rest/src/main/resources/static",
+              "outputPath" : "../target/META-INF/resources",
               "budgets": [
                 {
                   "type": "initial",

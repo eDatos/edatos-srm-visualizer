@@ -4,16 +4,17 @@ import com.google.gson.Gson;
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import es.gobcan.istac.edatos.visualizer.core.services.URNService;
-import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
+import lombok.extern.slf4j.Slf4j;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import java.net.URI;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController()
 @RequestMapping("/api/conceptschemes")
 public class ConceptsResource extends GenericResource{
@@ -45,7 +46,7 @@ public class ConceptsResource extends GenericResource{
             }
             Gson gson = new Gson();
             String json = gson.toJson(result);
-            System.out.println(json);
+            log.debug(json);
             return json;
         }
         return "";

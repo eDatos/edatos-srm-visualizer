@@ -15,70 +15,28 @@ public class WebStaticConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
+        registry.addResourceHandler("/**/*.js", "/**/*.css")
+                .addResourceLocations("classpath:/META-INF/resources/")
+                .resourceChain(true);
+
+
+        registry.addResourceHandler("*authentication.js")
+                .addResourceLocations("classpath:/META-INF/resources/assets/")
+                .resourceChain(true);
+
+
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/META-INF/resources/")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
                         return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/static/index.html");
+                                : new ClassPathResource("/META-INF/resources/index.html");
                     }
                 });
-    }
 
-//        registry.addResourceHandler("/**/authentication.js")
-//                .addResourceLocations("classpath:/static/")
-//                .resourceChain(true)
-//                .addResolver(new PathResourceResolver() {
-//                    @Override
-//                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
-//                        System.out.println(" JS -> " + resourcePath);
-//                        Resource requestedResource = location.createRelative(resourcePath);
-//                        System.out.println(" JS requestedResource -> " + requestedResource);
-//                        System.out.println("  JS location -> " + location);
-//                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/static/assets/");
-//                    }
-//                });
-//        registry.addResourceHandler("/**/*")
-//                .addResourceLocations("classpath:/static/")
-//                .resourceChain(true)
-//                .addResolver(new PathResourceResolver() {
-//                    @Override
-//                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
-//                        System.out.println(" JS -> " + resourcePath);
-//                        Resource requestedResource = location.createRelative(resourcePath);
-//                        System.out.println(" JS requestedResource -> " + requestedResource);
-//                        System.out.println("  JS location -> " + location);
-//                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/static/");
-//                    }
-//                });
-//        registry.addResourceHandler("**/api/**")
-//                .addResourceLocations("classpath:/static/")
-//                .resourceChain(true)
-//                .addResolver(new PathResourceResolver() {
-//                    @Override
-//                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
-//                        System.out.println(" api-> " + resourcePath);
-//                        Resource requestedResource = location.createRelative(resourcePath);
-//                        System.out.println(" api requestedResource -> " + requestedResource);
-//                        System.out.println(" api location -> " + location);
-//                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/api/");
-//                    }
-//                });
-//        registry.addResourceHandler("/**/*")
-//                .addResourceLocations("classpath:/static/")
-//                .resourceChain(true)
-//                .addResolver(new PathResourceResolver() {
-//                    @Override
-//                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
-//                        System.out.println("HTML -> " + resourcePath);
-//                        Resource requestedResource = location.createRelative(resourcePath);
-//                        System.out.println("HTML requestedResource -> " + requestedResource);
-//                        System.out.println("HTML location -> " + location);
-//                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/static/index.html");
-//                    }
-//                });
+    }
 
 }
