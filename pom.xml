@@ -82,9 +82,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest</module>
-                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
 
             </modules>
@@ -94,10 +94,10 @@
             <id>env</id>
 
             <modules>
+                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
-                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
 
             </modules>
@@ -135,6 +135,12 @@
             </dependency>
 
 
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
             <!--
             <dependency>

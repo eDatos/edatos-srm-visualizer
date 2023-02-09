@@ -1,4 +1,4 @@
-package es.gobcan.istac.edatos.visualizer.core;
+package es.gobcan.istac.edatos.visualizer.core.services;
 
 import org.siemac.edatos.core.common.conf.ConfigurationService;
 
@@ -10,4 +10,6 @@ public interface MetadataConfiguracionService extends ConfigurationService {
     public String getConfigurationHeader();
 
     public String getStructuralResourcesApi();
+
+    public String getSdmxApi ();
 }

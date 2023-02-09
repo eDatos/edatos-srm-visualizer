@@ -14,17 +14,10 @@ import { environment } from '../../../../../environments/environments';
 })
 export class ConceptsSearchComponent extends BasicSearchComponent implements OnInit {
 
-
-
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
-    this.api = environment.apiUrlConcepts
-    .replace('#AGENCY#', Constants.ALL)
-    .replace('#RESOURCEID#', Constants.ALL)
-    .replace('#VERSION#', Constants.LATEST)
-    .replace('#ID#', '');
+    this.api = environment.apiUrlConcepts;
     
     this.apiDetail = environment.apiUrlConceptDetail;
     this.dataSearchPath = 'concept';

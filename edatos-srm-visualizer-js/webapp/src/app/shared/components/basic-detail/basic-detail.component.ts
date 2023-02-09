@@ -22,10 +22,12 @@ export abstract class BasicDetailComponent implements OnInit {
     currentPage: 0
   }
 
-  dataPathElement: string = '';
+
   detailForm: any;
   dataDetail: Resource | undefined;
   apiDetail!: string;
+
+  apiSDMX: string = '';
 
   apiChildrens: string = '';
   isDataWithChildrensTree: boolean = true;
@@ -35,43 +37,51 @@ export abstract class BasicDetailComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public apiService: ApiService, public route: ActivatedRoute, public localeService: LocaleService) {
 
-   }
+  }
+
+  public abstract updateTableChildrensTreeNode(data: any): void;
 
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id')!;
-    let resourceId = this.route.snapshot.paramMap.get('idScheme')!;
+    let resourceId = this.route.snapshot.paramMap.get('resourceID')!;
     let version = this.route.snapshot.paramMap.get('version')!;
-    let agency = this.route.snapshot.paramMap.get('agency')!;
+    let agency = this.route.snapshot.paramMap.get('agencyID')!;
     let URL = this.apiDetail!
-      .replace('#AGENCY#', agency)
-      .replace('#RESOURCEID#', resourceId)
-      .replace('#VERSION#', version)
-      .replace('#ID#', id);
+      .replace('{agencyID}', agency)
+      .replace('{resourceID}', resourceId)
+      .replace('{version}', version)
+      .replace('{id}', id);
+
+    if (this.apiSDMX) {
+      this.apiSDMX = this.apiSDMX
+      .replace('{agencyID}', agency)
+        .replace('{resourceID}', id)
+        .replace('{version}', version);
+    }
     this.apiService.getData(URL).subscribe((data) => {
       this.updateDataDetail(data);
       if (this.isDataWithChildrensTree) {
+        this.apiChildrens = this.apiChildrens.replace('{urn}', this.dataDetail!.urn);
         this.loadChildrensTreeData()
       } else {
         URL = this.apiChildrens
-        .replace('#AGENCY#', agency)
-        .replace('#RESOURCEID#', resourceId)
-        .replace('#VERSION#', Constants.LATEST);
+          .replace('{agencyID}', agency)
+          .replace('{resourceID}', resourceId)
+          .replace('{version}', Constants.LATEST);
         this.loadChildrenTableData(URL);
       }
     });
 
-
   }
 
   loadChildrensTreeData() {
-    this.apiService.getData(this.apiChildrens).subscribe ((data) => {
+    this.apiService.getData(this.apiChildrens).subscribe((data) => {
       if (data) {
-        this.updateTableChildrensTreeNode (data);
+        this.updateTableChildrensTreeNode(data);
         this.dataChildrensLoaded = true;
       }
     });
   }
-
 
   loadChildrenTableData(URL: string) {
     this.dataChildrens = [];
@@ -91,6 +101,28 @@ export abstract class BasicDetailComponent implements OnInit {
     });
   }
 
-  public abstract updateTableChildrensTreeNode(data:any): void;
-  public abstract updateDataDetail (data: any): void;
+  onDownloadSdmx() {
+    this.apiService.getFile(this.apiSDMX).subscribe(blob => {
+      const a = document.createElement('a')
+      const objectUrl = URL.createObjectURL(blob)
+      a.href = objectUrl
+      a.download = this.dataDetail!.id + '.xml';
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });
+  }
+
+  public updateDataDetail(data: any): void {
+    console.log(data)
+    this.dataDetail = new Resource(data.urn);
+    this.dataDetail!.description = this.localeService.getTextValue(data.description?.text)
+    this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
+    this.detailForm.patchValue({
+      id: this.dataDetail.id,
+      urn: this.dataDetail.urn,
+      name: this.dataDetail.name,
+      version: this.dataDetail.version,
+      agency: this.dataDetail.agency
+    })
+  }
 }

@@ -1,4 +1,4 @@
-<div class="m-30">
+<div class="m-30" *ngIf="apiChildrens">
     <mat-card mat-elevation-z15> 
         <mat-card-header>
             <mat-card-title>CONCEPTOS</mat-card-title>
@@ -21,6 +21,11 @@
         <mat-card-header>
             <mat-card-title>DETALLES ESQUEMA DE CONCEPTO</mat-card-title>
         </mat-card-header>
+        <mat-action-row class="m-30"  *ngIf="apiSDMX">
+            <button mat-raised-button color="primary" (click)="onDownloadSdmx()"  class="ml">
+                <mat-icon>download</mat-icon> Descargar SDMX-XML
+            </button>
+        </mat-action-row>
         <mat-card-content>
             <div [formGroup]="detailForm" class="container">
                 <mat-form-field appearance="outline" class="mlr input">

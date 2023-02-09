@@ -11,9 +11,9 @@ const routes: Routes = [{
   children: [
     { path: '', redirectTo: 'schemes', pathMatch: 'full' },
     { path: 'schemes', component: ConceptsSchemesSearchComponent },
-    { path: 'schemes/:agency/:idScheme/:version/detail', component: ConceptsSchemesDetailComponent },
+    { path: 'schemes/:agencyID/:resourceID/:version/detail', component: ConceptsSchemesDetailComponent },
     { path: 'concepts', component: ConceptsSearchComponent },
-    { path: 'concepts/:agency/:idScheme/:id/:version/detail', component: ConceptsDetailComponent }
+    { path: 'concepts/:agencyID/:resourceID/:id/:version/detail', component: ConceptsDetailComponent }
   ]
 }];
 

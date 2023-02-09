@@ -39,8 +39,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath" :"../../edatos-srm-visualizer-rest/src/main/resources/static",
-              "baseHref": "",
+              "outputPath" : "../../edatos-srm-visualizer-rest/src/main/resources/static",
               "budgets": [
                 {
                   "type": "initial",
@@ -54,7 +53,9 @@
                 }
               ],
               "outputHashing": "all",
-              "sourceMap": true
+              "sourceMap": false,
+              "buildOptimizer": true,
+              "namedChunks": false
             },
             "development": {
               "buildOptimizer": false,

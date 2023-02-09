@@ -19,9 +19,9 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     super(apiService, localeService);
 
     
-    this.api = environment.apiUrlCategories;
-    this.apiDetail = environment.apiUrlCategories;
-    this.dataSearchPath = 'category';
+    this.api = environment.apiUrlCodeLists;
+    this.apiDetail = environment.apiUrlCodeListsDetail;
+    this.dataSearchPath = 'codelist';
     this.searchForm = this.formBuilder.group({
       id: '',
       name: '',

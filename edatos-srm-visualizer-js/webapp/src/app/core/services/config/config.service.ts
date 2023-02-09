@@ -1,10 +1,11 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, LocationStrategy, Location, HashLocationStrategy} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { GenericConfig } from 'src/app/shared/models/generic-config.model';
+
 
 
 @Injectable({
@@ -19,20 +20,42 @@ export class ConfigService {
 
   genericConfig: GenericConfig = {} as GenericConfig;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private httpClient: HttpClient) {
-    this.urlApiBack = this.getDomainInternal() + '/edatos-srm-visualizer/api/configuration/';
+  constructor(@Inject(DOCUMENT) private document: Document, private httpClient: HttpClient, private locationStrategy: LocationStrategy) {
+    this.urlApiBack = (this.getDomainInternal() + 'api/configuration/')
+    console.log('urlApiBack' + this.urlApiBack);
   }
 
   getDomainInternal (): string {
     let myWindow = window as any;
-    return myWindow.location.protocol + '//' + myWindow.location.hostname + ':' + myWindow.location.port;
+
+    let domain = myWindow.location.hostname + ':' + myWindow.location.port;
+    console.log('baseref ' + this.locationStrategy.getBaseHref()); 
+    if (this.locationStrategy.getBaseHref().length > 1) {
+      domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
+    }
+    if (!domain.endsWith('/')) {
+      domain = domain.concat('/');
+    }
+    console.log('internaldomain ' + domain)
+    return  myWindow.location.protocol + '//' + domain;
   }
 
   getApiStructuralResources(): Observable<string> {
     if (this.urlStructuralResourcesApi) {
       return of(this.urlStructuralResourcesApi);
     }
+    console.log('URL for structural resource ' + this.urlApiBack.concat('structural-resource-api'));
     return this.httpClient.get(this.urlApiBack.concat('structural-resource-api'), { responseType: 'text' })
+      .pipe(map(result => { 
+        console.log('result structural resource ' + result)
+        return result }));
+  }
+
+  getApiSdmx(): Observable<string> {
+    if (this.urlStructuralResourcesApi) {
+      return of(this.urlStructuralResourcesApi);
+    }
+    return this.httpClient.get(this.urlApiBack.concat('sdmx-api'), { responseType: 'text' })
       .pipe(map(result => { return result }));
   }
 

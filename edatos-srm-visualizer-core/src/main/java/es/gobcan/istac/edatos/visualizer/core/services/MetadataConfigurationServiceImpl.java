@@ -1,4 +1,4 @@
-package es.gobcan.istac.edatos.visualizer.core;
+package es.gobcan.istac.edatos.visualizer.core.services;
 
 import org.springframework.stereotype.Service;
 import org.siemac.edatos.core.common.conf.ConfigurationServiceImpl;
@@ -15,8 +15,12 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
         return retrieveAppStyleHeaderUrl ();
     }
 
+    @Override
     public String getStructuralResourcesApi() {
         return retrieveSrmExternalApiUrlBase ();
     }
+
+    @Override
+    public String getSdmxApi () { return retrieveSdmxSrmExternalApiUrlBase();}
 
 }

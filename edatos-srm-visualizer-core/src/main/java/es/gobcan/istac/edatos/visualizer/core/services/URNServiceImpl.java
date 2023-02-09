@@ -1,4 +1,4 @@
-package es.gobcan.istac.edatos.visualizer.core;
+package es.gobcan.istac.edatos.visualizer.core.services;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,8 @@ public class URNServiceImpl implements URNService{
     }
 
     public String extractID(String urn) {
-        return urn.split("=")[1].split("\\)")[1].replace(".","");
+        return urn.split("=")[1]
+                .split("\\)")[1]
+                .replace(".","");
     }
 }

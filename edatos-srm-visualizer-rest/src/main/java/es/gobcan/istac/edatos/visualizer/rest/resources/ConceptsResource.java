@@ -1,8 +1,9 @@
-package es.gobcan.istac.edatos.visualizer.rest.controllers;
+package es.gobcan.istac.edatos.visualizer.rest.resources;
 
 import com.google.gson.Gson;
-import es.gobcan.istac.edatos.visualizer.core.MetadataConfiguracionService;
-import es.gobcan.istac.edatos.visualizer.core.URNService;
+import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import org.siemac.metamac.rest.common.v1_0.domain.LocalisedString;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
@@ -15,23 +16,15 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/api/conceptschemes")
-public class ConceptsController {
+public class ConceptsResource extends GenericResource{
 
-    private final URNService urnService;
-
-    private final String URL_API_CHILDREN;
     private final String URL_API_SCHEME_CHILDREN;
 
-
     @Autowired
-    public ConceptsController(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
-        this.urnService = urnService;
-        this.URL_API_CHILDREN = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27");
+    public ConceptsResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
+        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27"), urnService);
         this.URL_API_SCHEME_CHILDREN = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#/#VERSION#/concepts");
     }
-
-
-
 
 
     @GetMapping("/schemes/{urn}/concepts")
@@ -68,34 +61,9 @@ public class ConceptsController {
 
     }
 
-    private List<TreeNode> loadChildren (String urn, String lang) {
-        System.out.println("Buscando hijos de " + urn);
-
-        String id = urnService.extractID(urn);
-        URI urlApi = URI.create (URL_API_CHILDREN.replace("#ID#", id));
-        RestTemplate restTemplate = new RestTemplate();
-        Concepts body = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
-        List<TreeNode> conceptsChildren = new ArrayList<>();
-        if (body != null && body.getTotal().doubleValue() > 0) {
-            for (ItemResource bodyConcept : body.getConcepts()) {
-                TreeNode treeNode = new TreeNode(bodyConcept.getUrn(), loadInternationalString(bodyConcept.getName().getTexts(), lang));
-                treeNode.children.addAll(loadChildren(treeNode.urn, lang));
-                conceptsChildren.add(treeNode);
-            }
-        }
-        return conceptsChildren;
-    }
 
 
-    private String loadInternationalString(List<LocalisedString> texts, String lang) {
-        return texts.stream()
-                .filter(element ->
-                        element.getLang().equals(lang)
-                )
-                .findFirst()
-                .map(LocalisedString::getValue)
-                .orElse("");
-    }
+
 
 
 }
