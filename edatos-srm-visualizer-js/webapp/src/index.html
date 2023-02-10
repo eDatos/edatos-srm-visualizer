@@ -14,23 +14,9 @@
 </head>
 <body class="mat-typography">
   <script th:inline="javascript">
-    /*<![CDATA[*/
-    window.CONFIGURATION = {};
-
-    window.CONFIGURATION.endpoint = {};
-
-    window.CONFIGURATION.metadata = {};
-    window.CONFIGURATION.metadata.defaultLanguage = /*[[${@metadataProperties.defaultLanguage}]]*/ 'es';
-    window.CONFIGURATION.metadata.languageCookie = /*[[${@metadataProperties.languageCookie}]]*/ 'chosenLocale';
-
-    window.CONFIGURATION.template = {};
-    window.CONFIGURATION.template.headerUrl = /*[[${headerUrl}]]*/ "https://estadisticas.arte-consultores.com/apps/organisations/istac/common/header/header.html?appName=Mi%20%C3%A1rea%20personal";
-    window.CONFIGURATION.template.footerUrl = /*[[${footerUrl}]]*/ "https://estadisticas.arte-consultores.com/apps//organisations/istac/common/footer/footer.html";
-    /*]]>*/
+    
   </script>
   <script src="assets/authentication.js" th:src="${captchaAuthenticationUrl}"></script>
-  <!-- <div class="container-fluid h-100 w-100"> 
-  </div>-->
   <app-root></app-root>
 </body>
 </html>

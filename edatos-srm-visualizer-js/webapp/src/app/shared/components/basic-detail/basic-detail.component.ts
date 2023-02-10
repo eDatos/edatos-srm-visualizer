@@ -113,7 +113,6 @@ export abstract class BasicDetailComponent implements OnInit {
   }
 
   public updateDataDetail(data: any): void {
-    console.log(data)
     this.dataDetail = new Resource(data.urn);
     this.dataDetail!.description = this.localeService.getTextValue(data.description?.text)
     this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);

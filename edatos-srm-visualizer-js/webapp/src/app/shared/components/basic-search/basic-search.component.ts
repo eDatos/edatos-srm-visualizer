@@ -47,7 +47,6 @@ export abstract class BasicSearchComponent {
   loadInitialData () {
     this.apiService.getDataWithOffset(this.api, this.searchConfig)
       .subscribe((data) => {
-        console.log(data);
         this.dataSearch = data[this.dataSearchPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {
@@ -105,7 +104,6 @@ export abstract class BasicSearchComponent {
       .replace('{resourceID}', this.dataDetail.resourceId)
       .replace('{version}', this.dataDetail.version)
       .replace('{id}', this.dataDetail.id);
-    console.log('URL detalles ' + URL)
     this.apiService.getData(URL).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
         this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',

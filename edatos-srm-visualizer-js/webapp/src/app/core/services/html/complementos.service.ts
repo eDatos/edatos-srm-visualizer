@@ -13,7 +13,6 @@ export class ComplementosService {
   getHeader(): Observable<string> {
     return this.configService.getUrlHeader().pipe(
       mergeMap( url => {
-        console.log('getHeader ' + url);
         return this.http.get(url, { responseType: 'text' }).pipe(map( value => {
           return value.toString();
         }))
