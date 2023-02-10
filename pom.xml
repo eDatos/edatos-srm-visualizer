@@ -82,9 +82,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest</module>
-                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
 
             </modules>
@@ -94,10 +94,10 @@
             <id>env</id>
 
             <modules>
+                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-core</module>
                 <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
-                <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-web</module>
 
             </modules>
@@ -135,19 +135,13 @@
             </dependency>
 
 
-
-            <!--
             <dependency>
-                <groupId>org.siemac.metamac.metamac-statistical-operations</groupId>
-                <artifactId>metamac-statistical-operations-rest-api</artifactId>
-                <version>${metamac-statistical-operations-rest-api.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.ws.rs</groupId>
-                        <artifactId>jsr311-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency> -->
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.siemac.metamac</groupId>
@@ -159,9 +153,22 @@
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
                 <version>${springframework-boot.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${springframework-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
 
              <!-- Servlet -->
             <dependency>
@@ -170,85 +177,6 @@
                 <version>${jee.servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
-
-
-            <!-- Commons -->
-
-     <!--       <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.mattbertolini</groupId>
-                <artifactId>liquibase-slf4j</artifactId>
-                <version>${liquibase-slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-jcache</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-           <dependency>
-            <groupId>org.postgresql</groupId>
-              <artifactId>postgresql</artifactId>
-              <version>${postgresql.version}</version>
-           </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>net.logstash.logback</groupId>
-                <artifactId>logstash-logback-encoder</artifactId>
-                <version>${logstash-logback-encoder.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-access</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>com.vladmihalcea</groupId>
-                <artifactId>hibernate-types-52</artifactId>
-                <version>${hibernate-types.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.confluent</groupId>
-                <artifactId>kafka-avro-serializer</artifactId>
-                <version>${kafka-avro-serializer.version}</version>
-            </dependency>
--->
             <!-- Test -->
 
             <dependency>

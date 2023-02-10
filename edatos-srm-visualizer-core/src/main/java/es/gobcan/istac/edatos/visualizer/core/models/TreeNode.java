@@ -1,4 +1,4 @@
-package es.gobcan.istac.edatos.visualizer.rest.controllers;
+package es.gobcan.istac.edatos.visualizer.core.models;
 
 
 import lombok.Getter;
@@ -19,7 +19,6 @@ public class TreeNode {
     String urlChildrens;
 
     public TreeNode(String urn, String name) {
-        // sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:ORDENACION_CONCEPTOS(01.000).a111_subconcepto
         this.name = name;
         this.id = urn.split("=")[1].split("\\)")[1].replace(".","");
         this.urn = urn;

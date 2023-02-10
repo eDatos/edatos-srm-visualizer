@@ -100,10 +100,10 @@ export abstract class BasicSearchComponent {
   onLoadDetail(urn: string): void {
     this.dataDetail = new Resource(urn);
     let URL = this.apiDetail
-      .replace('#AGENCY#', this.dataDetail.agency)
-      .replace('#RESOURCEID#', this.dataDetail.resourceId)
-      .replace('#VERSION#', this.dataDetail.version)
-      .replace('#ID#', this.dataDetail.id);
+      .replace('{agencyID}', this.dataDetail.agency)
+      .replace('{resourceID}', this.dataDetail.resourceId)
+      .replace('{version}', this.dataDetail.version)
+      .replace('{id}', this.dataDetail.id);
     this.apiService.getData(URL).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
         this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',

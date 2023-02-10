@@ -20,10 +20,11 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
   constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
-    this.dataPathElement = 'concept';
     this.apiDetail = environment.apiUrlConceptsSchemeDetail;
     this.apiChildrens = environment.apiCoreConceptsSchemes;
     this.dataChildrensPath = 'concept';
+
+    this.apiSDMX = environment.apiSDMXConceptsScheme;
 
     this.detailForm = this.formBuilder.group({
       id: '',
@@ -36,25 +37,12 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     })
   }
 
-  public updateDataDetail(data: any): void {
-    this.dataDetail = new Resource(data.urn);
-    this.dataDetail!.description = this.localeService.getTextValue(data.description?.text)
-    this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-    this.detailForm.patchValue({
-      id: this.dataDetail.id,
-      urn: this.dataDetail.urn,
-      name: this.dataDetail.name,
-      version: this.dataDetail.version,
-      agency: this.dataDetail.agency
-    })
-    this.apiChildrens = this.apiChildrens.replace('#urn#',this.dataDetail!.urn);
-  }
-
   public updateTableChildrensTreeNode(data: any): void {
     this.tabletreenode.data = [];
     this.tabletreenode.dataSource.data = data;
     this.tabletreenode.treeControl.expandAll();
   }
+
   
   onLoadDetail(element: string) {
     let resource = new Resource(element);

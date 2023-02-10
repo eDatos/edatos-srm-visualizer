@@ -18,7 +18,6 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
     this.api = environment.apiUrlConceptsSchemes;
     this.apiDetail = environment.apiUrlConceptsSchemeDetail;
     this.dataSearchPath = 'conceptScheme';

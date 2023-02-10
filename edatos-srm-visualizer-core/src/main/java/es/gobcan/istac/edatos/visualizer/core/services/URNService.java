@@ -1,4 +1,4 @@
-package es.gobcan.istac.edatos.visualizer.core;
+package es.gobcan.istac.edatos.visualizer.core.services;
 
 public interface URNService {
 

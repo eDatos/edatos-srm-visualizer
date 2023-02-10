@@ -1,6 +1,6 @@
-package es.gobcan.istac.edatos.visualizer.rest.controllers;
+package es.gobcan.istac.edatos.visualizer.rest.resources;
 
-import es.gobcan.istac.edatos.visualizer.core.MetadataConfigurationServiceImpl;
+import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfigurationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/configuration")
-public class ConfigurationController {
+public class ConfigurationResource {
 
     @Autowired
     private MetadataConfigurationServiceImpl metadataConfigurationService;
@@ -23,5 +23,8 @@ public class ConfigurationController {
 
     @GetMapping("/structural-resource-api")
     public String getStructuralResourceAPI () { return metadataConfigurationService.getStructuralResourcesApi();}
+
+    @GetMapping("/sdmx-api")
+    public String getSdmxApi () { return metadataConfigurationService.getSdmxApi();}
 
 }

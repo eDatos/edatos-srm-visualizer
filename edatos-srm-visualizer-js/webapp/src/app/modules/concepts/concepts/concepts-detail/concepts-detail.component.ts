@@ -20,7 +20,6 @@ export class ConceptsDetailComponent extends BasicDetailComponent {
 
   constructor(formBuilder: FormBuilder, apiService: ApiService, private router: Router, route: ActivatedRoute, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
-    this.dataPathElement = 'concept';
     this.apiDetail =  environment.apiUrlConceptDetail;
     this.apiChildrens = environment.apiCoreConcepts;
     this.detailForm = this.formBuilder.group({
@@ -40,17 +39,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent {
     this.tabletreenode.treeControl.expandAll();
   }
 
-  public updateDataDetail(data: any): void {
-    this.dataDetail = new Resource(data.urn);
-    this.dataDetail!.description = this.localeService.getTextValue(data.description?.text)
-    this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-    this.detailForm.patchValue({
-      id: this.dataDetail.id,
-      urn: this.dataDetail.urn,
-      name: this.dataDetail.name
-    });
-    this.apiChildrens = this.apiChildrens.replace('#urn#',this.dataDetail!.urn);
-  }
+
 
   onClickChildren(element: string) {
     let resource = new Resource(element);

@@ -25,13 +25,10 @@
         </resources>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>webapp/dist</directory>
-                        </fileset>
-                    </filesets>
+                    <directory>../edatos-srm-visualizer-rest/src/main/resources/static</directory>
                 </configuration>
             </plugin>
             <plugin>

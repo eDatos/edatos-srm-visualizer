@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { SearchConfig } from 'src/app/shared/models/search-config';
-import { ConfigService } from '../config/config.service';
+
 
 
 @Injectable({
@@ -15,7 +15,9 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-
+  getFile (URL: string): Observable<Blob> {
+    return this.httpClient.get(URL, { responseType: 'blob'});
+  }
   getData (URL: string, query?: string): Observable<any> {
     if (query) {
       this.httpClient.get<any>(URL.concat(query));

@@ -1,12 +1,9 @@
     {
         
-        "/edatos-srm-visualizer/api": {
+        "/api": {
             "target": "http://localhost:8081/",
             "secure": false,
-            "changeOrigin": false,
-            "pathRewrite": {
-                "^/edatos-srm-visualizer": ""
-              }
+            "changeOrigin": false
         },
         "/structural-resources": {
             "target": "https://estadisticas.arte-consultores.com/",

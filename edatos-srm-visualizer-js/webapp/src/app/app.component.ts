@@ -12,9 +12,11 @@ export class AppComponent{
 
   public static internalDomain: string = '';
   public static apiStructuralResource: string = '';
+  public static apiSdmx: string;
   
   public constructor(private config: ConfigService) {
     AppComponent.internalDomain = config.getDomainInternal();
     config.getApiStructuralResources().subscribe(url => { AppComponent.apiStructuralResource = url});
+    config.getApiSdmx().subscribe( url => {AppComponent.apiSdmx = url});
   }
 }

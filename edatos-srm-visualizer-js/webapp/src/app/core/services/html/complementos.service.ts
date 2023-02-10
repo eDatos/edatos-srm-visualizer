@@ -13,7 +13,7 @@ export class ComplementosService {
   getHeader(): Observable<string> {
     return this.configService.getUrlHeader().pipe(
       mergeMap( url => {
-        return this.http.get(url, { responseType: 'text', withCredentials: false }).pipe(map( value => {
+        return this.http.get(url, { responseType: 'text' }).pipe(map( value => {
           return value.toString();
         }))
       })
@@ -23,7 +23,7 @@ export class ComplementosService {
   getFooter(): Observable<string> {
     return this.configService.getUrlFooter().pipe(
       mergeMap( url => {
-        return this.http.get(url, { responseType: 'text', withCredentials: false }).pipe(map( value => {
+        return this.http.get(url, { responseType: 'text'}).pipe(map( value => {
           return value.toString();
         }))
       })
