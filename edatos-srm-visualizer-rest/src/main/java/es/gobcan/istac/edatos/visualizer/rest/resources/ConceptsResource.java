@@ -17,14 +17,14 @@ import java.util.List;
 @Slf4j
 @RestController()
 @RequestMapping("/api/conceptschemes")
-public class ConceptsResource extends GenericResource{
+public class ConceptsResource extends GenericResource {
 
-    private final String URL_API_SCHEME_CHILDREN;
+    private final String urlApiChildrenDetails;
 
     @Autowired
     public ConceptsResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
         super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27"), urnService);
-        this.URL_API_SCHEME_CHILDREN = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#/#VERSION#/concepts");
+        this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#/#VERSION#/concepts");
     }
 
 
@@ -34,7 +34,7 @@ public class ConceptsResource extends GenericResource{
         String scheme = urnService.extractScheme(urn);
         String version = urnService.extractVersion(urn);
 
-        String urlApi = URL_API_SCHEME_CHILDREN.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
+        String urlApi = urlApiChildrenDetails.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
         RestTemplate restTemplate = new RestTemplate();
         Concepts concepts = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
         if (concepts != null) {
@@ -51,6 +51,7 @@ public class ConceptsResource extends GenericResource{
         }
         return "";
     }
+
     @GetMapping("/{urn}/concepts")
     public String getChildren (@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
 

@@ -111,5 +111,8 @@ export abstract class BasicSearchComponent {
     });
   }
 
-  abstract updateDetailForm(): void;
+  updateDetailForm(): void {
+    this.detailForm.patchValue(this.dataDetail)
+  }
+
 }

@@ -41,15 +41,6 @@ export class OrganizationsSearchComponent extends BasicSearchComponent implement
   ngOnInit(): void {
     this.loadInitialData();
   }
- 
 
-  updateDetailForm(): void {
-    this.detailForm.patchValue({
-      id: this.dataDetail!.id,
-      urn: this.dataDetail!.urn,
-      name: this.dataDetail!.name,
-      description: this.dataDetail!.description
-    })
-  }
 
 }

@@ -43,13 +43,4 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
   }
  
 
-  updateDetailForm(): void {
-    this.detailForm.patchValue({
-      id: this.dataDetail!.id,
-      urn: this.dataDetail!.urn,
-      name: this.dataDetail!.name,
-      description: this.dataDetail!.description
-    })
-  }
-
 }
