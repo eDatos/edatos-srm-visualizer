@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { SafeHtmlPipe } from './shared/pipes/safe-html/safe-html.pipe';
@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    HeaderComponent,
     FooterComponent,
     SafeHtmlPipe
   ],

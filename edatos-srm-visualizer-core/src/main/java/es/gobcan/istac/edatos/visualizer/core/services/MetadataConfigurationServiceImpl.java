@@ -3,7 +3,7 @@ package es.gobcan.istac.edatos.visualizer.core.services;
 import org.springframework.stereotype.Service;
 import org.siemac.edatos.core.common.conf.ConfigurationServiceImpl;
 @Service
-public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl implements MetadataConfiguracionService{
+public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl implements MetadataConfiguracionService {
 
     @Override
     public String getConfiguracionFooter() {

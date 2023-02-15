@@ -24,7 +24,7 @@ public class GenericResource {
     }
 
     protected List<TreeNode> loadChildren (String urn, String lang) {
-        log.debug("Buscando hijos de " + urn);
+        log.debug("Buscando hijos de {}", urn);
         String id = urnService.extractID(urn);
         URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", id));
         RestTemplate restTemplate = new RestTemplate();

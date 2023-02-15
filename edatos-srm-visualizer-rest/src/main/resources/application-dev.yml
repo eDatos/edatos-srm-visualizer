@@ -1,8 +1,6 @@
 server:
   port: 8081
 logging:
-  file:
-    path:
   level:
     es.gobcan.istac.edatos.visualizer: debug
 environment:

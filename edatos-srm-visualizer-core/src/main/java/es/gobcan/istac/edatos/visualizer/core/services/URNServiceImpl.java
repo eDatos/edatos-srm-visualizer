@@ -6,45 +6,38 @@ import org.siemac.edatos.core.common.util.shared.UrnUtils;
 
 @Slf4j
 @Service
-public class URNServiceImpl implements URNService{
+public class URNServiceImpl implements URNService {
 
     public String extractAgency(String urn) {
         String[] splitUrnItem = UrnUtils.splitUrnItem(urn);
         if (splitUrnItem.length >= 1) {
             return splitUrnItem[0];
-        } else {
-            log.debug(" El elemento no contiene Agency " + urn);
         }
-        return "";
+
+        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene AGENCY [ %s ]",urn));
     }
 
     public String extractScheme(String urn) {
         String[] splitUrnItem = UrnUtils.splitUrnItem(urn);
         if (splitUrnItem.length >= 2) {
             return splitUrnItem[1];
-        } else {
-            log.debug(" El elemento no contiene Scheme " + urn);
         }
-        return "";
+        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene SCHEME [ %s ]", urn));
     }
 
-    public String extractVersion(String urn) {
+    public String extractVersion(String urn) throws ArrayIndexOutOfBoundsException {
         String[] splitUrnItem = UrnUtils.splitUrnItem(urn);
         if (splitUrnItem.length >= 3) {
             return splitUrnItem[2];
-        } else {
-            log.debug(" El elemento no contiene VERSION " + urn);
         }
-        return "";
+        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene VERSION [ %s ]", urn));
     }
 
     public String extractID(String urn) {
         String[] splitUrnItem = UrnUtils.splitUrnItem(urn);
         if (splitUrnItem.length == 4) {
             return splitUrnItem[3];
-        } else {
-            log.debug(" El elemento no contiene ID " + urn);
         }
-        return "";
+        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene ID [ %s ]", urn));
     }
 }

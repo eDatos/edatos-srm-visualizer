@@ -2,9 +2,10 @@ import { AppComponent } from "src/app/app.component";
 const apiUrl  = AppComponent.apiStructuralResource;
 const apiInternal = AppComponent.internalDomain;
 const apiSdmx = AppComponent.apiSdmx;
+const appName = 'Visualizador';
 
 export const environment = {
-    production: false,
+    headerParamUrl: '?appName='+ appName + '&chosenLocale=es',
     apiUrlConceptDetail: apiUrl + '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/{id}',
     apiUrlConcepts: apiUrl + '/v1.0/conceptschemes/~all/~all/~latest/concepts/',
     apiUrlConceptsSchemeDetail: apiUrl + '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/',
