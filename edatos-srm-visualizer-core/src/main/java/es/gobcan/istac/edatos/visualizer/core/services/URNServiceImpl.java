@@ -1,5 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.core.services;
 
+import es.gobcan.istac.edatos.visualizer.core.exceptions.VisualizerRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.siemac.edatos.core.common.util.shared.UrnUtils;
@@ -14,7 +15,7 @@ public class URNServiceImpl implements URNService {
             return splitUrnItem[0];
         }
 
-        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene AGENCY [ %s ]",urn));
+        throw new VisualizerRuntimeException(String.format("El elemento no contiene AGENCY [ %s ]",urn));
     }
 
     public String extractScheme(String urn) {
@@ -22,7 +23,7 @@ public class URNServiceImpl implements URNService {
         if (splitUrnItem.length >= 2) {
             return splitUrnItem[1];
         }
-        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene SCHEME [ %s ]", urn));
+        throw new VisualizerRuntimeException(String.format("El elemento no contiene SCHEME [ %s ]", urn));
     }
 
     public String extractVersion(String urn) throws ArrayIndexOutOfBoundsException {
@@ -30,7 +31,7 @@ public class URNServiceImpl implements URNService {
         if (splitUrnItem.length >= 3) {
             return splitUrnItem[2];
         }
-        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene VERSION [ %s ]", urn));
+        throw new VisualizerRuntimeException(String.format("El elemento no contiene VERSION [ %s ]", urn));
     }
 
     public String extractID(String urn) {
@@ -38,6 +39,6 @@ public class URNServiceImpl implements URNService {
         if (splitUrnItem.length == 4) {
             return splitUrnItem[3];
         }
-        throw new ArrayIndexOutOfBoundsException(String.format("El elemento no contiene ID [ %s ]", urn));
+        throw new VisualizerRuntimeException(String.format("El elemento no contiene ID [ %s ]", urn));
     }
 }
