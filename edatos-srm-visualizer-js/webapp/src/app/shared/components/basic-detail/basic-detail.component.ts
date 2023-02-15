@@ -116,12 +116,6 @@ export abstract class BasicDetailComponent implements OnInit {
     this.dataDetail = new Resource(data.urn);
     this.dataDetail!.description = this.localeService.getTextValue(data.description?.text)
     this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-    this.detailForm.patchValue({
-      id: this.dataDetail.id,
-      urn: this.dataDetail.urn,
-      name: this.dataDetail.name,
-      version: this.dataDetail.version,
-      agency: this.dataDetail.agency
-    })
+    this.detailForm.patchValue(this.dataDetail);
   }
 }

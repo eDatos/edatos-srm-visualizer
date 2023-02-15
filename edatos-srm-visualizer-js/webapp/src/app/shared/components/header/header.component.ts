@@ -3,15 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class NavbarComponent{
+export class HeaderComponent implements OnInit{
 
-  public navbar: Observable<string>;
+  public navbar: any;
 
   constructor (private complementosService: ComplementosService )  {
+    
+  }
+  ngOnInit(): void {
     this.navbar = this.complementosService.getHeader();
   }
 

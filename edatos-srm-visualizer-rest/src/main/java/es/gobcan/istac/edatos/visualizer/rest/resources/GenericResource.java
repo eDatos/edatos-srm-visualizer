@@ -15,18 +15,18 @@ import java.util.List;
 @Slf4j
 public class GenericResource {
 
-    protected final String URL_API_CHILDREN;
+    protected final String urlApiChildrensFromParent;
     protected final URNService urnService;
 
-    public GenericResource(String URL_API_CHILDREN, URNService urnService) {
-        this.URL_API_CHILDREN = URL_API_CHILDREN;
+    public GenericResource(String urlApi, URNService urnService) {
+        this.urlApiChildrensFromParent = urlApi;
         this.urnService = urnService;
     }
 
     protected List<TreeNode> loadChildren (String urn, String lang) {
-        log.debug("Buscando hijos de " + urn);
+        log.debug("Buscando hijos de {}", urn);
         String id = urnService.extractID(urn);
-        URI urlApi = URI.create (URL_API_CHILDREN.replace("#ID#", id));
+        URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", id));
         RestTemplate restTemplate = new RestTemplate();
         Concepts body = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
         List<TreeNode> conceptsChildren = new ArrayList<>();

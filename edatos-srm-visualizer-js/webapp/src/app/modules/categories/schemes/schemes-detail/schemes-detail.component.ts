@@ -20,6 +20,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
   constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
     this.apiDetail = environment.apiUrlCategoriesSchemesDetail;
+    // FIXME
     //this.apiChildrens = environment.apiCoreConceptsSchemes;
     //this.dataChildrensPath = 'concept';
 
