@@ -13,7 +13,7 @@ import { GenericConfig } from 'src/app/shared/models/generic-config.model';
 })
 export class ConfigService {
 
-  urlApiBack: string = '';
+  urlApiBackConfiguration: string = '';
   urlFooter: string = '';
   urlHeader: string = '';
   urlStructuralResourcesApi: string = '';
@@ -21,7 +21,7 @@ export class ConfigService {
   genericConfig: GenericConfig = {} as GenericConfig;
 
   constructor(@Inject(DOCUMENT) private document: Document, private httpClient: HttpClient, private locationStrategy: LocationStrategy) {
-    this.urlApiBack = (this.getDomainInternal() + 'api/configuration/')
+    this.urlApiBackConfiguration = (this.getDomainInternal() + '/api/configuration/')
   }
 
   getDomainInternal (): string {
@@ -32,8 +32,8 @@ export class ConfigService {
     if (this.locationStrategy.getBaseHref().length > 1) {
       domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
     }
-    if (!domain.endsWith('/')) {
-      domain = domain.concat('/');
+    if (domain.endsWith('/')) {
+      domain = domain.slice(0, -1); 
     }
 
     return  myWindow.location.protocol + '//' + domain;
@@ -43,7 +43,7 @@ export class ConfigService {
     if (this.urlStructuralResourcesApi) {
       return of(this.urlStructuralResourcesApi);
     }
-    return this.httpClient.get(this.urlApiBack.concat('structural-resource-api'), { responseType: 'text' })
+    return this.httpClient.get(this.urlApiBackConfiguration.concat('structural-resource-api'), { responseType: 'text' })
       .pipe(map(result => { 
         return result }));
   }
@@ -52,7 +52,7 @@ export class ConfigService {
     if (this.urlStructuralResourcesApi) {
       return of(this.urlStructuralResourcesApi);
     }
-    return this.httpClient.get(this.urlApiBack.concat('sdmx-api'), { responseType: 'text' })
+    return this.httpClient.get(this.urlApiBackConfiguration.concat('sdmx-api'), { responseType: 'text' })
       .pipe(map(result => { return result }));
   }
 
@@ -64,9 +64,10 @@ export class ConfigService {
     if (this.urlFooter) {
       return of(this.urlFooter);
     }
-    return this.httpClient.get(this.urlApiBack.concat('footer-url'), { responseType: 'text' })
+    return this.httpClient.get(this.urlApiBackConfiguration.concat('footer-url'), { responseType: 'text' })
       .pipe(map(result => {
         this.urlFooter = result;
+        console.log('URl obtenida ' + result);
         return this.urlFooter;
       }));
   }
@@ -75,8 +76,11 @@ export class ConfigService {
     if (this.urlHeader) {
       return of(this.urlHeader);
     }
-    return this.httpClient.get(this.urlApiBack.concat('header-url'), { responseType: 'text' })
-      .pipe(map(result => { return result }));
+    return this.httpClient.get(this.urlApiBackConfiguration.concat('header-url'), { responseType: 'text' })
+      .pipe(map(result => { 
+        this.urlHeader = result;
+        console.log('URl obtenida ' + result);
+        return result }));
   }
 
 

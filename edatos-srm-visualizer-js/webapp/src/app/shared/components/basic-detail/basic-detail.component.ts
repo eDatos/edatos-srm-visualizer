@@ -58,7 +58,7 @@ export abstract class BasicDetailComponent implements OnInit {
         .replace('{resourceID}', id)
         .replace('{version}', version);
     }
-    this.apiService.getData(URL).subscribe((data) => {
+    this.apiService.getDataFromStructureResource(URL).subscribe((data) => {
       this.updateDataDetail(data);
       if (this.isDataWithChildrensTree) {
         this.apiChildrens = this.apiChildrens.replace('{urn}', this.dataDetail!.urn);
@@ -71,11 +71,10 @@ export abstract class BasicDetailComponent implements OnInit {
         this.loadChildrenTableData(URL);
       }
     });
-
   }
 
   loadChildrensTreeData() {
-    this.apiService.getData(this.apiChildrens).subscribe((data) => {
+    this.apiService.getDataFromApiInternal(this.apiChildrens).subscribe((data) => {
       if (data) {
         this.updateTableChildrensTreeNode(data);
         this.dataChildrensLoaded = true;
@@ -86,7 +85,7 @@ export abstract class BasicDetailComponent implements OnInit {
   loadChildrenTableData(URL: string) {
     this.dataChildrens = [];
     this.dataChildrensLoaded = false;
-    this.apiService.getDataWithOffset(URL, this.searchConfig).subscribe((data) => {
+    this.apiService.getDataFromApiInternal(URL).subscribe((data) => {
       if (data) {
         this.dataChildrens = data[this.dataChildrensPath].map((resource: any) => {
           return {

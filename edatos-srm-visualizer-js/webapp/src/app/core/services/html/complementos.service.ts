@@ -13,6 +13,7 @@ export class ComplementosService {
   getHeader(): Observable<string> {
     return this.configService.getUrlHeader().pipe(
       mergeMap( url => {
+        console.log('URL cabecera ' + url);
         return this.http.get(url.concat(environment.headerParamUrl), { responseType: 'text' }).pipe(map( value => {
           return value.toString();
         }))

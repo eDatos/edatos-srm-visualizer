@@ -45,8 +45,10 @@ export abstract class BasicSearchComponent {
 
 
   loadInitialData () {
-    this.apiService.getDataWithOffset(this.api, this.searchConfig)
+    this.apiService.getDataFromStructureResource(this.api, this.searchConfig)
       .subscribe((data) => {
+        console.log('loadInitialData');
+        console.log(data);
         this.dataSearch = data[this.dataSearchPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {
@@ -62,7 +64,7 @@ export abstract class BasicSearchComponent {
 
  onScrollDown($event: IInfiniteScrollEvent) {
     this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-    this.apiService.getDataWithOffset(this.api, this.searchConfig).subscribe((data) => {
+    this.apiService.getDataFromStructureResource(this.api, this.searchConfig).subscribe((data) => {
       this.dataSearch.push(...data[this.dataSearchPath]);
       this.dataChildrens = this.dataSearch.map(resource => {
         return {
@@ -79,8 +81,7 @@ export abstract class BasicSearchComponent {
 
   onSearch(): void {
     if (this.searchForm.valid) {
-      this.apiService.getDataFromForm(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
-
+      this.apiService.getDataFormsFromStructureResource(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
         this.dataChildrens = data[this.dataSearchPath].map( (element: any) => {
           return {
             name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
@@ -104,7 +105,7 @@ export abstract class BasicSearchComponent {
       .replace('{resourceID}', this.dataDetail.resourceId)
       .replace('{version}', this.dataDetail.version)
       .replace('{id}', this.dataDetail.id);
-    this.apiService.getData(URL).subscribe((data) => {
+    this.apiService.getDataFromStructureResource(URL).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
         this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',
         this.updateDetailForm()

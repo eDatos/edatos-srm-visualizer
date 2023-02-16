@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { ApiService } from './core/services/api/api.service';
 import { ConfigService } from './core/services/config/config.service';
 
 @Component({
@@ -10,13 +11,13 @@ export class AppComponent{
   
   title = 'visualizador';
 
-  public static internalDomain: string = '';
-  public static apiStructuralResource: string = '';
-  public static apiSdmx: string;
+  configLoaded: boolean = false;
   
-  public constructor(private config: ConfigService) {
-    AppComponent.internalDomain = config.getDomainInternal();
-    config.getApiStructuralResources().subscribe(url => { AppComponent.apiStructuralResource = url});
-    config.getApiSdmx().subscribe( url => {AppComponent.apiSdmx = url});
+  public constructor(private apiService: ApiService) {
+    apiService.loadConfiguration();
+  }
+
+  public isLoadConfiguration(): boolean  {
+    return ApiService.apiStructuralResource? true : false;
   }
 }

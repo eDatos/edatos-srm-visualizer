@@ -1,38 +1,64 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { mergeMap, Observable, of } from 'rxjs';
 import { SearchConfig } from 'src/app/shared/models/search-config';
-
+import { ConfigService } from '../config/config.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+
+  public static apiStructuralResource: string = '';
+  public static apiInternalDomain: string = '';
+  public static apiSdmx: string = '';
+
   ALL_ELEMENTS: string = '~all';
 
+  constructor(private httpClient: HttpClient, private config: ConfigService) {  }
 
-  constructor(private httpClient: HttpClient) {}
-
-  getFile (URL: string): Observable<Blob> {
-    return this.httpClient.get(URL, { responseType: 'blob'});
+  loadConfiguration () {
+    this.config.getApiStructuralResources().subscribe(url => { ApiService.apiStructuralResource = url });
+    this.config.getApiSdmx().subscribe( url => {ApiService.apiSdmx = url});
+    ApiService.apiInternalDomain = this.config.getDomainInternal();
   }
-  getData (URL: string, query?: string): Observable<any> {
+
+  getFile(URL: string): Observable<Blob> {
+    return this.httpClient.get(ApiService.apiSdmx.concat(URL), { responseType: 'blob' });
+  }
+
+  public getDataFromApiInternal(api: string): Observable<any> {
+    return this.getData(ApiService.apiInternalDomain.concat(api));
+  }
+
+  public getDataFromStructureResource(api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
+    if (searchConfig) {
+      return this.getDataWithOffset(ApiService.apiStructuralResource.concat(api), searchConfig, query);
+    }
+    return this.getData(ApiService.apiStructuralResource.concat(api), query);
+  }
+
+  public getDataFormsFromStructureResource(api: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+    return this.getDataFromForm(ApiService.apiStructuralResource.concat(api), searchConfig, form);
+  }
+
+  private getData(URL: string, query?: string): Observable<any> {
     if (query) {
       this.httpClient.get<any>(URL.concat(query));
     }
     return this.httpClient.get<any>(URL);
   }
-  
-  getDataWithOffset (URL: string, searchConfig: SearchConfig, query?: string): Observable<any> {
+
+  private getDataWithOffset(URL: string, searchConfig: SearchConfig, query?: string): Observable<any> {
     if (query) {
       return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)).concat(query));
     }
     return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)));
   }
 
-  public getDataFromForm(URL: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+  private getDataFromForm(URL: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
     let query = this.getQuery('');
     if (form) {
       for (const element in form.controls) {
@@ -46,7 +72,7 @@ export class ApiService {
   }
 
   private getResultLimit(URL: string, searchConfig: SearchConfig): string {
-    let beginParamURL = URL.includes('?')? '&': '?';
+    let beginParamURL = URL.includes('?') ? '&' : '?';
     return beginParamURL + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
   }
 
@@ -57,7 +83,7 @@ export class ApiService {
     return query = query.concat('&');
   }
 
-  public addURLParamt(param: string, value: string, query: string): string {
-    return query = this.getQuery(query).concat( encodeURIComponent(param + ' eq "' + value + '"'));
+  private addURLParamt(param: string, value: string, query: string): string {
+    return query = this.getQuery(query).concat(encodeURIComponent(param + ' eq "' + value + '"'));
   }
 }
