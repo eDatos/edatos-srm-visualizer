@@ -83,7 +83,4 @@ export class ApiService {
     return query = query.concat('&');
   }
 
-  private addURLParamt(param: string, value: string, query: string): string {
-    return query = this.getQuery(query).concat(encodeURIComponent(param + ' eq "' + value + '"'));
-  }
 }
