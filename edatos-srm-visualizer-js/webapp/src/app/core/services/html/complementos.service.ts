@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ConfigService } from '../config/config.service';
 import { map, mergeMap, Observable } from 'rxjs';
@@ -13,7 +13,6 @@ export class ComplementosService {
   getHeader(): Observable<string> {
     return this.configService.getUrlHeader().pipe(
       mergeMap( url => {
-        console.log('URL cabecera ' + url);
         return this.http.get(url.concat(environment.headerParamUrl), { responseType: 'text' }).pipe(map( value => {
           return value.toString();
         }))

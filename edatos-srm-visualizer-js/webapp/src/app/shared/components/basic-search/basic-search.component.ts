@@ -47,8 +47,6 @@ export abstract class BasicSearchComponent {
   loadInitialData () {
     this.apiService.getDataFromStructureResource(this.api, this.searchConfig)
       .subscribe((data) => {
-        console.log('loadInitialData');
-        console.log(data);
         this.dataSearch = data[this.dataSearchPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {

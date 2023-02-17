@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
@@ -19,8 +20,8 @@
     <build>
         <resources>
             <resource>
-                <directory>${project.build.directory}/META-INF/resources</directory>
-                <targetPath>META-INF/resources</targetPath>
+                <directory>webapp/dist/edatos-srm-visualizer</directory>
+                <targetPath>META-INF/resources/</targetPath>
             </resource>
         </resources>
         <plugins>
@@ -28,7 +29,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
-                    <directory>../edatos-srm-visualizer-rest/src/main/resources/static</directory>
+                    <directory>webapp/dist/edatos-srm-visualizer</directory>
                 </configuration>
             </plugin>
             <plugin>
@@ -67,27 +68,6 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <arguments>run-script build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-        </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/META-INF/resources</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>webapp/dist/edatos-srm-visualizer</directory>
-                                    <filtering>false</filtering>
-                                </resource>
-                            </resources>
                         </configuration>
                     </execution>
                 </executions>

@@ -30,12 +30,19 @@ export class ConfigService {
     let domain = myWindow.location.hostname + ':' + myWindow.location.port;
 
     if (this.locationStrategy.getBaseHref().length > 1) {
-      domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
+
+
+      let href = this.locationStrategy.getBaseHref().split('/');
+
+      if (href && href.length > 1) {
+        domain = domain.concat('/' + href[1]).replace(/\/\//g, '/');
+      } else {
+        domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
+      }
     }
     if (domain.endsWith('/')) {
       domain = domain.slice(0, -1); 
     }
-
     return  myWindow.location.protocol + '//' + domain;
   }
 
@@ -67,7 +74,6 @@ export class ConfigService {
     return this.httpClient.get(this.urlApiBackConfiguration.concat('footer-url'), { responseType: 'text' })
       .pipe(map(result => {
         this.urlFooter = result;
-        console.log('URl obtenida ' + result);
         return this.urlFooter;
       }));
   }
@@ -79,7 +85,6 @@ export class ConfigService {
     return this.httpClient.get(this.urlApiBackConfiguration.concat('header-url'), { responseType: 'text' })
       .pipe(map(result => { 
         this.urlHeader = result;
-        console.log('URl obtenida ' + result);
         return result }));
   }
 
