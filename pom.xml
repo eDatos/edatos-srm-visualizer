@@ -17,10 +17,10 @@
     <name>eDatos SRM Visualizer</name>
 
     <scm>
-        <connection>scm:git:http://git.arte-consultores.com/istac/edatos-srm-visualizer/</connection>
-        <developerConnection>scm:git:http://git.arte-consultores.com/istac/edatos-srm-visualizer/</developerConnection>
+        <connection>scm:git:https://git.arte-consultores.com/istac/edatos-srm-visualizer/</connection>
+        <developerConnection>scm:git:https://git.arte-consultores.com/istac/edatos-srm-visualizer/</developerConnection>
         <tag>HEAD</tag>
-        <url>http://git.arte-consultores.com/istac/edatos-srm-visualizer</url>
+        <url>https://git.arte-consultores.com/istac/edatos-srm-visualizer</url>
     </scm>
     <issueManagement>
         <system>Jira</system>
