@@ -7,7 +7,7 @@ import { ConfigService } from './core/services/config/config.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   
   title = 'visualizador';
 

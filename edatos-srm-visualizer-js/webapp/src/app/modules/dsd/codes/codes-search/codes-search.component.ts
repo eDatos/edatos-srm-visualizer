@@ -18,10 +18,6 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
-    this.api = environment.apiUrlDSD;
-    this.apiDetail = environment.apiUrlDSDDetail;
-    this.dataSearchPath = 'dataStructure';
     this.searchForm = this.formBuilder.group({
       id: '',
       name: '',

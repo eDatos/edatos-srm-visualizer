@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { mergeMap, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ConfigService } from '../config/config.service';
 
@@ -9,15 +10,25 @@ import { ConfigService } from '../config/config.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export abstract class ApiService {
 
   public static apiStructuralResource: string = '';
   public static apiInternalDomain: string = '';
   public static apiSdmx: string = '';
+  
+  apiSearchDataPath: string = '';
+  apiSearchUrl: string = '';
+  
+  apiDetailUrl: string = '';
+  
+  apiChildrensTreeUrl: string = '';
+  apiChildrensUrl: string = '';
+  apiChildrensDataPath: string = '';
 
   ALL_ELEMENTS: string = '~all';
 
-  constructor(private httpClient: HttpClient, private config: ConfigService) {  }
+  constructor(protected httpClient: HttpClient, protected config: ConfigService) {  }
+  
 
   loadConfiguration () {
     this.config.getApiStructuralResources().subscribe(url => { ApiService.apiStructuralResource = url });
@@ -25,62 +36,85 @@ export class ApiService {
     ApiService.apiInternalDomain = this.config.getDomainInternal();
   }
 
-  getFile(URL: string): Observable<Blob> {
-    return this.httpClient.get(ApiService.apiSdmx.concat(URL), { responseType: 'blob' });
+  getFile(): Observable<Blob> {
+    return this.httpClient.get(ApiService.apiSdmx, { responseType: 'blob' });
   }
 
-  public getDataFromApiInternal(api: string): Observable<any> {
-    return this.getData(ApiService.apiInternalDomain.concat(api));
+  getDetailFromStructureResource(resource: Resource): Observable<any> {
+    let api = this.apiDetailUrl
+      .replace('{agencyID}', resource.agency)
+      .replace('{resourceID}', resource.resourceId)
+      .replace('{version}', resource.version)
+      .replace('{id}', resource.id);
+      return this.getDataFromStructureResource (api);
   }
 
-  public getDataFromStructureResource(api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
+  getChildrensTree (dataDetail: Resource): Observable<any> {
+    return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrensTreeUrl.replace('{urn}', dataDetail!.urn)));
+  }
+
+
+  getSearchFromForms (searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+    let query = this.buildQueryFromForm(form);
+    return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
+  }
+
+  getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
+    if (searchConfig) {
+      return this.getDataWithOffset(ApiService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
+    }
+    return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
+  }
+  
+  private getDataFromStructureResource( api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
     if (searchConfig) {
       return this.getDataWithOffset(ApiService.apiStructuralResource.concat(api), searchConfig, query);
     }
     return this.getData(ApiService.apiStructuralResource.concat(api), query);
   }
 
-  public getDataFormsFromStructureResource(api: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
-    return this.getDataFromForm(ApiService.apiStructuralResource.concat(api), searchConfig, form);
-  }
 
-  private getData(URL: string, query?: string): Observable<any> {
+
+  private getData(url: string, query?: string): Observable<any> {
     if (query) {
-      this.httpClient.get<any>(URL.concat(query));
+      url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
+      this.httpClient.get<any>(url);
     }
-    return this.httpClient.get<any>(URL);
+    return this.httpClient.get<any>(url);
   }
 
-  private getDataWithOffset(URL: string, searchConfig: SearchConfig, query?: string): Observable<any> {
+  private getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
     if (query) {
-      return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)).concat(query));
+      return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)).concat(encodeURIComponent(query)));
     }
-    return this.httpClient.get<any>(URL.concat(this.getResultLimit(URL, searchConfig)));
+    return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)));
   }
 
-  private getDataFromForm(URL: string, searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
-    let query = this.getQuery('');
+  private buildUrlOfQuery (url: string, query: string): string {
+    let beginParamurl = url.includes('?') ? ' AND ' : '?query=';
+    return beginParamurl.concat(query);
+  }
+
+  private buildQueryFromForm(form?: FormGroup): string {
+    let query = '';
+    let and = '';
     if (form) {
       for (const element in form.controls) {
         if (form.get(element)?.value) {
-          query = query.concat(encodeURIComponent(element + ' ilike "' + form.get(element)?.value + '"'));
+          query = query.concat(and.concat(element + ' ilike "' + form.get(element)?.value + '"'));
+          and = ' AND ';
         }
       }
-      return this.getData(URL, query);
+      
     }
-    return this.getData(URL);
+    return query;
   }
 
-  private getResultLimit(URL: string, searchConfig: SearchConfig): string {
-    let beginParamURL = URL.includes('?') ? '&' : '?';
-    return beginParamURL + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
+  private getResultLimit(url: string, searchConfig: SearchConfig): string {
+    let beginParamurl = url.includes('?') ? '&' : '?';
+    return beginParamurl + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
   }
 
-  private getQuery(query: string): string {
-    if (query === '') {
-      return query = '?query=';
-    }
-    return query = query.concat('&');
-  }
+
 
 }

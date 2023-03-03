@@ -4,7 +4,6 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { environment } from 'src/environments/environments';
 
 @Component({
   selector: 'app-family-search',
@@ -18,10 +17,6 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
-    this.api = environment.apiUrlCodeListsFamilies;
-    this.apiDetail = environment.apiUrlCodeListsFamiliesDetail;
-    this.dataSearchPath = 'codelistFamily';
     this.searchForm = this.formBuilder.group({
       id: '',
       name: '',

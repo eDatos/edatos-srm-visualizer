@@ -19,11 +19,6 @@ export class OrganizationsDetailComponent extends BasicDetailComponent implement
 
   constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
-    this.apiDetail = environment.apiUrlOrganizationsDetail;
-    // FIXME
-    //this.apiChildrens = environment.apiCoreConceptsSchemes;
-    //this.dataChildrensPath = 'concept';
-
 
     this.detailForm = this.formBuilder.group({
       id: '',
@@ -45,6 +40,7 @@ export class OrganizationsDetailComponent extends BasicDetailComponent implement
   
   onLoadDetail(element: string) {
     let resource = new Resource(element);
+    // FIXME
     this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
   }
 

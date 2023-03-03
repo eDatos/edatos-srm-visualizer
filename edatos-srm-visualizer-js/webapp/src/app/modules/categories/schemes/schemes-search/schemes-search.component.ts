@@ -18,10 +18,6 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
-    this.api = environment.apiUrlCategoriesSchemes;
-    this.apiDetail = environment.apiUrlCategoriesSchemesDetail;
-    this.dataSearchPath = 'categoryScheme';
     this.searchForm = this.formBuilder.group({
       id: '',
       name: '',

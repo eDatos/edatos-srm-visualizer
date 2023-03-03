@@ -6,7 +6,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { environment } from 'src/environments/environments';
+
 
 @Component({
   selector: 'app-schemes-detail',
@@ -19,10 +19,6 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
 
   constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
-    this.apiDetail = environment.apiUrlCategoriesSchemesDetail;
-    // FIXME
-    //this.apiChildrens = environment.apiCoreConceptsSchemes;
-    //this.dataChildrensPath = 'concept';
 
 
     this.detailForm = this.formBuilder.group({
@@ -45,6 +41,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
   
   onLoadDetail(element: string) {
     let resource = new Resource(element);
+    // FIXME
     this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
   }
 

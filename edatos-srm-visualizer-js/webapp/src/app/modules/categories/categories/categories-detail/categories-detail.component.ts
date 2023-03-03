@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { CategoriesApiService } from 'src/app/core/services/api/categories-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { environment } from 'src/environments/environments';
 
 @Component({
   selector: 'app-categories-detail',
@@ -18,14 +17,8 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
 
   @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-  constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
+  constructor(formBuilder: FormBuilder, apiService: CategoriesApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
-
-    this.apiDetail = environment.apiUrlCategoriesDetail;
-    // FIXME
-    //this.apiChildrens = environment.apiCoreConceptsSchemes;
-    //this.dataChildrensPath = 'concept';
-
     this.detailForm = this.formBuilder.group({
       id: '',
       name: '',
@@ -48,6 +41,7 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
   
   onLoadDetail(element: string) {
     let resource = new Resource(element);
+    // FIXME
     this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
   }
 
