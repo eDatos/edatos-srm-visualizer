@@ -20,8 +20,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
   constructor(formBuilder: FormBuilder, apiService: ApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
     super(formBuilder, apiService, route, localeService);
+    // FIXME 
     // this.apiDetail = environment.apiUrlCodeListsCodesDetail;
-    // // FIXME
     // this.apiChildrens = environment.apiCoreConceptsSchemes;
     // this.dataChildrensPath = 'concept';
 
