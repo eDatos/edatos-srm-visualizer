@@ -1,22 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ConfigService } from './core/services/config/config.service';
+import { ApiService } from './core/services/api/structural-resources/api.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   
-  title = 'visualizador';
+  title = 'Visualizador';
+  public static appName = 'Visualizador';
 
-  public static internalDomain: string = '';
-  public static apiStructuralResource: string = '';
-  public static apiSdmx: string;
+  configLoaded: boolean = false;
   
-  public constructor(private config: ConfigService) {
-    AppComponent.internalDomain = config.getDomainInternal();
-    config.getApiStructuralResources().subscribe(url => { AppComponent.apiStructuralResource = url});
-    config.getApiSdmx().subscribe( url => {AppComponent.apiSdmx = url});
+  public constructor(private apiService: ApiService) {
+    apiService.loadConfiguration();
+  }
+
+  public isLoadConfiguration(): boolean  {
+    return ApiService.apiStructuralResource? true : false;
   }
 }

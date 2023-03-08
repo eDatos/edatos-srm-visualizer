@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
@@ -18,10 +18,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
   constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
     super(apiService, localeService);
 
-    
-    this.api = environment.apiUrlCodeLists;
-    this.apiDetail = environment.apiUrlCodeListsDetail;
-    this.dataSearchPath = 'codelist';
+
     this.searchForm = this.formBuilder.group({
       id: '',
       name: '',

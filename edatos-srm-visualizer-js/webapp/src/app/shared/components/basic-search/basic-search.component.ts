@@ -1,7 +1,7 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+
 import { Component, OnInit } from '@angular/core';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { Constants } from '../../models/constants';
 import { Resource } from '../../models/resources/resource.model';
@@ -19,35 +19,30 @@ export abstract class BasicSearchComponent {
 
   currentLang: string | null = localStorage.getItem(Constants.chosenLocale);
 
-  searchConfig:  SearchConfig = {
+  searchConfig: SearchConfig = {
     resultLimit: 20,
     resultOffset: 0,
     resultSize: 0,
     currentPage: 0
   }
-  
-  api: string = '';
-  dataSearchPath: string = '';
+
   dataSearch: any[] = [];
   searchForm: any;
 
   dataDetail: Resource | undefined;
-  apiDetail: string = '';
   detailForm: any;
 
   dataChildrensLoaded: boolean = false;
   dataChildrens: TreeNode[] = [];
 
 
-  constructor(public apiService: ApiService, private localeServie?: LocaleService) {
-
-  }
+  constructor(public apiService: ApiService, private localeServie?: LocaleService) { }
 
 
-  loadInitialData () {
-    this.apiService.getDataWithOffset(this.api, this.searchConfig)
+  loadInitialData() {
+    this.apiService.getSearch(this.searchConfig)
       .subscribe((data) => {
-        this.dataSearch = data[this.dataSearchPath];
+        this.dataSearch = data[this.apiService.apiSearchDataPath];
         this.searchConfig.resultSize = data["total"];
         this.dataChildrens = this.dataSearch.map(resource => {
           return {
@@ -56,14 +51,14 @@ export abstract class BasicSearchComponent {
             urn: resource.urn
           }
         })
-        this.dataChildrensLoaded = true; 
+        this.dataChildrensLoaded = true;
       })
   }
 
- onScrollDown($event: IInfiniteScrollEvent) {
+  onScrollDown($event: IInfiniteScrollEvent) {
     this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-    this.apiService.getDataWithOffset(this.api, this.searchConfig).subscribe((data) => {
-      this.dataSearch.push(...data[this.dataSearchPath]);
+    this.apiService.getSearch(this.searchConfig).subscribe((data) => {
+      this.dataSearch.push(...data[this.apiService.apiSearchDataPath]);
       this.dataChildrens = this.dataSearch.map(resource => {
         return {
           name: this.localeServie ? this.localeServie.getTextValue(resource.name.text) : ' ',
@@ -79,9 +74,9 @@ export abstract class BasicSearchComponent {
 
   onSearch(): void {
     if (this.searchForm.valid) {
-      this.apiService.getDataFromForm(this.api, this.searchConfig, this.searchForm).subscribe((data) => {
-
-        this.dataChildrens = data[this.dataSearchPath].map( (element: any) => {
+      this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
+        this.searchConfig.resultSize = data["total"];
+        this.dataChildrens = data[this.apiService.apiSearchDataPath].map((element: any) => {
           return {
             name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
             id: element.id,
@@ -96,18 +91,12 @@ export abstract class BasicSearchComponent {
     this.searchForm.reset();
   }
 
-
   onLoadDetail(urn: string): void {
     this.dataDetail = new Resource(urn);
-    let URL = this.apiDetail
-      .replace('{agencyID}', this.dataDetail.agency)
-      .replace('{resourceID}', this.dataDetail.resourceId)
-      .replace('{version}', this.dataDetail.version)
-      .replace('{id}', this.dataDetail.id);
-    this.apiService.getData(URL).subscribe((data) => {
+    this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
       this.dataDetail!.description = this.localeServie ? this.localeServie.getTextValue(data.description?.text) : ' ',
-        this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',
-        this.updateDetailForm()
+      this.dataDetail!.name = this.localeServie ? this.localeServie.getTextValue(data.name?.text) : ' ',
+      this.updateDetailForm()
     });
   }
 

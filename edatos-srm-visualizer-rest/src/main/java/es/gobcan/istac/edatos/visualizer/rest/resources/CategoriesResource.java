@@ -11,8 +11,6 @@ public class CategoriesResource extends GenericResource{
 
     private String urlApiChildrens;
 
-
-
     @Autowired
     public CategoriesResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
         super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/categoryschemes/~all/~all/~latest/categories?query=PARENT%20eq%20%27#ID#%27"), urnService);
@@ -21,7 +19,6 @@ public class CategoriesResource extends GenericResource{
 
     @GetMapping("/{urn}/categories")
     public String getChildrensFromCategories (@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-
         // FIXME
         return "";
     }

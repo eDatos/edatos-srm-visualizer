@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts-api.service';
+
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
-import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { Constants } from 'src/app/shared/models/constants';
-import { environment } from '../../../../../environments/environments';
+
 
 @Component({
   selector: 'app-concepts-navbar-search',
@@ -14,13 +13,8 @@ import { environment } from '../../../../../environments/environments';
 })
 export class ConceptsSearchComponent extends BasicSearchComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, apiService: ApiService, private localeService: LocaleService) {
+  constructor(private formBuilder: FormBuilder, apiService: ConceptsApiService, private localeService: LocaleService) {
     super(apiService, localeService);
-
-    this.api = environment.apiUrlConcepts;
-    
-    this.apiDetail = environment.apiUrlConceptDetail;
-    this.dataSearchPath = 'concept';
 
     this.searchForm = this.formBuilder.group({
       id: '',
