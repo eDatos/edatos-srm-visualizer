@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { environment } from 'src/environments/environments';
-import { ConfigService } from '../config/config.service';
+import { ConfigService } from '../../config/config.service';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -13,7 +10,8 @@ export class CategoriesApiService extends ApiService{
   
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
-    this.apiDetailUrl = environment.apiUrlCategoriesDetail;
+    this.apiSearchUrl = '/v1.0/categoryschemes/~all/~all/~latest/categories';
+    this.apiDetailUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}/categories/{id}';
   }
 
 

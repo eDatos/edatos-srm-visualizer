@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';

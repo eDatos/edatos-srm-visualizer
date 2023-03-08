@@ -1,7 +1,7 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+
 import { Component, OnInit } from '@angular/core';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
-import { ApiService } from 'src/app/core/services/api/api.service';
+import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { Constants } from '../../models/constants';
 import { Resource } from '../../models/resources/resource.model';

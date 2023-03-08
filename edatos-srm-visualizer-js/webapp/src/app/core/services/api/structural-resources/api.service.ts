@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
-import { ConfigService } from '../config/config.service';
+import { ConfigService } from '../../config/config.service';
 
 
 @Injectable({

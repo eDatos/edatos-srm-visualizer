@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ApiService } from './core/services/api/api.service';
-import { ConfigService } from './core/services/config/config.service';
+import { ApiService } from './core/services/api/structural-resources/api.service';
+
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,8 @@ import { ConfigService } from './core/services/config/config.service';
 })
 export class AppComponent {
   
-  title = 'visualizador';
+  title = 'Visualizador';
+  public static appName = 'Visualizador';
 
   configLoaded: boolean = false;
   

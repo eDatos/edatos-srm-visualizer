@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ApiService } from 'src/app/core/services/api/api.service';
-import { ConceptsSchemeApiService } from 'src/app/core/services/api/concepts-scheme-api.service';
+import { ConceptsSchemeApiService } from 'src/app/core/services/api/sdmx/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { environment } from '../../../../../environments/environments';
 
 @Component({
   selector: 'app-concepts-schemes-search',
