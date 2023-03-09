@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RestController()
-@RequestMapping("/api/conceptschemes")
+@RequestMapping("/api/concepts")
 public class ConceptsResource extends GenericResource {
 
     private final String urlApiChildrenDetails;
