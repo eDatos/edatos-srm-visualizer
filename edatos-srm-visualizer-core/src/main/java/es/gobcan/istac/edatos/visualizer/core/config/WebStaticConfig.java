@@ -1,6 +1,8 @@
 package es.gobcan.istac.edatos.visualizer.core.config;
 
+import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -17,6 +19,19 @@ import java.util.concurrent.TimeUnit;
 public class WebStaticConfig implements WebMvcConfigurer {
 
     public static final String AUTHENTICATION_JS = "authentication.js";
+    public static final String EDATOS_SRM_VISUALIZER_WEB_BASEREF = "edatos.srm.visualizer.web.baseref";
+
+    public static String baseRef = "";
+
+    @Autowired
+    MetadataConfiguracionService metadataConfiguracionService;
+
+    public WebStaticConfig(MetadataConfiguracionService metadataConfiguracionService) {
+        this.metadataConfiguracionService = metadataConfiguracionService;
+
+        String sdmxApi = this.metadataConfiguracionService.findProperty(EDATOS_SRM_VISUALIZER_WEB_BASEREF);
+        WebStaticConfig.baseRef = sdmxApi;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -42,6 +57,7 @@ public class WebStaticConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/META-INF/resources/")
                 .resourceChain(false)
+                .addTransformer(new IndexPageTransformer ())
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {

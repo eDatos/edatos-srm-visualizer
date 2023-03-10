@@ -53,7 +53,7 @@
         <metamac-srm-rest-external-api.version>2.2.0</metamac-srm-rest-external-api.version>
         <edatos-external-user.version>1.0.1-SNAPSHOT</edatos-external-user.version>
         <edatos-core-common.version>1.0.2-SNAPSHOT</edatos-core-common.version>
-        <edatos-rest-common.version>1.0.0</edatos-rest-common.version>
+
     </properties>
 
 
@@ -96,7 +96,6 @@
             <modules>
                 <module>edatos-srm-visualizer-js</module>
                 <module>edatos-srm-visualizer-core</module>
-                <module>edatos-srm-visualizer-rest-common</module>
                 <module>edatos-srm-visualizer-rest</module>
                 <module>edatos-srm-visualizer-web</module>
 
@@ -111,11 +110,6 @@
             <dependency>
                 <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
                 <artifactId>edatos-srm-visualizer-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
-                <artifactId>edatos-srm-visualizer-rest-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -189,20 +183,6 @@
                 <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
                 <artifactId>edatos-srm-visualizer-core</artifactId>
                 <version>${project.version}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
-                <artifactId>edatos-srm-visualizer-rest-common</artifactId>
-                <version>${project.version}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.siemac.metamac</groupId>
-                <artifactId>edatos-rest-common</artifactId>
-                <version>${edatos-rest-common.version}</version>
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
