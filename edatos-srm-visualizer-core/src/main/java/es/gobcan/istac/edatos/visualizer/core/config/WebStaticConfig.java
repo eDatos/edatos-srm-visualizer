@@ -3,6 +3,7 @@ package es.gobcan.istac.edatos.visualizer.core.config;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -19,18 +22,19 @@ import java.util.concurrent.TimeUnit;
 public class WebStaticConfig implements WebMvcConfigurer {
 
     public static final String AUTHENTICATION_JS = "authentication.js";
-    public static final String EDATOS_SRM_VISUALIZER_WEB_BASEREF = "edatos.srm-visualizer.web.baseref";
-
-    public static String baseRef = "";
 
     @Autowired
-    MetadataConfiguracionService metadataConfiguracionService;
+    private ServletContext servletContext;
 
-    public WebStaticConfig(MetadataConfiguracionService metadataConfiguracionService) {
-        this.metadataConfiguracionService = metadataConfiguracionService;
+    public static String baseRef;
 
-        String sdmxApi = this.metadataConfiguracionService.findProperty(EDATOS_SRM_VISUALIZER_WEB_BASEREF);
-        WebStaticConfig.baseRef = sdmxApi;
+
+    public WebStaticConfig() {
+    }
+
+    @PostConstruct
+    public void buildContextPath () {
+        WebStaticConfig.baseRef = servletContext.getContextPath();
     }
 
     @Override

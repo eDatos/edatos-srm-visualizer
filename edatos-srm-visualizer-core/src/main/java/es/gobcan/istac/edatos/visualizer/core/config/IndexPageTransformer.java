@@ -21,7 +21,7 @@ public class IndexPageTransformer implements ResourceTransformer {
     @Override
     public Resource transform(HttpServletRequest httpServletRequest, Resource resource, ResourceTransformerChain resourceTransformerChain) throws IOException {
         String html = IOUtils.toString(resource.getInputStream(), UTF_8);
-        html = html.replace("<base href=\"/edatos-srm-visualizer/\">", "<base href=" + WebStaticConfig.baseRef + "/>");
+        html = html.replace("<base href=\"/\">", "<base href=" + WebStaticConfig.baseRef + "/>");
         return new TransformedResource(resource, html.getBytes());
     }
 
