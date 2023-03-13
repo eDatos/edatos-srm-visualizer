@@ -42,11 +42,6 @@ export abstract class BasicDetailComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.loadDetailData();
     });
-
-    this.loadDetailData();
-
-
-
   }
 
   loadDetailData () {

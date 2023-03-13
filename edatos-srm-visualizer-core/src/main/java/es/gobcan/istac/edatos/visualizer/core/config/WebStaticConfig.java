@@ -1,6 +1,9 @@
 package es.gobcan.istac.edatos.visualizer.core.config;
 
+import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -9,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +22,20 @@ import java.util.concurrent.TimeUnit;
 public class WebStaticConfig implements WebMvcConfigurer {
 
     public static final String AUTHENTICATION_JS = "authentication.js";
+
+    @Autowired
+    private ServletContext servletContext;
+
+    public static String baseRef;
+
+
+    public WebStaticConfig() {
+    }
+
+    @PostConstruct
+    public void buildContextPath () {
+        WebStaticConfig.baseRef = servletContext.getContextPath();
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -42,6 +61,7 @@ public class WebStaticConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/META-INF/resources/")
                 .resourceChain(false)
+                .addTransformer(new IndexPageTransformer ())
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {

@@ -9,7 +9,7 @@ Además, podrá encontrar otros anexos de utilidad en los que se detallan alguna
 ## Introducción
 
 ### Descripción de la aplicación
-Esta aplicación permitirá que usuarios externos se den de alta en la infraestructura a fin de poder gestionar sus propios filtros a fin de poder acceder de manera rápida y sencilla a sus visualizaciones más consultadas así como gestionar sus favoritos a fin de poder recibir notificaciones sobre los recursos que estén vinculados a los temas u operaciones que haya marcado como favoritas. Además, la aplicación también permitirá conocer y gestionar el inventario de los usuarios externos dados de alta en la infraestructura, sus invetarios de favoritos y los filtros creados por los mismos.
+Aplicación de consulta y búsqueda de los recursos estructurales
 
 ### Requerimientos previos
 Esta aplicación se integra dentro de la infraestructura de eDatos, con lo que es necesario que los sistemas que lo componen se encuentren disponibles.
@@ -19,29 +19,23 @@ En este apartado se especifican los requisitos necesarios, referidos al entorno,
 - Apache Tomcat.  8.5
 - Java. 1.8.x
 - PostgreSQL 12.2
-- Apache Kafka Confluent Community 6.1.1
 - Apache 2.4.29
 
 #### Dependencias
 La aplicación requiere de determinados servicios para poder estar completamente operativa. Algunos de ellos son necesarios de manera directa y otros de manera indirecta:
 Los servicios necesarios de manera directa (son atacados directamente por la aplicación):
-- CAS. Se utiliza para llevar a cabo las labores de autenticación.
 - Base de datos common-metadata. Se utiliza para obtener todas las propiedades de conexión con la base de datos de la aplicación.
-- Metamac-access-control. Se utiliza para determinar si los usuarios puede acceder a la aplicación y con qué rol lo harán.
 - Resto de aplicaciones de la infraestructura de eDatos: metamac-notifications, metamac-statistical-operations, metamac-statistical-resources. metamac-common-metadata y metamac-srm.
 
 
 ### Componentes de la instalación
-El proyecto edatos-external-users consta de:
-- Aplicación web externa para que los usuarios puedan darse de alta para gestionar sus propios filtros y favoritos.
-- Aplicación web interna que permitirá gestionar el investario de usuarios externos dados de alta así como los favoritos y los filtros creados por estos.
-- API REST externa
-- API REST interna
+El proyecto edatos-srm-visualizer consta de:
+- Aplicación web externa para que los usuarios puedan buscar y consultar
 
 
 ### Gestión de roles y permisos
 
-La gestión de los usuarios que pueden acceder a la aplicación de gestión interna, así como el rol con el cual pueden acceder a la misma, se realizará a través del sistema de control de accesos como se realiza para el resto de sistemas de la infraestructura de eDatos.
+La aplicación no contiene roles o permisos
 
 ----------
 
@@ -50,23 +44,15 @@ La gestión de los usuarios que pueden acceder a la aplicación de gestión inte
 ### Paso 1. Configuración del entorno
 - Configuración del servidor de aplicaciones según los requisitos del entorno ya especificados.
 - Configuración de la base de datos. 
-    1. La aplicación cuenta con un mecanismo para llevar a cabo la gestión de los cambios de base de datos de manera automatizada (liquidbase).
-    2. A priori lo único que es necesario es crear en la aplicación el esquema de base de datos que se va a utilizar.
-    3. Por otra parte, será necesario que el usuario que use la aplicación tenga permisos para la creación de objetos sobre el esquema anterior.
-    4. De esta forma la aplicación, en el momento de arrancar, llevará a cabo la creación de todos los objetos que sean necesarios sobre la base de datos.
+    1. Se debe ejecutar los sql que están en la carpeta etc/db/common-metadata/postgresql/01-create
 
 ### Paso 2. Despliegue en servidor de aplicaciones.
-- Ubicar el archivo *.war compilado con el perfil adecuado en el servidor de aplicaciones. Se pueden obtener más detalles en el [Anexo de perfiles de compilación](#anexo-perfiles-de-compilaci%C3%B3n). 
-- Definir si se desea externalizar la configuración de la aplicación o mantener dentro del propio archivo war.
-    1. Si no se desea externalizar la configuración de las propiedades a un directorio DATA se puede omitir este paso.
-    2. Si se desea externalizar la configuración de las propiedades a un directorio DATA se tendrán que realizar los siguientes pasos:
-        - Se hará una copia del archivo **edatos-external-users.war/WEB-INF/classes/config/application-env.yml** a un directorio externalizado de su elección.
-        - Se editará el archivo **edatos-external-users.war/WEB-INF/classes/config/data-location.properties** y se especificará la ruta anterior.
-- Se cumplimentarán las propiedades del fichero **application-env.yml**. Se puede consultar el detalle sobre cada una de las propiedades en el [Anexo de descripción de propiedades de configuración](#anexo-descripci%C3%B3n-de-las-propiedades-de-configuraci%C3%B3n).
+- Ubicar el archivo *.war compilado con el perfil adecuado en el servidor de aplicaciones. Se pueden obtener más detalles en el [Anexo de perfiles de compilación](#anexo-perfiles-de-compilaci%C3%B3n).
+- Se cumplimentarán las propiedades del fichero **application-env.yml** ubicado en edatos-srm-visualizer.war/WEB-INF/classes/config/application-env.yml. Se puede consultar el detalle sobre cada una de las propiedades en el [Anexo de descripción de propiedades de configuración](#anexo-descripci%C3%B3n-de-las-propiedades-de-configuraci%C3%B3n).
 
 
 ### Paso 3. Configuración de logging.
-- Pueden modificarse los ficheros relacionados con la configuración de logging en **edatos-external-users.war/WEB-INF/classes/logback.xml**.
+- Pueden modificarse los ficheros relacionados con la configuración de logging en **edatos-srm-visualizer.war/WEB-INF/classes/logback.xml**.
 
 ### Paso 4. Configuración de Apache.
 - Configuración de Apache para la aplicación de gestión interna:
@@ -92,8 +78,6 @@ La gestión de los usuarios que pueden acceder a la aplicación de gestión inte
 
 ### Paso 5. Arrancar la aplicación.
 
-### Paso 6. Permisos para el acceder a la aplicación
-- Para poder acceder a la aplicación de gestión interna es necesario acceder a la aplicación control de acceso y asignar al usuario con el que se desee acceder permisos para la aplicación "Gestor de usuarios externos" con el rol que se estime conveniente.
 
 ----------
 

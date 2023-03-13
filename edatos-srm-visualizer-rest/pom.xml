@@ -23,11 +23,6 @@
 			<artifactId>edatos-srm-visualizer-core</artifactId>
 		</dependency>
 
-<!--		<dependency>
-			<groupId>es.gobcan.istac.edatos-external-users</groupId>
-			<artifactId>edatos-external-users-rest-common</artifactId>
-		</dependency>-->
-
 		<dependency>
 			<groupId>org.siemac.metamac.metamac-srm</groupId>
 			<artifactId>metamac-srm-rest-external-api</artifactId>
