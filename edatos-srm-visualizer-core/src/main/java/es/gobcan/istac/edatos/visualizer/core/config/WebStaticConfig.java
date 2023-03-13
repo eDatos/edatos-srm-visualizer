@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class WebStaticConfig implements WebMvcConfigurer {
 
     public static final String AUTHENTICATION_JS = "authentication.js";
-    public static final String EDATOS_SRM_VISUALIZER_WEB_BASEREF = "edatos.srm.visualizer.web.baseref";
+    public static final String EDATOS_SRM_VISUALIZER_WEB_BASEREF = "edatos.srm-visualizer.web.baseref";
 
     public static String baseRef = "";
 
