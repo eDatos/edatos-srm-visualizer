@@ -5,9 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { SafeHtmlPipe } from './shared/pipes/safe-html/safe-html.pipe';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StructuralResourcesModule } from './modules/structural-resources/structural-resources.module';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    DashboardModule,
+    StructuralResourcesModule,
     BrowserAnimationsModule
   ],
   exports: [
