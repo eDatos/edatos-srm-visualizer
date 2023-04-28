@@ -170,7 +170,9 @@ A continuación se describen los pasos a seguir para configurar el entorno de de
 
 En primer lugar, tal y como se describe en el [Anexo Perfiles de compilación](#anexo-perfiles-de-compilaci%C3%B3n), debemos compilar la aplicación con Maven.  Para trabajar en un entorno de desarrollo, basta que la compilemos con el perfil `dev`.
 
-A continuación, para terminar de construir la aplicación, es necesario instalar las siguientes dependencias:
+A continuación, se debe ejecutar como Java Application el fichero `es.gobcan.istac.edatos.visualizer.Application`. De este modo, se arranca la aplicación en Tomcat en el puerto 8081.
+
+Por último, para terminar de construir la aplicación, es necesario instalar las siguientes dependencias:
 
 1. [Node.js][]: Lo usamos para levantar un servidor de desarrollo y construir el proyecto.
 
