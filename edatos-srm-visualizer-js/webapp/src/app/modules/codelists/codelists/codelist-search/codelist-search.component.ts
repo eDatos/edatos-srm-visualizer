@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';

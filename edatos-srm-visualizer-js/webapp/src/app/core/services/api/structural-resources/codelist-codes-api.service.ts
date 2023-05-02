@@ -9,8 +9,11 @@ import { ApiService } from './api.service';
 export class CodelistCodesApiService extends ApiService {
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
-        this.apiSearchDataPath = 'codelist';
+        this.apiSearchDataPath = 'code';
         this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}';
+        this.apiChildrensUrl = '/api/codelists/{urn}/codes';
+        this.apiChildrensTreeUrl = '/api/codelists/{urn}/codes';
+        this.apiChildrensDataPath = '';
     }
 }
