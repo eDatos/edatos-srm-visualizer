@@ -1,0 +1,69 @@
+@import 'variables';
+
+body {
+    font-family: $font-family-sans-serif;
+    font-style: normal;
+    color: $color-negro-100;
+}
+
+h1, h3 {
+    font-weight: $font-weight-600;
+}
+
+h4, h5, h6 {
+    font-weight: $font-weight-400;
+}
+
+/* Heading 01 */
+h1 {
+    font-size: 50px;
+    line-height: 110%;
+    /* identical to box height, or 55px */
+}
+
+/* Encabezado/H2 */
+h2 {
+    font-weight: $font-weight-700;
+    font-size: 36px;
+    /* or 43px */
+    line-height: 120%;
+    text-transform: uppercase;
+}
+
+/* Heading 03 */
+h3 {
+    font-size: 28px;
+    line-height: 120%;
+    /* identical to box height, or 34px */
+    text-transform: uppercase;
+    /* Azul ISTAC/100 */
+    color: $azul-istac-100;
+}
+
+/* Encabezado/H4 */
+h4 {
+    font-size: 24px;
+    line-height: 120%;
+    /* identical to box height, or 29px */
+}
+
+/* Encabezado/H5 */
+h5 {
+    font-size: 20px;
+    line-height: 27px;
+}
+
+/* Encabezado/H6 */
+h6 {
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    text-transform: uppercase;
+}
+
+
+  /* Sección */
+@import 'nav-subsection';
+
+
+  
