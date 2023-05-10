@@ -39,7 +39,7 @@
     <br>
     <div class="in-line">
         <mat-card mat-elevation-z15 class="box">
-            <div *ngIf="!dataChildrensLoaded">
+            <div>
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
             <mat-card-header>
@@ -48,8 +48,8 @@
             </mat-card-header>
             <mat-card-content>
 
-                <div class="search-results" [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]="dataChildrens"
+                <div class="search-results" [style.display]="dataSearch ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]="dataSearch"
                         (clickEvent)="onLoadDetail($event)"></app-table-tree>
                 </div>
 
