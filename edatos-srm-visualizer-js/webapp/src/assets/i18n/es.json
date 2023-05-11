@@ -1,0 +1,42 @@
+{
+  "title": "Visualizador",
+  "searchEngine": "Buscador",
+  "search": "Buscar",
+  "clean": "Limpiar",
+  "showDetails": "Mostrar detalles",
+  "details": "Detalles",
+  "genericParameters": {
+    "id": "ID",
+    "name": "Nombre",
+    "urn": "URN",
+    "description": "Descripción",
+    "version": "Versión",
+    "comments": "Comentarios",
+    "maintainer": "Mantenedor"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptos",
+    "concepts": "Conceptos",
+    "parameters": {}
+  },
+  "codelists": {
+    "codelistFamilies": "Familias de clasificaciones",
+    "codelists": "Clasificaciones",
+    "codes": "Códigos",
+    "parameters": {}
+  },
+  "dsd": {
+    "datastructures": "Códigos",
+    "parameters": {}
+  },
+  "organizations": {
+    "organizationsSchemes": "Esquema de organizaciones",
+    "organizations": "Organizaciones",
+    "parameters": {}
+  },
+  "category": {
+    "categorySchemes": "Esquema de temas",
+    "categories": "Temas",
+    "parameters": {}
+  }
+}

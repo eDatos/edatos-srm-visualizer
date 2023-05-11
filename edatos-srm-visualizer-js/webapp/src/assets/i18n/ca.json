@@ -1,0 +1,42 @@
+{
+  "title": "Visualitzador",
+  "searchEngine": "Cercador",
+  "search": "Cercar",
+  "clean": "Netejar",
+  "showDetails": "Mostrar detalls",
+  "details": "Detalls",
+  "genericParameters": {
+    "id": "ID",
+    "name": "Nom",
+    "urn": "URN",
+    "description": "Descripció",
+    "version": "Versió",
+    "comments": "Comentaris",
+    "maintainer": "Mantenidor"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptes",
+    "concepts": "Conceptes",
+    "parameters": {}
+  },
+  "codelists": {
+    "codelistFamilies": "Famílies de classificacions",
+    "codelists": "Classificacions",
+    "codes": "Codis",
+    "parameters": {}
+  },
+  "dsd": {
+    "datastructures": "Codis",
+    "parameters": {}
+  },
+  "organizations": {
+    "organizationsSchemes": "Esquema d'organitzacions",
+    "organizations": "Organitzacions",
+    "parameters": {}
+  },
+  "category": {
+    "categorySchemes": "Esquema de temes",
+    "categories": "Temes",
+    "parameters": {}
+  }
+}

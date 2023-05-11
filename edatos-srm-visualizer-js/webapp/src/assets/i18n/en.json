@@ -1,0 +1,42 @@
+{
+  "title": "",
+  "searchEngine": "Search Engine",
+  "search": "Search",
+  "clean": "Clean",
+  "showDetails": "Show details",
+  "details": "Details",
+  "genericParameters": {
+    "id": "ID",
+    "name": "Name",
+    "urn": "URN",
+    "description": "Description",
+    "version": "Version",
+    "comments": "Comments",
+    "maintainer": "Maintainer"
+  },
+  "concepts": {
+    "conceptSchemes": "Concept scheme",
+    "concepts": "Concepts",
+    "parameters": {}
+  },
+  "codelists": {
+    "codelistFamilies": "Codelist families",
+    "codelists": "Codelists",
+    "codes": "Codes",
+    "parameters": {}
+  },
+  "dsd": {
+    "datastructures": "Codes",
+    "parameters": {}
+  },
+  "organizations": {
+    "organizationsSchemes": "Organizations schemes",
+    "organizations": "Organizartions",
+    "parameters": {}
+  },
+  "category": {
+    "categorySchemes": "Category scheme",
+    "categories": "Categories",
+    "parameters": {}
+  }
+}
