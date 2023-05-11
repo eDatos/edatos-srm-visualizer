@@ -7,8 +7,9 @@ import { map } from 'rxjs/internal/operators/map';
 import { GenericConfig } from 'src/app/shared/models/generic-config.model';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
+
 export class ConfigService {
     urlApiBackConfiguration: string = '';
     urlFooter: string = '';

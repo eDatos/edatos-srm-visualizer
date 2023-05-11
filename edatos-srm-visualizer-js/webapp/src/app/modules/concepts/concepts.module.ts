@@ -10,18 +10,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.component';
 
 @NgModule({
-  declarations: [
-    ConceptsDetailComponent,
-    ConceptsSearchComponent,
-    ConceptsSchemesSearchComponent,
-    ConceptsSchemesDetailComponent,
-    ConceptsNavbarComponent
-  ],
-  imports: [
-    CommonModule,
-    ConceptsRoutingModule,
-    SharedModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+        ConceptsDetailComponent,
+        ConceptsSearchComponent,
+        ConceptsSchemesSearchComponent,
+        ConceptsSchemesDetailComponent,
+        ConceptsNavbarComponent
+    ],
+    imports: [
+        CommonModule,
+        ConceptsRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+    ]
 })
-export class ConceptsModule { }
+export class ConceptsModule {
+}
