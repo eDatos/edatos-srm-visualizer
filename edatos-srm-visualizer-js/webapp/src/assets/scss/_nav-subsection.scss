@@ -1,0 +1,39 @@
+.subsection-tab .nav {
+    background-color: #99b5c91a;
+}
+
+.subsection-tab .nav.nav-pills {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 9px 20px;
+    gap: 10px;
+    border-radius: 5px 5px 0px 0px;
+}
+.subsection-tab .nav-pills .nav-link {
+    color: $color-azul-oscuro-100;
+    font-weight: $font-weight-300;
+    font-size: 14px;
+    /* identical to box height */
+    line-height: 19px;
+}
+
+.subsection-tab .nav-pills .nav-link.active {
+    /* Blanco */
+    background: $color-negro-0;
+    font-weight: $font-weight-600;
+    color: $color-azul-oscuro-100;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.subsection-tab .nav-pills .nav-link:hover {
+    background-color: $azul-istac-25;
+    border-radius: 5px 5px 0px 0px;
+}
+    
+.subsection-tab a.nav-link:focus {  
+    outline: 2px solid $azul-istac-100;
+    border-radius: 5px 5px 0px 0px;
+}
+
+

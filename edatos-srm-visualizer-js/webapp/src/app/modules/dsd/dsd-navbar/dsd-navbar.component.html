@@ -1,8 +1,8 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['codes']" [class.mat-primary]="isRouteActive('codes')"
-        class="ml">
-        Códigos
-    </button>
-
+<div class="subsection-tab">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['codes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Códigos</a>
+        </li>
+    </ul>
 </div>
 <router-outlet></router-outlet>

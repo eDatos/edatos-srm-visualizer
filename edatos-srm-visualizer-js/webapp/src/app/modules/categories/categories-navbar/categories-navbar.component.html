@@ -1,11 +1,11 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('schemes')"
-        class="ml">
-        Esquemas de temas
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['categories']" [class.mat-primary]="isRouteActive('categories')"
-        class="ml">
-        Temas
-    </button>
+<div class="subsection-tab">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Esquemas de temas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['categories']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Temas</a>
+        </li>
+    </ul>
 </div>
 <router-outlet></router-outlet>
