@@ -8,7 +8,7 @@
   "download": {
     "sdmx-xml": "Download SDMX-XML"
   },
-  "genericParameters": {
+  "resourceParameters": {
     "id": "ID",
     "name": "Name",
     "urn": "URN",
@@ -19,28 +19,38 @@
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
+    "conceptSchemesDetails" : "Concept scheme details",
     "concepts": "Concepts",
+    "conceptDetails" : "Concept details",
     "parameters": {}
   },
   "codelists": {
     "codelistFamilies": "Codelist families",
+    "codelistFamiliesDetails": "Codelist families details",
     "codelists": "Codelists",
+    "codelistsDetails": "Codelists details",
     "codes": "Codes",
+    "codesDetails": "Codes details",
     "parameters": {}
   },
   "dsd": {
     "dsd": "DSD",
+    "dsdDetails": "DSD details",
     "datastructures": "Codes",
     "parameters": {}
   },
   "organizations": {
     "organizationsSchemes": "Organizations schemes",
+    "organizationsSchemesDetails": "Organizations schemes details",
     "organizations": "Organizartions",
+    "organizationsDetails": "Organizations details",
     "parameters": {}
   },
   "category": {
     "categorySchemes": "Category scheme",
+    "categorySchemesDetails": "Category scheme details",
     "categories": "Categories",
+    "categoriesDetails": "Categories details",
     "parameters": {}
   }
 }
