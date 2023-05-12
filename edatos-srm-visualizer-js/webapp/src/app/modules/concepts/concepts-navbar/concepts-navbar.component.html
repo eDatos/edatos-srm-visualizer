@@ -1,9 +1,14 @@
-<div class="in-line m-50">
-    <button  mat-raised-button color="primary" [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('/concepts/schemes')"   class="ml">
-        <span>{{ 'concepts.conceptSchemes' | translate }}</span>
-</button>
-    <button mat-raised-button color="primary" [routerLink]="['concepts']" [class.mat-primary]="isRouteActive('/concepts/concepts')"   class="ml">
-        <span>{{ 'concepts.concepts' | translate }}</span>
-    </button>
+<div class='subsection-tab'>
+    <ul class='nav nav-pills'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['schemes']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'concepts.conceptSchemes' | translate }}</span></a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['concepts']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'> <span>{{ 'concepts.concepts' | translate }}</span></a>
+        </li>
+    </ul>
+    <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>
+
