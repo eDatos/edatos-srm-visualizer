@@ -19,7 +19,7 @@
 <div class="m-30">
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>{{ 'details' | translate | uppercase }} {{ 'category.categories' | translate | uppercase }}</mat-card-title>
+            <mat-card-title>{{ 'category.categoriesDetails' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-action-row class="m-30"  *ngIf="apiSDMX">
             <button mat-raised-button color="primary" (click)="onDownloadSdmx()"  class="ml">
@@ -29,31 +29,31 @@
         <mat-card-content>
             <div [formGroup]="detailForm" class="container">
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.id' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
                     <input formControlName="id" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.version' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.version' | translate }}</mat-label>
                     <input formControlName="version" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.name' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
                     <input formControlName="name" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.urn' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
                     <input formControlName="urn" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.description' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
                     <input formControlName="description" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.maintainer' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.maintainer' | translate }}</mat-label>
                     <input formControlName="agency" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>{{ 'genericParameters.comments' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.comments' | translate }}</mat-label>
                     <input formControlName="comments" matInput placeholder="Placeholder">
                 </mat-form-field>
             </div>

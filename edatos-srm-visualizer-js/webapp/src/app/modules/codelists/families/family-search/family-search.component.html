@@ -7,21 +7,21 @@
             <div [formGroup]='searchForm' class='container align-center'>
                 <div class='in-line'>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.id' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
                         <input formControlName='id' matInput placeholder='Placeholder' />
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.name' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
                         <input formControlName='name' matInput placeholder='Placeholder' />
                     </mat-form-field>
                 </div>
                 <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'genericParameters.description' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
                     <input formControlName='description' matInput placeholder='Placeholder' />
                 </mat-form-field>
 
                 <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'genericParameters.urn' | translate }}</mat-label>
+                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
                     <input formControlName='urn' matInput placeholder='Placeholder' />
                 </mat-form-field>
 
@@ -56,24 +56,24 @@
 
         <mat-card mat-elevation-z15 class='box'>
             <mat-card-header>
-                <mat-card-title>{{ 'details' | translate | uppercase }} {{ 'codelists.codelistFamilies' | translate | uppercase }}</mat-card-title>
+                <mat-card-title>{{ 'codelists.codelistFamiliesDetails' | translate | uppercase }}</mat-card-title>
             </mat-card-header>
             <mat-card-actions>
                 <div [formGroup]='detailForm' class='container'>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.id' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
                         <input formControlName='id' matInput placeholder='Placeholder' />
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.name' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
                         <input formControlName='name' matInput placeholder='Placeholder' />
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.urn' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
                         <input formControlName='urn' matInput placeholder='Placeholder' />
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'genericParameters.description' | translate }}</mat-label>
+                        <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
                         <input formControlName='description' matInput placeholder='Placeholder' />
                     </mat-form-field>
                     <div class='in-line align-right' *ngIf='this.dataDetail'>
