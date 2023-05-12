@@ -1,5 +1,7 @@
 .subsection-tab .nav {
-    background-color: #99b5c91a;
+    background-color: $color-azul-oscuro-5;
+    width: 1280px;
+    height: 45px;
 }
 
 .subsection-tab .nav.nav-pills {
@@ -7,7 +9,7 @@
     flex-direction: row;
     align-items: center;
     padding: 9px 20px;
-    gap: 10px;
+    gap: 2px;
     border-radius: 5px 5px 0px 0px;
 }
 .subsection-tab .nav-pills .nav-link {
@@ -16,6 +18,7 @@
     font-size: 14px;
     /* identical to box height */
     line-height: 19px;
+    display: block; //se sobreescribe estilo de .nav-link
 }
 
 .subsection-tab .nav-pills .nav-link.active {
