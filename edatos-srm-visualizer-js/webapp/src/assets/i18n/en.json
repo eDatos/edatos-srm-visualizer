@@ -2,9 +2,12 @@
   "title": "",
   "searchEngine": "Search Engine",
   "search": "Search",
-  "clean": "Clean",
+  "clear": "Clear",
   "showDetails": "Show details",
   "details": "Details",
+  "download": {
+    "sdmx-xml": "Download SDMX-XML"
+  },
   "genericParameters": {
     "id": "ID",
     "name": "Name",
@@ -26,6 +29,7 @@
     "parameters": {}
   },
   "dsd": {
+    "dsd": "DSD",
     "datastructures": "Codes",
     "parameters": {}
   },

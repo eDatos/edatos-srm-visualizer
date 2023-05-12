@@ -1,60 +1,62 @@
-<div class="m-30" *ngIf="showChildrensTree">
-    <mat-card mat-elevation-z15> 
+<div class='m-30' *ngIf='showChildrensTree'>
+    <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>CONCEPTOS</mat-card-title>
+            <mat-card-title>{{ 'concepts.concepts' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div class="container">
-                <div class="search-results"  [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
+            <div class='container'>
+                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]='dataChildrens'
+                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
-                <div class="search-results" *ngIf="!dataChildrensLoaded">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                <div class='search-results' *ngIf='!dataChildrensLoaded'>
+                    <mat-progress-bar mode='indeterminate'></mat-progress-bar>
                 </div>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
 
-<div class="m-30">
+<div class='m-30'>
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>DETALLES ESQUEMA DE CONCEPTO</mat-card-title>
+            <mat-card-title>{{ 'details' | translate | uppercase }} {{ 'concepts.conceptSchemes' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
-        <mat-action-row class="m-30"  *ngIf="apiSDMX">
-            <button mat-raised-button color="primary" (click)="onDownloadSdmx()"  class="ml">
-                <mat-icon>download</mat-icon> Descargar SDMX-XML
+        <mat-action-row class='m-30' *ngIf='apiSDMX'>
+            <button mat-raised-button color='primary' (click)='onDownloadSdmx()' class='ml'>
+                <mat-icon>download</mat-icon>
+                <span>{{ 'download.sdmx-xml' | translate }}</span>
             </button>
         </mat-action-row>
         <mat-card-content>
-            <div [formGroup]="detailForm" class="container">
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>ID</mat-label>
-                    <input formControlName="id" matInput placeholder="Placeholder">
+            <div [formGroup]='detailForm' class='container'>
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.id' | translate }}</mat-label>
+                    <input formControlName='id' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>VERSION</mat-label>
-                    <input formControlName="version" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.version' | translate }}</mat-label>
+                    <input formControlName='version' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>NOMBRE</mat-label>
-                    <input formControlName="name" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.name' | translate }}</mat-label>
+                    <input formControlName='name' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>URN</mat-label>
-                    <input formControlName="urn" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.urn' | translate }}</mat-label>
+                    <input formControlName='urn' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>DESCRIPCIÓN</mat-label>
-                    <input formControlName="description" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.description' | translate }}</mat-label>
+                    <input formControlName='description' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>MANTENEDOR</mat-label>
-                    <input formControlName="agency" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.maintainer' | translate }}</mat-label>
+                    <input formControlName='agency' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>COMENTARIOS</mat-label>
-                    <input formControlName="comments" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'genericParameters.comments' | translate }}</mat-label>
+                    <input formControlName='comments' matInput placeholder='Placeholder'>
                 </mat-form-field>
             </div>
         </mat-card-content>

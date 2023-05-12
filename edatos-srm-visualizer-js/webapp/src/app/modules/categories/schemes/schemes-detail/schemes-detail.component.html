@@ -1,7 +1,7 @@
 <div class="m-30" *ngIf="showChildrensTree">
     <mat-card mat-elevation-z15> 
         <mat-card-header>
-            <mat-card-title>CLASIFICACIONES</mat-card-title>
+            <mat-card-title>{{ 'category.categories' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="container">
@@ -19,41 +19,41 @@
 <div class="m-30">
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>DETALLES ESQUEMA DE CLASIFICACIONES</mat-card-title>
+            <mat-card-title>{{ 'details' | translate | uppercase }} {{ 'category.categorySchemes' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-action-row class="m-30"  *ngIf="apiSDMX">
             <button mat-raised-button color="primary" (click)="onDownloadSdmx()"  class="ml">
-                <mat-icon>download</mat-icon> Descargar SDMX-XML
+                <mat-icon>download</mat-icon> <span>{{ 'download.sdmx-xml' | translate }}</span>
             </button>
         </mat-action-row>
         <mat-card-content>
             <div [formGroup]="detailForm" class="container">
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>ID</mat-label>
+                    <mat-label>{{ 'genericParameters.id' | translate }}</mat-label>
                     <input formControlName="id" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>VERSION</mat-label>
+                    <mat-label>{{ 'genericParameters.version' | translate }}</mat-label>
                     <input formControlName="version" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>NOMBRE</mat-label>
+                    <mat-label>{{ 'genericParameters.name' | translate }}</mat-label>
                     <input formControlName="name" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>URN</mat-label>
+                    <mat-label>{{ 'genericParameters.urn' | translate }}</mat-label>
                     <input formControlName="urn" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>DESCRIPCIÓN</mat-label>
+                    <mat-label>{{ 'genericParameters.description' | translate }}</mat-label>
                     <input formControlName="description" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>MANTENEDOR</mat-label>
+                    <mat-label>{{ 'genericParameters.maintainer' | translate }}</mat-label>
                     <input formControlName="agency" matInput placeholder="Placeholder">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>COMENTARIOS</mat-label>
+                    <mat-label>{{ 'genericParameters.comments' | translate }}</mat-label>
                     <input formControlName="comments" matInput placeholder="Placeholder">
                 </mat-form-field>
             </div>

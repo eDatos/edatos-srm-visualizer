@@ -1,11 +1,12 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('schemes')"
-        class="ml">
-        Esquemas de organizaciones
+<div class='in-line m-50'>
+    <button mat-raised-button color='primary' [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('schemes')"
+            class='ml'>
+        <span>{{ 'organizations.organizationsSchemes' | translate}}</span>
     </button>
-    <button mat-raised-button color="primary" [routerLink]="['organizations']" [class.mat-primary]="isRouteActive('organizations')"
-        class="ml">
-        Organizaciones
+    <button mat-raised-button color='primary' [routerLink]="['organizations']"
+            [class.mat-primary]="isRouteActive('organizations')"
+            class='ml'>
+        <span>{{ 'organizations.organizations' | translate}}</span>
     </button>
 </div>
 <router-outlet></router-outlet>

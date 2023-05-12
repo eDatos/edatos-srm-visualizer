@@ -2,9 +2,12 @@
   "title": "Visualitzador",
   "searchEngine": "Cercador",
   "search": "Cercar",
-  "clean": "Netejar",
+  "clear": "Netejar",
   "showDetails": "Mostrar detalls",
   "details": "Detalls",
+  "download": {
+    "sdmx-xml": "Descarregar SDMX-XML"
+  },
   "genericParameters": {
     "id": "ID",
     "name": "Nom",
@@ -26,6 +29,7 @@
     "parameters": {}
   },
   "dsd": {
+    "dsd": "DSD",
     "datastructures": "Codis",
     "parameters": {}
   },

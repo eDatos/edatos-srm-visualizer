@@ -1,15 +1,17 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['families']" [class.mat-primary]="isRouteActive('families')"
-        class="ml">
-        Familias de clasificaciones
+<div class='in-line m-50'>
+    <button mat-raised-button color='primary' [routerLink]="['families']"
+            [class.mat-primary]="isRouteActive('families')"
+            class='ml'>
+        <span>{{ 'codelists.codelistFamilies' | translate }}</span>
     </button>
-    <button mat-raised-button color="primary" [routerLink]="['codelists']" [class.mat-primary]="isRouteActive('codelists')"
-        class="ml">
-        Clasificaciones
+    <button mat-raised-button color='primary' [routerLink]="['codelists']"
+            [class.mat-primary]="isRouteActive('codelists')"
+            class='ml'>
+        <span>{{ 'codelists.codelists' | translate }}</span>
     </button>
-    <button mat-raised-button color="primary" [routerLink]="['codes']" [class.mat-primary]="isRouteActive('codes')"
-        class="ml">
-        Códigos
+    <button mat-raised-button color='primary' [routerLink]="['codes']" [class.mat-primary]="isRouteActive('codes')"
+            class='ml'>
+        <span>{{ 'codelists.codes' | translate }}</span>
     </button>
 </div>
 <router-outlet></router-outlet>
