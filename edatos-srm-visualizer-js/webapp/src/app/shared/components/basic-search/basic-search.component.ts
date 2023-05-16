@@ -27,6 +27,8 @@ export abstract class BasicSearchComponent {
     dataDetail: Resource | undefined;
     detailForm: any;
 
+    dataSearchLoaded: boolean = false;
+
     constructor(public apiService: ApiService, private localeServie?: LocaleService) {}
 
     loadInitialData() {
@@ -39,6 +41,7 @@ export abstract class BasicSearchComponent {
                     urn: resource.urn,
                 };
             });
+            this.dataSearchLoaded = true;
         });
     }
 
