@@ -1,7 +1,6 @@
 .subsection-tab .nav {
     background-color: $color-azul-oscuro-5;
-    width: 1280px;
-    height: 45px;
+    height: $height-nav;
 }
 
 .subsection-tab .nav.nav-pills {
@@ -11,6 +10,7 @@
     padding: 9px 20px;
     gap: 2px;
     border-radius: 5px 5px 0px 0px;
+    width: 100%;
 }
 .subsection-tab .nav-pills .nav-link {
     color: $color-azul-oscuro-100;

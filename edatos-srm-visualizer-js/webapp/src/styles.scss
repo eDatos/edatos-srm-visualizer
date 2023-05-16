@@ -13,6 +13,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .in-line-center {
@@ -105,4 +107,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 10px;
     min-height: 300px;
     overflow-y: auto;
+}
+
+@media (min-width: 1200px) {
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1280px;
+    }
 }
