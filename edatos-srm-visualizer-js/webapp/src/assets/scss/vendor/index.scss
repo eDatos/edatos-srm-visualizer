@@ -1,0 +1,9 @@
+$border-radius: 5px 5px 0px 0px;
+$container-max-widths:(xl: 1280px);
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/nav";
