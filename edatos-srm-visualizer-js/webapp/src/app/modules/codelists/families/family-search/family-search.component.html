@@ -39,7 +39,7 @@
     <br />
     <div class='in-line'>
         <mat-card mat-elevation-z15 class='box'>
-            <div>
+            <div *ngIf='!dataSearchLoaded'>
                 <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
             <mat-card-header>
