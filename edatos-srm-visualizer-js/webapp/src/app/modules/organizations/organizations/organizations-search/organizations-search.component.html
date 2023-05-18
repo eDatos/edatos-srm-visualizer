@@ -1,87 +1,90 @@
-<div class="mlr">
+<div class='mlr'>
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>BUSCADOR</mat-card-title>
+            <mat-card-title>{{ 'searchEngine' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <div [formGroup]="searchForm" class="container align-center">
-                <div class="in-line">
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>ID</mat-label>
-                        <input formControlName="id" matInput placeholder="Placeholder">
+            <div [formGroup]='searchForm' class='container align-center'>
+                <div class='in-line'>
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
+                        <input formControlName='id' matInput placeholder='Placeholder'>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>NOMBRE</mat-label>
-                        <input formControlName="name" matInput placeholder="Placeholder">
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
+                        <input formControlName='name' matInput placeholder='Placeholder'>
                     </mat-form-field>
                 </div>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>DESCRIPCIÓN</mat-label>
-                    <input formControlName="description" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
+                    <input formControlName='description' matInput placeholder='Placeholder'>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>URN</mat-label>
-                    <input formControlName="urn" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
+                    <input formControlName='urn' matInput placeholder='Placeholder'>
                 </mat-form-field>
 
-                <div class="in-line align-right">
-                    <button mat-raised-button color="primary" (click)="onSearch()" class="ml">
-                        <mat-icon>search</mat-icon> Buscar
+                <div class='in-line align-right'>
+                    <button mat-raised-button color='primary' (click)='onSearch()' class='ml'>
+                        <mat-icon>search</mat-icon>
+                        <span>{{ 'search' | translate }}</span>
                     </button>
-                    <button mat-raised-button color="primary" (click)="onReset()" class="ml">
-                        <mat-icon>clear</mat-icon> Limpiar
+                    <button mat-raised-button color='primary' (click)='onReset()' class='ml'>
+                        <mat-icon>clear</mat-icon>
+                        <span>{{ 'clear' | translate }}</span>
                     </button>
                 </div>
             </div>
         </mat-card-actions>
     </mat-card>
     <br>
-    <div class="in-line">
-        <mat-card mat-elevation-z15 class="box">
-            <div *ngIf="!dataChildrensLoaded">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <div class='in-line'>
+        <mat-card mat-elevation-z15 class='box'>
+            <div *ngIf='!dataChildrensLoaded'>
+                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
             <mat-card-header>
-                <mat-card-title>ORGANIZACIONES</mat-card-title>
+                <mat-card-title>{{ 'organizations.organizations' | translate | uppercase }}</mat-card-title>
                 <mat-card-subtitle>{{searchConfig.resultSize}} Elementos</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
 
-                <div class="search-results" [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]="dataChildrens"
-                        (clickEvent)="onLoadDetail($event)"></app-table-tree>
+                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]='dataChildrens'
+                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
 
             </mat-card-content>
         </mat-card>
 
-        <mat-card mat-elevation-z15 class="box">
+        <mat-card mat-elevation-z15 class='box'>
             <mat-card-header>
-                <mat-card-title>DETALLES ORGANIZACIÓN</mat-card-title>
+                <mat-card-title>{{ 'organizations.organizationsDetails' | translate | uppercase }}</mat-card-title>
             </mat-card-header>
             <mat-card-actions>
-                <div [formGroup]="detailForm" class="container">
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>ID</mat-label>
-                        <input formControlName="id" matInput placeholder="Placeholder">
+                <div [formGroup]='detailForm' class='container'>
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
+                        <input formControlName='id' matInput placeholder='Placeholder'>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>NOMBRE</mat-label>
-                        <input formControlName="name" matInput placeholder="Placeholder">
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
+                        <input formControlName='name' matInput placeholder='Placeholder'>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>URN</mat-label>
-                        <input formControlName="urn" matInput placeholder="Placeholder">
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
+                        <input formControlName='urn' matInput placeholder='Placeholder'>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="mlr input">
-                        <mat-label>DESCRIPCIÓN</mat-label>
-                        <input formControlName="description" matInput placeholder="Placeholder">
+                    <mat-form-field appearance='outline' class='mlr input'>
+                        <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
+                        <input formControlName='description' matInput placeholder='Placeholder'>
                     </mat-form-field>
-                    <div class="in-line align-right" *ngIf="this.dataDetail">
-                        <button mat-raised-button color="primary" class="ml"
-                            [routerLink]="[this.dataDetail.agency,this.dataDetail.resourceId, this.dataDetail.id, this.dataDetail.version, 'detail',]">
-                            <mat-icon>text_snippet</mat-icon> Ver detalles
+                    <div class='in-line align-right' *ngIf='this.dataDetail'>
+                        <button mat-raised-button color='primary' class='ml'
+                                [routerLink]="[this.dataDetail.agency,this.dataDetail.resourceId, this.dataDetail.id, this.dataDetail.version, 'detail',]">
+                            <mat-icon>expand_more</mat-icon>
+                            <span>{{ 'showDetails' | translate }}</span>
                         </button>
                     </div>
                 </div>

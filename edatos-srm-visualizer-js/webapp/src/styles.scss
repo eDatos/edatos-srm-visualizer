@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/bootstrap';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -12,6 +13,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .in-line-center {
@@ -105,3 +108,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     min-height: 300px;
     overflow-y: auto;
 }
+

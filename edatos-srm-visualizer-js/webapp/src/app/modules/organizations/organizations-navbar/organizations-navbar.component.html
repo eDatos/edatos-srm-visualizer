@@ -1,11 +1,14 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['schemes']" [class.mat-primary]="isRouteActive('schemes')"
-        class="ml">
-        Esquemas de organizaciones
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['organizations']" [class.mat-primary]="isRouteActive('organizations')"
-        class="ml">
-        Organizaciones
-    </button>
+<div class='subsection-tab'>
+    <ul class='nav nav-pills'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['schemes']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'organizations.organizationsSchemes' | translate}}</span></a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['organizations']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'organizations.organizations' | translate}}</span></a>
+        </li>
+    </ul>
+
 </div>
 <router-outlet></router-outlet>

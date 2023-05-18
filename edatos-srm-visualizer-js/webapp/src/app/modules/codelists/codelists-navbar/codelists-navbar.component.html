@@ -1,15 +1,18 @@
-<div class="in-line m-50">
-    <button mat-raised-button color="primary" [routerLink]="['families']" [class.mat-primary]="isRouteActive('families')"
-        class="ml">
-        Familias de clasificaciones
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['codelists']" [class.mat-primary]="isRouteActive('codelists')"
-        class="ml">
-        Clasificaciones
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['codes']" [class.mat-primary]="isRouteActive('codes')"
-        class="ml">
-        Códigos
-    </button>
+<div class='subsection-tab'>
+    <ul class='nav nav-pills'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['families']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codelistFamilies' | translate }}</span></a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codelists']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codelists' | translate }}</span></a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codes']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codes' | translate }}</span></a>
+        </li>
+    </ul>
+
 </div>
 <router-outlet></router-outlet>
