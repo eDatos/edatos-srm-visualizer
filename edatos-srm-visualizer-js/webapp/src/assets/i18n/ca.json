@@ -1,0 +1,56 @@
+{
+  "title": "Visualitzador",
+  "searchEngine": "Cercador",
+  "search": "Cercar",
+  "clear": "Netejar",
+  "showDetails": "Mostrar detalls",
+  "details": "Detalls",
+  "download": {
+    "sdmx-xml": "Descarregar SDMX-XML"
+  },
+  "resourceParameters": {
+    "id": "ID",
+    "name": "Nom",
+    "urn": "URN",
+    "description": "Descripció",
+    "version": "Versió",
+    "comments": "Comentaris",
+    "maintainer": "Mantenidor"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptes",
+    "conceptSchemesDetails" : "Detalls de l'esquema de conceptes",
+    "concepts": "Conceptes",
+    "conceptDetails" : "Detalls del concepte",
+    "parameters": {}
+  },
+  "codelists": {
+    "codelistFamilies": "Famílies de classificacions",
+    "codelistFamiliesDetails": "Detalls de les famílies de classificacions",
+    "codelists": "Classificacions",
+    "codelistsDetails": "Detalls de les classificacions",
+    "codes": "Codis",
+    "codesDetails": "Detalls dels codis",
+    "parameters": {}
+  },
+  "dsd": {
+    "dsd": "DSD",
+    "dsdDetails": "Detalls dels DSD",
+    "datastructures": "Codis",
+    "parameters": {}
+  },
+  "organizations": {
+    "organizationsSchemes": "Esquema d'organitzacions",
+    "organizationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
+    "organizations": "Organitzacions",
+    "organizationsDetails": "Detalls de les organitzacions",
+    "parameters": {}
+  },
+  "category": {
+    "categorySchemes": "Esquema de temes",
+    "categorySchemesDetails": "Detalls de l'esquema de temes",
+    "categories": "Temes",
+    "categoriesDetails": "Detalls dels temes",
+    "parameters": {}
+  }
+}

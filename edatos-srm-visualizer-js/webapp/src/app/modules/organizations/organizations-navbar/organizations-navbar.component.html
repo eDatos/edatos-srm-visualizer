@@ -1,11 +1,14 @@
-<div class="subsection-tab">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Esquemas de organizaciones</a>
+<div class='subsection-tab'>
+    <ul class='nav nav-pills'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['schemes']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'organizations.organizationsSchemes' | translate}}</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['organizations']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Organizaciones</a>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['organizations']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'organizations.organizations' | translate}}</span></a>
         </li>
     </ul>
+
 </div>
 <router-outlet></router-outlet>

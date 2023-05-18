@@ -1,0 +1,56 @@
+{
+  "title": "Visualizador",
+  "searchEngine": "Buscador",
+  "search": "Buscar",
+  "clear": "Limpiar",
+  "showDetails": "Mostrar detalles",
+  "details": "Detalles",
+  "download": {
+    "sdmx-xml": "Descargar SDMX-XML"
+  },
+  "resourceParameters": {
+    "id": "ID",
+    "name": "Nombre",
+    "urn": "URN",
+    "description": "Descripción",
+    "version": "Versión",
+    "comments": "Comentarios",
+    "maintainer": "Mantenedor"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptos",
+    "conceptSchemesDetails" : "Detalles del esquema de conceptos",
+    "concepts": "Conceptos",
+    "conceptDetails" :"Detalles del concepto",
+    "parameters": {}
+  },
+  "codelists": {
+    "codelistFamilies": "Familias de clasificaciones",
+    "codelistFamiliesDetails": "Detalles de la familia de clasificaciones",
+    "codelists": "Clasificaciones",
+    "codelistsDetails": "Detalles de la clasificación",
+    "codes": "Códigos",
+    "codesDetails": "Detalles del código",
+    "parameters": {}
+  },
+  "dsd": {
+    "dsd": "DSD",
+    "dsdDetails": "Detalles del DSD",
+    "datastructures": "Códigos",
+    "parameters": {}
+  },
+  "organizations": {
+    "organizationsSchemes": "Esquema de organizaciones",
+    "organizationsSchemesDetails": "Detalles del esquema de organizaciones",
+    "organizations": "Organizaciones",
+    "organizationsDetails": "Detalles de la organización",
+    "parameters": {}
+  },
+  "category": {
+    "categorySchemes": "Esquema de temas",
+    "categorySchemesDetails": "Detalles del esquema de temas",
+    "categories": "Temas",
+    "categoriesDetails": "Detalles del tema",
+    "parameters": {}
+  }
+}

@@ -1,43 +1,44 @@
-<div class="m-30" *ngIf="showChildrensTree">
+<div class='m-30' *ngIf='showChildrensTree'>
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>CONCEPTOS</mat-card-title>
+            <mat-card-title>{{ 'concepts.concepts' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <div class="container">
-                <div class="search-results" [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]="dataChildrens" (clickEvent)="onLoadDetail($event)"></app-table-tree>
+            <div class='container'>
+                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]='dataChildrens'
+                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
-                <div class="search-results" *ngIf="!dataChildrensLoaded">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div> 
+                <div class='search-results' *ngIf='!dataChildrensLoaded'>
+                    <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+                </div>
             </div>
         </mat-card-actions>
     </mat-card>
 </div>
 
-<div class="m-30">
+<div class='m-30'>
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>DETALLES CONCEPTO</mat-card-title>
+            <mat-card-title>{{ 'concepts.conceptsDetails' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <div [formGroup]="detailForm" class="container">
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>ID</mat-label>
-                    <input formControlName="id" matInput placeholder="Placeholder">
+            <div [formGroup]='detailForm' class='container'>
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
+                    <input formControlName='id' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>NOMBRE</mat-label>
-                    <input formControlName="name" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
+                    <input formControlName='name' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>URN</mat-label>
-                    <input formControlName="urn" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
+                    <input formControlName='urn' matInput placeholder='Placeholder'>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="mlr input">
-                    <mat-label>DESCRIPCIÓN</mat-label>
-                    <input formControlName="description" matInput placeholder="Placeholder">
+                <mat-form-field appearance='outline' class='mlr input'>
+                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
+                    <input formControlName='description' matInput placeholder='Placeholder'>
                 </mat-form-field>
             </div>
         </mat-card-actions>
