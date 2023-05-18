@@ -2,11 +2,13 @@
 <div class="subsection-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Esquemas</a>
+            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span>{{ 'concepts.conceptSchemes' | translate }}</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['concepts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Conceptos</a>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['concepts']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'> <span>{{ 'concepts.concepts' | translate }}</span></a>
         </li>
     </ul>
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
+

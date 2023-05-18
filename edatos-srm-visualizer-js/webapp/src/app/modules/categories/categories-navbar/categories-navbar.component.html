@@ -1,10 +1,11 @@
 <div class="subsection-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Esquemas de temas</a>
+            <a class="nav-link" [routerLink]="['schemes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><span>{{ 'category.categorySchemes' | translate }}</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['categories']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Temas</a>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['categories']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'category.categories' | translate }}</span></a>
         </li>
     </ul>
 </div>
