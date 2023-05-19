@@ -1,0 +1,22 @@
+@import '../variables.scss';
+
+$container-max-widths:          (xl: 1280px);
+$font-family-base:              $font-family-sans-serif;
+$font-size-base:                0.9rem; // 14px
+
+// primary nav
+$nav-pills-border-radius:       0px;
+$nav-pills-link-active-bg:      $color-negro-0;
+$nav-pills-link-active-color:   $color-azul-oscuro-100;
+// secondary nav
+$nav-tabs-border-width:         0px;
+
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/nav";
+
+

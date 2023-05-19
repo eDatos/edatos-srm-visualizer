@@ -1,43 +1,71 @@
+.section-tab .nav {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.05);
+    flex-wrap: nowrap;  //se sobreescribe estilo de .nav
+}
+
 .subsection-tab .nav {
     background-color: $color-azul-oscuro-5;
-    height: $height-nav;
-    width: $width-nav;
 }
 
-.subsection-tab .nav.nav-pills {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.section-tab .nav, .subsection-tab .nav {
+    height: $height-nav;
+}
+
+.section-tab .nav.nav-pills {
+    padding: 13px 20px;
+    margin-bottom: -2px;
+}
+
+.subsection-tab .nav.nav-tabs {
     padding: 9px 20px;
-    gap: 2px;
-    border-radius: 5px 5px 0px 0px;
+}
+
+.section-tab .nav.nav-pills, .subsection-tab .nav.nav-tabs {
+    align-items: center;
     width: 100%;
 }
-.subsection-tab .nav-pills .nav-link {
-    color: $color-azul-oscuro-100;
+
+.section-tab .nav-pills .nav-link, .subsection-tab .nav-tabs .nav-link {
     font-weight: $font-weight-300;
-    font-size: 14px;
+    color: $color-azul-oscuro-100;
     /* identical to box height */
-    line-height: 19px;
-    display: block; //se sobreescribe estilo de .nav-link
+    line-height: 20px;
 }
 
-.subsection-tab .nav-pills .nav-link.active {
-    /* Blanco */
-    background: $color-negro-0;
+.section-tab .nav-pills .nav-link.active {
     font-weight: $font-weight-600;
-    color: $color-azul-oscuro-100;
+    border-bottom-color: $azul-istac-100;
+    border-bottom-style: solid;
+    border-bottom-width: 6px;
+}
+
+.section-tab .nav-pills .nav-link:hover {
+    border-bottom-color: $azul-istac-25; 
+    border-bottom-style: solid;
+    border-bottom-width: 6px;
+}
+
+.subsection-tab .nav-tabs .nav-link:hover {
     border-radius: 5px 5px 0px 0px;
 }
 
-.subsection-tab .nav-pills .nav-link:hover {
+.subsection-tab .nav-tabs .nav-link.active {
+    font-weight: $font-weight-600;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.subsection-tab .nav-tabs .nav-link:hover {
     background-color: $azul-istac-25;
     border-radius: 5px 5px 0px 0px;
 }
-    
-.subsection-tab a.nav-link:focus {  
-    outline: 2px solid $azul-istac-100;
+.subsection-tab a.nav-link:focus {
     border-radius: 5px 5px 0px 0px;
 }
 
+.section-tab a.nav-link:focus-visible, .subsection-tab a.nav-link:focus-visible {
+    /* remove default focus style */
+    outline: none;
+    /* custom focus styles */
+    box-shadow: inset 0 0 0 2px $azul-istac-100;
+}
 
