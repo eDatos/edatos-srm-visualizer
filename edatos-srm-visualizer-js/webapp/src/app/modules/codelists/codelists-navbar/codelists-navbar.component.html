@@ -1,14 +1,18 @@
-<div class="subsection-tab">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['families']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Familias de clasificaciones</a>
+<div class='subsection-tab'>
+    <ul class='nav nav-pills'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['families']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codelistFamilies' | translate }}</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['codelists']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Clasificaciones</a>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codelists']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codelists' | translate }}</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['codes']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Códigos</a>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codes']" routerLinkActive='active'
+               [routerLinkActiveOptions]='{exact: true}'><span>{{ 'codelists.codes' | translate }}</span></a>
         </li>
     </ul>
+
 </div>
 <router-outlet></router-outlet>

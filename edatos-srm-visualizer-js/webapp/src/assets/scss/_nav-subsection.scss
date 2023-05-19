@@ -1,5 +1,7 @@
 .subsection-tab .nav {
-    background-color: #99b5c91a;
+    background-color: $color-azul-oscuro-5;
+    height: $height-nav;
+    width: $width-nav;
 }
 
 .subsection-tab .nav.nav-pills {
@@ -7,8 +9,9 @@
     flex-direction: row;
     align-items: center;
     padding: 9px 20px;
-    gap: 10px;
+    gap: 2px;
     border-radius: 5px 5px 0px 0px;
+    width: 100%;
 }
 .subsection-tab .nav-pills .nav-link {
     color: $color-azul-oscuro-100;
@@ -16,6 +19,7 @@
     font-size: 14px;
     /* identical to box height */
     line-height: 19px;
+    display: block; //se sobreescribe estilo de .nav-link
 }
 
 .subsection-tab .nav-pills .nav-link.active {
