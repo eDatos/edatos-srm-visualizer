@@ -1,6 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfigurationServiceImpl;
+import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConfigurationResource {
 
     @Autowired
-    private MetadataConfigurationServiceImpl metadataConfigurationService;
+    private MetadataConfiguracionService metadataConfigurationService;
 
     @GetMapping("/footer-url")
     public String getFooterUrl () {
@@ -26,5 +26,8 @@ public class ConfigurationResource {
 
     @GetMapping("/sdmx-api")
     public String getSdmxApi () { return metadataConfigurationService.getSdmxApi();}
+
+    @GetMapping("/language-cookie")
+    public String getLnaguageCookie () { return metadataConfigurationService.getLanguageCookie();}
 
 }
