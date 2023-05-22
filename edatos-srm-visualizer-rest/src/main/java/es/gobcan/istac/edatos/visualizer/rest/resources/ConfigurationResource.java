@@ -27,4 +27,7 @@ public class ConfigurationResource {
     @GetMapping("/sdmx-api")
     public String getSdmxApi () { return metadataConfigurationService.getSdmxApi();}
 
+    @GetMapping("/language-cookie")
+    public String getLnaguageCookie () { return metadataConfigurationService.getLanguageCookie();}
+
 }

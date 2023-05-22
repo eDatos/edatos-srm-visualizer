@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -8,25 +9,25 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./navigation-search.component.scss']
 })
 export class NavigationSearchComponent {
-  navLinks: any[];
-  activeLink: string;
+  public navLinks: any[];
+  public activeLink: string;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private translateService: TranslateService) {
     this.navLinks = [
       {
-        label: 'Conceptos',
+        label: this.translateService.instant('concepts.concepts'),
         link: 'concepts'
       }, {
-        label: 'Clasificaciones',
+        label: this.translateService.instant('codelists.codelists'),
         link: 'codelists'
       }, {
-        label: 'Definición de Estructuras de Datos(DSD)',
+        label: this.translateService.instant('dsd.definitionDataStructures'),
         link: 'dsd'
       }, {
-        label: 'Organizaciones',
+        label: this.translateService.instant('organizations.organizations'),
         link: 'organizations'
       }, {
-        label: 'Temas',
+        label: this.translateService.instant('category.categories'),
         link: 'categories'
       }
     ];

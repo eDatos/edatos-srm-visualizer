@@ -15,6 +15,8 @@ import { ConfigService } from './core/services/config/config.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { catchError, Observable } from 'rxjs';
 import { MissingTranslationCustomHandler } from './core/handler/missing-translation-custom-handler';
+import { LanguageService } from './core/services/language/language.service';
+import { ScriptLoaderModule } from 'ngx-script-loader';
 
 
 class CustomTranslateHttpLoader extends TranslateHttpLoader {
@@ -39,9 +41,11 @@ export function createTranslateLoader(http: HttpClient) {
 
 export function initTranslations(translateService: TranslateService, cookieService: CookieService, configService: ConfigService) {
     return () => new Promise<any>((resolve: any) => {
-        // FIX ME
-        const languageCookie = 'chosenLocale'; // to index.html -> configService.getConfig().metadata.languageCookie;
-        const currentLang: string = DEFAULT_LANG;
+        let languageCookie: string = '';
+        configService.getLanguageCookie().subscribe((value: string) => {
+            return languageCookie = value;
+        });
+        const currentLang: string = cookieService.get(languageCookie) || DEFAULT_LANG;
         translateService.setDefaultLang(DEFAULT_LANG);
         translateService.addLangs(AVAILABLE_LANGUAGES);
         translateService.use(currentLang);
@@ -54,13 +58,14 @@ export function initTranslations(translateService: TranslateService, cookieServi
         AppComponent,
         FooterComponent,
         HeaderComponent,
-        SafeHtmlPipe
+        SafeHtmlPipe,
     ],
     imports: [
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,
         HttpClientModule,
+        ScriptLoaderModule,
         StructuralResourcesModule,
         TranslateModule.forRoot({
             missingTranslationHandler: {
@@ -79,9 +84,15 @@ export function initTranslations(translateService: TranslateService, cookieServi
         {
             provide: APP_INITIALIZER,
             useFactory: initTranslations,
-            deps: [TranslateService],
+            deps: [TranslateService, CookieService, ConfigService],
             multi: true
-        }
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (languageService: LanguageService) => () => languageService.init(),
+            deps: [LanguageService],
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent]
 })
