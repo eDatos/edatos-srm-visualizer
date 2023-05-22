@@ -11,22 +11,22 @@ import { GenericConfig } from 'src/app/shared/models/generic-config.model';
 })
 
 export class ConfigService {
-    urlApiBackConfiguration: string = '';
-    urlFooter: string = '';
-    urlHeader: string = '';
-    urlStructuralResourcesApi: string = '';
+    private urlApiBackConfiguration: string = '';
+    private urlFooter: string = '';
+    private urlHeader: string = '';
+    private urlStructuralResourcesApi: string = '';
+    private languageCookie: string = '';
 
-    genericConfig: GenericConfig = {} as GenericConfig;
+    private genericConfig: GenericConfig = {} as GenericConfig;
 
     constructor(@Inject(DOCUMENT) private document: Document, private httpClient: HttpClient, private locationStrategy: LocationStrategy) {
         this.urlApiBackConfiguration = this.getDomainInternal() + '/api/configuration/';
     }
 
-    getDomainInternal(): string {
+    public getDomainInternal(): string {
         let myWindow = window as any;
 
         let domain = myWindow.location.hostname + ':' + myWindow.location.port;
-
         if (this.locationStrategy.getBaseHref().length > 1) {
             let href = this.locationStrategy.getBaseHref().split('/');
 
@@ -42,7 +42,7 @@ export class ConfigService {
         return myWindow.location.protocol + '//' + domain;
     }
 
-    getApiStructuralResources(): Observable<string> {
+    public getApiStructuralResources(): Observable<string> {
         if (this.urlStructuralResourcesApi) {
             return of(this.urlStructuralResourcesApi);
         }
@@ -53,7 +53,7 @@ export class ConfigService {
         );
     }
 
-    getApiSdmx(): Observable<string> {
+    public getApiSdmx(): Observable<string> {
         if (this.urlStructuralResourcesApi) {
             return of(this.urlStructuralResourcesApi);
         }
@@ -64,11 +64,7 @@ export class ConfigService {
         );
     }
 
-    getConfig(): GenericConfig {
-        return this.genericConfig;
-    }
-
-    getUrlFooter(): Observable<string> {
+    public getUrlFooter(): Observable<string> {
         if (this.urlFooter) {
             return of(this.urlFooter);
         }
@@ -80,13 +76,25 @@ export class ConfigService {
         );
     }
 
-    getUrlHeader(): Observable<string> {
+    public getUrlHeader(): Observable<string> {
         if (this.urlHeader) {
             return of(this.urlHeader);
         }
         return this.httpClient.get(this.urlApiBackConfiguration.concat('header-url'), { responseType: 'text' }).pipe(
             map((result) => {
                 this.urlHeader = result;
+                return result;
+            })
+        );
+    }
+
+    public getLanguageCookie(): Observable<string> {
+        if (this.languageCookie) {
+            return of(this.languageCookie);
+        }
+        return this.httpClient.get(this.urlApiBackConfiguration.concat('language-cookie'), { responseType: 'text' }).pipe(
+            map((result) => {
+                this.languageCookie = result;
                 return result;
             })
         );

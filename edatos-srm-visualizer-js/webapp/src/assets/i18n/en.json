@@ -34,6 +34,7 @@
     "parameters": {}
   },
   "dsd": {
+    "definitionDataStructures" : "Definition Data Structures(DSD)",
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",
