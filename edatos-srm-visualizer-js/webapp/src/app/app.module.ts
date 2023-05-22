@@ -15,7 +15,6 @@ import { ConfigService } from './core/services/config/config.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { catchError, Observable } from 'rxjs';
 import { MissingTranslationCustomHandler } from './core/handler/missing-translation-custom-handler';
-import { LanguageService } from './core/services/language/language.service';
 import { ScriptLoaderModule } from 'ngx-script-loader';
 
 
@@ -41,15 +40,13 @@ export function createTranslateLoader(http: HttpClient) {
 
 export function initTranslations(translateService: TranslateService, cookieService: CookieService, configService: ConfigService) {
     return () => new Promise<any>((resolve: any) => {
-        let languageCookie: string = '';
-        configService.getLanguageCookie().subscribe((value: string) => {
-            return languageCookie = value;
+        configService.getLanguageCookie().subscribe((languageCookie: string) => {
+            const currentLang: string = cookieService.get(languageCookie) || DEFAULT_LANG;
+            translateService.setDefaultLang(DEFAULT_LANG);
+            translateService.addLangs(AVAILABLE_LANGUAGES);
+            translateService.use(currentLang);
+            resolve();
         });
-        const currentLang: string = cookieService.get(languageCookie) || DEFAULT_LANG;
-        translateService.setDefaultLang(DEFAULT_LANG);
-        translateService.addLangs(AVAILABLE_LANGUAGES);
-        translateService.use(currentLang);
-        resolve();
     });
 }
 
@@ -58,7 +55,7 @@ export function initTranslations(translateService: TranslateService, cookieServi
         AppComponent,
         FooterComponent,
         HeaderComponent,
-        SafeHtmlPipe,
+        SafeHtmlPipe
     ],
     imports: [
         AppRoutingModule,
@@ -86,15 +83,9 @@ export function initTranslations(translateService: TranslateService, cookieServi
             useFactory: initTranslations,
             deps: [TranslateService, CookieService, ConfigService],
             multi: true
-        },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (languageService: LanguageService) => () => languageService.init(),
-            deps: [LanguageService],
-            multi: true,
-        },
+        }
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+
+export class AppModule {}
