@@ -7,21 +7,21 @@ import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ConfigService } from '../../config/config.service';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export abstract class ApiService {
     public static apiStructuralResource: string = '';
     public static apiInternalDomain: string = '';
     public static apiSdmx: string = '';
 
-    apiSearchDataPath: string = '';
-    apiSearchUrl: string = '';
+    public apiSearchDataPath: string = '';
+    public apiSearchUrl: string = '';
 
-    apiDetailUrl: string = '';
+    public apiDetailUrl: string = '';
 
-    apiChildrensTreeUrl: string = '';
-    apiChildrensUrl: string = '';
-    apiChildrensDataPath: string = '';
+    public apiChildrensTreeUrl: string = '';
+    public apiChildrensUrl: string = '';
+    public apiChildrensDataPath: string = '';
 
     ALL_ELEMENTS: string = '~all';
 

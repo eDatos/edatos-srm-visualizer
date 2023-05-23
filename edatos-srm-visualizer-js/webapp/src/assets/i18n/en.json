@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Visualizer",
   "searchEngine": "Search Engine",
   "search": "Search",
   "clear": "Clear",
@@ -34,6 +34,7 @@
     "parameters": {}
   },
   "dsd": {
+    "definitionDataStructures" : "Definition Data Structures(DSD)",
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",
