@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CodelistCodesApiService } from 'src/app/core/services/api/structural-resources/codelist-codes-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-tree-search/basic-tree-search.component';
+import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/tree/basic-tree-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { environment } from 'src/environments/environments';
 
