@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd-api.service';
-import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { DsdApiService } from '../../../../core/services/api/structural-resources/dsd-api.service';
+import { LocaleService } from '../../../../core/services/locale.service';
+import { BasicSearchComponent } from '../../../../shared/components/basic-search/basic-search.component';
+
 
 @Component({
     selector: 'app-codes-search',

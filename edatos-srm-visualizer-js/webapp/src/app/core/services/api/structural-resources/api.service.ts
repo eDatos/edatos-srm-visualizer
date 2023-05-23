@@ -27,7 +27,7 @@ export abstract class ApiService {
 
     constructor(protected httpClient: HttpClient, protected config: ConfigService) {}
 
-    loadConfiguration() {
+    public loadConfiguration() {
         this.config.getApiStructuralResources().subscribe((url) => {
             ApiService.apiStructuralResource = url;
         });
@@ -38,11 +38,11 @@ export abstract class ApiService {
         ApiService.apiInternalDomain = this.config.getDomainInternal();
     }
 
-    getFile(): Observable<Blob> {
+    public getFile(): Observable<Blob> {
         return this.httpClient.get(ApiService.apiSdmx, { responseType: 'blob' });
     }
 
-    getDetailFromStructureResource(resource: Resource): Observable<any> {
+    public getDetailFromStructureResource(resource: Resource): Observable<any> {
         let api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
@@ -51,16 +51,18 @@ export abstract class ApiService {
         return this.getDataFromStructureResource(api);
     }
 
-    getChildrensTree(dataDetail: Resource): Observable<any> {
+    public getChildrensTree(dataDetail: Resource): Observable<any> {
         return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrensTreeUrl.replace('{urn}', dataDetail!.urn)));
     }
 
-    getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+    public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
         let query = this.buildQueryFromForm(form);
+        console.log('QUERY', query);
+        console.log('this.apiSearchUrl ', this.apiSearchUrl);
         return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
-    getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
+    public getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
         if (searchConfig) {
             return this.getDataWithOffset(ApiService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
         }
