@@ -33,5 +33,12 @@ public abstract class GenericResource {
                 .orElse("");
     }
 
+    protected String getUrlApi(String urn, String urlApiChildrenDetails) {
+        String agency = urnService.extractAgency(urn);
+        String scheme = urnService.extractScheme(urn);
+        String version = urnService.extractVersion(urn);
+
+        return urlApiChildrenDetails.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
+    }
 
 }

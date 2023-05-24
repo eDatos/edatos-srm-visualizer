@@ -21,10 +21,7 @@ import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionServ
 import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@RestController()
-@RequestMapping("/api/codelists")
-public class CodelistsResource extends GenericResource {
+@Slf4j @RestController() @RequestMapping("/api/codelists") public class CodelistsResource extends GenericResource {
 
     private final String urlApiChildrenDetails;
 
@@ -34,16 +31,11 @@ public class CodelistsResource extends GenericResource {
         this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/codelists/#AGENCY#/#SCHEME#/#VERSION#/codes");
     }
 
-
     @GetMapping("/codelists/{urn}/codes")
-    public String getChildrenFromScheme (@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-        String agency = urnService.extractAgency(urn);
-        String scheme = urnService.extractScheme(urn);
-        String version = urnService.extractVersion(urn);
-
-        String urlApi = urlApiChildrenDetails.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
+    public String getChildrenFromScheme(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
+        log.debug("Search soon {}", urn);
         RestTemplate restTemplate = new RestTemplate();
-        Codes codes = restTemplate.getForEntity(urlApi, Codes.class).getBody();
+        Codes codes = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Codes.class).getBody();
         if (codes != null) {
             List<TreeNode> result = new ArrayList<>();
             for (ItemResource code : codes.getCodes()) {
@@ -60,7 +52,7 @@ public class CodelistsResource extends GenericResource {
     }
 
     @GetMapping("/{urn}/codes")
-    public String getChildren (@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
+    public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
 
         if (!urn.isEmpty()) {
             Gson gson = new Gson();
@@ -69,20 +61,20 @@ public class CodelistsResource extends GenericResource {
         return "";
     }
 
-    protected List<TreeNode> loadChildren (String urn, String lang) {
+    protected List<TreeNode> loadChildren(String urn, String lang) {
         log.debug("Search soon {}", urn);
         String id = urnService.extractID(urn);
-        URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", id));
+        URI urlApi = URI.create(urlApiChildrensFromParent.replace("#ID#", id));
         RestTemplate restTemplate = new RestTemplate();
         Codes body = restTemplate.getForEntity(urlApi, Codes.class).getBody();
-        List<TreeNode> conceptsChildren = new ArrayList<>();
+        List<TreeNode> codesChildren = new ArrayList<>();
         if (body != null && body.getTotal().doubleValue() > 0) {
             for (ItemResource code : body.getCodes()) {
                 TreeNode treeNode = new TreeNode(code.getUrn(), loadInternationalString(code.getName().getTexts(), lang));
                 treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
-                conceptsChildren.add(treeNode);
+                codesChildren.add(treeNode);
             }
         }
-        return conceptsChildren;
+        return codesChildren;
     }
 }
