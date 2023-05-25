@@ -1,16 +1,9 @@
 <div class='m-30'>
     <mat-card mat-elevation-z15>
         <mat-card-header>
-            <mat-card-title>{{ 'codelists.codes' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
-    </mat-card>
-</div>
-
-<div class='m-30'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
             <mat-card-title>{{ 'codelists.codelistsDetails' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
+
         <mat-action-row class='m-30' *ngIf='apiSDMX'>
             <button mat-raised-button color='primary' (click)='onDownloadSdmx()' class='ml'>
                 <mat-icon>download</mat-icon>

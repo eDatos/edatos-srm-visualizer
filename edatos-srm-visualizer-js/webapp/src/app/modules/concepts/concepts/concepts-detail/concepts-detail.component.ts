@@ -34,7 +34,6 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
 
     onLoadDetail(element: string) {
         let resource = new Resource(element);
-        // FIXME
         this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 }
