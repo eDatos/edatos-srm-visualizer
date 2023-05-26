@@ -33,7 +33,9 @@
                 <mat-card-subtitle>{{searchConfig.resultSize}} {{ 'elements' | translate }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <div class='search-results'>
+                <div class='search-results' [style.display]="dataSearchLoaded ? 'block' : 'none'"
+                     [scrollWindow]='false' infinite-scroll
+                     (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
                     <app-table-tree #tabletreenode [data]='dataSearch'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>

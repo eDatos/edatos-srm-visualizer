@@ -9,7 +9,7 @@ import { TreeNode } from '../../models/tree/tree-node';
 
 @Component({
     selector: 'app-basic-tree-detail',
-    templateUrl: './basic-tree-detail.component.html'
+    templateUrl: './basic-tree-detail.component.html',
 })
 export abstract class BasicTreeDetailComponent implements OnInit {
     searchConfig: SearchConfig = {
