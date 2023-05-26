@@ -41,7 +41,7 @@
     <br>
     <div class='in-line'>
         <mat-card mat-elevation-z15 class='box'>
-            <div *ngIf='!dataSearchLoaded'>
+            <div *ngIf='!dataChildrensLoaded'>
                 <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
             <mat-card-header>
@@ -50,10 +50,10 @@
             </mat-card-header>
             <mat-card-content>
 
-                <div class='search-results' [style.display]="dataSearchLoaded ? 'block' : 'none'"
+                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'"
                      [scrollWindow]='false' infinite-scroll
                      (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-                    <app-table-tree #tabletreenode [data]='dataSearch'
+                    <app-table-tree #tabletreenode [data]='dataChildrens'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
 
