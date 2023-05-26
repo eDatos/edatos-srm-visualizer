@@ -4,6 +4,7 @@ import { ApiService } from '../../../core/services/api/structural-resources/api.
 import { LocaleService } from '../../../core/services/locale.service';
 import { SearchConfig } from '../../models/search-config';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
+import * as child_process from 'child_process';
 
 @Injectable({
     providedIn: 'root'
@@ -14,10 +15,11 @@ export abstract class BaseBasicSearchComponent {
         resultLimit: 20,
         resultOffset: 0,
         resultSize: 0,
-        currentPage: 0,
+        currentPage: 0
     };
 
     public dataSearch: any[] = [];
+    public searchSimpleForm: any;
     public searchForm: any;
 
     public detailForm: any;
@@ -25,17 +27,23 @@ export abstract class BaseBasicSearchComponent {
     public dataSearchLoaded: boolean = false;
     public dataDetail: Resource | undefined;
 
-    constructor(public apiService: ApiService, public localeServie?: LocaleService) {}
+    constructor(public apiService: ApiService, public localeServie?: LocaleService) {
+    }
 
     abstract loadInitialData(): void;
+
     abstract onScrollDown($event: IInfiniteScrollEvent): void;
+
     abstract onScrollUp($event: IInfiniteScrollEvent): void;
+
     abstract onSearch(): void;
 
     public onReset(): void {
-        this.searchForm.reset();
+        this.searchSimpleForm.reset();
+        console.log('reset')
         this.onSearch();
     }
+
     public onLoadDetail(urn: string): void {
         this.dataDetail = new Resource(urn);
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
@@ -47,5 +55,19 @@ export abstract class BaseBasicSearchComponent {
 
     public updateDetailForm(): void {
         this.detailForm.patchValue(this.dataDetail);
+    }
+
+    onSearchSimple(): void {
+        if (this.searchSimpleForm.valid) {
+            this.mapper(this.searchForm.controls);
+        }
+    }
+
+    private mapper<T>(obj: T) {
+        // @ts-ignore
+        Object.keys(obj).forEach((key) => {
+            // @ts-ignore
+            obj[key] = this.searchSimpleForm.value.filter;
+        });
     }
 }

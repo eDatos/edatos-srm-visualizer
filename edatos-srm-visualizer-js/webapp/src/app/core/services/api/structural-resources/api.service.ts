@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ConfigService } from '../../config/config.service';
+import { SimpleSearchFilter } from '../../filters/simple-search-filter';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,10 @@ export abstract class ApiService {
 
     ALL_ELEMENTS: string = '~all';
 
-    constructor(protected httpClient: HttpClient, protected config: ConfigService) {}
+    protected simpleSearchFilter: SimpleSearchFilter = new SimpleSearchFilter();
+
+    protected constructor(protected httpClient: HttpClient, protected config: ConfigService) {
+    }
 
     public loadConfiguration() {
         this.config.getApiStructuralResources().subscribe((url) => {
@@ -57,8 +61,6 @@ export abstract class ApiService {
 
     public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
         let query = this.buildQueryFromForm(form);
-        console.log('QUERY', query);
-        console.log('this.apiSearchUrl ', this.apiSearchUrl);
         return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
@@ -78,8 +80,12 @@ export abstract class ApiService {
 
     private getData(url: string, query?: string): Observable<any> {
         if (query) {
-            url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
-            this.httpClient.get<any>(url);
+            if(this.apiSearchUrl.includes('codelistfamilies')) {
+                let text = '?query='
+                url = url.concat(text.concat(encodeURIComponent(query)));
+            } else {
+                url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
+            }
         }
         return this.httpClient.get<any>(url);
     }
@@ -98,14 +104,9 @@ export abstract class ApiService {
 
     private buildQueryFromForm(form?: FormGroup): string {
         let query = '';
-        let and = '';
         if (form) {
-            for (const element in form.controls) {
-                if (form.get(element)?.value) {
-                    query = query.concat(and.concat(element + ' ilike "' + form.get(element)?.value + '"'));
-                    and = ' AND ';
-                }
-            }
+            this.simpleSearchFilter.setValues(form.controls);
+            query = this.simpleSearchFilter.getCriteria();
         }
         return query;
     }

@@ -39,7 +39,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
-    loadDetailData() {
+    public loadDetailData() {
         this.dataDetail = {
             id: this.route.snapshot.paramMap.get('id')!,
             resourceId: this.route.snapshot.paramMap.get('resourceID')!,
@@ -66,7 +66,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
-    loadChildrensTreeData() {
+    public loadChildrensTreeData() {
         this.apiService.getChildrensTree(this.dataDetail!).subscribe((data) => {
             if (data) {
                 this.updateTableChildrensTreeNode(data);
@@ -75,7 +75,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
-    onDownloadSdmx() {
+    public onDownloadSdmx() {
         this.apiService.getFile().subscribe((blob) => {
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);

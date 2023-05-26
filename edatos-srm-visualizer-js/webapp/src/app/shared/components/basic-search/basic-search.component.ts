@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { Constants } from '../../models/constants';
-import { Resource } from '../../models/resources/resource.model';
-import { SearchConfig } from '../../models/search-config';
 import { BaseBasicSearchComponent } from './base-basic-search';
 
 @Component({
@@ -40,11 +37,14 @@ export abstract class BasicSearchComponent extends BaseBasicSearchComponent {
     public onScrollUp($event: IInfiniteScrollEvent) {}
 
     public onSearch(): void {
+        this.onSearchSimple();
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
+                if (this.searchConfig.resultSize = 0) {
+                    this.dataSearch = new Array();
+                }
             });
         }
     }
-
 }
