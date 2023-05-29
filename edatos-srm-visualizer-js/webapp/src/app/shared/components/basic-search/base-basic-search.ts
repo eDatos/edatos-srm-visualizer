@@ -40,7 +40,6 @@ export abstract class BaseBasicSearchComponent {
 
     public onReset(): void {
         this.searchSimpleForm.reset();
-        console.log('reset')
         this.onSearch();
     }
 

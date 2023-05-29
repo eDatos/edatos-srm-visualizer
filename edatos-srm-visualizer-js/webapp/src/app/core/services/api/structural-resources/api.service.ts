@@ -80,7 +80,7 @@ export abstract class ApiService {
 
     private getData(url: string, query?: string): Observable<any> {
         if (query) {
-            if(this.apiSearchUrl.includes('codelistfamilies')) {
+            if(this.apiSearchUrl.includes('codelist')) {
                 let text = '?query='
                 url = url.concat(text.concat(encodeURIComponent(query)));
             } else {
