@@ -46,7 +46,7 @@
                     <mat-progress-bar mode='indeterminate'></mat-progress-bar>
                 </div>
                 <mat-card-title>{{ 'concepts.concepts' | translate | uppercase }}</mat-card-title>
-                <mat-card-subtitle>{{searchConfig.resultSize}} Elementos</mat-card-subtitle>
+                <mat-card-subtitle>{{searchConfig.resultSize}} {{ 'elements' | translate }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
                 <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'"
