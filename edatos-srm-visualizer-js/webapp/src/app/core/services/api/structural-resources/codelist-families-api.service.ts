@@ -10,7 +10,7 @@ export class CodelistFamiliesApiService extends ApiService {
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
         this.apiSearchDataPath = 'codelistFamily';
-        this.apiSearchUrl = '/v1.0/codelistfamilies';
+        this.apiSearchUrl = '/v1.0/codelistfamilies/';
         this.apiDetailUrl = '/v1.0/codelistfamilies/{id}/';
     }
 }

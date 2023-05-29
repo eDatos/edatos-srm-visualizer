@@ -17,10 +17,6 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 export class FamilyDetailComponent extends BasicDetailComponent implements OnInit {
     constructor(formBuilder: FormBuilder, apiService: CodelistFamiliesApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
         super(formBuilder, apiService, route, localeService);
-        // this.apiDetail = environment.apiUrlCodeListsFamiliesDetail;
-        // // FIXME
-        // this.apiChildrens = environment.apiCoreConceptsSchemes;
-        // this.dataChildrensPath = 'concept';
 
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -35,7 +31,6 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
 
     onLoadDetail(element: string) {
         let resource = new Resource(element);
-        // FIXME
         this.router.navigate(['codelistfamilies', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 }
