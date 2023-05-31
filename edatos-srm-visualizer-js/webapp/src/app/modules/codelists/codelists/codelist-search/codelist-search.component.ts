@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from '../../../../shared/components/basic-search/basic-tree-search.component';
+import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 
 @Component({
     selector: 'app-codelist-search',

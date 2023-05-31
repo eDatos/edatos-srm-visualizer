@@ -4,8 +4,9 @@ import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from '../../../../shared/components/basic-search/basic-tree-search.component';
-import { TableTreeComponent } from '../../../../shared/components/table-tree/table-tree.component';
+import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
+
 
 @Component({
     selector: 'app-family-search',

@@ -4,8 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
-import { ConfigService } from '../../config/config.service';
-import { SimpleSearchFilter } from '../../filters/simple-search-filter';
+import { ConfigService } from 'src/app/core/services/config/config.service';
+import { SimpleSearchFilter } from 'src/app/core/services/filters/simple-search-filter';
 
 @Injectable({
     providedIn: 'root'

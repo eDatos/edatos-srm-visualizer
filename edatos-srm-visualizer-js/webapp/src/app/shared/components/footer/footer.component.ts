@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ComplementosService } from 'src/app/core/services/html/complementos.service';
-import { reinsertScripts } from '../../utils/htmlUtils';
+import { reinsertScripts } from 'src/app/shared/utils/htmlUtils';
 
 @Component({
   selector: 'app-footer',

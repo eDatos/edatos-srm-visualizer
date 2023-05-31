@@ -4,7 +4,6 @@ import { CodelistCodesApiService } from 'src/app/core/services/api/structural-re
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { environment } from 'src/environments/environments';
 
 @Component({
     selector: 'app-code-search',
