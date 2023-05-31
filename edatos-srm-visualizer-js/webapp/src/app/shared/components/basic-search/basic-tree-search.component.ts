@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { TreeNode } from '../../models/tree/tree-node';
-import { SearchConfig } from '../../models/search-config';
-import { Resource } from '../../models/resources/resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { SearchConfig } from 'src/app/shared/models/search-config';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-basic-tree-search',

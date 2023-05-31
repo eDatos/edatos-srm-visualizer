@@ -9,7 +9,6 @@ import { SchemesSearchComponent } from './schemes/schemes-search/schemes-search.
 import { SchemesDetailComponent } from './schemes/schemes-detail/schemes-detail.component';
 import { OrganizationsDetailComponent } from './organizations/organizations-detail/organizations-detail.component';
 import { OrganizationsSearchComponent } from './organizations/organizations-search/organizations-search.component';
-import { AppModule } from '../../app.module';
 
 
 @NgModule({
