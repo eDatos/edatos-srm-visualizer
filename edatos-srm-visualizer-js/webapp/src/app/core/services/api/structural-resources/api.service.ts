@@ -20,9 +20,9 @@ export abstract class ApiService {
 
     public apiDetailUrl: string = '';
 
-    public apiChildrensTreeUrl: string = '';
-    public apiChildrensUrl: string = '';
-    public apiChildrensDataPath: string = '';
+    public apiChildrenTreeUrl: string = '';
+    public apiChildrenUrl: string = '';
+    public apiChildrenDataPath: string = '';
 
     ALL_ELEMENTS: string = '~all';
 
@@ -55,8 +55,8 @@ export abstract class ApiService {
         return this.getDataFromStructureResource(api);
     }
 
-    public getChildrensTree(dataDetail: Resource): Observable<any> {
-        return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrensTreeUrl.replace('{urn}', dataDetail!.urn)));
+    public getChildrenTree(dataDetail: Resource): Observable<any> {
+        return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrenTreeUrl.replace('{urn}', dataDetail!.urn)));
     }
 
     public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {

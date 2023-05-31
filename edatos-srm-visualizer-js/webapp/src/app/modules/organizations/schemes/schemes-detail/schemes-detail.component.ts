@@ -35,7 +35,7 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         });
     }
 
-    public updateTableChildrensTreeNode(data: any): void {
+    public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.tabletreenode.dataSource.data = data;
         this.tabletreenode.treeControl.expandAll();

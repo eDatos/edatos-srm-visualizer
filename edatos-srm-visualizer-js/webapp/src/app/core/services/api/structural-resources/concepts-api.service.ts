@@ -14,8 +14,8 @@ export class ConceptsApiService extends ApiService {
     this.apiSearchDataPath = 'concept';
     this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/';
     this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/{id}';
-    this.apiChildrensUrl = '/api/concepts/{urn}/concepts';
-    this.apiChildrensTreeUrl = '/api/concepts/{urn}/concepts';
-    this.apiChildrensDataPath = '';
+    this.apiChildrenUrl = '/api/concepts/{urn}/concepts';
+    this.apiChildrenTreeUrl = '/api/concepts/{urn}/concepts';
+    this.apiChildrenDataPath = '';
   }
 }
