@@ -1,9 +1,7 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from '../config/config.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { map, mergeMap, Observable } from 'rxjs';
-import { environment } from 'src/environments/environments';
-import { AppComponent } from 'src/app/app.component';
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateService } from '@ngx-translate/core';
 

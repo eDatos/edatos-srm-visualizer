@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Constants } from 'src/app/shared/models/constants';
 import { LocalisedString } from 'src/app/shared/models/localised-string.model';
-import { DEFAULT_LANG } from '../../app.constants';
+import { DEFAULT_LANG } from 'src/app/app.constants';
 
 @Injectable({
     providedIn: 'root'

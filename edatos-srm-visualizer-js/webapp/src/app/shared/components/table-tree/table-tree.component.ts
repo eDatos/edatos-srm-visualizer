@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { FlatTreeNode } from '../../models/tree/flat-tree-node';
-import { TreeNode } from '../../models/tree/tree-node';
+import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 
 
 @Component({
@@ -46,8 +46,7 @@ export class TableTreeComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private apiService: ApiService, private localeService: LocaleService) {
-  }
+  constructor(private apiService: ApiService, private localeService: LocaleService) {}
 
 
   onClickResource(resource: string) {
