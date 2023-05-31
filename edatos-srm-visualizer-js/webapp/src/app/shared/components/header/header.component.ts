@@ -1,6 +1,6 @@
-import { ComplementosService } from '../../../core/services/html/complementos.service';
+import { ComplementosService } from 'src/app/core/services/html/complementos.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { reinsertScripts } from '../../utils/htmlUtils';
+import { reinsertScripts } from 'src/app/shared/utils/htmlUtils';
 
 @Component({
     selector: 'app-header',
