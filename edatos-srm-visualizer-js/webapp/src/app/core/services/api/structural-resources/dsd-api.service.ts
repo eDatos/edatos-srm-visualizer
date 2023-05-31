@@ -10,7 +10,7 @@ export class DsdApiService extends ApiService {
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
         this.apiSearchDataPath = 'dataStructure';
-        this.apiSearchUrl = '/v1.0/datastructures';
+        this.apiSearchUrl = '/v1.0/datastructures/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/datastructures/{agencyID}/{resourceID}/{version}';
     }
 }
