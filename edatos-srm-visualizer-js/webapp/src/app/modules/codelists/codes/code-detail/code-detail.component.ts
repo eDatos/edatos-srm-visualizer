@@ -17,7 +17,7 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
 
     constructor(formBuilder: FormBuilder, apiService: CodelistCodesApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
         super(formBuilder, apiService, route, localeService);
-        this.showChildrensTree = true;
+        this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -29,7 +29,7 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
         });
     }
 
-    public updateTableChildrensTreeNode(data: any): void {
+    public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.tabletreenode.dataSource.data = data;
         this.tabletreenode.treeControl.expandAll();

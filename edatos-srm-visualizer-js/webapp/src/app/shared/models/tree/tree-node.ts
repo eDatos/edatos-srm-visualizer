@@ -5,5 +5,5 @@ export interface TreeNode {
     count?: number;
     children?: TreeNode[];
     version?: string;
-    urlChildrens?: string;
+    urlChildren?: string;
 }

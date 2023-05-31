@@ -23,15 +23,15 @@ export abstract class BasicTreeDetailComponent implements OnInit {
     dataDetail: Resource | undefined;
 
     apiSDMX: boolean = false;
-    showChildrensTree: boolean = false;
+    showChildrenTree: boolean = false;
 
-    isDataWithChildrensTree: boolean = true;
-    dataChildrensLoaded: boolean = false;
-    dataChildrens: TreeNode[] = [];
+    isDataWithChildrenTree: boolean = true;
+    dataChildrenLoaded: boolean = false;
+    dataChildren: TreeNode[] = [];
 
     constructor(public formBuilder: FormBuilder, public apiService: ApiService, public route: ActivatedRoute, public localeService: LocaleService) {}
 
-    public abstract updateTableChildrensTreeNode(data: any): void;
+    public abstract updateTableChildrenTreeNode(data: any): void;
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
@@ -52,8 +52,8 @@ export abstract class BasicTreeDetailComponent implements OnInit {
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
             this.updateDataDetail(data);
-            if (this.isDataWithChildrensTree) {
-                this.loadChildrensTreeData();
+            if (this.isDataWithChildrenTree) {
+                this.loadChildrenTreeData();
             }
             // FIXME
             // } else {
@@ -66,11 +66,11 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
-    public loadChildrensTreeData() {
-        this.apiService.getChildrensTree(this.dataDetail!).subscribe((data) => {
+    public loadChildrenTreeData() {
+        this.apiService.getChildrenTree(this.dataDetail!).subscribe((data) => {
             if (data) {
-                this.updateTableChildrensTreeNode(data);
-                this.dataChildrensLoaded = true;
+                this.updateTableChildrenTreeNode(data);
+                this.dataChildrenLoaded = true;
             }
         });
     }
