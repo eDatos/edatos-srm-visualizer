@@ -15,6 +15,10 @@ export class CodesSearchComponent extends BasicTreeSearchComponent implements On
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
     constructor(private formBuilder: FormBuilder, protected override apiService: DsdApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
+
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: ''
+        });
         
         this.searchForm = this.formBuilder.group({
             id: '',
