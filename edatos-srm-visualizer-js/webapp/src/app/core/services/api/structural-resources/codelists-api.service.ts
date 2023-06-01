@@ -11,7 +11,7 @@ export class CodelistsApiService extends ApiService {
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
         this.apiSearchDataPath = 'codelist';
-        this.apiSearchUrl = '/v1.0/codelists';
+        this.apiSearchUrl = '/v1.0/codelists/';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
     }
 }

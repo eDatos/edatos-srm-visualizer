@@ -24,7 +24,6 @@ export abstract class BasicTreeSearchComponent {
 
     public detailForm: any;
 
-    public dataSearchLoaded: boolean = false;
     public dataDetail: Resource | undefined;
     public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];

@@ -16,6 +16,10 @@ export class CodeSearchComponent extends BasicTreeSearchComponent implements OnI
     constructor(private formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
 
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: ''
+        });
+
         this.searchForm = this.formBuilder.group({
             id: '',
             name: '',

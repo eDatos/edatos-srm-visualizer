@@ -17,7 +17,7 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
 
     constructor(formBuilder: FormBuilder, apiService: ConceptsApiService, private router: Router, route: ActivatedRoute, localeService: LocaleService) {
         super(formBuilder, apiService, route, localeService);
-        this.showChildrensTree = true;
+        this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -26,7 +26,7 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
         });
     }
 
-    public updateTableChildrensTreeNode(data: any): void {
+    public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.tabletreenode.dataSource.data = data;
         this.tabletreenode.treeControl.expandAll();
