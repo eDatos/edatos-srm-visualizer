@@ -35,21 +35,21 @@
                 <div class='in-line'>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                        <input formControlName='id' matInput placeholder='Placeholder'>
+                        <input formControlName='id' matInput >
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                        <input formControlName='name' matInput placeholder='Placeholder'>
+                        <input formControlName='name' matInput >
                     </mat-form-field>
                 </div>
                 <mat-form-field appearance='outline' class='mlr input'>
                     <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                    <input formControlName='description' matInput placeholder='Placeholder'>
+                    <input formControlName='description' matInput >
                 </mat-form-field>
 
                 <mat-form-field appearance='outline' class='mlr input'>
                     <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                    <input formControlName='urn' matInput placeholder='Placeholder'>
+                    <input formControlName='urn' matInput >
                 </mat-form-field>
 
                 <div class='in-line align-right'>
@@ -69,17 +69,17 @@
     <div class='in-line'>
         <mat-card mat-elevation-z15 class='box'>
             <mat-card-header>
-                <div *ngIf='!dataChildrensLoaded'>
+                <div *ngIf='!dataChildrenLoaded'>
                     <mat-progress-bar mode='indeterminate'></mat-progress-bar>
                 </div>
                 <mat-card-title>{{ 'concepts.concepts' | translate | uppercase }}</mat-card-title>
-                <mat-card-subtitle>{{searchConfig.resultSize}} Elementos</mat-card-subtitle>
+                <mat-card-subtitle>{{searchConfig.resultSize}} {{ 'elements' | translate }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'"
+                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'"
                      [scrollWindow]='false' infinite-scroll
                      (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-                    <app-table-tree #tabletreenode [data]='dataChildrens'
+                    <app-table-tree #tabletreenode [data]='dataChildren'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
             </mat-card-content>
@@ -94,19 +94,19 @@
                 <div [formGroup]='detailForm' class='container'>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                        <input formControlName='id' matInput placeholder='Placeholder'>
+                        <input formControlName='id' matInput >
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                        <input formControlName='name' matInput placeholder='Placeholder'>
+                        <input formControlName='name' matInput >
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                        <input formControlName='urn' matInput placeholder='Placeholder'>
+                        <input formControlName='urn' matInput >
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                        <input formControlName='description' matInput placeholder='Placeholder'>
+                        <input formControlName='description' matInput >
                     </mat-form-field>
                     <div class='in-line align-right' *ngIf='this.dataDetail'>
                         <button mat-raised-button color='primary' class='ml'

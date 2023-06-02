@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts-api.service';
 import { MultiSelect } from 'primeng/multiselect';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-tree-search/basic-tree-search.component';
+import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -20,7 +20,7 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     selectedItems = [];
     selectedFields: string[] = [];
     
-    constructor(private formBuilder: FormBuilder, apiService: ConceptsApiService, private localeService: LocaleService) {
+    constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
 
         this.searchForm = this.formBuilder.group({

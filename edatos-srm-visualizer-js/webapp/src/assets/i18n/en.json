@@ -1,5 +1,5 @@
 {
-  "title": "",
+  "title": "Visualizer",
   "searchEngine": "Search Engine",
   "search": "Search",
   "clear": "Clear",
@@ -8,6 +8,7 @@
   "download": {
     "sdmx-xml": "Download SDMX-XML"
   },
+  "elements": "Elements",
   "resourceParameters": {
     "id": "ID",
     "name": "Name",
@@ -34,6 +35,7 @@
     "parameters": {}
   },
   "dsd": {
+    "definitionDataStructures" : "Definition Data Structures(DSD)",
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",

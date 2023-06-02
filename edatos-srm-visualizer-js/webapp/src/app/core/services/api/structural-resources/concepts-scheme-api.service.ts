@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ConfigService } from '../../config/config.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class ConceptsSchemeApiService extends ApiService {
         this.apiSearchDataPath = 'conceptScheme';
         this.apiSearchUrl = '/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
-        this.apiChildrensUrl = '/v2.1/conceptscheme/{agencyID}/{resourceID}/{version}';
-        this.apiChildrensTreeUrl = '/api/concepts/schemes/{urn}/concepts';
-        this.apiChildrensDataPath = 'concept';
+        this.apiChildrenUrl = '/v2.1/conceptscheme/{agencyID}/{resourceID}/{version}';
+        this.apiChildrenTreeUrl = '/api/concepts/schemes/{urn}/concepts';
+        this.apiChildrenDataPath = 'concept';
     }
 }

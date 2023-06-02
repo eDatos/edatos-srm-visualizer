@@ -8,6 +8,7 @@
   "download": {
     "sdmx-xml": "Descargar SDMX-XML"
   },
+  "elements": "Elementos",
   "resourceParameters": {
     "id": "ID",
     "name": "Nombre",
@@ -34,6 +35,7 @@
     "parameters": {}
   },
   "dsd": {
+    "definitionDataStructures" : "Definición de Estructuras de Datos(DSD)",
     "dsd": "DSD",
     "dsdDetails": "Detalles del DSD",
     "datastructures": "Códigos",

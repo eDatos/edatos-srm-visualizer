@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConceptsNavbarComponent } from './concepts-navbar.component';
 
-import { ConceptsNavbarComponent } from '../concepts-search/concepts-search.component';
 
 describe('ConceptsNavbarComponent', () => {
   let component: ConceptsNavbarComponent;

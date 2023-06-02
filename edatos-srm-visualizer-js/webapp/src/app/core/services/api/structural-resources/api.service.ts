@@ -4,30 +4,34 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
-import { ConfigService } from '../../config/config.service';
+import { ConfigService } from 'src/app/core/services/config/config.service';
+import { SimpleSearchFilter } from 'src/app/core/services/filters/simple-search-filter';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export abstract class ApiService {
     public static apiStructuralResource: string = '';
     public static apiInternalDomain: string = '';
     public static apiSdmx: string = '';
 
-    apiSearchDataPath: string = '';
-    apiSearchUrl: string = '';
+    public apiSearchDataPath: string = '';
+    public apiSearchUrl: string = '';
 
-    apiDetailUrl: string = '';
+    public apiDetailUrl: string = '';
 
-    apiChildrensTreeUrl: string = '';
-    apiChildrensUrl: string = '';
-    apiChildrensDataPath: string = '';
+    public apiChildrenTreeUrl: string = '';
+    public apiChildrenUrl: string = '';
+    public apiChildrenDataPath: string = '';
 
     ALL_ELEMENTS: string = '~all';
 
-    constructor(protected httpClient: HttpClient, protected config: ConfigService) {}
+    protected simpleSearchFilter: SimpleSearchFilter = new SimpleSearchFilter();
 
-    loadConfiguration() {
+    protected constructor(protected httpClient: HttpClient, protected config: ConfigService) {
+    }
+
+    public loadConfiguration() {
         this.config.getApiStructuralResources().subscribe((url) => {
             ApiService.apiStructuralResource = url;
         });
@@ -38,11 +42,11 @@ export abstract class ApiService {
         ApiService.apiInternalDomain = this.config.getDomainInternal();
     }
 
-    getFile(): Observable<Blob> {
+    public getFile(): Observable<Blob> {
         return this.httpClient.get(ApiService.apiSdmx, { responseType: 'blob' });
     }
 
-    getDetailFromStructureResource(resource: Resource): Observable<any> {
+    public getDetailFromStructureResource(resource: Resource): Observable<any> {
         let api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
@@ -51,16 +55,16 @@ export abstract class ApiService {
         return this.getDataFromStructureResource(api);
     }
 
-    getChildrensTree(dataDetail: Resource): Observable<any> {
-        return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrensTreeUrl.replace('{urn}', dataDetail!.urn)));
+    public getChildrenTree(dataDetail: Resource): Observable<any> {
+        return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrenTreeUrl.replace('{urn}', dataDetail!.urn)));
     }
 
-    getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+    public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
         let query = this.buildQueryFromForm(form);
         return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
-    getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
+    public getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
         if (searchConfig) {
             return this.getDataWithOffset(ApiService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
         }
@@ -76,8 +80,12 @@ export abstract class ApiService {
 
     private getData(url: string, query?: string): Observable<any> {
         if (query) {
-            url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
-            this.httpClient.get<any>(url);
+            if(this.apiSearchUrl.includes('codelist')) {
+                let text = '?query='
+                url = url.concat(text.concat(encodeURIComponent(query)));
+            } else {
+                url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
+            }
         }
         return this.httpClient.get<any>(url);
     }
@@ -96,14 +104,9 @@ export abstract class ApiService {
 
     private buildQueryFromForm(form?: FormGroup): string {
         let query = '';
-        let and = '';
         if (form) {
-            for (const element in form.controls) {
-                if (form.get(element)?.value) {
-                    query = query.concat(and.concat(element + ' ilike "' + form.get(element)?.value + '"'));
-                    and = ' AND ';
-                }
-            }
+            this.simpleSearchFilter.setValues(form.controls);
+            query = this.simpleSearchFilter.getCriteria();
         }
         return query;
     }

@@ -4,8 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd-api.service';
 import {LocaleService} from 'src/app/core/services/locale.service';
 import {Resource} from 'src/app/shared/models/resources/resource.model';
-import {TableTreeComponent} from "../../../../shared/components/table-tree/table-tree.component";
-import {BasicTreeDetailComponent} from "../../../../shared/components/basic-tree-detail/basic-tree-detail.component";
+import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
+import {BasicTreeDetailComponent} from "src/app/shared/components/basic-tree-detail/basic-tree-detail.component";
 
 @Component({
     selector: 'app-codes-detail',
@@ -29,7 +29,7 @@ export class CodesDetailComponent extends BasicTreeDetailComponent implements On
         });
     }
 
-    public updateTableChildrensTreeNode(data: any): void {
+    public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.tabletreenode.dataSource.data = data;
         this.tabletreenode.treeControl.expandAll();

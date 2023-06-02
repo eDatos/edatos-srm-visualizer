@@ -12,19 +12,20 @@ import { OrganizationsSearchComponent } from './organizations/organizations-sear
 
 
 @NgModule({
-  declarations: [
-  
-    OrganizationsNavbarComponent,
-       SchemesSearchComponent,
-       SchemesDetailComponent,
-       OrganizationsDetailComponent,
-       OrganizationsSearchComponent
-  ],
-  imports: [
-    CommonModule,
-    OrganizationsRoutingModule,
-    SharedModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+
+        OrganizationsNavbarComponent,
+        SchemesSearchComponent,
+        SchemesDetailComponent,
+        OrganizationsDetailComponent,
+        OrganizationsSearchComponent
+    ],
+    imports: [
+        CommonModule,
+        OrganizationsRoutingModule,
+        SharedModule,
+        ReactiveFormsModule
+    ]
 })
-export class OrganizationsModule { }
+export class OrganizationsModule {
+}

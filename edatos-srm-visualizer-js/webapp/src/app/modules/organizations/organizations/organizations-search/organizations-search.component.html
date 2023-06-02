@@ -8,11 +8,11 @@
                 <div class='in-line'>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                        <input formControlName='id' matInput placeholder='Placeholder'>
+                        <input formControlName='id' matInput >
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                        <input formControlName='name' matInput placeholder='Placeholder'>
+                        <input formControlName='name' matInput >
                     </mat-form-field>
                 </div>
                 <mat-form-field appearance='outline' class='mlr input'>
@@ -41,17 +41,19 @@
     <br>
     <div class='in-line'>
         <mat-card mat-elevation-z15 class='box'>
-            <div *ngIf='!dataChildrensLoaded'>
+            <div *ngIf='!dataChildrenLoaded'>
                 <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
             <mat-card-header>
                 <mat-card-title>{{ 'organizations.organizations' | translate | uppercase }}</mat-card-title>
-                <mat-card-subtitle>{{searchConfig.resultSize}} Elementos</mat-card-subtitle>
+                <mat-card-subtitle>{{searchConfig.resultSize}} {{ 'elements' | translate }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
 
-                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]='dataChildrens'
+                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'"
+                     [scrollWindow]='false' infinite-scroll
+                     (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
+                    <app-table-tree #tabletreenode [data]='dataChildren'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
 
