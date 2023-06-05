@@ -8,7 +8,6 @@ import { ApiService } from './api.service';
 })
 export class OrganizationsApiService extends ApiService{
 
-
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations';
