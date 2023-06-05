@@ -10,6 +10,7 @@ export class OrganizationsSchemeApiService extends ApiService {
 
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
+    this.apiSearchDataPath = 'organisationScheme';
     this.apiSearchUrl = '/v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
   }
