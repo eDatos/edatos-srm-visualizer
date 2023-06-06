@@ -47,7 +47,7 @@ export abstract class BasicTreeSearchComponent {
 
     public onScrollDown($event: IInfiniteScrollEvent) {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        this.apiService.getSearch(this.searchConfig).subscribe((data) => {
+        this.apiService.getSearch(this.searchConfig, this.buildQueryResultOffset()).subscribe((data) => {
             if(data[this.apiService.apiSearchDataPath]) {
                 this.dataSearch.push(...data[this.apiService.apiSearchDataPath]);
                 this.dataChildren = this.dataSearch.map((resource) => {
@@ -59,6 +59,14 @@ export abstract class BasicTreeSearchComponent {
                 });
             }
         });
+    }
+
+    private buildQueryResultOffset() {
+        let query = '';
+        if (this.searchForm.valid) {
+            query = this.apiService.buildQueryFromForm(this.searchForm);
+        }
+        return query;
     }
 
     public onScrollUp($event: IInfiniteScrollEvent) {}
