@@ -10,8 +10,12 @@ export class CategoriesApiService extends ApiService{
   
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
+    this.apiSearchDataPath = 'category';
     this.apiSearchUrl = '/v1.0/categoryschemes/~all/~all/~latest/categories';
     this.apiDetailUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}/categories/{id}';
+    this.apiChildrenUrl = '/api/categories/{urn}/categories';
+    this.apiChildrenTreeUrl = '/api/categories/{urn}/categories';
+    this.apiChildrenDataPath = '';
   }
 
 
