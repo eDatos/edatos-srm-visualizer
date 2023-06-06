@@ -16,6 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { catchError, Observable } from 'rxjs';
 import { MissingTranslationCustomHandler } from './core/handler/missing-translation-custom-handler';
 import { ScriptLoaderModule } from 'ngx-script-loader';
+import { MatIconModule } from '@angular/material/icon';
 
 
 class CustomTranslateHttpLoader extends TranslateHttpLoader {
@@ -62,6 +63,7 @@ export function initTranslations(translateService: TranslateService, cookieServi
         BrowserAnimationsModule,
         BrowserModule,
         HttpClientModule,
+        MatIconModule,
         ScriptLoaderModule,
         StructuralResourcesModule,
         TranslateModule.forRoot({

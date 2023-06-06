@@ -18,6 +18,7 @@ export class CategoriesDetailComponent extends BasicTreeDetailComponent implemen
 
     constructor(formBuilder: FormBuilder, apiService: CategoriesApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
         super(formBuilder, apiService, route, localeService);
+        this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -37,7 +38,6 @@ export class CategoriesDetailComponent extends BasicTreeDetailComponent implemen
 
     onLoadDetail(element: string) {
         let resource = new Resource(element);
-        // FIXME
-        this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 }

@@ -22,29 +22,16 @@ import com.google.gson.Gson;
 @RequestMapping("/api/categories")
 public class CategoriesResource extends GenericResource {
 
-    private final String urlApiChildrens;
-
     @Autowired
     public CategoriesResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
         super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/categoryschemes/~all/~all/~latest/categories?query=PARENT%20eq%20%27#ID#%27"), urnService);
-        this.urlApiChildrens = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/categoryschemes/#AGENCY#/#SCHEME#/#VERSION#/categories");
     }
 
     @GetMapping("/{urn}/categories")
-    public String getChildrensFromCategories (@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-        RestTemplate restTemplate = new RestTemplate();
-        Categories categories = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrens), Categories.class).getBody();
-        if (categories != null) {
-            List<TreeNode> result = new ArrayList<>();
-            for (ItemResource category : categories.getCategories()) {
-                TreeNode treeNode = new TreeNode(category.getUrn(), loadInternationalString(category.getName().getTexts(), lang));
-                treeNode.getChildren().addAll(loadChildren(category.getUrn(), lang));
-                result.add(treeNode);
-            }
+    public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
+        if (!urn.isEmpty()) {
             Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return gson.toJson(loadChildren(urn, lang));
         }
         return "";
     }
