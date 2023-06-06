@@ -6,7 +6,7 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import {
     OrganizationsSchemeApiService
-} from 'src/app/core/services/api/structural-resources/organizations-scheme-api.service';
+} from 'src/app/core/services/api/structural-resources/organizations/organizations-scheme-api.service';
 
 @Component({
     selector: 'app-schemes-detail',

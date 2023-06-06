@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd-api.service';
+import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import {LocaleService} from 'src/app/core/services/locale.service';
 import {Resource} from 'src/app/shared/models/resources/resource.model';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';

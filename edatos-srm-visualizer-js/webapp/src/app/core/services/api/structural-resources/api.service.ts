@@ -78,37 +78,41 @@ export abstract class ApiService {
         return this.getData(ApiService.apiStructuralResource.concat(api), query);
     }
 
-    private getData(url: string, query?: string): Observable<any> {
-        if (query) {
-            if(this.apiSearchUrl.includes('codelist')) {
-                let text = '?query='
-                url = url.concat(text.concat(encodeURIComponent(query)));
-            } else {
-                url = url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
-            }
-        }
-        return this.httpClient.get<any>(url);
-    }
-
     private getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
         if (query) {
-            return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)).concat(encodeURIComponent(query)));
+            return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query)));
         }
         return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)));
     }
 
-    private buildUrlOfQuery(url: string, query: string): string {
-        let beginParamurl = url.includes('?') ? ' AND ' : '?query=';
-        return beginParamurl.concat(query);
+    private getData(url: string, query?: string): Observable<any> {
+        if (query) {
+            url = this.buildQueryUrl(url, query);
+        }
+        return this.httpClient.get<any>(url);
     }
 
-    private buildQueryFromForm(form?: FormGroup): string {
+    public buildQueryFromForm(form?: FormGroup): string {
         let query = '';
         if (form) {
             this.simpleSearchFilter.setValues(form.controls);
             query = this.simpleSearchFilter.getCriteria();
         }
         return query;
+    }
+
+    private buildQueryUrl(url: string, query: string) {
+        if (!this.apiSearchUrl.includes('?query=')) {
+            let text = '?query=';
+            return url.concat(text.concat(encodeURIComponent(query)));
+        } else {
+            return url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
+        }
+    }
+
+    private buildUrlOfQuery(url: string, query: string): string {
+        let beginParamurl = url.includes('?') ? ' AND ' : '?query=';
+        return beginParamurl.concat(query);
     }
 
     private getResultLimit(url: string, searchConfig: SearchConfig): string {

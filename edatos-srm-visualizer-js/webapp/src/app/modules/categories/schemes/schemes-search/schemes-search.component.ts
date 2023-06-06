@@ -6,7 +6,7 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 
 import {
     CategoriesSchemeApiService
-} from 'src/app/core/services/api/structural-resources/categories-scheme-api.service';
+} from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
 
 @Component({
     selector: 'app-schemes-search',
