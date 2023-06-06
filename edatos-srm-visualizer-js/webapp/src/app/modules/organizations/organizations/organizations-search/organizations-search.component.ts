@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
-import { OrganizationsApiService } from 'src/app/core/services/api/structural-resources/organizations-api.service';
+import { OrganizationsApiService } from 'src/app/core/services/api/structural-resources/organizations/organizations-api.service';
 
 @Component({
     selector: 'app-organizations-search',
@@ -15,6 +15,10 @@ export class OrganizationsSearchComponent extends BasicTreeSearchComponent imple
 
     constructor(private formBuilder: FormBuilder, protected override apiService: OrganizationsApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
+
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: ''
+        });
 
         this.searchForm = this.formBuilder.group({
             id: '',
