@@ -31,29 +31,8 @@ import lombok.extern.slf4j.Slf4j;
         this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/codelists/#AGENCY#/#SCHEME#/#VERSION#/codes");
     }
 
-    @GetMapping("/codelists/{urn}/codes")
-    public String getChildrenFromScheme(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-        log.debug("Search soon {}", urn);
-        RestTemplate restTemplate = new RestTemplate();
-        Codes codes = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Codes.class).getBody();
-        if (codes != null) {
-            List<TreeNode> result = new ArrayList<>();
-            for (ItemResource code : codes.getCodes()) {
-                TreeNode treeNode = new TreeNode(code.getUrn(), loadInternationalString(code.getName().getTexts(), lang));
-                treeNode.getChildren().addAll(loadChildren(code.getUrn(), lang));
-                result.add(treeNode);
-            }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
-        }
-        return "";
-    }
-
     @GetMapping("/{urn}/codes")
     public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-
         if (!urn.isEmpty()) {
             Gson gson = new Gson();
             return gson.toJson(loadChildren(urn, lang));

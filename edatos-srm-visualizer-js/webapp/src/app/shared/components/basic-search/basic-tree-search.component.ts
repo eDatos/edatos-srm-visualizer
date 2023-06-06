@@ -47,16 +47,26 @@ export abstract class BasicTreeSearchComponent {
 
     public onScrollDown($event: IInfiniteScrollEvent) {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        this.apiService.getSearch(this.searchConfig).subscribe((data) => {
-            this.dataSearch.push(...data[this.apiService.apiSearchDataPath]);
-            this.dataChildren = this.dataSearch.map((resource) => {
-                return {
-                    name: this.localeService ? this.localeService.getTextValue(resource.name.text) : ' ',
-                    id: resource.id,
-                    urn: resource.urn
-                };
-            });
+        this.apiService.getSearch(this.searchConfig, this.buildQueryResultOffset()).subscribe((data) => {
+            if(data[this.apiService.apiSearchDataPath]) {
+                this.dataSearch.push(...data[this.apiService.apiSearchDataPath]);
+                this.dataChildren = this.dataSearch.map((resource) => {
+                    return {
+                        name: this.localeService ? this.localeService.getTextValue(resource.name.text) : ' ',
+                        id: resource.id,
+                        urn: resource.urn
+                    };
+                });
+            }
         });
+    }
+
+    private buildQueryResultOffset() {
+        let query = '';
+        if (this.searchForm.valid) {
+            query = this.apiService.buildQueryFromForm(this.searchForm);
+        }
+        return query;
     }
 
     public onScrollUp($event: IInfiniteScrollEvent) {}
@@ -84,7 +94,6 @@ export abstract class BasicTreeSearchComponent {
 
     public onReset(): void {
         this.searchSimpleForm.reset();
-        console.log('reset')
         this.onSearch();
     }
 

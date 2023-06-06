@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts-api.service';
+import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
 import { MultiSelect } from 'primeng/multiselect';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
