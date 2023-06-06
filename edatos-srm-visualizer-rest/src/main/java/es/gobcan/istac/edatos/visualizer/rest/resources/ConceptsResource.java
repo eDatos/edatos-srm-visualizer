@@ -21,7 +21,10 @@ import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionServ
 import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j @RestController() @RequestMapping("/api/concepts") public class ConceptsResource extends GenericResource {
+@Slf4j
+@RestController()
+@RequestMapping("/api/concepts")
+public class ConceptsResource extends GenericResource {
 
     private final String urlApiChildrenDetails;
 
