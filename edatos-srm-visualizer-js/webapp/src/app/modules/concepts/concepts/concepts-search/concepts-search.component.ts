@@ -15,10 +15,11 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
     advancedSearch = false;
     fields: any[];
-    item = '';
-    checkbox = 'fa-thin fa-toggle-off';
-    selectedItems = [];
-    selectedFields: string[] = [];
+    showAllVersions = true;
+    selectedDefault: any[]= [];
+    filter = '';
+    marked = false;
+ 
     
     constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
@@ -28,8 +29,6 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
             name: '',
             urn: '',
             description: '',
-            inputSearch: '',
-            selectedFields:  []
         });
 
         this.detailForm = this.formBuilder.group({
@@ -40,13 +39,21 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
             version: '',
             scheme: '',
         });
+
         this.fields = [
-            { name: "Identificador" },
-            { name: "Nombre" },
-            { name: "Descripción" },
-            { name: "Esquema" }
-          ];
-          
+            { name: "Identificador", value: 'id' },
+            { name: "Nombre", value: 'name' },
+            { name: "Descripción", value: 'description' },
+            { name: "Esquema", value: 'urn' }
+        ];
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: '',
+            selectedFields:  [this.selectedDefault],
+            showAllVersions: [true],
+        });
+
     }
     
 
@@ -58,38 +65,22 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
         this.onSearch();
     }
 
-    isAdvancedSearch() {
-        return this.advancedSearch;
-    }
 
-    showAdvancedSearch() {
-        this.advancedSearch = true;
-    }
-    checkValue(event: any){
+    checkValue(event: any) {
         console.log(event);
-     }
+    }
 
-     marked = false;
-  theCheckbox = false;
+    toggleVisibility(e: any) {
+        this.marked = e.checked;
+    }
 
-  
-  toggleVisibility(e: any){
-    this.marked= e.target.checked;
-  }
+    handleOnPanelShow() {
+        this.multiSelect.dropdownIcon = 'fa-solid fa-chevron-up';
+    }
 
-  handleOnPanelShow() {
-    this.multiSelect.dropdownIcon = 'fa-solid fa-chevron-up';
-}
-
-handleOnPanelHide() {
-this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
-
-}
+    handleOnPanelHide() {
+        this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
+    }
 
 
-
-    openPanel() {
-        this.multiSelect.show();
-
-      }
 }
