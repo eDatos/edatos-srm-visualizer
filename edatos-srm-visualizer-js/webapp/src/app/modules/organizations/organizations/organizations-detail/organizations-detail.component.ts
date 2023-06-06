@@ -5,7 +5,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { OrganizationsApiService } from 'src/app/core/services/api/structural-resources/organizations-api.service';
+import { OrganizationsApiService } from 'src/app/core/services/api/structural-resources/organizations/organizations-api.service';
 
 @Component({
     selector: 'app-organizations-detail',

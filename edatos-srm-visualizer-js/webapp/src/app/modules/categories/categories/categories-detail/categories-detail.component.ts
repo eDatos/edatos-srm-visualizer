@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesApiService } from 'src/app/core/services/api/structural-resources/categories-api.service';
+import { CategoriesApiService } from 'src/app/core/services/api/structural-resources/categories/categories-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 
