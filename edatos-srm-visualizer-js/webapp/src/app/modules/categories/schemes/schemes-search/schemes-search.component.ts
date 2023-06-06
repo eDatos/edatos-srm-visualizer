@@ -19,6 +19,10 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
     constructor(private formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService, protected override  localeService: LocaleService) {
         super(apiService, localeService);
 
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: ''
+        });
+
         this.searchForm = this.formBuilder.group({
             id: '',
             name: '',
