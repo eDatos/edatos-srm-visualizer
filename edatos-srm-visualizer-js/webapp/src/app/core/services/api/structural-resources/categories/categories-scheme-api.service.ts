@@ -10,6 +10,7 @@ export class CategoriesSchemeApiService extends ApiService {
 
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
+    this.apiSearchDataPath = 'categoryScheme';
     this.apiSearchUrl = '/v1.0/categoryschemes/?query=LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
   }
