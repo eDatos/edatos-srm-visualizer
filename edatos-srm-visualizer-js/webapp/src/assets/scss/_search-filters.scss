@@ -5,19 +5,19 @@
     width: 1240px;
     height: 60px;
     margin-left: 15px;
-    & .title {
+    .title {
         width: 118px;
         font-weight: $font-weight-600;
     }
-    & .search-input {
+    .search-input {
         width: 929px;
     }
-    & .advanced-search {
+    .advanced-search {
         width: 1047px; //Para que busqueda avanzada estén en la misma posición
         height: 30px;
         gap: 14px;
         padding: 0px;
-        & .custom-control {
+        .custom-control {
             width: 212px;
         }
     }
@@ -53,11 +53,11 @@
     .p-multiselect.p-component.p-multiselect-open, .p-multiselect-panel {
         background-color: $color-azul-oscuro-100;
         width: 187px;
-        & .p-multiselect-label.p-placeholder, & .p-multiselect-trigger {
+        .p-multiselect-label.p-placeholder, .p-multiselect-trigger {
             color: $color-negro-0;
             font-weight: $font-weight-600;
         } 
-        & .p-multiselect-item {
+        .p-multiselect-item {
             color: $color-negro-0;
             font-weight: $font-weight-300;
         }
@@ -139,7 +139,7 @@
     .p-inputswitch.p-inputswitch-checked,
 .custom-switch 
     .p-inputswitch.p-inputswitch-checked:hover {
-        & .p-inputswitch-slider {
+        .p-inputswitch-slider {
             background: none;
         }
 }
