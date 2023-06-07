@@ -14,9 +14,14 @@
     "name": "Nombre",
     "urn": "URN",
     "description": "Descripción",
+    "scheme": "Esquema",
     "version": "Versión",
     "comments": "Comentarios",
-    "maintainer": "Mantenedor"
+    "maintainer": "Mantenedor",
+    "generalSearchEngine": "Buscador general",
+    "advancedSearch": "Búsqueda avanzada",
+    "showAllVersions": "Mostrar todas las versiones",
+    "displayedFields": "Campos a mostrar"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
