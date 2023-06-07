@@ -4,6 +4,7 @@ import { ConceptsApiService } from 'src/app/core/services/api/structural-resourc
 import { MultiSelect } from 'primeng/multiselect';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -21,7 +22,7 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     marked = false;
  
     
-    constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
+    constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService, private translateService: TranslateService) {
         super(apiService, localeService);
 
         this.searchForm = this.formBuilder.group({
@@ -41,10 +42,10 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
         });
 
         this.fields = [
-            { name: "Identificador", value: 'id' },
-            { name: "Nombre", value: 'name' },
-            { name: "Descripción", value: 'description' },
-            { name: "Esquema", value: 'urn' }
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'urn' }
         ];
         this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
 

@@ -11,6 +11,7 @@
   "elements": "Elementos",
   "resourceParameters": {
     "id": "ID",
+    "identifier": "Identificador",
     "name": "Nombre",
     "urn": "URN",
     "description": "Descripción",
