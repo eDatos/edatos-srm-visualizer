@@ -1,9 +1,7 @@
 package es.gobcan.istac.edatos.visualizer.core.config;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
