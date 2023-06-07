@@ -17,8 +17,8 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
-import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,8 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OrganisationsResource extends GenericResource {
 
     @Autowired
-    public OrganisationsResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/organisationschemes/~all/~all/~latest/organisations?query=PARENT%20eq%20%27#ID#%27"), urnService);
+    public OrganisationsResource(MetadataConfiguracionService metadataConfiguracionService) {
+        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/organisationschemes/~all/~all/~latest/organisations?query=PARENT%20eq%20%27#ID#%27"));
     }
 
     @GetMapping("/{urn}/organisations")
@@ -43,8 +43,8 @@ public class OrganisationsResource extends GenericResource {
     @Override
     protected List<TreeNode> loadChildren(String urn, String lang) {
         log.debug("Search soon {}", urn);
-        String id = urnService.extractID(urn);
-        URI urlApi = URI.create(urlApiChildrensFromParent.replace("#ID#", id));
+        Urn urnValue = new Urn(urn);
+        URI urlApi = URI.create(urlApiChildrensFromParent.replace("#ID#", urnValue.getId()));
         RestTemplate restTemplate = new RestTemplate();
         Organisations body = restTemplate.getForEntity(urlApi, Organisations.class).getBody();
         List<TreeNode> organisationsChildren = new ArrayList<>();

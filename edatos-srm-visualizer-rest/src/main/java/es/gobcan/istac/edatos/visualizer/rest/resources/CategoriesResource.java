@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
-import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
@@ -23,8 +23,8 @@ import com.google.gson.Gson;
 public class CategoriesResource extends GenericResource {
 
     @Autowired
-    public CategoriesResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/categoryschemes/~all/~all/~latest/categories?query=PARENT%20eq%20%27#ID#%27"), urnService);
+    public CategoriesResource(MetadataConfiguracionService metadataConfiguracionService) {
+        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/categoryschemes/~all/~all/~latest/categories?query=PARENT%20eq%20%27#ID#%27"));
     }
 
     @GetMapping("/{urn}/categories")
@@ -39,8 +39,8 @@ public class CategoriesResource extends GenericResource {
     @Override
     protected List<TreeNode> loadChildren(String urn, String lang) {
         log.debug("Search soon {}", urn);
-        String id = urnService.extractID(urn);
-        URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", id));
+        Urn urnValue = new Urn(urn);
+        URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", urnValue.getId()));
         RestTemplate restTemplate = new RestTemplate();
         Categories body = restTemplate.getForEntity(urlApi, Categories.class).getBody();
         List<TreeNode> categoriesChildren = new ArrayList<>();
