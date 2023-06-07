@@ -1,24 +1,24 @@
 <div [formGroup]='searchSimpleForm' class="form-inline general-search">    
     <div class="form-group">
         <fieldset class="form-group" *ngIf="!marked">
-            <label for="filter" class="title">Buscador general</label>
-            <input type="text" class="form-control search-input" formControlName="filter" id="filter" placeholder="buscar..." (keyup.enter)="onEnter()">
+            <label for="filter" class="title">{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
+            <input type="text" class="form-control search-input" formControlName="filter" id="filter" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="onEnter()">
         </fieldset>
         <fieldset class="form-group advanced-search" *ngIf="marked">
-            <p-multiSelect #multiSelect [options]="fields" formControlName="selectedFields" defaultLabel="CAMPOS A MOSTRAR"
+            <p-multiSelect #multiSelect [options]="fields" formControlName="selectedFields" defaultLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
                 optionLabel="name" [filter]="false" [showToggleAll]="false" [virtualScroll]="true" 
                 [virtualScrollItemSize]="1" [showHeader]="false" class="multiselect-custom-search" 
-                [maxSelectedLabels]="0" selectedItemsLabel="CAMPOS A MOSTRAR" dropdownIcon="fa-thin fa-chevron-down"
+                [maxSelectedLabels]="0" selectedItemsLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}" dropdownIcon="fa-thin fa-chevron-down"
                 (onPanelShow)="handleOnPanelShow()" (onPanelHide)="handleOnPanelHide()">
             </p-multiSelect>
             <div class="custom-control custom-switch form-group">
                 <p-inputSwitch inputId="allVersions" formControlName="showAllVersions" class="custom-switch"></p-inputSwitch>
-                <label for="allVersions" [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">Mostrar todas las versiones</label>
+                <label for="allVersions" [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
             </div>
         </fieldset>
         <div class="custom-control custom-switch form-group">
             <p-inputSwitch inputId="advancedSearch" class="custom-switch" (onChange)="toggleVisibility($event)"></p-inputSwitch>
-            <label for="advancedSearch" [ngClass]="(marked === true)?'label-inputswitch-checked':''">Búsqueda avanzada</label>
+            <label for="advancedSearch" [ngClass]="(marked === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
         </div>
     </div>
 </div>
