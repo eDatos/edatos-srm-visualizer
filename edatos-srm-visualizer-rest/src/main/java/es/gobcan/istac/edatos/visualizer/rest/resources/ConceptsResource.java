@@ -17,8 +17,8 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
-import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,8 +29,8 @@ public class ConceptsResource extends GenericResource {
     private final String urlApiChildrenDetails;
 
     @Autowired
-    public ConceptsResource(URNService urnService, MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27"), urnService);
+    public ConceptsResource(MetadataConfiguracionService metadataConfiguracionService) {
+        super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27"));
         this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#/#VERSION#/concepts");
     }
 
@@ -66,8 +66,8 @@ public class ConceptsResource extends GenericResource {
 
     protected List<TreeNode> loadChildren(String urn, String lang) {
         log.debug("Search soon {}", urn);
-        String id = urnService.extractID(urn);
-        URI urlApi = URI.create(urlApiChildrensFromParent.replace("#ID#", id));
+        Urn urnValue = new Urn(urn);
+        URI urlApi = URI.create(urlApiChildrensFromParent.replace("#ID#", urnValue.getId()));
         RestTemplate restTemplate = new RestTemplate();
         Concepts body = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
         List<TreeNode> conceptsChildren = new ArrayList<>();
