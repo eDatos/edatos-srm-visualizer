@@ -23,16 +23,16 @@ export class SimpleSearchFilter {
 
     public getCriteria(): string {
         let criterias = '';
-        if (this.id) {
+        if (this.id && typeof this.id === 'string') {
             criterias = criterias.concat(`ID ILIKE '%${this.id}%'`);
         }
-        if (this.urn) {
+        if (this.urn && typeof this.urn === 'string') {
             criterias = this.isEmpty(criterias).concat(`URN ILIKE '%${this.urn}%'`);
         }
-        if (this.name) {
+        if (this.name && typeof this.name === 'string') {
             criterias = this.isEmpty(criterias).concat(`NAME ILIKE '%${this.name}%'`);
         }
-        if (this.description) {
+        if (this.description && typeof this.description === 'string') {
             criterias = this.isEmpty(criterias).concat(`DESCRIPTION ILIKE '%${this.description}%'`);
         }
         return criterias;

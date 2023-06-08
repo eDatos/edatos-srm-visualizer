@@ -13,13 +13,9 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 export class CodelistSearchComponent extends BasicTreeSearchComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-    constructor(private formBuilder: FormBuilder, protected override apiService: CodelistsApiService, protected override localeService: LocaleService) {
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService, protected override localeService: LocaleService) {
 
-        super(apiService, localeService);
-
-        this.searchSimpleForm = this.formBuilder.group({
-            filter: ''
-        });
+        super(apiService, formBuilder, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',

@@ -14,12 +14,8 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 export class CategoriesSearchComponent extends BasicTreeSearchComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-    constructor(private formBuilder: FormBuilder, protected override apiService: CategoriesApiService, protected override localeService: LocaleService) {
-        super(apiService, localeService);
-
-        this.searchSimpleForm = this.formBuilder.group({
-            filter: ''
-        });
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesApiService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',

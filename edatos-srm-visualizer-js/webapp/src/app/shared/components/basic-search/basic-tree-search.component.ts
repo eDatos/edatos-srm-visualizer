@@ -5,6 +5,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-basic-tree-search',
@@ -19,8 +20,8 @@ export abstract class BasicTreeSearchComponent {
     };
 
     public dataSearch: any[] = [];
-    public searchSimpleForm: any;
-    public searchForm: any;
+    public searchSimpleForm: FormGroup = new FormGroup({});
+    public searchForm: FormGroup = new FormGroup({});
 
     public detailForm: any;
 
@@ -28,7 +29,11 @@ export abstract class BasicTreeSearchComponent {
     public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];
 
-    constructor(protected apiService: ApiService, protected localeService?: LocaleService) {}
+    protected constructor(protected apiService: ApiService, protected formBuilder: FormBuilder, protected localeService?: LocaleService) {
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: ''
+        });
+    }
 
     public loadInitialData() {
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
@@ -62,11 +67,10 @@ export abstract class BasicTreeSearchComponent {
     }
 
     private buildQueryResultOffset() {
-        let query = '';
-        if (this.searchForm.valid) {
-            query = this.apiService.buildQueryFromForm(this.searchForm);
+        if (this.searchSimpleForm.value.filter === null) {
+            return undefined;
         }
-        return query;
+        return this.apiService.buildQueryFromForm(this.searchForm);
     }
 
     public onScrollUp($event: IInfiniteScrollEvent) {}

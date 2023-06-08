@@ -13,12 +13,8 @@ import { OrganizationsApiService } from 'src/app/core/services/api/structural-re
 export class OrganizationsSearchComponent extends BasicTreeSearchComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
-    constructor(private formBuilder: FormBuilder, protected override apiService: OrganizationsApiService, protected override localeService: LocaleService) {
-        super(apiService, localeService);
-
-        this.searchSimpleForm = this.formBuilder.group({
-            filter: ''
-        });
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganizationsApiService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',

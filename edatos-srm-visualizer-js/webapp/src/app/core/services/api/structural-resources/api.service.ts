@@ -102,8 +102,8 @@ export abstract class ApiService {
     }
 
     private buildQueryUrl(url: string, query: string) {
-        if (!this.apiSearchUrl.includes('?query=')) {
-            let text = '?query=';
+        let text = '?query=';
+        if (!this.apiSearchUrl.includes(text)) {
             return url.concat(text.concat(encodeURIComponent(query)));
         } else {
             return url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
