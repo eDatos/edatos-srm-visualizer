@@ -1,32 +1,14 @@
-.form-inline .form-group {
-    gap: 16px;
-}
 .general-search {
     width: 1240px;
     height: 60px;
-    margin-left: 15px;
     .title {
-        width: 118px;
         font-weight: $font-weight-600;
-    }
-    .search-input {
-        width: 929px;
-    }
-    .advanced-search {
-        width: 1047px; //Para que busqueda avanzada estén en la misma posición
-        height: 30px;
-        gap: 14px;
-        padding: 0px;
-        .custom-control {
-            width: 212px;
-        }
     }
 }
 
 
 //primeng multiselect
 .multiselect-custom-search .p-multiselect {
-    width: 180px;
     height: 30px;
     /* Azul Oscuro/100 */
     border: 1px solid $color-azul-oscuro-100;
@@ -46,7 +28,7 @@
     
     .p-multiselect .p-multiselect-trigger {
         color: $color-azul-oscuro-100;
-        width: 20px;
+        width: 1.25rem;
         justify-content: flex-start;
     }
     
@@ -90,7 +72,6 @@
     border: none;
     background: none;
     color: $color-negro-0;
-    width: 16px;
     font-family: FontAwesome !important;
     &::before {
         content: "\f0c8"; /* FontAwesome square icon */
@@ -128,6 +109,7 @@
 .custom-switch  {
     color: $color-azul-oscuro-100;
     font-weight: $font-weight-300;
+    gap: 16px;
 }
 
 //primeng inputswitch
@@ -148,7 +130,7 @@
     font-family: FontAwesome !important;
     font-weight: 100;
     font-size: 20px;
-    width: 20px ;
+    width: 1.25rem ;
     line-height: 25px;
     &.p-focus .p-inputswitch-slider {
        box-shadow: none;
@@ -172,19 +154,6 @@
     font-weight: $font-weight-600;
 }
 
-
-
-.advanced-search-icon {
-    width: 20px;
-    //height: 20px;
-    //font-weight: 100;  //fa-thin
-    font-size: 20px;
-    //line-height: 20px;
-    //text-align: center;
-    
-    /* Azul Oscuro/100 */
-    //color: $color-azul-oscuro-100;
-}
 
 
 
