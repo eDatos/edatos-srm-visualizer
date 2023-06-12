@@ -16,7 +16,7 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
     advancedSearch = false;
     fields: any[];
-    showAllVersions = true;
+    showAllVersions = false;
     selectedDefault: any[]= [];
     filter = '';
     marked = false;
@@ -52,7 +52,7 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
             selectedFields:  [this.selectedDefault],
-            showAllVersions: [true],
+            showAllVersions: [false],
         });
 
     }
