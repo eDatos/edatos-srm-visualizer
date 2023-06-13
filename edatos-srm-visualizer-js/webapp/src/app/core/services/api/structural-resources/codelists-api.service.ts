@@ -5,13 +5,13 @@ import { ConfigService } from '../../config/config.service';
 import { ApiService } from './api.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
-export class CodelistsApiService extends ApiService{
-
-  constructor( httpClient: HttpClient, config: ConfigService) {
-    super(httpClient, config);
-    this.apiSearchUrl = '/v1.0/codelists/?query=LATEST%20EQ%20%27true%27';
-    this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
-  }
+export class CodelistsApiService extends ApiService {
+    constructor(httpClient: HttpClient, config: ConfigService) {
+        super(httpClient, config);
+        this.apiSearchDataPath = 'codelist';
+        this.apiSearchUrl = '/v1.0/codelists';
+        this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
+    }
 }
