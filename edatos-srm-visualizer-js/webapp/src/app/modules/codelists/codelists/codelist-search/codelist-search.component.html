@@ -4,26 +4,12 @@
             <mat-card-title>{{ 'searchEngine' | translate | uppercase }}</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-            <div [formGroup]='searchForm' class='container align-center'>
+            <div [formGroup]='searchSimpleForm' class='container align-center'>
                 <div class='in-line'>
                     <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                        <input formControlName='id' matInput >
-                    </mat-form-field>
-                    <mat-form-field appearance='outline' class='mlr input'>
-                        <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                        <input formControlName='name' matInput >
+                        <input formControlName='filter' matInput type='search'>
                     </mat-form-field>
                 </div>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                    <input formControlName='description' matInput >
-                </mat-form-field>
-
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                    <input formControlName='urn' matInput >
-                </mat-form-field>
 
                 <div class='in-line align-right'>
                     <button mat-raised-button color='primary' (click)='onSearch()' class='ml'>
@@ -38,10 +24,11 @@
             </div>
         </mat-card-actions>
     </mat-card>
+
     <br>
     <div class='in-line'>
         <mat-card mat-elevation-z15 class='box'>
-            <div>
+            <div *ngIf='!dataChildrensLoaded'>
                 <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
             <mat-card-header>
@@ -50,13 +37,12 @@
             </mat-card-header>
             <mat-card-content>
 
-                <div class='search-results' [style.display]="dataSearch ? 'block' : 'none'"
+                <div class='search-results' [style.display]="dataChildrensLoaded ? 'block' : 'none'"
                      [scrollWindow]='false' infinite-scroll
                      (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-                    <app-table-tree #tabletreenode [data]='dataSearch'
+                    <app-table-tree #tabletreenode [data]='dataChildrens'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>
                 </div>
-
             </mat-card-content>
         </mat-card>
 
@@ -68,7 +54,7 @@
                 <div [formGroup]='detailForm' class='container'>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                        <input formControlName='id' matInput >
+                        <input formControlName='id' matInput placeholder='Placeholder'>
                     </mat-form-field>
                     <mat-form-field appearance='outline' class='mlr input'>
                         <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
@@ -94,4 +80,4 @@
         </mat-card>
     </div>
 </div>
-<br>
+<br />

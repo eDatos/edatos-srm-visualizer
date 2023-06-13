@@ -27,16 +27,13 @@ export class SimpleSearchFilter {
             criterias = criterias.concat(`ID ILIKE '%${this.id}%'`);
         }
         if (this.urn) {
-            this.isEmpty(criterias);
-            criterias = criterias.concat(`URN ILIKE '%${this.urn}%'`);
+            criterias = this.isEmpty(criterias).concat(`URN ILIKE '%${this.urn}%'`);
         }
         if (this.name) {
-            this.isEmpty(criterias);
-            criterias = criterias.concat(`NAME ILIKE '%${this.name}%'`);
+            criterias = this.isEmpty(criterias).concat(`NAME ILIKE '%${this.name}%'`);
         }
         if (this.description) {
-            this.isEmpty(criterias);
-            criterias = criterias.concat(`DESCRIPTION ILIKE '%${this.description}%'`);
+            criterias = this.isEmpty(criterias).concat(`DESCRIPTION ILIKE '%${this.description}%'`);
         }
         return criterias;
     }
