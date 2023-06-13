@@ -1,0 +1,121 @@
+/*.search-filters {
+    width: 1240px;
+    height: 75px;
+    position: absolute;
+    border: 1px solid #CCCCCC;
+    display: flex;
+}*/
+.form-inline .form-group {
+    gap: 16px;
+}
+.general-search {
+    width: 1240px;//??? 1062 ó 1240???
+    height: 60px;
+    /*display: flex;
+    flex-direction: row;
+    align-items: center;*/
+    //justify-content: space-between;
+    //padding: 15px 5px;
+    margin-left: 15px;
+    font-family: 'Open Sans';
+    //gap: 16px;
+}
+
+.general-search .title{
+    width: 118px; //??? 118 ó 112???
+    font-weight: $font-weight-600;
+    line-height: 19px;
+    /* identical to box height */
+    /* Negro/100 */
+    //color: #000000; // no necesario, heredado de body
+}
+
+.general-search .search-input {
+    width: 929px; //??? 929 ó 930???
+    height: 30px;
+}
+
+.advanced-search-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    //width: 152px;
+    //height: 20px;
+    color: $color-azul-oscuro-100;
+    font-weight: $font-weight-300;
+    &:hover{
+    color: $color-azul-oscuro-100;
+}
+}
+
+.advanced-search-icon {
+    width: 20px;
+    //height: 20px;
+    //font-weight: 100;  //fa-thin
+    font-size: 20px;
+    //line-height: 20px;
+    //text-align: center;
+    
+    /* Azul Oscuro/100 */
+    //color: $color-azul-oscuro-100;
+}
+
+.advanced-search {
+
+padding: 0px;
+gap: 5px;
+
+width: 152px;
+height: 20px;
+}
+
+
+
+.advanced-search .title {
+
+
+/* Búsqueda avanzada */
+
+width: 127px;
+height: 19px;
+
+font-family: 'Open Sans';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 19px;
+/* identical to box height */
+display: flex;
+align-items: center;
+
+/* Azul Oscuro/100 */
+color: #004678;
+
+
+/* Inside auto layout */
+
+
+}
+
+
+/*.card {
+    border: none;
+    width: 1280px;
+}*/
+
+
+.mat-mdc-card {
+    position: inherit;
+}
+
+
+/*.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #004678;
+  border-color: #004678;
+}
+
+.custom-control-input ~ .custom-control-label::before {
+    background-color: white;
+    //background: #004678;
+    border-color:  #004678;
+  }*/
