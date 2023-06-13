@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
@@ -6,12 +6,15 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { TableTreeComponent } from '../table-tree/table-tree.component';
 
 @Component({
     selector: 'app-basic-tree-detail',
     templateUrl: './basic-tree-detail.component.html',
 })
 export abstract class BasicTreeDetailComponent implements OnInit {
+    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
+
     searchConfig: SearchConfig = {
         resultLimit: 20,
         resultOffset: 0,
