@@ -8,6 +8,7 @@
   "download": {
     "sdmx-xml": "Descargar SDMX-XML"
   },
+  "elements": "Elementos",
   "resourceParameters": {
     "id": "ID",
     "name": "Nombre",
