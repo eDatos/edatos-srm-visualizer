@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,22 @@ public class ConceptsResource extends GenericResource {
 
     }
 
-
+    protected List<TreeNode> loadChildren (String urn, String lang) {
+        log.debug("Search soon {}", urn);
+        String id = urnService.extractID(urn);
+        URI urlApi = URI.create (urlApiChildrensFromParent.replace("#ID#", id));
+        RestTemplate restTemplate = new RestTemplate();
+        Concepts body = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
+        List<TreeNode> conceptsChildren = new ArrayList<>();
+        if (body != null && body.getTotal().doubleValue() > 0) {
+            for (ItemResource bodyConcept : body.getConcepts()) {
+                TreeNode treeNode = new TreeNode(bodyConcept.getUrn(), loadInternationalString(bodyConcept.getName().getTexts(), lang));
+                treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
+                conceptsChildren.add(treeNode);
+            }
+        }
+        return conceptsChildren;
+    }
 
 
 

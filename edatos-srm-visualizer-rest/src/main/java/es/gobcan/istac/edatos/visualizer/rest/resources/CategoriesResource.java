@@ -1,5 +1,8 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
+import java.util.List;
+
+import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 import es.gobcan.istac.edatos.visualizer.core.services.URNService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +26,8 @@ public class CategoriesResource extends GenericResource{
         return "";
     }
 
-
+    @Override
+    protected List<TreeNode> loadChildren(String urn, String lang) {
+        return null;
+    }
 }
