@@ -1,44 +1,28 @@
 import { Injectable } from '@angular/core';
+import { SearchFormValues } from 'src/app/shared/models/search-values/search-form-values';
 
 @Injectable()
 export class SimpleSearchFilter {
-    public id: string | null | undefined;
-    public urn: string | null | undefined;
-    public name: string | null | undefined;
-    public description: string | null | undefined;
 
-    constructor() {
-        this.id = '';
-        this.name = '';
-        this.urn = '';
-        this.description = '';
-    }
-
-    public setValues(values: any): void {
-        this.id = values.id || '';
-        this.name = values.name || '';
-        this.urn = values.urn || '';
-        this.description = values.description || '';
-    }
-
-    public getCriteria(): string {
+    public getCriteria(values: SearchFormValues): string {
         let criterias = '';
-        if (this.id && typeof this.id === 'string') {
-            criterias = criterias.concat(`ID ILIKE '%${this.id}%'`);
+        console.log('valor de values',values);
+        if (values.id) {
+            criterias = criterias.concat(`ID ILIKE '%${values.id}%'`);
         }
-        if (this.urn && typeof this.urn === 'string') {
-            criterias = this.isEmpty(criterias).concat(`URN ILIKE '%${this.urn}%'`);
+        if (values.urn) {
+            criterias = this.concatOrIsNotEmpty(criterias).concat(`URN ILIKE '%${values.urn}%'`);
         }
-        if (this.name && typeof this.name === 'string') {
-            criterias = this.isEmpty(criterias).concat(`NAME ILIKE '%${this.name}%'`);
+        if (values.name) {
+            criterias = this.concatOrIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name}%'`);
         }
-        if (this.description && typeof this.description === 'string') {
-            criterias = this.isEmpty(criterias).concat(`DESCRIPTION ILIKE '%${this.description}%'`);
+        if (values.description) {
+            criterias = this.concatOrIsNotEmpty(criterias).concat(`DESCRIPTION ILIKE '%${values.description}%'`);
         }
         return criterias;
     }
 
-    private isEmpty(criterias: string): string{
+    private concatOrIsNotEmpty(criterias: string): string{
         if(criterias){
             criterias = criterias.concat(` OR `);
         }
