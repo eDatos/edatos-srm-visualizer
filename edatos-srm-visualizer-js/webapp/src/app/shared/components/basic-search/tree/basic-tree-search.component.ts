@@ -10,7 +10,7 @@ import { BaseBasicSearchComponent } from '../base-basic-search';
 
 @Component({
     selector: 'app-basic-tree-search',
-    templateUrl: './basic-tree-search.component.html',
+    templateUrl: './basic-tree-search.component.html'
 })
 export abstract class BasicTreeSearchComponent extends BaseBasicSearchComponent {
     public dataChildrensLoaded: boolean = false;
@@ -28,7 +28,7 @@ export abstract class BasicTreeSearchComponent extends BaseBasicSearchComponent 
                 return {
                     name: this.localeServie ? this.localeServie.getTextValue(resource.name.text) : '',
                     id: resource.id,
-                    urn: resource.urn,
+                    urn: resource.urn
                 };
             });
             this.dataChildrensLoaded = true;
@@ -43,26 +43,34 @@ export abstract class BasicTreeSearchComponent extends BaseBasicSearchComponent 
                 return {
                     name: this.localeServie ? this.localeServie.getTextValue(resource.name.text) : ' ',
                     id: resource.id,
-                    urn: resource.urn,
+                    urn: resource.urn
                 };
             });
         });
     }
 
-    public onScrollUp($event: IInfiniteScrollEvent) {}
+    public onScrollUp($event: IInfiniteScrollEvent) {
+    }
 
     public onSearch(): void {
+        this.onSearchSimple();
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
-                this.dataChildrens = data[this.apiService.apiSearchDataPath].map((element: any) => {
-                    return {
-                        name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
-                        id: element.id,
-                        urn: element.urn,
-                    };
-                });
+                if(this.searchConfig.resultSize > 0){
+                    this.dataChildrens = data[this.apiService.apiSearchDataPath].map((element: any) => {
+                        return {
+                            name: this.localeServie ? this.localeServie.getTextValue(element.name.text) : ' ',
+                            id: element.id,
+                            urn: element.urn
+                        };
+                    });
+                }
+                else {
+                    this.dataChildrens = new Array<TreeNode>();
+                }
             });
         }
     }
 }
+
