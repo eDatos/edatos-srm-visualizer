@@ -1,39 +1,133 @@
-/*.search-filters {
-    width: 1240px;
-    height: 75px;
-    position: absolute;
-    border: 1px solid #CCCCCC;
-    display: flex;
-}*/
 .form-inline .form-group {
     gap: 16px;
 }
 .general-search {
-    width: 1240px;//??? 1062 ó 1240???
+    width: 1240px;
     height: 60px;
-    /*display: flex;
-    flex-direction: row;
-    align-items: center;*/
-    //justify-content: space-between;
-    //padding: 15px 5px;
     margin-left: 15px;
-    font-family: 'Open Sans';
-    //gap: 16px;
 }
 
 .general-search .title{
-    width: 118px; //??? 118 ó 112???
+    width: 118px;
     font-weight: $font-weight-600;
     line-height: 19px;
-    /* identical to box height */
-    /* Negro/100 */
-    //color: #000000; // no necesario, heredado de body
 }
 
 .general-search .search-input {
-    width: 929px; //??? 929 ó 930???
+    width: 929px;
     height: 30px;
 }
+
+.general-search .frame-23346 {
+    width: 436px;
+    height: 30px;
+    gap: 14px;
+    padding: 0px;
+}
+
+
+//primeng multiselect
+.multiselect-custom-search .p-multiselect {
+    width: 180px;
+    height: 30px;
+    /* Azul Oscuro/100 */
+    border: 1px solid $color-azul-oscuro-100;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.multiselect-custom-search {
+    .p-component {
+        font-size: 14px;
+    }
+    .p-multiselect-label.p-placeholder {
+        color: $color-azul-oscuro-100;
+        font-weight: 300;
+        padding: 5px 10px;
+    }
+    
+    .p-multiselect .p-multiselect-trigger {
+        color: $color-azul-oscuro-100;
+        width: 20px;
+        justify-content: flex-start;
+    }
+    
+    .p-multiselect.p-component.p-multiselect-open, .p-multiselect-panel {
+        background-color: $color-azul-oscuro-100;
+        width: 187px;
+        & .p-multiselect-label.p-placeholder, & .p-multiselect-trigger {
+            color: $color-negro-0;
+            font-weight: 600;
+        } 
+        & .p-multiselect-item {
+            color: $color-negro-0;
+            font-weight: 300;
+        }
+    }
+    .p-multiselect.p-component {
+        &.p-multiselect-open {
+        border: none;
+        border-radius: 5px 5px 0px 0px;
+        }
+        &.p-focus {
+            box-shadow: none;
+            border-color: $color-azul-oscuro-100;
+        }
+        &:not(.p-disabled):hover {
+            border-color: $color-azul-oscuro-100;
+        }
+    }
+    .p-multiselect-panel {
+        border-radius: 0px 0px 5px 5px;
+        height: 114px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        .p-multiselect-item .p-checkbox {
+            margin-right: 0px;
+        }
+    }
+}
+
+//primeng multiselect checkbox
+.p-multiselect .p-checkbox .p-checkbox-box {
+    border: none;
+    background: none;
+    color: $color-negro-0;
+    width: 16px;
+    font-family: FontAwesome !important;
+    &::before {
+        content: "\f0c8"; /* FontAwesome square icon */
+    }
+    &.p-highlight::before {
+        content: "\f14a"; /* FontAwesome check-square icon */
+    }
+}
+
+.p-icon {
+    display: none;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    &.p-highlight {
+        background: $color-azul-oscuro-100;
+        font-weight: 600 !important;
+    }
+    &:focus {
+        box-shadow: none; //se elimina en options el sombreado alrededor de cada elementeo
+    }
+    &:hover {
+        background: $color-azul-oscuro-100;
+    }
+}
+
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: none;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
+    color: $color-negro-0;
+    background: none;
+}
+
 
 .advanced-search-button {
     display: flex;
@@ -109,13 +203,14 @@ color: #004678;
 }
 
 
-/*.custom-control-input:checked ~ .custom-control-label::before {
+.custom-control-input:checked ~ .custom-control-label::before {
   background-color: #004678;
   border-color: #004678;
 }
 
 .custom-control-input ~ .custom-control-label::before {
     background-color: white;
-    //background: #004678;
     border-color:  #004678;
-  }*/
+  }
+
+

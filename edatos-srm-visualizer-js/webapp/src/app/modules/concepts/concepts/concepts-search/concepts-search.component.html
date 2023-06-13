@@ -1,29 +1,27 @@
 <div [formGroup]="searchForm" class="form-inline general-search">    
-    <div class="form-group basic-search">
-        <label for="inputSearch" class="title">Buscador general</label>
-        <input type="text" class="form-control search-input" id="inputSearch" placeholder="buscar...">
-        <!--button type="button" class="btn btn-sm btn-default has-icon advanced-search-button">
-            <i class="fa-thin fa-toggle-off advanced-search-icon"></i>Salir
-          </button-->
-        <a class="advanced-search-button" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            <i aria-hidden="true" class="fa-thin fa-toggle-off advanced-search-icon"></i>
-            <span>Búsqueda avanzada</span>
-        </a>
-        <!--span>Búsqueda avanzada</span-->
-        <!--label>Búsqueda avanzada</label-->
+    <div class="form-group">
+        <fieldset class="form-group" *ngIf="!marked">
+            <label for="inputSearch" class="title">Buscador general</label>
+            <input type="text" class="form-control search-input" formControlName="inputSearch" id="inputSearch" placeholder="buscar..." (keyup.enter)="onEnter()">
+        </fieldset>
+        <fieldset class="form-group frame-23346" *ngIf="marked">
+            <p-multiSelect #multiSelect [options]="fields" formControlName="selectedFields" defaultLabel="CAMPOS A MOSTRAR"
+                optionLabel="name" [filter]="false" [showToggleAll]="false" [virtualScroll]="true" 
+                [filter]="false" [virtualScrollItemSize]="1" [showHeader]="false" 
+                class="multiselect-custom-search" [maxSelectedLabels]="0" selectedItemsLabel="CAMPOS A MOSTRAR"
+                (onPanelShow)="handleOnPanelShow()" (onPanelHide)="handleOnPanelHide()" dropdownIcon="fa-thin fa-chevron-down">
+            </p-multiSelect>
+            <div class="custom-control custom-switch advanced-search-button">
+                <input type="checkbox" class="custom-control-input" id="customSwitch2"  (change)="toggleVisibility($event)"/>
+                <label class="custom-control-label" for="customSwitch2">Mostrar todas las versiones</label>
+            </div>
+        </fieldset>
+        <div class="custom-control custom-switch advanced-search-button">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1"  (change)="toggleVisibility($event)"/>
+            <label class="custom-control-label" for="customSwitch1">Búsqueda avanzada</label>
+        </div>
     </div>
-   
-      <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <span class="material-icons"><i class="fa-thin fa-toggle-off"></i></span>
-    </button-->
-
-<!--div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-    </div>
-  </div--> 
 </div>
-
 
 
 
