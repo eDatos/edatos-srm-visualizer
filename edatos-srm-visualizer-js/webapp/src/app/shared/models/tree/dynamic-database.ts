@@ -1,14 +1,9 @@
-import { DynamicFlatNode } from "./DynamicFlatNode";
+import { DynamicFlatNode } from "./dynamic-flat-node";
 
 export class DynamicDatabase {
-  dataMap = new Map<string, string[]>([
-    ['Fruits', ['Apple', 'Orange', 'Banana']],
-    ['Vegetables', ['Tomato', 'Potato', 'Onion']],
-    ['Apple', ['Fuji', 'Macintosh']],
-    ['Onion', ['Yellow', 'White', 'Purple']],
-  ]);
+  dataMap = new Map<string, string[]>([]);
 
-  rootLevelNodes: string[] = ['Fruits', 'Vegetables'];
+  rootLevelNodes: string[] = [];
 
   /** Initial data from database */
   initialData(): DynamicFlatNode[] {
