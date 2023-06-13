@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-
+import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts-api.service';
+import { MultiSelect } from 'primeng/multiselect';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 
@@ -10,7 +10,17 @@ import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search
     templateUrl: './concepts-search.component.html',
     styleUrls: ['./concepts-search.component.scss'],
 })
+
 export class ConceptsSearchComponent extends BasicTreeSearchComponent implements OnInit {
+    @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
+    advancedSearch = false;
+    fields: any[];
+    showAllVersions = true;
+    selectedDefault: any[]= [];
+    filter = '';
+    marked = false;
+ 
+    
     constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
         super(apiService, localeService);
 
@@ -29,9 +39,48 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
             version: '',
             scheme: '',
         });
+
+        this.fields = [
+            { name: "Identificador", value: 'id' },
+            { name: "Nombre", value: 'name' },
+            { name: "Descripción", value: 'description' },
+            { name: "Esquema", value: 'urn' }
+        ];
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: '',
+            selectedFields:  [this.selectedDefault],
+            showAllVersions: [true],
+        });
+
     }
+    
 
     ngOnInit(): void {
         this.loadInitialData();
     }
+
+    onEnter(): void {
+        this.onSearch();
+    }
+
+
+    checkValue(event: any) {
+        console.log(event);
+    }
+
+    toggleVisibility(e: any) {
+        this.marked = e.checked;
+    }
+
+    handleOnPanelShow() {
+        this.multiSelect.dropdownIcon = 'fa-solid fa-chevron-up';
+    }
+
+    handleOnPanelHide() {
+        this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
+    }
+
+
 }

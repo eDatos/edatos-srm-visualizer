@@ -5,24 +5,22 @@
     width: 1240px;
     height: 60px;
     margin-left: 15px;
-}
-
-.general-search .title{
-    width: 118px;
-    font-weight: $font-weight-600;
-    line-height: 19px;
-}
-
-.general-search .search-input {
-    width: 929px;
-    height: 30px;
-}
-
-.general-search .frame-23346 {
-    width: 436px;
-    height: 30px;
-    gap: 14px;
-    padding: 0px;
+    & .title {
+        width: 118px;
+        font-weight: $font-weight-600;
+    }
+    & .search-input {
+        width: 929px;
+    }
+    & .advanced-search {
+        width: 1047px; //Para que busqueda avanzada estén en la misma posición
+        height: 30px;
+        gap: 14px;
+        padding: 0px;
+        & .custom-control {
+            width: 212px;
+        }
+    }
 }
 
 
@@ -57,17 +55,17 @@
         width: 187px;
         & .p-multiselect-label.p-placeholder, & .p-multiselect-trigger {
             color: $color-negro-0;
-            font-weight: 600;
+            font-weight: $font-weight-600;
         } 
         & .p-multiselect-item {
             color: $color-negro-0;
-            font-weight: 300;
+            font-weight: $font-weight-300;
         }
     }
     .p-multiselect.p-component {
         &.p-multiselect-open {
-        border: none;
-        border-radius: 5px 5px 0px 0px;
+            border: none;
+            border-radius: 5px 5px 0px 0px;
         }
         &.p-focus {
             box-shadow: none;
@@ -101,7 +99,6 @@
         content: "\f14a"; /* FontAwesome check-square icon */
     }
 }
-
 .p-icon {
     display: none;
 }
@@ -109,7 +106,7 @@
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     &.p-highlight {
         background: $color-azul-oscuro-100;
-        font-weight: 600 !important;
+        font-weight: $font-weight-600 !important;
     }
     &:focus {
         box-shadow: none; //se elimina en options el sombreado alrededor de cada elementeo
@@ -118,7 +115,6 @@
         background: $color-azul-oscuro-100;
     }
 }
-
 
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
     background: none;
@@ -129,18 +125,54 @@
 }
 
 
-.advanced-search-button {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    //width: 152px;
-    //height: 20px;
+.custom-switch  {
     color: $color-azul-oscuro-100;
     font-weight: $font-weight-300;
-    &:hover{
-    color: $color-azul-oscuro-100;
 }
+
+//primeng inputswitch
+.custom-switch 
+    .p-inputswitch,
+.custom-switch 
+    .p-inputswitch:hover,
+.custom-switch
+    .p-inputswitch.p-inputswitch-checked,
+.custom-switch 
+    .p-inputswitch.p-inputswitch-checked:hover {
+        & .p-inputswitch-slider {
+            background: none;
+        }
 }
+
+.custom-switch .p-inputswitch {
+    font-family: FontAwesome !important;
+    font-weight: 100;
+    font-size: 20px;
+    width: 20px ;
+    line-height: 25px;
+    &.p-focus .p-inputswitch-slider {
+       box-shadow: none;
+    }
+    &.p-inputswitch-checked .p-inputswitch-slider::before {
+        transform: none;
+        font-weight: 900;
+    }
+}
+
+.custom-switch .p-inputswitch-slider::before {
+    content: "\f204";
+}
+ 
+.custom-switch .p-inputswitch-checked .p-inputswitch-slider::before {
+    content: "\f205";
+}
+//primeng inputswitch
+
+.label-inputswitch-checked {
+    font-weight: $font-weight-600;
+}
+
+
 
 .advanced-search-icon {
     width: 20px;
@@ -154,48 +186,6 @@
     //color: $color-azul-oscuro-100;
 }
 
-.advanced-search {
-
-padding: 0px;
-gap: 5px;
-
-width: 152px;
-height: 20px;
-}
-
-
-
-.advanced-search .title {
-
-
-/* Búsqueda avanzada */
-
-width: 127px;
-height: 19px;
-
-font-family: 'Open Sans';
-font-style: normal;
-font-weight: 300;
-font-size: 14px;
-line-height: 19px;
-/* identical to box height */
-display: flex;
-align-items: center;
-
-/* Azul Oscuro/100 */
-color: #004678;
-
-
-/* Inside auto layout */
-
-
-}
-
-
-/*.card {
-    border: none;
-    width: 1280px;
-}*/
 
 
 .mat-mdc-card {
@@ -203,14 +193,8 @@ color: #004678;
 }
 
 
-.custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #004678;
-  border-color: #004678;
-}
 
-.custom-control-input ~ .custom-control-label::before {
-    background-color: white;
-    border-color:  #004678;
-  }
+
+
 
 

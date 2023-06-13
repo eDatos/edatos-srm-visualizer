@@ -1,28 +1,27 @@
-<div [formGroup]="searchForm" class="form-inline general-search">    
+<div [formGroup]='searchSimpleForm' class="form-inline general-search">    
     <div class="form-group">
         <fieldset class="form-group" *ngIf="!marked">
-            <label for="inputSearch" class="title">Buscador general</label>
-            <input type="text" class="form-control search-input" formControlName="inputSearch" id="inputSearch" placeholder="buscar..." (keyup.enter)="onEnter()">
+            <label for="filter" class="title">Buscador general</label>
+            <input type="text" class="form-control search-input" formControlName="filter" id="filter" placeholder="buscar..." (keyup.enter)="onEnter()">
         </fieldset>
-        <fieldset class="form-group frame-23346" *ngIf="marked">
+        <fieldset class="form-group advanced-search" *ngIf="marked">
             <p-multiSelect #multiSelect [options]="fields" formControlName="selectedFields" defaultLabel="CAMPOS A MOSTRAR"
                 optionLabel="name" [filter]="false" [showToggleAll]="false" [virtualScroll]="true" 
-                [filter]="false" [virtualScrollItemSize]="1" [showHeader]="false" 
-                class="multiselect-custom-search" [maxSelectedLabels]="0" selectedItemsLabel="CAMPOS A MOSTRAR"
-                (onPanelShow)="handleOnPanelShow()" (onPanelHide)="handleOnPanelHide()" dropdownIcon="fa-thin fa-chevron-down">
+                [virtualScrollItemSize]="1" [showHeader]="false" class="multiselect-custom-search" 
+                [maxSelectedLabels]="0" selectedItemsLabel="CAMPOS A MOSTRAR" dropdownIcon="fa-thin fa-chevron-down"
+                (onPanelShow)="handleOnPanelShow()" (onPanelHide)="handleOnPanelHide()">
             </p-multiSelect>
-            <div class="custom-control custom-switch advanced-search-button">
-                <input type="checkbox" class="custom-control-input" id="customSwitch2"  (change)="toggleVisibility($event)"/>
-                <label class="custom-control-label" for="customSwitch2">Mostrar todas las versiones</label>
+            <div class="custom-control custom-switch form-group">
+                <p-inputSwitch inputId="allVersions" formControlName="showAllVersions" class="custom-switch"></p-inputSwitch>
+                <label for="allVersions" [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">Mostrar todas las versiones</label>
             </div>
         </fieldset>
-        <div class="custom-control custom-switch advanced-search-button">
-            <input type="checkbox" class="custom-control-input" id="customSwitch1"  (change)="toggleVisibility($event)"/>
-            <label class="custom-control-label" for="customSwitch1">Búsqueda avanzada</label>
+        <div class="custom-control custom-switch form-group">
+            <p-inputSwitch inputId="advancedSearch" class="custom-switch" (onChange)="toggleVisibility($event)"></p-inputSwitch>
+            <label for="advancedSearch" [ngClass]="(marked === true)?'label-inputswitch-checked':''">Búsqueda avanzada</label>
         </div>
     </div>
 </div>
-
 
 
 <div class='mlr'>

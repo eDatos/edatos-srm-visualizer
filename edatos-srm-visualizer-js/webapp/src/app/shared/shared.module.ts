@@ -56,6 +56,7 @@ import { TableTreeComponent } from './components/table-tree/table-tree.component
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [
@@ -73,7 +74,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         ReactiveFormsModule,
         ScrollingModule,
         TranslateModule,
-        MultiSelectModule
+        MultiSelectModule,
+        InputSwitchModule
     ],
     exports: [
         AgencyPipe,
@@ -130,7 +132,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         TableTreeComponent,
         TranslateModule,
         VersionPipe,
-        MultiSelectModule
+        MultiSelectModule,
+        InputSwitchModule
     ],
     providers: [CookieService]
 })
