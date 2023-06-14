@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 
+
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class CodelistCodesApiService extends ApiService {
     constructor(httpClient: HttpClient, config: ConfigService) {
@@ -17,3 +18,4 @@ export class CodelistCodesApiService extends ApiService {
         this.apiChildrenDataPath = '';
     }
 }
+
