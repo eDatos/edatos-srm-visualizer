@@ -11,8 +11,8 @@ import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search
     styleUrls: ['./concepts-search.component.scss'],
 })
 export class ConceptsSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
-        super(apiService, localeService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
@@ -34,4 +34,5 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     ngOnInit(): void {
         this.loadInitialData();
     }
+
 }

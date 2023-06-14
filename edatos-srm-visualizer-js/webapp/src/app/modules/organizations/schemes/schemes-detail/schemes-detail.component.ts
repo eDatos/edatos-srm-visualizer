@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import {
     OrganizationsSchemeApiService

@@ -6,6 +6,7 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { SimpleSearchFilter } from 'src/app/core/services/filters/simple-search-filter';
+import { SearchFormValues } from 'src/app/shared/models/search-values/search-form-values';
 
 @Injectable({
     providedIn: 'root'
@@ -28,8 +29,7 @@ export abstract class ApiService {
 
     protected simpleSearchFilter: SimpleSearchFilter = new SimpleSearchFilter();
 
-    protected constructor(protected httpClient: HttpClient, protected config: ConfigService) {
-    }
+    protected constructor(protected httpClient: HttpClient, protected config: ConfigService) {}
 
     public loadConfiguration() {
         this.config.getApiStructuralResources().subscribe((url) => {
@@ -80,7 +80,8 @@ export abstract class ApiService {
 
     private getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
         if (query) {
-            return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query)));
+            url = url.concat(this.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query));
+            return this.httpClient.get<any>(url);
         }
         return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)));
     }
@@ -92,18 +93,17 @@ export abstract class ApiService {
         return this.httpClient.get<any>(url);
     }
 
-    public buildQueryFromForm(form?: FormGroup): string {
+    public buildQueryFromForm(form?: FormGroup<SearchFormValues>): string {
         let query = '';
         if (form) {
-            this.simpleSearchFilter.setValues(form.controls);
-            query = this.simpleSearchFilter.getCriteria();
+            query = this.simpleSearchFilter.getCriteria(form.controls);
         }
         return query;
     }
 
     private buildQueryUrl(url: string, query: string) {
-        if (!this.apiSearchUrl.includes('?query=')) {
-            let text = '?query=';
+        let text = '?query=';
+        if (!this.apiSearchUrl.includes(text)) {
             return url.concat(text.concat(encodeURIComponent(query)));
         } else {
             return url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
