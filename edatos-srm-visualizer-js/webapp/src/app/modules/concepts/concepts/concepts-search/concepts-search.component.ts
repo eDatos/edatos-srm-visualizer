@@ -22,8 +22,8 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     marked = false;
  
     
-    constructor(private formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService, private translateService: TranslateService) {
-        super(apiService, localeService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService, private translateService: TranslateService) {
+        super(apiService, formBuilder, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
