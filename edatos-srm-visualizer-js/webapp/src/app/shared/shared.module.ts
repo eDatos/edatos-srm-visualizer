@@ -55,6 +55,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TableTreeComponent } from './components/table-tree/table-tree.component';
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [
@@ -71,7 +73,9 @@ import { TranslateModule } from '@ngx-translate/core';
         MatButtonModule,
         ReactiveFormsModule,
         ScrollingModule,
-        TranslateModule
+        TranslateModule,
+        MultiSelectModule,
+        InputSwitchModule
     ],
     exports: [
         AgencyPipe,
@@ -128,6 +132,8 @@ import { TranslateModule } from '@ngx-translate/core';
         TableTreeComponent,
         TranslateModule,
         VersionPipe,
+        MultiSelectModule,
+        InputSwitchModule
     ],
     providers: [CookieService]
 })

@@ -11,12 +11,18 @@
   "elements": "Elements",
   "resourceParameters": {
     "id": "ID",
+    "identifier": "Identificador",
     "name": "Nom",
     "urn": "URN",
     "description": "Descripció",
+    "scheme": "Esquema",
     "version": "Versió",
     "comments": "Comentaris",
-    "maintainer": "Mantenidor"
+    "maintainer": "Mantenidor",
+    "generalSearchEngine": "Cercador general",
+    "advancedSearch": "Cerca avançada",
+    "showAllVersions": "Mostrar totes les versions",
+    "displayedFields": "Camps a mostrar"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
