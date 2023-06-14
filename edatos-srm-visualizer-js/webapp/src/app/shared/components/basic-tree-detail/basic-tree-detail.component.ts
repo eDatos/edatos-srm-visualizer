@@ -16,7 +16,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
     searchConfig: SearchConfig = {
-        resultLimit: 20,
+        resultLimit: 25,
         resultOffset: 0,
         resultSize: 0,
         currentPage: 0,

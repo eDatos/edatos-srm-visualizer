@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
-import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 
 import {
     CategoriesSchemeApiService
@@ -14,7 +13,6 @@ import {
     styleUrls: ['./schemes-search.component.scss'],
 })
 export class SchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService, protected override  localeService: LocaleService) {
         super(apiService, formBuilder, localeService);
@@ -38,4 +36,5 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
     ngOnInit(): void {
         this.loadInitialData();
     }
+
 }

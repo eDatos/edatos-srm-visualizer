@@ -34,4 +34,5 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     ngOnInit(): void {
         this.loadInitialData();
     }
+
 }

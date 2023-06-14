@@ -36,8 +36,8 @@
             </mat-card-header>
             <mat-card-content>
 
-                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'"
-                     [scrollWindow]='false' infinite-scroll
+                <div #searchResults class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'"
+                     [scrollWindow]='false' infinite-scroll [fromRoot]="true"
                      (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
                     <app-table-tree #tabletreenode [data]='dataChildren'
                                     (clickEvent)='onLoadDetail($event)'></app-table-tree>

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
-import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 
 
 @Component({
@@ -14,7 +13,6 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
     styleUrls: ['./family-search.component.scss']
 })
 export class FamilySearchComponent extends BasicTreeSearchComponent implements OnInit {
-    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistFamiliesApiService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, localeService);
 
@@ -37,4 +35,5 @@ export class FamilySearchComponent extends BasicTreeSearchComponent implements O
     ngOnInit(): void {
         this.loadInitialData();
     }
+
 }

@@ -6,7 +6,6 @@ export class SimpleSearchFilter {
 
     public getCriteria(values: SearchFormValues): string {
         let criterias = '';
-        console.log('valor de values',values);
         if (values.id) {
             criterias = criterias.concat(`ID ILIKE '%${values.id}%'`);
         }
