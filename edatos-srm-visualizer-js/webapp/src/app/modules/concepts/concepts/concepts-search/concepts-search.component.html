@@ -4,7 +4,7 @@
             <label for="filter" class="title">{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
         </div>
         <div class="col" *ngIf="!marked">
-            <input type="text" class="form-control" formControlName="filter" id="filter" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="onEnter()">
+            <input type="text" class="form-control" formControlName="filter" id="filter" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="onSearch()">
         </div>
         <div *ngIf="marked">
             <p-multiSelect #multiSelect [options]="fields" formControlName="selectedFields" defaultLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
@@ -50,7 +50,7 @@
 
         <mat-card mat-elevation-z15 class='box'>
             <mat-card-header>
-                <mat-card-title>{{ 'concepts.conceptsDetails' | translate | uppercase }}</mat-card-title>
+                <mat-card-title>{{ 'concepts.conceptDetails' | translate | uppercase }}</mat-card-title>
             </mat-card-header>
             <mat-card-actions>
                 <div [formGroup]='detailForm' class='container'>
