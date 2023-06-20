@@ -21,7 +21,7 @@
                  [@detailExpand]="isRowExpanded(data) ? 'expanded' : 'collapsed'">
                 <div class='example-element-description'>
                     <label class='element-label'>{{ 'resourceParameters.description' | translate }}</label>
-                    <p class='example-element-description-attribution'>{{data.description}}</p>
+                    <p class='example-element-description-attribution' [innerHTML]="data.description"></p>
                 </div>
                 <div>
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
