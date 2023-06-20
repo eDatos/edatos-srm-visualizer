@@ -36,7 +36,9 @@ export class TableTreeComponent {
       count: node.count,
       level: level,
       urn: node.urn,
-      id: node.id
+      id: node.id,
+      description: node.description,
+      selfLink: node.selfLink,
     };
   }
 

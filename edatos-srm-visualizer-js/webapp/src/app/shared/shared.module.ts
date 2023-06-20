@@ -57,6 +57,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { TableExpandableRows } from './components/table/table-row-expand.component';
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         PaginationsComponent,
         SchemePipe,
         TableTreeComponent,
+        TableExpandableRows,
         VersionPipe,
     ],
     imports: [
@@ -130,6 +132,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         SchemePipe,
         ScrollingModule,
         TableTreeComponent,
+        TableExpandableRows,
         TranslateModule,
         VersionPipe,
         MultiSelectModule,

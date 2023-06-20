@@ -22,7 +22,8 @@
     "generalSearchEngine": "Cercador general",
     "advancedSearch": "Cerca avançada",
     "showAllVersions": "Mostrar totes les versions",
-    "displayedFields": "Camps a mostrar"
+    "displayedFields": "Camps a mostrar",
+    "selfLink": "Accés via API"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
