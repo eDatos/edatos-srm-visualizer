@@ -11,9 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./code-search.component.scss'],
 })
 export class CodeSearchComponent extends BasicTreeSearchComponent implements OnInit {
-
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService, protected override translateService: TranslateService) {
-        super(apiService, formBuilder, translateService);
+    fields: any[];
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService,
+                protected override translateService: TranslateService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, translateService, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
@@ -30,6 +31,16 @@ export class CodeSearchComponent extends BasicTreeSearchComponent implements OnI
             version: '',
             scheme: '',
         });
+
+        this.fields = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'urn' }
+        ];
+
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+
     }
     ngOnInit(): void {
         this.loadInitialData();
