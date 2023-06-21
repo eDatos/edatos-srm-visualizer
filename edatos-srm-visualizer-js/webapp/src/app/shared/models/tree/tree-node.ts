@@ -5,6 +5,7 @@ export interface TreeNode {
     description: string;
     selfLink: string;
     maintainer: string;
+    codelist: string;
     count?: number;
     children?: TreeNode[];
     version?: string;

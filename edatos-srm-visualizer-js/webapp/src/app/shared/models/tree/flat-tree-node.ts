@@ -8,4 +8,5 @@ export interface FlatTreeNode {
     description: string;
     selfLink: string;
     maintainer: string;
+    codelist: string;
 }

@@ -161,6 +161,7 @@ export abstract class BasicTreeSearchComponent {
     private mapperResource() {
         this.dataSearch.forEach((resource) => {
             this.apiService.getDetailFromStructureResource(new Resource(resource.urn)).subscribe((data) => {
+                let codelist = data.urn.split(':')[3] ? data.urn.split(':')[3].split('(')[0] : '';
                 const resourceToTreeNode: TreeNode = {
                     name: this.localeService ? this.localeService?.getTextValue(resource.name.text) : '',
                     id: resource.id,
@@ -168,6 +169,7 @@ export abstract class BasicTreeSearchComponent {
                     description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
                     selfLink: resource.selfLink.href,
                     maintainer: data.agencyID,
+                    codelist: codelist,
                 };
                 this.dataChildren = [...this.dataChildren, resourceToTreeNode];
             });
