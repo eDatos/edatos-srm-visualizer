@@ -10,7 +10,7 @@ import { TableTreeComponent } from '../table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
 import { TableExpandableRows } from '../table/table-row-expand.component';
-
+import { Column } from 'src/app/shared/models/table/column.model';
 
 @Component({
     selector: 'app-basic-tree-search',
@@ -18,16 +18,16 @@ import { TableExpandableRows } from '../table/table-row-expand.component';
 })
 export abstract class BasicTreeSearchComponent {
 
-    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
+    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent; // TODO This attribute should be REMOVED when the list has been adapted to the new design
     @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
     @ViewChild('searchResults') searchResults: ElementRef | undefined;
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
     advancedSearch = false;
     showAllVersions = false;
     selectedDefault: any[] = [];
+    public selectedFields: Column[] = [];
     filter = '';
     marked = false;
-
 
     public searchConfig: SearchConfig = {
         resultLimit: 25,
@@ -37,9 +37,13 @@ export abstract class BasicTreeSearchComponent {
     };
 
     public dataSearch: any[] = [];
-    public searchSimpleForm: FormGroup = this.formBuilder.group({
-        filter: ['', Validators.required]
+
+    public searchSimpleForm = this.formBuilder.group({
+        filter: ['', Validators.required],
+        selectedFields:  [this.selectedDefault],
+        showAllVersions: [false],
     });
+
     public searchForm: FormGroup = new FormGroup({});
 
     public detailForm: any;
@@ -47,12 +51,12 @@ export abstract class BasicTreeSearchComponent {
     public dataDetail: Resource | undefined;
     public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];
-    public foo: TreeNode[] = [];
 
-    protected constructor(protected apiService: ApiService, protected formBuilder: FormBuilder, protected translateService: TranslateService, protected localeService?: LocaleService) {
-    }
+    protected constructor(protected apiService: ApiService, protected formBuilder: FormBuilder,
+                          protected translateService: TranslateService, protected localeService?: LocaleService) {}
 
     public loadInitialData() {
+        this.columnsToDisplay();
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
             this.dataSearch = data[this.apiService.apiSearchDataPath];
             this.searchConfig.resultSize = data['total'];
@@ -61,23 +65,9 @@ export abstract class BasicTreeSearchComponent {
         });
     }
 
-    private mapperResource() {
-        this.dataSearch.forEach((resource) => {
-            this.apiService.getDetailFromStructureResource(new Resource(resource.urn)).subscribe((data) => {
-                const bar: TreeNode = {
-                    name: this.localeService ? this.localeService?.getTextValue(resource.name.text) : '',
-                    id: resource.id,
-                    urn: resource.urn,
-                    description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
-                    selfLink: resource.selfLink.href
-                };
-                this.dataChildren = [...this.dataChildren, bar];
-            });
-        });
-    }
-
     public toggleVisibility(e: any) {
         this.marked = e.checked;
+        this.columnsToDisplay();
     }
 
     public handleOnPanelShow() {
@@ -117,6 +107,21 @@ export abstract class BasicTreeSearchComponent {
         }
     }
 
+    public onLoadDetail(urn: string): void { // TODO This method should be REMOVED when the list has been adapted to the new design
+        this.dataDetail = new Resource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.updateDetailForm();
+        });
+    }
+
+    public onReset(): void { // TODO This method should be PRIVATE when the list has been adapted to the new design
+        this.searchSimpleForm.reset();
+        this.defaultParametersSearch();
+        this.loadInitialData();
+    }
+
     private defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
@@ -124,15 +129,6 @@ export abstract class BasicTreeSearchComponent {
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore
         this.searchResults.nativeElement.scrollTop = 0;
-    }
-
-    public onLoadDetail(urn: string): void {
-        this.dataDetail = new Resource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
-            this.updateDetailForm();
-        });
     }
 
 
@@ -147,12 +143,6 @@ export abstract class BasicTreeSearchComponent {
         this.mapper(this.searchForm.controls);
     }
 
-    public onReset(): void {
-        this.searchSimpleForm.reset();
-        this.defaultParametersSearch();
-        this.loadInitialData();
-    }
-
     private mapper<T>(obj: T) {
         // @ts-ignore
         Object.keys(obj).forEach((key) => {
@@ -161,5 +151,27 @@ export abstract class BasicTreeSearchComponent {
         });
     }
 
+    private columnsToDisplay() {
+        // @ts-ignore
+        this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
+            return { name: field.name, value: field.value };
+        });
+    }
+
+    private mapperResource() {
+        this.dataSearch.forEach((resource) => {
+            this.apiService.getDetailFromStructureResource(new Resource(resource.urn)).subscribe((data) => {
+                const resourceToTreeNode: TreeNode = {
+                    name: this.localeService ? this.localeService?.getTextValue(resource.name.text) : '',
+                    id: resource.id,
+                    urn: resource.urn,
+                    description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
+                    selfLink: resource.selfLink.href,
+                    maintainer: data.agencyID,
+                };
+                this.dataChildren = [...this.dataChildren, resourceToTreeNode];
+            });
+        });
+    }
 }
 

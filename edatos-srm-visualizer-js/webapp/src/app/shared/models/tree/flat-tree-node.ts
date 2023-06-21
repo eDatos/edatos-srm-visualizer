@@ -7,4 +7,5 @@ export interface FlatTreeNode {
     id: string;
     description: string;
     selfLink: string;
+    maintainer: string;
 }

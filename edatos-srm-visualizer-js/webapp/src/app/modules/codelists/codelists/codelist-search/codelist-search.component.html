@@ -41,7 +41,7 @@
         <div #searchResults class='search-results-new-table' [scrollWindow]='false' infinite-scroll
              [fromRoot]='true'
              (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-            <table-expandable-rows #tableExpandable [data]='dataChildren'></table-expandable-rows>
+            <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'></table-expandable-rows>
         </div>
     </div>
 </div>

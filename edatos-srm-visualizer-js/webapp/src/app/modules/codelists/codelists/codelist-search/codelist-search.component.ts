@@ -38,16 +38,16 @@ export class CodelistSearchComponent extends BasicTreeSearchComponent implements
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'urn' }
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
         this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
-
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
             selectedFields:  [this.selectedDefault],
             showAllVersions: [false],
         });
+
     }
 
     ngOnInit(): void {

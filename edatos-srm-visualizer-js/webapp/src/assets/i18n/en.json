@@ -19,6 +19,7 @@
     "version": "Version",
     "comments": "Comments",
     "maintainer": "Maintainer",
+    "codelist": "Codelist",
     "generalSearchEngine": "General search engine",
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",

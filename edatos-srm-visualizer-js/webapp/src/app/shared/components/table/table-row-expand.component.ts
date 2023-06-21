@@ -4,6 +4,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Column } from 'src/app/shared/models/table/column.model';
 
 @Component({
     selector: 'table-expandable-rows',
@@ -18,11 +19,13 @@ import { TreeNode } from 'src/app/shared/models/tree/tree-node';
     ]
 })
 export class TableExpandableRows {
-    columnsToDisplay = ['name', 'id'];
-    columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-    expandedElements: TreeNode[] = [];
+    public columnsToDisplay: Column[] = [];
+    public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
+        return field.name;
+    }), 'expand'];
+    public expandedElements: TreeNode[] = [];
 
-    treeControl = new FlatTreeControl<FlatTreeNode>(
+    public treeControl = new FlatTreeControl<FlatTreeNode>(
         node => node.level, node => node.expandable);
 
     private transformer = (node: TreeNode, level: number) => {
@@ -34,7 +37,8 @@ export class TableExpandableRows {
             urn: node.urn,
             id: node.id,
             description: node.description,
-            selfLink: node.selfLink
+            selfLink: node.selfLink,
+            maintainer: node.maintainer
         };
     };
 
@@ -48,6 +52,16 @@ export class TableExpandableRows {
     set data(dataNodes: TreeNode[]) {
         if (dataNodes) {
             this.dataSource.data = dataNodes;
+        }
+    }
+
+    @Input()
+    set columns(columns: Column[]) {
+        if (columns) {
+            this.columnsToDisplay = columns;
+            this.columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
+                return field.name;
+            }), 'expand'];
         }
     }
 
