@@ -41,6 +41,12 @@ export class CodeSearchComponent extends BasicTreeSearchComponent implements OnI
 
         this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
 
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: '',
+            selectedFields:  [this.selectedDefault],
+            showAllVersions: [false],
+        });
+
     }
     ngOnInit(): void {
         this.loadInitialData();

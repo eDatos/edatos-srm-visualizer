@@ -31,15 +31,17 @@
     </div>
 </div>
 <br />
-<div>
+<div class='mlr'>
+    <br>
     <div>
-        <div class='container align-center'>
-            <div #searchResults class='search-results-new-table' [scrollWindow]='false' infinite-scroll
-                 [fromRoot]='true'
-                 (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-                <table-expandable-rows #tableExpandable [data]='dataChildren'></table-expandable-rows>
-            </div>
+        <div class='search-results-new-table' *ngIf='!dataChildrenLoaded'>
+            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+        </div>
+        <div #searchResults class='search-results-new-table' [scrollWindow]='false' infinite-scroll
+             [fromRoot]='true'
+             (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
+            <table-expandable-rows #tableExpandable [data]='dataChildren'></table-expandable-rows>
         </div>
     </div>
 </div>
-<br />
+<br/>

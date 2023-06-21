@@ -7,7 +7,7 @@
         <th mat-header-cell *matHeaderCellDef aria-label='row actions' sticky>&nbsp;</th>
         <td mat-cell *matCellDef='let data'>
             <div *ngIf='isRowExpanded(data)'>
-                <button class='example-element-actions' mat-icon-button aria-label='collapse row'
+                <button class='element-actions' mat-icon-button aria-label='collapse row'
                         (click)='collapseRow(data); $event.stopPropagation()'>
                     <mat-icon>close</mat-icon>
                 </button>
@@ -17,15 +17,15 @@
 
     <ng-container matColumnDef='expandedDetail'>
         <td mat-cell class='element-td' *matCellDef='let data' [attr.colspan]='columnsToDisplayWithExpand.length'>
-            <div class='example-element-detail'
+            <div class='element-detail'
                  [@detailExpand]="isRowExpanded(data) ? 'expanded' : 'collapsed'">
-                <div class='example-element-description'>
+                <div class='element-description'>
                     <label class='element-label'>{{ 'resourceParameters.description' | translate }}</label>
-                    <p class='example-element-description-attribution' [innerHTML]="data.description"></p>
+                    <p class='element-description-attribution' [innerHTML]="data.description"></p>
                 </div>
-                <div>
+                <div class='element-link'>
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
-                    <code class='element-link'>{{data.selfLink}}</code>
+                    <code class='element-link-attribution'>{{data.selfLink}}</code>
                 </div>
             </div>
         </td>
@@ -33,10 +33,10 @@
 
     <tr mat-header-row *matHeaderRowDef='columnsToDisplayWithExpand; sticky:true' class='element-header'></tr>
     <tr mat-row *matRowDef='let data; columns: columnsToDisplayWithExpand;'
-        class='example-element-row'
-        [class.example-expanded-row]='isRowExpanded(data)'
+        class='element-row'
+        [class.expanded-row]='isRowExpanded(data)'
         (click)='toggleRow(data)'>
     </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='example-detail-row'></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='detail-row'></tr>
 </table>
 
