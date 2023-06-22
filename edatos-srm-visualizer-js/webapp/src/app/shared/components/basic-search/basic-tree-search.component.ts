@@ -71,7 +71,7 @@ export abstract class BasicTreeSearchComponent {
         this.marked = event.checked;
     }
 
-    public onChangeColumnsToDisplay() {
+    public onSelectFields() {
         this.columnsToDisplay();
     }
 
