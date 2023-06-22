@@ -15,7 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class FamilySearchComponent extends BasicTreeSearchComponent implements OnInit {
 
-    fields: any[];
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistFamiliesApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);

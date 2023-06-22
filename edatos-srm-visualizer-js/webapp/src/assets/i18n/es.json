@@ -43,7 +43,7 @@
     "parameters": {}
   },
   "dsd": {
-    "definitionDataStructures" : "Definición de Estructuras de Datos(DSD)",
+    "definitionDataStructures" : "Estructuras de Datos (DSD)",
     "dsd": "DSD",
     "dsdDetails": "Detalles del DSD",
     "datastructures": "Códigos",

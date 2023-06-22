@@ -11,8 +11,6 @@ import { LocaleService } from '../../../../core/services/locale.service';
     styleUrls: ['./codelist-search.component.scss']
 })
 export class CodelistSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    fields: any[];
-
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
 
