@@ -9,7 +9,7 @@ import { SchemesSearchComponent } from './schemes/schemes-search/schemes-search.
 const routes: Routes = [{
   path: '', component: OrganizationsNavbarComponent,
   children:[
-    { path: '', pathMatch: 'full', redirectTo: 'schemes' },
+    { path: '', pathMatch: 'full', redirectTo: 'organizations' },
     { path: 'schemes', component:  SchemesSearchComponent},
     { path: 'schemes/:agencyID/:resourceID/:version/detail', component:  SchemesDetailComponent},
     { path: 'organizations', component:  OrganizationsSearchComponent},
