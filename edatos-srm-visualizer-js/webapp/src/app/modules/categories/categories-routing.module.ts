@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '', component: CategoriesNavbarComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'schemes' },
+      { path: '', pathMatch: 'full', redirectTo: 'categories' },
       { path: 'schemes', component: SchemesSearchComponent },
       { path: 'schemes/:agencyID/:resourceID/:version/detail', component: SchemesDetailComponent},
       { path: 'categories', component: CategoriesSearchComponent },
