@@ -67,8 +67,11 @@ export abstract class BasicTreeSearchComponent {
         });
     }
 
-    public toggleVisibility(e: any) {
-        this.marked = e.checked;
+    public toggleVisibility(event: any) {
+        this.marked = event.checked;
+    }
+
+    public onSelectFields() {
         this.columnsToDisplay();
     }
 
