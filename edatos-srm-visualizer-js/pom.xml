@@ -72,32 +72,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/META-INF/resources</outputDirectory>
-							<resources>
-								<resource>
-									<directory>webapp/dist/edatos-srm-visualizer</directory>
-									<filtering>true</filtering>
-									<excludes>
-										<exclude>**/*.woff</exclude>
-										<exclude>**/*.woff2</exclude>
-										<exclude>**/*.ttf</exclude>
-									</excludes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
         </plugins>
     </build>
 </project>
