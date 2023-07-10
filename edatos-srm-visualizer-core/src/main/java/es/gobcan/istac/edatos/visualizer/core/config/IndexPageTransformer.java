@@ -20,9 +20,12 @@ public class IndexPageTransformer implements ResourceTransformer {
 
     @Override
     public Resource transform(HttpServletRequest httpServletRequest, Resource resource, ResourceTransformerChain resourceTransformerChain) throws IOException {
-        String html = IOUtils.toString(resource.getInputStream(), UTF_8);
-        html = html.replace("<base href=\"/\">", "<base href=" + WebStaticConfig.baseRef + "/>");
-        return new TransformedResource(resource, html.getBytes());
+        if(resource.getURI() !=  null && resource.getURI().toString().contains(".html")) {
+            String html = IOUtils.toString(resource.getInputStream(), UTF_8);
+            html = html.replace("<base href=\"/\">", "<base href=" + WebStaticConfig.baseRef + "/>");
+            return new TransformedResource(resource, html.getBytes());
+        }
+        return resource;
     }
 
 
