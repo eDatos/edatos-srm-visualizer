@@ -15,7 +15,7 @@
                            [maxSelectedLabels]='0'
                            selectedItemsLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
                            dropdownIcon='fa-thin fa-chevron-down'
-                           (onChange)='onChangeColumnsToDisplay()'
+                           (onChange)='onSelectFields()'
                            (onPanelShow)='handleOnPanelShow()' (onPanelHide)='handleOnPanelHide()'>
             </p-multiSelect>
         </div>

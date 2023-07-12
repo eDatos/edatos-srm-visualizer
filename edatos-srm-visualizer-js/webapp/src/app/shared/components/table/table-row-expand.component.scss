@@ -93,14 +93,12 @@ tr.element-row:not(.expanded-row):active {
   background: #D8F0F9;
   border-radius: 5px;
 
-  order: 1;
-  flex-grow: 0;
-  font-size: 12px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
   align-items: center;
-
+  text-overflow: ellipsis;
   color: #000000;
 }
 
@@ -120,7 +118,7 @@ tr.element-row:not(.expanded-row):active {
 
 
 .element-description {
-  width: 100%;
+  width: 55%;
   margin-right: 45px;
 }
 

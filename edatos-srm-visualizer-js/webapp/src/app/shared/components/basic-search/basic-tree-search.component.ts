@@ -38,6 +38,8 @@ export abstract class BasicTreeSearchComponent {
 
     public dataSearch: any[] = [];
 
+    public fields: any[] = [];
+
     public searchSimpleForm = this.formBuilder.group({
         filter: ['', Validators.required],
         selectedFields:  [this.selectedDefault],
@@ -46,7 +48,7 @@ export abstract class BasicTreeSearchComponent {
 
     public searchForm: FormGroup = new FormGroup({});
 
-    public detailForm: any;
+    public detailForm: any; // TODO This attribute should be REMOVED when the list has been adapted to the new design
 
     public dataDetail: Resource | undefined;
     public dataChildrenLoaded: boolean = false;
@@ -69,7 +71,7 @@ export abstract class BasicTreeSearchComponent {
         this.marked = event.checked;
     }
 
-    public onChangeColumnsToDisplay() {
+    public onSelectFields() {
         this.columnsToDisplay();
     }
 

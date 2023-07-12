@@ -12,9 +12,7 @@ import { LocaleService } from '../../../../core/services/locale.service';
 })
 
 export class ConceptsSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    fields: any[];
- 
-    
+
     constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);

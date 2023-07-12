@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./code-search.component.scss'],
 })
 export class CodeSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    fields: any[];
+
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);
