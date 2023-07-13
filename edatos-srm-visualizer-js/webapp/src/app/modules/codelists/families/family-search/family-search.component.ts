@@ -39,7 +39,7 @@ export class FamilySearchComponent extends BasicTreeSearchComponent implements O
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.selectedDefault = this.fields.map(field => field);
 
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
