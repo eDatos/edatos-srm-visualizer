@@ -40,7 +40,7 @@ export class TableTreeComponent {
             description: node.description,
             selfLink: node.selfLink,
             maintainer: node.maintainer,
-            codelist: node.codelist,
+            scheme: node.scheme,
         };
     };
 
