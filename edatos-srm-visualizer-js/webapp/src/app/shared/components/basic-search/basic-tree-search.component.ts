@@ -93,7 +93,7 @@ export abstract class BasicTreeSearchComponent {
     }
 
     private buildQueryResultOffset() {
-        return this.searchSimpleForm.valid ? this.apiService.buildQueryFromForm(this.searchForm) : '';
+        return this.searchSimpleForm.value.filter ? this.apiService.buildQueryFromForm(this.searchForm) : '';
     }
 
     public onScrollUp($event: IInfiniteScrollEvent) {}
