@@ -5,4 +5,8 @@ export interface FlatTreeNode {
     level: number;
     urn: string;
     id: string;
+    description: string;
+    selfLink: string;
+    maintainer: string;
+    codelist: string;
 }

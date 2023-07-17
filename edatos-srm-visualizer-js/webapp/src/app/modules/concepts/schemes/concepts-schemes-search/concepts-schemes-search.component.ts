@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ConceptsSchemeApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-concepts-schemes-search',
@@ -11,8 +12,8 @@ import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search
 })
 export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService, protected override localeService: LocaleService) {
-        super(apiService, formBuilder, localeService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService, protected override translateService: TranslateService) {
+        super(apiService, formBuilder, translateService);
 
         this.searchForm = this.formBuilder.group({
             id: '',

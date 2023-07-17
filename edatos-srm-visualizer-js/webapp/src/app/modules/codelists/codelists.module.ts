@@ -26,8 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     CodelistsRoutingModule,
+    ReactiveFormsModule,
     SharedModule,
-    ReactiveFormsModule
   ]
 })
 export class CodelistsModule { }
