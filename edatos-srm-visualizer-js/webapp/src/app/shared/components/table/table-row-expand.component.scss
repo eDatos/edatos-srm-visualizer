@@ -1,85 +1,97 @@
-table {
-  width: 100%;
-}
-
-.element-header {
-  background: #F2F2F2;
+@import '../../../../assets/scss/variables.scss';
+.element-header { //Cabecera de la tabla de resultados
+  background: $color-negro-5;
   border-radius: 5px;
-  height: 29px;
+  height: 30px;
+  th {
+    padding: 5px 10px;
+    line-height: 19px;
+    font-weight: $font-weight-600;
+  }
 }
 
-.element-actions {
-  align-items: center;
-  text-align: center;
-  color: #FFFFFF;
+.element-row {  //filas de la tabla
+  height: 39px;
+  td {
+    padding: 10px;
+    line-height: 16px;
+    font-size: 12px;
+    border-bottom: 1px solid $color-negro-5;
+  }
+  &:not(.expanded-row):hover {
+    background: $azul-istac-25;
+   td {
+    color: $color-azul-oscuro-100;
+   }
+  }
+  &.expanded-row, &.expanded-row:hover {  //fila expandida
+    height: 51px;
+    > td:first-child {
+      border-radius: 5px 0px 0px 0px;
+    }
+    > td:last-child {
+      border-radius: 0px 5px 0px 0px;
+    }
+    td {
+      //padding: 0px 5px; //en figma parecía que estaba este valor establecido, pero no se alineaba todo a la izquierda
+      padding: 0px 10px;
+      background: $color-azul-oscuro-100;
+      color: $color-negro-0;
+      border-bottom: none;
+    }
+  }
 }
 
 tr.detail-row {
   height: 0;
+  .element-td {
+    padding: 0;
+  }
 }
 
-tr.element-row:not(.expanded-row):hover {
-  background: whitesmoke;
-}
-
-tr.element-row:not(.expanded-row):active {
-  background: #efefef;
-}
-
-.expanded-row {
-  top: 13.95%;
-  bottom: 76.92%;
-
-  background: #004678;
-  border-radius: 5px 5px 0px 0px;
-}
-
-.expanded-row > td {
-  color: #FFFFFF;
-  background: #004678;
-}
-
-.expanded-row > td:first-child {
-  border-radius: 5px 0px 0px 0px;
-}
-
-.expanded-row > td:last-child {
-  border-radius: 0px 5px 0px 0px;
-}
-
-.element-row td {
-  border-bottom-width: 0;
-}
-
-.element-td {
-  padding: 0 !important;
-}
-
-.element-button {
+.element-actions {
   padding: 5px 10px;
-  gap: 5px;
-  width: 180px;
-  height: 30px;
-  left: 1050px;
-  top: 233px;
-
-  background: #FFFFFF;
-  border: 1px solid #004678;
-  border-radius: 5px;
+  width: 1rem;
+  font-size: 16px;
+  background: transparent;
+  border: none;
 }
 
 .element-detail {
-  overflow: hidden;
   display: flex;
-
-  min-height: 200px;
-  height: auto;
-  top: 129px;
-
-  background: rgba(153, 181, 201, 0.5);
+  background: $color-azul-oscuro-25-opacity-50;
   border-radius: 0px 0px 5px 5px;
-  padding-right: 10px;
-  padding-left: 10px;
+  i {
+    color: $color-azul-oscuro-100;
+  }
+}
+
+.element-description {
+  padding: 0px 10px;
+  gap: 5px;
+  width: 608px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.element-label {
+  font-weight: $font-weight-600;
+  padding-top: 10px;
+}
+
+.element-description-attribution {
+  font-weight: $font-weight-300;
+}
+
+
+.element-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0px 10px;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .element-link-attribution {
@@ -92,50 +104,33 @@ tr.element-row:not(.expanded-row):active {
   height: 40px;
   background: #D8F0F9;
   border-radius: 5px;
-
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px;
   align-items: center;
-  text-overflow: ellipsis;
-  color: #000000;
+  color: #231F20;
 }
 
-.element-label {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 16px;
-  align-items: center;
-
-  color: #000000;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  padding-top: 10px;
+.element-button {
+  gap: 5px;
+  width: 180px;
+  height: 30px;
+  border: 1px solid $color-azul-oscuro-100;
+  border-radius: 5px;
+  background: $color-negro-0;
+  color: $color-azul-oscuro-100;
+  span {
+    font-size: 14px;
+    font-weight: $font-weight-300;
+  }
 }
 
 
-.element-description {
-  width: 55%;
-  margin-right: 45px;
-}
 
-.element-description-attribution {
-  height: auto;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 16px;
-  align-items: center;
 
-  color: #000000;
 
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-}
+
+
+
+
+
+
 
 
