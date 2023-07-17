@@ -31,6 +31,7 @@
     "conceptSchemesDetails" : "Detalls de l'esquema de conceptes",
     "concepts": "Conceptes",
     "conceptDetails" : "Detalls del concepte",
+    "seeConcept": "Veure aquest concepte",
     "parameters": {}
   },
   "codelists": {

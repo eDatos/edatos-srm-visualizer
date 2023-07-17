@@ -31,6 +31,7 @@
     "conceptSchemesDetails" : "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
     "conceptDetails" :"Detalles del concepto",
+    "seeConcept": "Ver este concepto",
     "parameters": {}
   },
   "codelists": {
