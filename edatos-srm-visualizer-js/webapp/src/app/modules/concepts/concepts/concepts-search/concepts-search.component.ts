@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-import { MultiSelect } from 'primeng/multiselect';
-import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../../../core/services/locale.service';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -13,17 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class ConceptsSearchComponent extends BasicTreeSearchComponent implements OnInit {
-    @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
-    advancedSearch = false;
-    fields: any[];
-    showAllVersions = false;
-    selectedDefault: any[]= [];
-    filter = '';
-    marked = false;
- 
-    
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService, protected override localeService: LocaleService, private translateService: TranslateService) {
-        super(apiService, formBuilder, localeService);
+
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService,
+                protected override translateService: TranslateService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, translateService, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
@@ -61,27 +53,4 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
     ngOnInit(): void {
         this.loadInitialData();
     }
-
-    onEnter(): void {
-        this.onSearch();
-    }
-
-
-    checkValue(event: any) {
-        console.log(event);
-    }
-
-    toggleVisibility(e: any) {
-        this.marked = e.checked;
-    }
-
-    handleOnPanelShow() {
-        this.multiSelect.dropdownIcon = 'fa-solid fa-chevron-up';
-    }
-
-    handleOnPanelHide() {
-        this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
-    }
-
-
 }

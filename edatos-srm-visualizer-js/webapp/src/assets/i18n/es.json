@@ -19,10 +19,12 @@
     "version": "Versión",
     "comments": "Comentarios",
     "maintainer": "Mantenedor",
+    "codelist": "Clasificación",
     "generalSearchEngine": "Buscador general",
     "advancedSearch": "Búsqueda avanzada",
     "showAllVersions": "Mostrar todas las versiones",
-    "displayedFields": "Campos a mostrar"
+    "displayedFields": "Campos a mostrar",
+    "selfLink": "Acceso vía API"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
@@ -41,7 +43,7 @@
     "parameters": {}
   },
   "dsd": {
-    "definitionDataStructures" : "Definición de Estructuras de Datos(DSD)",
+    "definitionDataStructures" : "Estructuras de Datos (DSD)",
     "dsd": "DSD",
     "dsdDetails": "Detalles del DSD",
     "datastructures": "Códigos",

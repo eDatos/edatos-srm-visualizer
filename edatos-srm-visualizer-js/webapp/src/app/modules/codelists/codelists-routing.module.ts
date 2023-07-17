@@ -11,7 +11,7 @@ import { FamilySearchComponent } from './families/family-search/family-search.co
 const routes: Routes = [{
   path: '', component: CodelistsNavbarComponent,
   children: [
-    { path: '', redirectTo: 'families', pathMatch: 'full' },
+    { path: '', redirectTo: 'codelists', pathMatch: 'full' },
     { path: 'families', component: FamilySearchComponent },
     { path: 'families/:id/detail', component: FamilyDetailComponent },
     { path: 'codelists', component: CodelistSearchComponent },

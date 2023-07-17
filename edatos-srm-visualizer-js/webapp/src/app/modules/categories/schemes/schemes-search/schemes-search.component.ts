@@ -6,6 +6,7 @@ import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search
 import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-schemes-search',
@@ -14,8 +15,9 @@ import {
 })
 export class SchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService, protected override  localeService: LocaleService) {
-        super(apiService, formBuilder, localeService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService,
+                protected override translateService: TranslateService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, translateService, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
@@ -31,6 +33,20 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
             description: '',
             version: '',
             scheme: '',
+        });
+
+        this.fields = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
+        ];
+
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(field => field);
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: '',
+            selectedFields:  [this.selectedDefault],
+            showAllVersions: [false],
         });
     }
     ngOnInit(): void {
