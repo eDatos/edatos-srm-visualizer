@@ -9,7 +9,7 @@ import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.compo
 const routes: Routes = [{
   path: '', component: ConceptsNavbarComponent,
   children: [
-    { path: '', redirectTo: 'schemes', pathMatch: 'full' },
+    { path: '', redirectTo: 'concepts', pathMatch: 'full' },
     { path: 'schemes', component: ConceptsSchemesSearchComponent },
     { path: 'schemes/:agencyID/:resourceID/:version/detail', component: ConceptsSchemesDetailComponent },
     { path: 'concepts', component: ConceptsSearchComponent },

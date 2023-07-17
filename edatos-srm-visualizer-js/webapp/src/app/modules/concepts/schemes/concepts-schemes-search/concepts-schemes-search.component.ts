@@ -12,8 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService, protected override translateService: TranslateService) {
-        super(apiService, formBuilder, translateService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService, 
+                protected override translateService: TranslateService, protected override localeService: LocaleService) {
+        super(apiService, formBuilder, translateService, localeService);
 
         this.searchForm = this.formBuilder.group({
             id: '',
@@ -30,7 +31,22 @@ export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent imp
             version: '',
             scheme: '',
         });
+
+        this.fields = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
+        ];
+
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.searchSimpleForm = this.formBuilder.group({
+            filter: '',
+            selectedFields:  [this.selectedDefault],
+            showAllVersions: [false],
+        });
     }
+
     ngOnInit(): void {
         this.loadInitialData();
     }
