@@ -43,5 +43,9 @@ $font-weight-700: 700;
 $font-weight-300: 300;
 
 $height-nav: 45px;
-$width-nav: 1280px;
+
+$padding-10px: 10px;
+
+$container-max-widths: 1280px;
+$container-2columns-max-width: calc($container-max-widths/2 - 2*$padding-10px);
 
