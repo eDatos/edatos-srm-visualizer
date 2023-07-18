@@ -33,7 +33,6 @@
       border-radius: 0px 5px 0px 0px;
     }
     td {
-      //padding: 0px 5px; //en figma parecía que estaba este valor establecido, pero no se alineaba todo a la izquierda
       padding: 0px 10px;
       background: $color-azul-oscuro-100;
       color: $color-negro-0;
@@ -106,6 +105,13 @@ tr.detail-row {
   border-radius: 5px;
   align-items: center;
   color: #231F20;
+  max-width: 620px;
+  code {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .element-button {
