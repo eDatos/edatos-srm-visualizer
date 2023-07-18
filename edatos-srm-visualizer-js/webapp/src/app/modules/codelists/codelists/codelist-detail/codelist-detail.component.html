@@ -1,46 +1,77 @@
 <div class='m-30'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
-            <mat-card-title>{{ 'codelists.codelistsDetails' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
+    <div class='general-search row'>
+        <button color='primary' (click)='onDownloadSdmx()' class='ml'>
+            <mat-icon>download</mat-icon>
+            <span>{{ 'download.sdmx-xml' | translate }}</span>
+        </button>
+        <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
+                    filterBy='name' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}">
+            <ng-template pTemplate='selectedItem'>
+                <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
+                    <div>{{ selectedVersion }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-version pTemplate='item'>
+                <div class='flex align-items-center gap-2'>
+                    <button (click)="onLoadDetailVersion(version)">v{{ version }}</button>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <div [formGroup]='detailForm' class='container'>
+        <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
+        <input type='text' class='form-control' formControlName='id' id='id' readonly>
 
-        <mat-action-row class='m-30' *ngIf='apiSDMX'>
-            <button mat-raised-button color='primary' (click)='onDownloadSdmx()' class='ml'>
-                <mat-icon>download</mat-icon>
-                <span>{{ 'download.sdmx-xml' | translate }}</span>
-            </button>
-        </mat-action-row>
-        <mat-card-content>
-            <div [formGroup]='detailForm' class='container'>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                    <input formControlName='id' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.version' | translate }}</mat-label>
-                    <input formControlName='version' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                    <input formControlName='name' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                    <input formControlName='urn' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                    <input formControlName='description' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.maintainer' | translate }}</mat-label>
-                    <input formControlName='agency' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.comments' | translate }}</mat-label>
-                    <input formControlName='comments' matInput >
-                </mat-form-field>
+        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+        <input type='text' class='form-control' formControlName='name' id='name' readonly>
+
+        <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
+        <input type='text' class='form-control' formControlName='version' id='version' readonly>
+
+        <label for='lastUpdateDate' class='title'>{{ 'codelists.parameters.publicationDate' | translate }}</label>
+        <input type='text' class='form-control' formControlName='lastUpdateDate' id='lastUpdateDate' readonly>
+
+        <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
+        <input type='text' class='form-control' formControlName='description' id='description' readonly>
+
+        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
+
+        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
+
+        <label for='isRecommended' class='title'>{{ 'codelists.parameters.isRecommended' | translate }}</label>
+        <input type='text' class='form-control' formControlName='isRecommended' id='isRecommended' readonly>
+
+        <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
+        <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
+
+        <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+        <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
+
+    </div>
+    <br>
+    <div class='container'>
+        <div class='section-tab'>
+            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
+                       (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
+        </div>
+        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
+            <div class='container'>
+                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+                    <app-table-tree #tabletreenode [data]='dataChildren'
+                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
+                </div>
+                <div class='search-results' *ngIf='!dataChildrenLoaded'>
+                    <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+                </div>
             </div>
-        </mat-card-content>
-    </mat-card>
+        </div>
+        <div class='m-30' *ngIf='activeLink == navLinks[1]'>
+
+        </div>
+        <div class='m-30' *ngIf='dataChildren == null'>
+            <span>{{ 'resultsNotFound' | translate }}</span>
+        </div>
+    </div>
 </div>

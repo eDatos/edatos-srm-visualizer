@@ -14,7 +14,8 @@ export class CodelistsApiService extends ApiService {
         this.apiSearchUrl = '/v1.0/codelists/';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
         this.apiChildrenUrl = '/api/codelists/{urn}/codes';
-        this.apiChildrenTreeUrl = '/api/codelists/{urn}/codes';
+        this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
+        this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
     }
 }

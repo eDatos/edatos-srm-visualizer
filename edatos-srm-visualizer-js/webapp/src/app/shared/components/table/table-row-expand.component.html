@@ -27,6 +27,13 @@
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
                     <code class='element-link-attribution'>{{data.selfLink}}</code>
                 </div>
+                <div class='in-line align-right'>
+                    <button mat-raised-button color='primary' class='ml'
+                            [routerLink]="[routerLink]">
+                        <mat-icon>expand_more</mat-icon>
+                        <span>{{ 'showDetails' | translate }}</span>
+                    </button>
+                </div>
             </div>
         </td>
     </ng-container>

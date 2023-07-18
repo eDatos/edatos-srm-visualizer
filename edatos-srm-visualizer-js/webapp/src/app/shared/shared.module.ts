@@ -58,6 +58,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TableExpandableRows } from './components/table/table-row-expand.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -77,7 +78,8 @@ import { TableExpandableRows } from './components/table/table-row-expand.compone
         ScrollingModule,
         TranslateModule,
         MultiSelectModule,
-        InputSwitchModule
+        InputSwitchModule,
+        RouterLink
     ],
     exports: [
         AgencyPipe,

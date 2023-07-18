@@ -5,6 +5,10 @@
   "clear": "Limpiar",
   "showDetails": "Mostrar detalles",
   "details": "Detalles",
+  "resultsNotFound": "No se han encontrado resultados.",
+  "yes": "Sí",
+  "no": "No",
+  "otherVersions": "Otras versiones",
   "download": {
     "sdmx-xml": "Descargar SDMX-XML"
   },
@@ -17,7 +21,7 @@
     "description": "Descripción",
     "scheme": "Esquema",
     "version": "Versión",
-    "comments": "Comentarios",
+    "comments": "Anotaciones",
     "maintainer": "Mantenedor",
     "codelist": "Clasificación",
     "generalSearchEngine": "Buscador general",
@@ -28,9 +32,9 @@
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
-    "conceptSchemesDetails" : "Detalles del esquema de conceptos",
+    "conceptSchemesDetails": "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
-    "conceptDetails" :"Detalles del concepto",
+    "conceptDetails": "Detalles del concepto",
     "parameters": {}
   },
   "codelists": {
@@ -40,10 +44,16 @@
     "codelistsDetails": "Detalles de la clasificación",
     "codes": "Códigos",
     "codesDetails": "Detalles del código",
-    "parameters": {}
+    "relatedCodelist": "Clasificaciones realcionadas",
+    "parameters": {
+      "id": "Identificador de la clasificación",
+      "agency": "Agencia mantenedora",
+      "publicationDate": "Fecha de publicación",
+      "isRecommended": "¿Es recomendada?"
+    }
   },
   "dsd": {
-    "definitionDataStructures" : "Estructuras de Datos (DSD)",
+    "definitionDataStructures": "Estructuras de Datos (DSD)",
     "dsd": "DSD",
     "dsdDetails": "Detalles del DSD",
     "datastructures": "Códigos",

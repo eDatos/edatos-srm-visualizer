@@ -10,7 +10,9 @@ import { CodelistSearchComponent } from './codelists/codelist-search/codelist-se
 import { CodelistDetailComponent } from './codelists/codelist-detail/codelist-detail.component';
 import { CodeDetailComponent } from './codes/code-detail/code-detail.component';
 import { CodeSearchComponent } from './codes/code-search/code-search.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 @NgModule({
@@ -23,11 +25,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     CodeDetailComponent,
     CodeSearchComponent
   ],
-  imports: [
-    CommonModule,
-    CodelistsRoutingModule,
-    ReactiveFormsModule,
-    SharedModule,
-  ]
+    imports: [
+        CommonModule,
+        CodelistsRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+        DropdownModule,
+        FormsModule,
+        TabMenuModule
+    ]
 })
 export class CodelistsModule { }

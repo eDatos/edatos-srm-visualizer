@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { SearchConfig } from 'src/app/shared/models/search-config';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { TableTreeComponent } from '../table-tree/table-tree.component';
+import { DateUtils } from '../../utils/dateUtils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-basic-tree-detail',
@@ -14,13 +15,6 @@ import { TableTreeComponent } from '../table-tree/table-tree.component';
 })
 export abstract class BasicTreeDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
-
-    searchConfig: SearchConfig = {
-        resultLimit: 25,
-        resultOffset: 0,
-        resultSize: 0,
-        currentPage: 0,
-    };
 
     detailForm: any;
     dataDetail: Resource | undefined;
@@ -32,7 +26,8 @@ export abstract class BasicTreeDetailComponent implements OnInit {
     dataChildrenLoaded: boolean = false;
     dataChildren: TreeNode[] = [];
 
-    constructor(public formBuilder: FormBuilder, public apiService: ApiService, public route: ActivatedRoute, public localeService: LocaleService) {}
+    constructor(protected formBuilder: FormBuilder, protected apiService: ApiService, protected route: ActivatedRoute,
+                protected localeService: LocaleService, protected translateService: TranslateService) {}
 
     public abstract updateTableChildrenTreeNode(data: any): void;
 
@@ -51,10 +46,15 @@ export abstract class BasicTreeDetailComponent implements OnInit {
             description: '',
             name: '',
             urn: '',
+            annotations: '',
+            uri: '',
+            lastUpdateDate: '',
+            isRecommended: '',
         };
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            this.updateDataDetail(data);
+            this.mapperDataDetail(data);
+            this.loadAllVersionsFromResource();
             if (this.isDataWithChildrenTree) {
                 this.loadChildrenTreeData();
             }
@@ -89,10 +89,17 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
-    public updateDataDetail(data: any): void {
+    public mapperDataDetail(data: any): void {
         this.dataDetail = new Resource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
+        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
+        this.dataDetail!.lastUpdateDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
+        this.dataDetail!.uri = data.uri;
+        this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
         this.detailForm.patchValue(this.dataDetail);
+
     }
+
+    abstract loadAllVersionsFromResource(): void;
 }
