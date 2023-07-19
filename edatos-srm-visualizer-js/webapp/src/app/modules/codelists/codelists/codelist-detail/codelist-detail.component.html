@@ -1,11 +1,8 @@
 <div class='m-30'>
-    <div class='general-search row'>
-        <button color='primary' (click)='onDownloadSdmx()' class='ml'>
-            <mat-icon>download</mat-icon>
-            <span>{{ 'download.sdmx-xml' | translate }}</span>
-        </button>
+    <div class='general-buttons row general-search'>
         <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
-                    filterBy='name' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}">
+                    filterBy='name' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}"
+                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'>
             <ng-template pTemplate='selectedItem'>
                 <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
                     <div>{{ selectedVersion }}</div>
@@ -13,11 +10,16 @@
             </ng-template>
             <ng-template let-version pTemplate='item'>
                 <div class='flex align-items-center gap-2'>
-                    <button (click)="onLoadDetailVersion(version)">v{{ version }}</button>
+                    <button (click)='onLoadDetailVersion(version)'>v{{ version }}</button>
                 </div>
             </ng-template>
         </p-dropdown>
+        <button color='primary' (click)='onDownloadSdmx()' class='ml'>
+            <mat-icon>download</mat-icon>
+            <span>{{ 'download.sdmx-xml' | translate }}</span>
+        </button>
     </div>
+
     <div [formGroup]='detailForm' class='container'>
         <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
         <input type='text' class='form-control' formControlName='id' id='id' readonly>
@@ -56,15 +58,13 @@
             <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
                        (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
         </div>
+        <div class='m-30' *ngIf='!dataChildrenLoaded'>
+            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+        </div>
         <div class='m-30' *ngIf='activeLink == navLinks[0]'>
-            <div class='container'>
-                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]='dataChildren'
-                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
-                </div>
-                <div class='search-results' *ngIf='!dataChildrenLoaded'>
-                    <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-                </div>
+            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+                <app-table-tree #tabletreenode [data]='dataChildren'
+                                (clickEvent)='onLoadDetail($event)'></app-table-tree>
             </div>
         </div>
         <div class='m-30' *ngIf='activeLink == navLinks[1]'>
@@ -74,4 +74,5 @@
             <span>{{ 'resultsNotFound' | translate }}</span>
         </div>
     </div>
+    <br />
 </div>
