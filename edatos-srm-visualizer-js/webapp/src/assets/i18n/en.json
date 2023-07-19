@@ -35,6 +35,7 @@
     "conceptSchemesDetails" : "Concept scheme details",
     "concepts": "Concepts",
     "conceptDetails" : "Concept details",
+    "seeConcept": "See this concept",
     "parameters": {}
   },
   "codelists": {
