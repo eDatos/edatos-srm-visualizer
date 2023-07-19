@@ -15,7 +15,7 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./codelist-detail.component.scss']
 })
 export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
-    public versions: string[] = [];
+    public versions: any[] = [];
     public selectedVersion: string = '';
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -70,7 +70,9 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     public loadAllVersionsFromResource() {
         this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
-                this.versions = data;
+                data.forEach((version: any) => {
+                    this.versions.push({value: version});
+                });
             }
         });
     }
