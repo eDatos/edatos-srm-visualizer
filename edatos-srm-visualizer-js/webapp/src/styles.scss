@@ -12,7 +12,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     padding-right: 0px;
     padding-left: 0px;
@@ -110,14 +110,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow-y: auto;
 }
 
-.search-results-new-table{
-    height: 800px;
-    width: 98%;
-    min-height: 300px;
-    overflow-y: auto;
-    margin-left: 20px;
-}
 
-app-codelists-navbar{
-    flex: content;
-}
