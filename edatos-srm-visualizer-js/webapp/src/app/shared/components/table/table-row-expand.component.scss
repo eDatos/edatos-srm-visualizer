@@ -31,6 +31,8 @@
     }
     > td:last-child {
       border-radius: 0px 5px 0px 0px;
+      text-align: end;
+      padding-right: calc(2*$padding-10px);
     }
     td {
       padding: 0px $padding-10px;
