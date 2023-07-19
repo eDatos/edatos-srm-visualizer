@@ -13,6 +13,7 @@ import { CodeSearchComponent } from './codes/code-search/code-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
         SharedModule,
         DropdownModule,
         FormsModule,
-        TabMenuModule
+        TabMenuModule,
+        TableModule
     ]
 })
 export class CodelistsModule { }

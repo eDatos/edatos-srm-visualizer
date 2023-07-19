@@ -68,9 +68,24 @@
             </div>
         </div>
         <div class='m-30' *ngIf='activeLink == navLinks[1]'>
-
+            <p-table [value]="relatedCodelists" class='search-results'>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>{{ 'resourceParameters.identifier' | translate }}</th>
+                        <th>{{ 'resourceParameters.name' | translate }}</th>
+                        <th>{{ 'resourceParameters.description' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-codelist>
+                    <tr>
+                        <td>{{ codelist.id }}</td>
+                        <td>{{ codelist.name }}</td>
+                        <td>{{ codelist.description }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
-        <div class='m-30' *ngIf='dataChildren == null'>
+        <div class='m-30' *ngIf='dataChildren === null'>
             <span>{{ 'resultsNotFound' | translate }}</span>
         </div>
     </div>

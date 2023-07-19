@@ -91,7 +91,7 @@ export abstract class ApiService {
         return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)));
     }
 
-    private getData(url: string, query?: string): Observable<any> {
+    protected getData(url: string, query?: string): Observable<any> {
         if (query) {
             url = this.buildQueryUrl(url, query);
         }

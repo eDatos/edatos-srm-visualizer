@@ -16,6 +16,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
     public versions: any[] = [];
+    public relatedCodelists: Resource[] = [];
     public selectedVersion: string = '';
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -54,7 +55,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
 
     updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
-        this.tabletreenode.dataSource.data = data;
+        this.dataChildren = data;
         this.tabletreenode.treeControl.expandAll();
     }
 
@@ -65,6 +66,23 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
+        if(this.activeLink == this.navLinks[1]){
+            this.apiService.loadRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
+                if (data[this.apiService.apiSearchDataPath]) {
+                    data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
+                        const resource = new Resource(codelist.urn);
+                        resource.id = codelist.id;
+                        resource.name = this.localeService.getTextValue(codelist.name?.text);
+                        resource.description = this.localeService.getTextValue(codelist.description?.text);
+                        this.relatedCodelists.push(resource);
+                    });
+                    this.dataChildrenLoaded = true;
+                }
+            });
+        }
+        else {
+            this.relatedCodelists = [];
+        }
     }
 
     public loadAllVersionsFromResource() {
@@ -78,7 +96,8 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     }
 
     public onLoadDetailVersion(version: string) {
+        console.log('entro', version);
         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
-
+        this.versions = [];
     }
 }

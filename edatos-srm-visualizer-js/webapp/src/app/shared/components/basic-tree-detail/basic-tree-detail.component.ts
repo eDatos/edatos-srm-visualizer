@@ -16,6 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 export abstract class BasicTreeDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
 
+    public resource: any;
+
     detailForm: any;
     dataDetail: Resource | undefined;
 
@@ -53,7 +55,8 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         };
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            this.mapperDataDetail(data);
+            this.resource= data;
+            this.mapperDataDetail(this.resource);
             this.loadAllVersionsFromResource();
             if (this.isDataWithChildrenTree) {
                 this.loadChildrenTreeData();
@@ -98,7 +101,6 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         this.dataDetail!.uri = data.uri;
         this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
         this.detailForm.patchValue(this.dataDetail);
-
     }
 
     abstract loadAllVersionsFromResource(): void;
