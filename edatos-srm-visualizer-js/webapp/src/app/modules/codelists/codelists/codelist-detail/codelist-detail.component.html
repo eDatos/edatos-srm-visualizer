@@ -1,23 +1,29 @@
 <div class='m-30'>
-    <div class='general-buttons row general-search'>
-        <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
-                    filterBy='value' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}"
-                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'>
-            <ng-template pTemplate='selectedItem'>
-                <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
-                    <div>{{ selectedVersion }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-version pTemplate='item'>
-                <div class='flex align-items-center gap-2'>
-                    <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
-                </div>
-            </ng-template>
-        </p-dropdown>
-        <button color='primary' (click)='onDownloadSdmx()' class='ml'>
-            <mat-icon>download</mat-icon>
-            <span>{{ 'download.sdmx-xml' | translate }}</span>
-        </button>
+    <div class='general-buttons'>
+        <div class='general-left-buttons row'>
+            <button (click)='onReturn()'>
+                <span>{{ 'back' | translate }}</span>
+            </button>
+        </div>
+        <div class='general-right-buttons row'>
+            <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
+                        filterBy='value' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}"
+                        class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'>
+                <ng-template pTemplate='selectedItem'>
+                    <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
+                        <div>{{ selectedVersion }}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-version pTemplate='item'>
+                    <div class='flex align-items-center gap-2'>
+                        <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+            <button color='primary' (click)='onDownloadSdmx()'>
+                <span>{{ 'download.sdmx-xml' | translate }}</span>
+            </button>
+        </div>
     </div>
 
     <div [formGroup]='detailForm' class='container'>
@@ -68,15 +74,15 @@
             </div>
         </div>
         <div class='m-30' *ngIf='activeLink == navLinks[1]'>
-            <p-table [value]="relatedCodelists" class='search-results'>
-                <ng-template pTemplate="header">
+            <p-table [value]='relatedCodelists' class='search-results'>
+                <ng-template pTemplate='header'>
                     <tr>
                         <th>{{ 'resourceParameters.identifier' | translate }}</th>
                         <th>{{ 'resourceParameters.name' | translate }}</th>
                         <th>{{ 'resourceParameters.description' | translate }}</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-codelist>
+                <ng-template pTemplate='body' let-codelist>
                     <tr>
                         <td>{{ codelist.id }}</td>
                         <td>{{ codelist.name }}</td>

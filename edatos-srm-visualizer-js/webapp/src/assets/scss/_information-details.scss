@@ -1,8 +1,20 @@
-
-.general-buttons.row {
+.general-buttons{
+    height: 60px;
+    align-items: center;
+    .title {
+        font-weight: $font-weight-600;
+    }
+}
+.general-right-buttons.row {
     margin: 0px;
     float: right;
 }
+
+.general-left-buttons.row {
+    margin: 0px;
+    float: left;
+}
+
 
 //primeng dropdown - OTHER VERSIONS
 .p-dropdown-custom .p-dropdown {

@@ -9,6 +9,7 @@
   "yes": "Yes",
   "no": "No",
   "otherVersions": "Other versions",
+  "back": "Back to list",
   "download": {
     "sdmx-xml": "Download SDMX-XML"
   },

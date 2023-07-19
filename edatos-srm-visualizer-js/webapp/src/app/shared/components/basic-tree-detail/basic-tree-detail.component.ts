@@ -92,6 +92,10 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         });
     }
 
+    public onReturn() {
+        window.history.back();
+    }
+
     public mapperDataDetail(data: any): void {
         this.dataDetail = new Resource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
