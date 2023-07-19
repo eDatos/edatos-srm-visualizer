@@ -1,37 +1,33 @@
 <div [formGroup]='searchSimpleForm'>
-    <div class='general-search row'>
-        <div *ngIf='!marked'>
-            <label for='filter' class='title'>{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
+    <div class="general-search row">
+        <div *ngIf="!marked">
+            <label for="filter" class="title">{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
         </div>
-        <div class='col' *ngIf='!marked'>
-            <input type='text' class='form-control' formControlName='filter' id='filter'
-                   placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
+        <div class="col" *ngIf="!marked">
+            <input type="text" class="form-control" formControlName="filter" id="filter"
+                   placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="onSearch()">
         </div>
-        <div class='custom-control custom-switch col' *ngIf='marked'>
-            <p-inputSwitch inputId='allVersions' formControlName='showAllVersions'></p-inputSwitch>
-            <label for='allVersions'
+        <div class="custom-control custom-switch col" *ngIf="marked">
+            <p-inputSwitch inputId="allVersions" formControlName="showAllVersions"></p-inputSwitch>
+            <label for="allVersions"
                    [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
         </div>
-        <div class='custom-control custom-switch'>
-            <p-inputSwitch inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
-            <label for='advancedSearch'
+        <div class="custom-control custom-switch">
+            <p-inputSwitch inputId="advancedSearch" (onChange)="toggleVisibility($event)"></p-inputSwitch>
+            <label for="advancedSearch"
                    [ngClass]="(marked === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
         </div>
     </div>
 </div>
 
-
-<div class='mlr'>
-    <br>
-    <div>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div #searchResults class='search-results-new-table' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true'
-             (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-            <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'></table-expandable-rows>
-        </div>
+<div>
+    <div *ngIf='!dataChildrenLoaded'>
+        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+    </div>
+    <div #searchResults class='search-results-new-table' [scrollWindow]='false' infinite-scroll
+        [fromRoot]='true'
+        (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
+        <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'></table-expandable-rows>
     </div>
 </div>
 <br/>
