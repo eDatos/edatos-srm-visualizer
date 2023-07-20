@@ -26,13 +26,17 @@ public abstract class GenericResource {
                 .orElse("");
     }
 
-    protected String getUrlApi(String urn, String urlApiChildrenDetails) {
+    protected String getUrlApi(String urn, String urlApi) {
         Urn urnValues = new Urn(urn);
         String agency = urnValues.getAgency();
         String scheme = urnValues.getScheme();
         String version = urnValues.getVersion();
 
-        return urlApiChildrenDetails.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
+        if(urlApi.contains("#VERSION#")){
+            return urlApi.replace("#AGENCY#", agency).replace("#SCHEME#", scheme).replace("#VERSION#", version);
+        }
+
+        return urlApi.replace("#AGENCY#", agency).replace("#SCHEME#", scheme);
     }
 
 }

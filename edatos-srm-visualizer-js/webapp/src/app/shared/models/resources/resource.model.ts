@@ -6,6 +6,10 @@ export class Resource {
     description: string = '';
     urn: string = '';
     name: string = '';
+    annotations: string = '';
+    lastUpdateDate: string = '';
+    uri: string = '';
+    isRecommended: string = '';
 
     constructor(urn?: string) {
         if (urn) {

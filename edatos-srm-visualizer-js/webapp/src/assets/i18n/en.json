@@ -5,6 +5,11 @@
   "clear": "Clear",
   "showDetails": "Show details",
   "details": "Details",
+  "resultsNotFound": "No results found.",
+  "yes": "Yes",
+  "no": "No",
+  "otherVersions": "Other versions",
+  "back": "Back to list",
   "download": {
     "sdmx-xml": "Download SDMX-XML"
   },
@@ -41,7 +46,13 @@
     "codelistsDetails": "Codelists details",
     "codes": "Codes",
     "codesDetails": "Codes details",
-    "parameters": {}
+    "relatedCodelist": "Related classifications",
+    "parameters": {
+      "id": "Codelist ID",
+      "agency": "Making Agency",
+      "publicationDate": "Date of publication",
+      "isRecommended": "Is it recommended?"
+    }
   },
   "dsd": {
     "definitionDataStructures" : "Data Structures (DSD)",

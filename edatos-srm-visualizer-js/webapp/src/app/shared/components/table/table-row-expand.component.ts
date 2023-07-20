@@ -5,6 +5,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Column } from 'src/app/shared/models/table/column.model';
+import { Resource } from '../../models/resources/resource.model';
 
 @Component({
     selector: 'table-expandable-rows',
@@ -20,6 +21,8 @@ import { Column } from 'src/app/shared/models/table/column.model';
 })
 export class TableExpandableRows {
     public columnsToDisplay: Column[] = [];
+    public routerLink: string | undefined;
+
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
     }), 'expand'];
@@ -39,7 +42,7 @@ export class TableExpandableRows {
             description: node.description,
             selfLink: node.selfLink,
             maintainer: node.maintainer,
-            scheme: node.scheme,
+            scheme: node.scheme
         };
     };
 
@@ -57,6 +60,13 @@ export class TableExpandableRows {
     }
 
     @Input()
+    set routerLinkDetail(data: string) {
+        if (data) {
+            this.routerLink = data;
+        }
+    }
+
+    @Input()
     set columns(columns: Column[]) {
         if (columns) {
             this.columnsToDisplay = columns;
@@ -67,10 +77,6 @@ export class TableExpandableRows {
     }
 
     @Output() clickEvent = new EventEmitter<string>();
-
-    onClickResource(resource: string) {
-        this.clickEvent.emit(resource);
-    }
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
@@ -96,7 +102,12 @@ export class TableExpandableRows {
             this.collapseRow(data);
         } else {
             this.expandRow(data);
+            this.onClickResource(data.urn);
         }
+    }
+
+    private onClickResource(resource: string) {
+        this.clickEvent.emit(resource);
     }
 }
 
