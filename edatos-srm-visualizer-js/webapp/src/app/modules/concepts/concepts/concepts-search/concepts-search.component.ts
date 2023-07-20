@@ -39,7 +39,7 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
             { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
             { name: this.translateService.instant('resourceParameters.scheme'), value: 'urn' }
         ];
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(field => field);
 
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
@@ -49,7 +49,6 @@ export class ConceptsSearchComponent extends BasicTreeSearchComponent implements
 
     }
     
-
     ngOnInit(): void {
         this.loadInitialData();
     }
