@@ -136,6 +136,36 @@ tr.detail-row {
   align-self: flex-end;
 }
 
+.empty-td {
+  width: $container-max-widths;
+  padding: 32px 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-td-container {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: $color-amarillo-25;
+  border-radius: 3px;
+  width: calc($container-max-widths/4 + $padding-10px);
+  padding: 20px 30px;
+  span {
+    &.text-no-result {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+    }
+    &.text-retry {
+      font-weight: 300;
+      line-height: 19px;
+    }
+  }
+ 
+}
 
 
 
