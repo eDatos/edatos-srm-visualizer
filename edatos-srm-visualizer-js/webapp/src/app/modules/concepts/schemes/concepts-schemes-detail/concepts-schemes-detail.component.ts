@@ -5,6 +5,7 @@ import { ConceptsSchemeApiService } from 'src/app/core/services/api/structural-r
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-concepts-schemes-detail',
@@ -13,8 +14,10 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
-    constructor(formBuilder: FormBuilder, apiService: ConceptsSchemeApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
-        super(formBuilder, apiService, route, localeService);
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService,
+                protected override route: ActivatedRoute, private router: Router,
+                protected override localeService: LocaleService, protected override translateService: TranslateService) {
+        super(formBuilder, apiService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -38,4 +41,6 @@ export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent imp
         // FIXME
         this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
+
+    public loadAllVersionsFromResource(): void {}
 }

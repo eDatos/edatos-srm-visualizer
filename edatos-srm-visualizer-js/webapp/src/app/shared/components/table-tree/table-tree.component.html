@@ -1,6 +1,6 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> 
+      <th mat-header-cell *matHeaderCellDef style='display: none'>
         <span [style.paddingLeft.px]="40"> Name </span>
       </th>
       <td mat-cell *matCellDef="let data" (click)="onClickResource(data.urn)"> 
@@ -12,13 +12,13 @@
             chevron_right
           </mat-icon>
         </button>
-        {{data.name}} {{data.version}}
+          <strong>{{data.id}}</strong> {{data.name}}
       </td>
     </ng-container> 
   
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let data">{{data.id}} </td>
+      <th mat-header-cell *matHeaderCellDef style='display: none'> </th>
+      <td mat-cell *matCellDef="let data"></td>
     </ng-container> 
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

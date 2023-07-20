@@ -5,6 +5,11 @@
   "clear": "Netejar",
   "showDetails": "Mostrar detalls",
   "details": "Detalls",
+  "resultsNotFound": "No s'han trobat resultats.",
+  "yes": "Si",
+  "no": "No",
+  "otherVersions": "Altres versions",
+  "back": "Tornar al llistat",
   "download": {
     "sdmx-xml": "Descarregar SDMX-XML"
   },
@@ -41,7 +46,13 @@
     "codelistsDetails": "Detalls de les classificacions",
     "codes": "Codis",
     "codesDetails": "Detalls dels codis",
-    "parameters": {}
+    "relatedCodelist": "Classificacions relacionades",
+    "parameters": {
+      "id": "Identificador de la classificació",
+      "agency": "Agència mantenidora",
+      "publicationDate": "Data de publicació",
+      "isRecommended": "¿És recomanada?"
+    }
   },
   "dsd": {
     "definitionDataStructures" : "Estructures de Dades (DSD)",
