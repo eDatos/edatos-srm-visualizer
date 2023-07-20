@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { SearchConfig } from 'src/app/shared/models/search-config';
 
 @Component({
     selector: 'app-basic-detail',
@@ -12,12 +11,6 @@ import { SearchConfig } from 'src/app/shared/models/search-config';
     styleUrls: ['./basic-detail.component.scss'],
 })
 export abstract class BasicDetailComponent implements OnInit {
-    searchConfig: SearchConfig = {
-        resultLimit: 20,
-        resultOffset: 0,
-        resultSize: 0,
-        currentPage: 0,
-    };
 
     detailForm: any;
     dataDetail: Resource | undefined;
@@ -41,6 +34,10 @@ export abstract class BasicDetailComponent implements OnInit {
             description: '',
             name: '',
             urn: '',
+            annotations: '',
+            uri: '',
+            lastUpdateDate: '',
+            isRecommended: '',
         };
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {

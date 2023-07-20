@@ -54,6 +54,8 @@ export abstract class BasicTreeSearchComponent {
     public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];
 
+    public routerLinkDetail: string = '';
+
     protected constructor(protected apiService: ApiService, protected formBuilder: FormBuilder,
                           protected translateService: TranslateService, protected localeService?: LocaleService) {}
 
@@ -137,7 +139,7 @@ export abstract class BasicTreeSearchComponent {
     }
 
 
-    private updateDetailForm(): void {
+    public updateDetailForm(): void {
         this.detailForm.patchValue(this.dataDetail);
     }
 
