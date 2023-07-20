@@ -24,6 +24,7 @@ export abstract class ApiService {
     public apiChildrenTreeUrl: string = '';
     public apiChildrenUrl: string = '';
     public apiChildrenDataPath: string = '';
+    public apiAllVersionsFromResourceUrl: string = '';
 
     ALL_ELEMENTS: string = '~all';
 
@@ -59,6 +60,10 @@ export abstract class ApiService {
         return this.getData(ApiService.apiInternalDomain.concat(this.apiChildrenTreeUrl.replace('{urn}', dataDetail!.urn)));
     }
 
+    public getAllVersionsFromResource(dataDetail: Resource): Observable<any> {
+        return this.getData(ApiService.apiInternalDomain.concat(this.apiAllVersionsFromResourceUrl.replace('{urn}', dataDetail!.urn)));
+    }
+
     public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
         let query = this.buildQueryFromForm(form);
         return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
@@ -86,7 +91,7 @@ export abstract class ApiService {
         return this.httpClient.get<any>(url.concat(this.getResultLimit(url, searchConfig)));
     }
 
-    private getData(url: string, query?: string): Observable<any> {
+    protected getData(url: string, query?: string): Observable<any> {
         if (query) {
             url = this.buildQueryUrl(url, query);
         }
