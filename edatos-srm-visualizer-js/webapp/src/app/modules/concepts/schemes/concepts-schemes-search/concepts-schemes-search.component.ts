@@ -39,7 +39,7 @@ export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent imp
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(field => field);
+        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description');
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
             selectedFields:  [this.selectedDefault],
