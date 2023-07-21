@@ -13,6 +13,8 @@
   "download": {
     "sdmx-xml": "Download SDMX-XML"
   },
+  "noResourceResults": "No results found for those conditions",
+  "retrySearch": "Please, change the search parameters and try again.",
   "elements": "Elements",
   "resourceParameters": {
     "id": "ID",
