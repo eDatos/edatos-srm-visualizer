@@ -42,7 +42,8 @@
              [fromRoot]='true'
              (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
             <table-expandable-rows #tableExpandable [columns]='selectedFields'
-                                   [data]='dataChildren'></table-expandable-rows>
+                                   [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
+                                   (clickEvent)='onLoadCodeDetail($event)'></table-expandable-rows>
         </div>
     </div>
 </div>

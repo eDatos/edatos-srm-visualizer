@@ -42,13 +42,15 @@
   "codelists": {
     "codelistFamilies": "Codelist families",
     "codelistFamiliesDetails": "Codelist families details",
+    "codelist": "Codelist",
     "codelists": "Codelists",
     "codelistsDetails": "Codelists details",
     "codes": "Codes",
     "codesDetails": "Codes details",
     "relatedCodelist": "Related classifications",
     "parameters": {
-      "id": "Codelist ID",
+      "id": "Codelist identifier",
+      "idCode": "Code identifier",
       "agency": "Making Agency",
       "publicationDate": "Date of publication",
       "isRecommended": "Is it recommended?"

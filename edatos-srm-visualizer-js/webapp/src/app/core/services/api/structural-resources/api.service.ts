@@ -76,7 +76,7 @@ export abstract class ApiService {
         return this.getData(ApiService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
-    private getDataFromStructureResource(api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
+    protected getDataFromStructureResource(api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
         if (searchConfig) {
             return this.getDataWithOffset(ApiService.apiStructuralResource.concat(api), searchConfig, query);
         }

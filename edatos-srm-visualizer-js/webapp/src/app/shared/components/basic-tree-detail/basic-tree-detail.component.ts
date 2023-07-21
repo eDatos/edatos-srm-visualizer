@@ -19,7 +19,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
     public resource: any;
 
     detailForm: any;
-    dataDetail: Resource | undefined;
+    dataDetail: any | undefined;
 
     apiSDMX: boolean = false;
     showChildrenTree: boolean = false;
@@ -50,25 +50,16 @@ export abstract class BasicTreeDetailComponent implements OnInit {
             urn: '',
             annotations: '',
             uri: '',
-            lastUpdateDate: '',
-            isRecommended: '',
         };
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
             this.resource= data;
-            this.mapperDataDetail(this.resource);
+            this.mapperDataResourceDetail(this.resource);
             this.loadAllVersionsFromResource();
+            this.loadDetailDataOnInit();
             if (this.isDataWithChildrenTree) {
                 this.loadChildrenTreeData();
             }
-            // FIXME
-            // } else {
-            //   URL = this.apiChildrens
-            //     .replace('{agencyID}', agency)
-            //     .replace('{resourceID}', resourceId)
-            //     .replace('{version}', Constants.LATEST);
-            //   this.loadChildrenTableData(URL);
-            // }
         });
     }
 
@@ -96,16 +87,7 @@ export abstract class BasicTreeDetailComponent implements OnInit {
         window.history.back();
     }
 
-    public mapperDataDetail(data: any): void {
-        this.dataDetail = new Resource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.lastUpdateDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
-        this.dataDetail!.uri = data.uri;
-        this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
-        this.detailForm.patchValue(this.dataDetail);
-    }
-
+    abstract loadDetailDataOnInit(): void;
+    abstract mapperDataResourceDetail(data: any): void;
     abstract loadAllVersionsFromResource(): void;
 }

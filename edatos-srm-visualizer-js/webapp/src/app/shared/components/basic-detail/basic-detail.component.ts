@@ -36,8 +36,6 @@ export abstract class BasicDetailComponent implements OnInit {
             urn: '',
             annotations: '',
             uri: '',
-            lastUpdateDate: '',
-            isRecommended: '',
         };
 
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
