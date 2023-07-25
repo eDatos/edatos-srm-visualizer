@@ -44,6 +44,7 @@
   "codelists": {
     "codelistFamilies": "Famílies de classificacions",
     "codelistFamiliesDetails": "Detalls de les famílies de classificacions",
+    "familyCodelist": "Classificacions de la família",
     "codelist": "Classificació",
     "codelists": "Classificacions",
     "codelistsDetails": "Detalls de les classificacions",
@@ -55,8 +56,11 @@
     "parameters": {
       "id": "Identificador de la classificació",
       "idCode": "Identificador del codi",
+      "code": "Codi",
+      "parentCode": "Codis pare",
       "agency": "Agència mantenidora",
       "publicationDate": "Data de publicació",
+      "lastUpdatedDate": "Data d'última modificació",
       "isRecommended": "¿És recomanada?"
     }
   },
