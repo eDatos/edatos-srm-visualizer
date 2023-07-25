@@ -21,7 +21,8 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public otherCodesList: CodelistResource[] = [];
+    public otherCodes: CodelistResource[] = [];
+    public equivalentCodes: CodelistResource[] = [];
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -78,7 +79,7 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
                         resource.id = code.id;
                         resource.name = this.localeService.getTextValue(code.name?.text);
                         resource.description = this.localeService.getTextValue(code.description?.text);
-                        this.otherCodesList.push(resource);
+                        this.otherCodes.push(resource);
                     });
                 this.dataChildrenLoaded = true;
             }
