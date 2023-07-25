@@ -1,46 +1,91 @@
-<div class='m-30' *ngIf='showChildrenTree'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
-            <mat-card-title>{{ 'concepts.concepts' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-            <div class='container'>
-                <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                    <app-table-tree #tabletreenode [data]='dataChildren'
-                                    (clickEvent)='onLoadDetail($event)'></app-table-tree>
-                </div>
-                <div class='search-results' *ngIf='!dataChildrenLoaded'>
-                    <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-                </div>
-            </div>
-        </mat-card-actions>
-    </mat-card>
-</div>
-
 <div class='m-30'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
-            <mat-card-title>{{ 'concepts.conceptDetails' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-            <div [formGroup]='detailForm' class='container'>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                    <input formControlName='id' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                    <input formControlName='name' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                    <input formControlName='urn' matInput >
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                    <input formControlName='description' matInput >
-                </mat-form-field>
+    <div class='general-buttons'>
+        <div class='general-left-buttons row'>
+            <button (click)='onReturn()'>
+                <span>{{ 'back' | translate }}</span>
+            </button>
+        </div>
+    </div>
+
+    <div [formGroup]='detailForm' class='container'>
+        <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
+        <input type='text' class='form-control' formControlName='id' id='id' readonly>
+
+        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+        <input type='text' class='form-control' formControlName='name' id='name' readonly>
+
+        <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
+        <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
+
+        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
+
+        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
+
+        <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
+        <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
+
+        <label for='schemaConcept' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
+        <input type='text' class='form-control' formControlName='resourceId' id='schemaConcept' readonly>
+
+        <label for='agency' class='title'>{{ 'concepts.parameters.agency' | translate }}</label>
+        <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
+
+    </div>
+    <div class='container'>
+        <div class='section-tab'>
+            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
+                       (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
+        </div>
+        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
+            <div class='m-30' *ngIf='!dataChildrenLoaded'>
+                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
-        </mat-card-actions>
-    </mat-card>
+            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+                <p-table [value]='recommendedCodelists' class='search-results'>
+                    <ng-template pTemplate='header'>
+                        <tr>
+                            <th>{{ 'resourceParameters.identifier' | translate }}</th>
+                            <th>{{ 'resourceParameters.name' | translate }}</th>
+                            <th>{{ 'resourceParameters.description' | translate }}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate='body' let-code>
+                        <tr>
+                            <td>{{ code.id }}</td>
+                            <td>{{ code.name }}</td>
+                            <td>{{ code.description }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class='m-30' *ngIf='activeLink == navLinks[1]'>
+            <div class='m-30' *ngIf='!dataChildrenLoaded'>
+                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+            </div>
+            <p-table [value]='otherConcepts' class='search-results'
+                     [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+                <ng-template pTemplate='header'>
+                    <tr>
+                        <th>{{ 'resourceParameters.identifier' | translate }}</th>
+                        <th>{{ 'resourceParameters.name' | translate }}</th>
+                        <th>{{ 'resourceParameters.description' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate='body' let-code>
+                    <tr>
+                        <td>{{ code.id }}</td>
+                        <td>{{ code.name }}</td>
+                        <td>{{ code.description }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class='m-30' *ngIf='dataChildren === null'>
+            <span>{{ 'resultsNotFound' | translate }}</span>
+        </div>
+    </div>
+    <br />
 </div>

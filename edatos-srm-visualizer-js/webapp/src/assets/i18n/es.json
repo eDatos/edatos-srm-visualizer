@@ -39,7 +39,11 @@
     "concepts": "Conceptos",
     "conceptDetails" :"Detalles del concepto",
     "seeConcept": "Ver este concepto",
-    "parameters": {}
+    "othersConcepts": "Otros conceptos del esquema",
+    "recommendedCodelists": "Clasificaciones recomendadas",
+    "parameters": {
+      "agency": "Agencia mantenedora"
+    }
   },
   "codelists": {
     "codelistFamilies": "Familias de clasificaciones",

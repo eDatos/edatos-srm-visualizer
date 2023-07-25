@@ -8,6 +8,8 @@ import { ConceptsSchemesDetailComponent } from './schemes/concepts-schemes-detai
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.component';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -22,6 +24,8 @@ import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.compo
         ConceptsRoutingModule,
         ReactiveFormsModule,
         SharedModule,
+        TabMenuModule,
+        TableModule
     ]
 })
 export class ConceptsModule {

@@ -39,7 +39,11 @@
     "concepts": "Concepts",
     "conceptDetails" : "Concept details",
     "seeConcept": "See this concept",
-    "parameters": {}
+    "othersConcepts": "Other concepts from scheme",
+    "recommendedCodelists": "Recommended codelists",
+    "parameters": {
+      "agency": "Agency"
+    }
   },
   "codelists": {
     "codelistFamilies": "Codelist families",
