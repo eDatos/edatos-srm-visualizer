@@ -9,7 +9,7 @@ import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-d
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 @Component({
     selector: 'app-code-detail',
