@@ -4,6 +4,7 @@ import { ConceptsSchemeApiService } from 'src/app/core/services/api/structural-r
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Component({
     selector: 'app-concepts-schemes-search',
@@ -49,6 +50,16 @@ export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent imp
 
     ngOnInit(): void {
         this.loadInitialData();
+    }
+
+    public onLoadConceptSchemeDetail(urn: string): void {
+        this.dataDetail = new ConceptResource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
     }
 
 }

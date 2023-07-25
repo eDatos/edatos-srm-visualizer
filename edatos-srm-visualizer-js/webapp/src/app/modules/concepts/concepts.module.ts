@@ -6,8 +6,11 @@ import { ConceptsSearchComponent } from './concepts/concepts-search/concepts-sea
 import { ConceptsSchemesSearchComponent } from './schemes/concepts-schemes-search/concepts-schemes-search.component';
 import { ConceptsSchemesDetailComponent } from './schemes/concepts-schemes-detail/concepts-schemes-detail.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     declarations: [
@@ -22,6 +25,10 @@ import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.compo
         ConceptsRoutingModule,
         ReactiveFormsModule,
         SharedModule,
+        DropdownModule,
+        FormsModule,
+        TabMenuModule,
+        TableModule
     ]
 })
 export class ConceptsModule {

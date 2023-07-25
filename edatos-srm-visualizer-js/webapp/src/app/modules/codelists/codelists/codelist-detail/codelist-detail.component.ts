@@ -118,6 +118,5 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         this.detailForm.patchValue(this.dataDetail);
     }
 
-    loadDetailDataOnInit(): void {
-    }
+    loadDetailDataOnInit(): void {}
 }
