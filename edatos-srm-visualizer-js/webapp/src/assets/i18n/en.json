@@ -77,6 +77,8 @@
     "categorySchemesDetails": "Category scheme details",
     "categories": "Categories",
     "categoriesDetails": "Categories details",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Date of publication"
+    }
   }
 }

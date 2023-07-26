@@ -81,6 +81,8 @@
     "categorySchemesDetails": "Detalles del esquema de temas",
     "categories": "Temas",
     "categoriesDetails": "Detalles del tema",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Fecha de publicación"
+    }
   }
 }

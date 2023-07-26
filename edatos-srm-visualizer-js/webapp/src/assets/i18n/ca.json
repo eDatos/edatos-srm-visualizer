@@ -79,6 +79,8 @@
     "categorySchemesDetails": "Detalls de l'esquema de temes",
     "categories": "Temes",
     "categoriesDetails": "Detalls dels temes",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Data de publicació"
+    }
   }
 }
