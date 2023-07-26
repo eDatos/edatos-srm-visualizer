@@ -11,7 +11,11 @@
   "otherVersions": "Other versions",
   "back": "Back to list",
   "download": {
-    "sdmx-xml": "Download SDMX-XML"
+    "title": "Download",
+    "sdmx-xml": "Download SDMX-XML",
+    "json": "Download JSON",
+    "csv": "Download CSV",
+    "xls": "Download XLS"
   },
   "noResourceResults": "No results found for those conditions",
   "retrySearch": "Please, change the search parameters and try again.",

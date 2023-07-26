@@ -1,36 +1,57 @@
-<div class='m-30'>
-    <div class='general-buttons'>
-        <div class='general-left-buttons row'>
-            <button (click)='onReturn()'>
-                <span>{{ 'back' | translate }}</span>
-            </button>
-        </div>
-        <div class='general-right-buttons row'>
-            <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
-                        filterBy='value' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}"
-                        class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'>
-                <ng-template pTemplate='selectedItem'>
-                    <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
-                        <div>{{ selectedVersion }}</div>
-                    </div>
-                </ng-template>
-                <ng-template let-version pTemplate='item'>
-                    <div class='flex align-items-center gap-2'>
-                        <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
-                    </div>
-                </ng-template>
-            </p-dropdown>
-            <button color='primary' (click)='onDownloadSdmx()'>
-                <span>{{ 'download.sdmx-xml' | translate }}</span>
-            </button>
-        </div>
-    </div>
 
-    <div [formGroup]='detailForm' class='container'>
-        <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
+<div class='general-buttons row'>
+    <div class='col'>
+        <button (click)='onReturn()' class="text-icon-button">
+            <i class="fa-thin fa-left"></i>&nbsp;
+            <span>{{ 'back' | translate | uppercase }}</span>
+        </button>
+    </div>
+    <div >
+        <p-dropdown #select [options]='versions' [filter]='true'  optionLabel="name" optionValue="value"
+                    filterBy='value' placeholder="{{ 'otherVersions' | translate | uppercase }}"
+                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onLoadDetailVersion($event)"
+                    (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()" filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=" ">
+            <ng-template let-version pTemplate='item'>
+                <div class="country-item">
+                    <div>v{{ version.value }}</div>
+                </div>
+                <!--div class='flex align-items-center gap-2'>
+                    <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
+                </div-->
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <div>
+        <!---p-dropdown #download [options]='fileFormats'  optionLabel="name" optionValue="value"
+                     placeholder="{{ 'download.title' | translate | uppercase }}"
+                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onDownloadFileFormat($event)"
+                    (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()">
+            <ng-template let-format pTemplate='item'--->
+                <!--div class="country-item">
+                    <div>{{ format.name }}</div>
+                </div-->
+                <!---div class="">
+                    <button (click)='onLoadDetailVersion(format.value)' >
+                    <i class="fa-thin {{ format.icon }}"></i>&nbsp;
+                     <span>{{ format.name }}</span>
+                    </button>
+                </div>
+            </ng-template>
+        </p-dropdown--->
+        <p-menu [model]="items" #menu [popup]="true" class="p-menu-custom"></p-menu>
+        <button (click)="menu.toggle($event)" class="text-icon-button">
+            <span>{{ 'download.title' | translate | uppercase }}</span>&nbsp;
+            <i class="fa-thin fa-chevron-down"></i>
+        </button>
+    </div>
+</div>
+
+
+    <div [formGroup]='detailForm' class="container row">
+        <label for='id' class='title d-block'>{{ 'codelists.parameters.id' | translate }}</label>
         <input type='text' class='form-control' formControlName='id' id='id' readonly>
 
-        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+        <label for='name' class='title d-block'>{{ 'resourceParameters.name' | translate }}</label>
         <input type='text' class='form-control' formControlName='name' id='name' readonly>
 
         <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
@@ -58,6 +79,7 @@
         <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
 
     </div>
+
     <br>
     <div class='container'>
         <div class='section-tab'>
@@ -96,4 +118,4 @@
         </div>
     </div>
     <br />
-</div>
+

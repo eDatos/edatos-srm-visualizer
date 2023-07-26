@@ -1,0 +1,16 @@
+.text-icon-button {
+    padding: 0px $padding-10px;
+    height: 30px;
+    border: 1px solid $color-azul-oscuro-100;
+    border-radius: 5px;
+    background: $color-negro-0;
+    color: $color-azul-oscuro-100;
+    font-size: 16px;
+    line-height: 16px;
+    span {
+        font-size: 14px;
+        font-weight: $font-weight-300;
+    }
+    display: inline-block;
+    align-self: flex-end;
+}

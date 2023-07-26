@@ -12,6 +12,7 @@ import { CodeDetailComponent } from './codes/code-detail/code-detail.component';
 import { CodeSearchComponent } from './codes/code-search/code-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenuModule } from 'primeng/menu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
 
@@ -33,6 +34,7 @@ import { TableModule } from 'primeng/table';
         SharedModule,
         DropdownModule,
         FormsModule,
+        MenuModule,
         TabMenuModule,
         TableModule
     ]

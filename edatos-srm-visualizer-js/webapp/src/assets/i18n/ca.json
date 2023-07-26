@@ -11,7 +11,11 @@
   "otherVersions": "Altres versions",
   "back": "Tornar al llistat",
   "download": {
-    "sdmx-xml": "Descarregar SDMX-XML"
+    "title": "Descarregar",
+    "sdmx-xml": "Descarregar SDMX-XML",
+    "json": "Descarregar JSON",
+    "csv": "Descarregar CSV",
+    "xls": "Descarregar XLS"
   },
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
