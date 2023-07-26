@@ -7,6 +7,8 @@ import { BasicTreeDetailComponent } from '../../../../shared/components/basic-tr
 import { Resource } from '../../../../shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
+import { DateUtils } from '../../../../shared/utils/dateUtils';
 
 
 @Component({
@@ -16,7 +18,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
     public versions: any[] = [];
-    public relatedCodelists: Resource[] = [];
+    public relatedCodelists: CodelistResource[] = [];
     public selectedVersion: string = '';
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -70,7 +72,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
             this.apiService.loadRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
-                        const resource = new Resource(codelist.urn);
+                        const resource = new CodelistResource(codelist.urn);
                         resource.id = codelist.id;
                         resource.name = this.localeService.getTextValue(codelist.name?.text);
                         resource.description = this.localeService.getTextValue(codelist.description?.text);
@@ -96,8 +98,26 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     }
 
     public onLoadDetailVersion(version: string) {
-        console.log('entro', version);
         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
         this.versions = [];
+    }
+
+    public parseDesriptionToHtml(): string {
+        return this.detailForm.get('description')?.value || '';
+    }
+
+    public mapperDataResourceDetail(data: any): void {
+        this.dataDetail = new CodelistResource(data.urn);
+        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
+        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
+        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
+        this.dataDetail!.lastUpdateDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
+        this.dataDetail!.uri = data.uri;
+        this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
+
+        this.detailForm.patchValue(this.dataDetail);
+    }
+
+    loadDetailDataOnInit(): void {
     }
 }
