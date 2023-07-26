@@ -4,6 +4,7 @@ import { CodelistCodesApiService } from 'src/app/core/services/api/structural-re
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Resource } from '../../../../shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-code-search',
@@ -52,4 +53,15 @@ export class CodeSearchComponent extends BasicTreeSearchComponent implements OnI
         this.loadInitialData();
     }
 
+    public onLoadCodeDetail(urn: string): void {
+        this.dataDetail = new Resource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +
+            this.dataDetail?.id + '/' +  this.dataDetail?.version + '/' + 'detail';
+    }
 }

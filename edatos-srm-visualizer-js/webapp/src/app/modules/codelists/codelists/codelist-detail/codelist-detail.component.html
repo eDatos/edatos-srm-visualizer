@@ -61,7 +61,7 @@
         <input type='text' class='form-control' formControlName='lastUpdateDate' id='lastUpdateDate' readonly>
 
         <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-        <input type='text' class='form-control' formControlName='description' id='description' readonly>
+        <div  id='description' [innerHTML]='parseDesriptionToHtml()'></div>
 
         <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
         <input type='text' class='form-control' formControlName='uri' id='uri' readonly>

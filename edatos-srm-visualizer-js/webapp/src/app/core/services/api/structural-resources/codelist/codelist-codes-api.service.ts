@@ -2,12 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { Resource } from '../../../../../shared/models/resources/resource.model';
+import { CodelistResource } from '../../../../../shared/models/resources/codelist-resource.model';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class CodelistCodesApiService extends ApiService {
+
+    public apiOtherCodesUrl  = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
+
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
         this.apiSearchDataPath = 'code';
@@ -17,5 +23,15 @@ export class CodelistCodesApiService extends ApiService {
         this.apiChildrenTreeUrl = '/api/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
     }
+
+    public loadOtherCodes(resource: CodelistResource): Observable<any> {
+        let api = this.apiOtherCodesUrl
+            .replace('{agencyID}', resource.agency)
+            .replace('{resourceID}', resource.resourceId)
+            .replace('{version}', resource.version)
+            .replace('{id}', resource.id);
+        return this.getData(ApiService.apiStructuralResource.concat(api));
+    }
+
 }
 

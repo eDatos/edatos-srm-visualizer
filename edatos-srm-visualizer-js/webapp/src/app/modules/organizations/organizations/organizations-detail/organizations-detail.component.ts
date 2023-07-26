@@ -43,4 +43,17 @@ export class OrganizationsDetailComponent extends BasicTreeDetailComponent imple
     }
 
     public loadAllVersionsFromResource(): void {}
+
+    public mapperDataResourceDetail(data: any): void {
+        this.dataDetail = new Resource(data.urn);
+        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
+        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
+        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
+        this.dataDetail!.uri = data.uri;
+
+        this.detailForm.patchValue(this.dataDetail);
+    }
+
+    loadDetailDataOnInit(): void {
+    }
 }
