@@ -24,7 +24,6 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public relatedCodelists: CategoryResource[] = [];
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
@@ -90,8 +89,4 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         this.activeLink = event;
     }
 
-    onLoadDetail(element: string) {
-        let resource = new CategoryResource(element);
-        this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
-    }
 }
