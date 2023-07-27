@@ -82,7 +82,10 @@
     "categorySchemes": "Category scheme",
     "categorySchemesDetails": "Category scheme details",
     "categories": "Categories",
+    "otherCategoriesScheme": "Other categories schemes",
     "categoriesDetails": "Categories details",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Date of publication"
+    }
   }
 }
