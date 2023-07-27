@@ -1,5 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
@@ -16,8 +18,6 @@ import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import com.google.gson.Gson;
 
 @Slf4j
 @RestController()
@@ -46,10 +46,7 @@ public class CategoriesResource extends GenericResource {
                     result.add(urnValues.getVersion());
                 }
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
@@ -65,10 +62,7 @@ public class CategoriesResource extends GenericResource {
                 treeNode.getChildren().addAll(loadChildren(category.getUrn(), lang));
                 result.add(treeNode);
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
@@ -76,8 +70,7 @@ public class CategoriesResource extends GenericResource {
     @GetMapping("/{urn}/categories")
     public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
         if (!urn.isEmpty()) {
-            Gson gson = new Gson();
-            return gson.toJson(loadChildren(urn, lang));
+            return JsonUtils.toJson(loadChildren(urn, lang));
         }
         return "";
     }
@@ -90,7 +83,7 @@ public class CategoriesResource extends GenericResource {
         RestTemplate restTemplate = new RestTemplate();
         Categories body = restTemplate.getForEntity(urlApi, Categories.class).getBody();
         List<TreeNode> categoriesChildren = new ArrayList<>();
-        if (body != null && body.getTotal().doubleValue() > 0) {
+        if (body != null && body.getTotal().compareTo(BigInteger.ZERO) > 0) {
             for (ItemResource bodyCategory : body.getCategories()) {
                 TreeNode treeNode = new TreeNode(bodyCategory.getUrn(), loadInternationalString(bodyCategory.getName().getTexts(), lang));
                 treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
