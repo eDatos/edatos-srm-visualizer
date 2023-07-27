@@ -84,7 +84,10 @@
     "categorySchemes": "Esquema de temes",
     "categorySchemesDetails": "Detalls de l'esquema de temes",
     "categories": "Temes",
+    "otherCategoriesScheme": "Altres temes de l'esquema",
     "categoriesDetails": "Detalls dels temes",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Data de publicació",
+    }
   }
 }

@@ -7,6 +7,7 @@ import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
 
 @Component({
     selector: 'app-schemes-search',
@@ -51,6 +52,18 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
     }
     ngOnInit(): void {
         this.loadInitialData();
+    }
+
+    public onLoadCategorySchemeDetail(urn: string): void {
+        this.dataDetail = new CategoryResource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
+            +  this.dataDetail?.version + '/detail';
     }
 
 }
