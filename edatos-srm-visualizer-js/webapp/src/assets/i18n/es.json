@@ -12,10 +12,10 @@
   "back": "Volver al listado",
   "download": {
     "title": "Descargar",
-    "sdmx-xml": "Descargar SDMX-XML",
-    "json": "Descargar JSON",
-    "csv": "Descargar CSV",
-    "xls": "Descargar XLS"
+    "sdmx-xml": "Descargar en formato SDMX-XML",
+    "json": "Descargar en formato JSON",
+    "csv": "Descargar en formato CSV",
+    "xls": "Descargar en formato XLS"
   },
   "noResourceResults": "No se ha encontrado ningún resultado para esas condiciones",
   "retrySearch": "Por favor, cambia los parámetros de búsqueda e inténtalo de nuevo.",

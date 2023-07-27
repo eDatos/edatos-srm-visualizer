@@ -24,6 +24,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     public selectedVersion: string = '';
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
+    public expandedMenu: boolean = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -61,28 +62,28 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         this.items= [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                //icon: 'fa-thin fa-print',
+                icon: 'fa-thin fa-code',
                 command: () => {
                             this.onDownloadFileFormat('xml');
                 }
             },
             {
                 label: this.translateService.instant('download.json'),
-                icon: 'pi pi-times',
+                icon: 'fa-thin fa-brackets-curly',
                 command: () => {
                     this.onDownloadFileFormat('json');
                 }
             },
             {
                 label: this.translateService.instant('download.csv'),
-                icon: 'pi pi-times',
+                icon: 'fa-thin fa-semicolon',
                 command: () => {
                     this.onDownloadFileFormat('csv');
                 }
             },
             {
                 label: this.translateService.instant('download.xls'),
-                icon: 'fa-thin fa-print',
+                icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
                     this.onDownloadFileFormat('xls');
                 }
@@ -139,9 +140,13 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         });
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
-        this.versions = [];
+    public onLoadDetailVersion(event: any) {
+         //version = event.value;
+         console.log('entro', event.value);
+         //this.versions = [];
+         this.selectedVersion = event.value;
+         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
+         //this.versions = [];
     }
 
 
@@ -162,5 +167,10 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     }
 
     loadDetailDataOnInit(): void {
+    }
+
+    handleVisibilityMenu(): boolean {
+        this.expandedMenu = !this.expandedMenu;
+        return this.expandedMenu;
     }
 }
