@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ConceptsApiService extends ApiService {
 
   public apiOtherConceptsUrl  = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?fields=%2Bdescription';
-
+  public apiRecommendedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
+  public apiCodelistDataPath = 'codelist';
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchDataPath = 'concept';
@@ -22,11 +23,15 @@ export class ConceptsApiService extends ApiService {
     this.apiChildrenDataPath = '';
   }
 
-  public loadOtherConcepts(resource: CodelistResource): Observable<any> {
+  public getOtherConcepts(resource: CodelistResource): Observable<any> {
     let api = this.apiOtherConceptsUrl
         .replace('{agencyID}', resource.agency)
         .replace('{resourceID}', resource.resourceId)
         .replace('{version}', resource.version)
     return this.getData(ApiService.apiStructuralResource.concat(api));
+  }
+
+  public getRecommendedCodelists(variableUrn: string): Observable<any> {
+    return this.getData(ApiService.apiStructuralResource.concat(this.apiRecommendedCodelistUrl.replace('{variableUrn}', variableUrn)));
   }
 }

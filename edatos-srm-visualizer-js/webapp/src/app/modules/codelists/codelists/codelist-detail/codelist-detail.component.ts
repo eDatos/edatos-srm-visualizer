@@ -69,7 +69,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     onActiveItemChange(event: any) {
         this.activeLink = event;
         if(this.activeLink == this.navLinks[1]){
-            this.apiService.loadRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
+            this.apiService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);

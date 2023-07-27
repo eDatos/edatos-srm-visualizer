@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { MenuItem } from 'primeng/api';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 @Component({
     selector: 'app-concepts-detail',
@@ -19,7 +19,7 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
     public activeLink: MenuItem;
 
     public recommendedCodelists: ConceptResource[] = [];
-    public otherConcepts: ConceptResource[] = [];
+    public otherConcepts: CodelistResource[] = [];
     constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
@@ -50,11 +50,6 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
 
     public updateTableChildrenTreeNode(data: any): void {}
 
-    onLoadDetail(element: string) {
-        let resource = new Resource(element);
-        this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
-    }
-
     public loadAllVersionsFromResource(): void {}
 
     public parseDesriptionToHtml(): string {
@@ -63,7 +58,6 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new ConceptResource(data.urn);
-        console.log(data);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
@@ -75,7 +69,7 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
-            this.apiService.loadOtherConcepts(this.dataDetail).subscribe((data) => {
+            this.apiService.getOtherConcepts(this.dataDetail).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     this.otherConcepts = data[this.apiService.apiSearchDataPath].map((concept: any) => {
                         const resource = new ConceptResource(concept.urn);
@@ -91,5 +85,22 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
         }
     }
 
-    loadDetailDataOnInit(): void {}
+    loadDetailDataOnInit(): void {
+        this.loadRecommendedCodelists()
+    }
+
+    private loadRecommendedCodelists(): void {
+        this.apiService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
+            if (data[this.apiService.apiCodelistDataPath]) {
+                this.recommendedCodelists = data[this.apiService.apiCodelistDataPath].map((codelist: any) => {
+                    const resource = new CodelistResource(codelist.urn);
+                    resource.id = codelist.id;
+                    resource.name = this.localeService.getTextValue(codelist.name?.text);
+                    resource.description = this.localeService.getTextValue(codelist.description?.text);
+                    return resource;
+                });
+                this.dataChildrenLoaded = true;
+            }
+        });
+    }
 }

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class CodelistsApiService extends ApiService {
 
-    public apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20ILIKE%20%27{variableUrn}%27';
+    public apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
     constructor(httpClient: HttpClient, config: ConfigService) {
         super(httpClient, config);
         this.apiSearchDataPath = 'codelist';
@@ -22,7 +22,7 @@ export class CodelistsApiService extends ApiService {
         this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
     }
 
-    public loadRelatedCodelist(variableUrn: string): Observable<any> {
+    public getRelatedCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
     }
 }
