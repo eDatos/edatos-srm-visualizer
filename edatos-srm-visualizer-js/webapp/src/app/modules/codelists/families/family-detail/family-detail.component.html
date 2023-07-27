@@ -1,52 +1,66 @@
 <div class='m-30'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
-            <mat-card-title>{{ 'codelists.codelistFamilies' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
-    </mat-card>
-</div>
+    <div class='general-buttons'>
+        <div class='general-left-buttons row'>
+            <button (click)='onReturn()'>
+                <span>{{ 'back' | translate }}</span>
+            </button>
+        </div>
+        <div class='general-right-buttons row'>
+            <button color='primary' (click)='onDownloadSdmx()'>
+                <span>{{ 'download.sdmx-xml' | translate }}</span>
+            </button>
+        </div>
+    </div>
 
-<div class='m-30'>
-    <mat-card mat-elevation-z15>
-        <mat-card-header>
-            <mat-card-title>{{ 'codelists.codelistFamiliesDetails' | translate | uppercase }}</mat-card-title>
-        </mat-card-header>
-        <mat-action-row class='m-30'>
-            <button mat-raised-button color='primary' (click)='onDownloadSdmx()' class='ml'>
-                <mat-icon>download</mat-icon>
-                <span>{{ 'download.sdmx-xml' | translate }}</span></button>
-        </mat-action-row>
-        <mat-card-content>
-            <div [formGroup]='detailForm' class='container'>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.id' | translate }}</mat-label>
-                    <input formControlName='id' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.version' | translate }}</mat-label>
-                    <input formControlName='version' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.name' | translate }}</mat-label>
-                    <input formControlName='name' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.urn' | translate }}</mat-label>
-                    <input formControlName='urn' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.description' | translate }}</mat-label>
-                    <input formControlName='description' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.maintainer' | translate }}</mat-label>
-                    <input formControlName='agency' matInput  />
-                </mat-form-field>
-                <mat-form-field appearance='outline' class='mlr input'>
-                    <mat-label>{{ 'resourceParameters.comments' | translate }}</mat-label>
-                    <input formControlName='comments' matInput  />
-                </mat-form-field>
+    <div [formGroup]='detailForm' class='container'>
+        <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
+        <input type='text' class='form-control' formControlName='id' id='id' readonly>
+
+        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+        <input type='text' class='form-control' formControlName='name' id='name' readonly>
+
+        <label for='lastUpdatedDate' class='title'>{{ 'codelists.parameters.lastUpdatedDate' | translate }}</label>
+        <input type='text' class='form-control' formControlName='lastUpdatedDate' id='lastUpdatedDate' readonly>
+
+        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
+
+        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
+
+    </div>
+    <br>
+    <div class='container'>
+        <div class='section-tab'>
+            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'></p-tabMenu>
+        </div>
+        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
+            <div class='m-30' *ngIf='!dataChildrenLoaded'>
+                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
             </div>
-        </mat-card-content>
-    </mat-card>
+            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+                <p-table [value]='familyCodelist' class='search-results'>
+                    <ng-template pTemplate='header'>
+                        <tr>
+                            <th>{{ 'codelists.parameters.code' | translate }}</th>
+                            <th>{{ 'codelists.parameters.parentCode' | translate }}</th>
+                            <th>{{ 'codelists.parameters.agency' | translate }}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate='body' let-codelist>
+                        <tr>
+                            <td>{{ codelist.id }}</td>
+                            <td>{{ codelist.name }}</td>
+                            <td>{{ codelist.agency }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+        <div class='m-30' *ngIf='dataChildren === null'>
+            <span>{{ 'resultsNotFound' | translate }}</span>
+        </div>
+    </div>
+    <br />
 </div>
