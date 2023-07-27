@@ -15,7 +15,7 @@ import { DateUtils } from 'src/app/shared/utils/dateUtils';
 @Component({
     selector: 'app-schemes-detail',
     templateUrl: './schemes-detail.component.html',
-    styleUrls: ['./schemes-detail.component.scss'],
+    styleUrls: ['./schemes-detail.component.scss']
 })
 export class SchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
     public versions: any[] = [];
@@ -38,7 +38,7 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
             version: '',
             agency: '',
             annotations: '',
-            publicationDate: '',
+            publicationDate: ''
         });
 
         this.navLinks = [
@@ -58,23 +58,27 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         this.dataChildren = data;
         this.tabletreenode.treeControl.expandAll();
     }
-    loadDetailDataOnInit(): void {}
+
+    loadDetailDataOnInit(): void {
+    }
+
     mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CategoryResource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.publicationDate = DateUtils.formatSimpleDate(data.validFrom);
+        this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
         this.dataDetail!.uri = data.selfLink?.href;
         this.dataDetail!.version = 'v' + this.dataDetail.version;
 
         this.detailForm.patchValue(this.dataDetail);
     }
-    loadAllVersionsFromResource(): void {
+
+    public loadAllVersionsFromResource(): void {
         this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
-                data.filter((version: any) => version !== this.dataDetail!.version).reverse().forEach((version: any) => {
-                    this.versions.push({value: version});
+                data.forEach((version: any) => {
+                    this.versions.push({ value: version });
                 });
             }
         });

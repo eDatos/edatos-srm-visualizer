@@ -35,14 +35,16 @@ public class CategoriesResource extends GenericResource {
     }
 
     @GetMapping("/{urn}/all-versions")
-    public String getAllVersionsFromResource(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
+    public String getAllVersionsFromResource(@PathVariable("urn") String urn) {
         RestTemplate restTemplate = new RestTemplate();
         CategorySchemes schemes = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class).getBody();
         if (schemes != null) {
             List<String> result = new ArrayList<>();
             for (Resource resource : schemes.getCategorySchemes()) {
                 Urn urnValues = new Urn(resource.getUrn());
-                result.add(urnValues.getVersion());
+                if(!urn.contains(urnValues.getVersion())){
+                    result.add(urnValues.getVersion());
+                }
             }
             Gson gson = new Gson();
             String json = gson.toJson(result);

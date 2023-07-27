@@ -46,7 +46,9 @@ import lombok.extern.slf4j.Slf4j;
             List<String> result = new ArrayList<>();
             for (Resource resource : codelists.getCodelists()) {
                 Urn urnValues = new Urn(resource.getUrn());
-                result.add(urnValues.getVersion());
+                if(!urn.contains(urnValues.getVersion())){
+                    result.add(urnValues.getVersion());
+                }
             }
             Gson gson = new Gson();
             String json = gson.toJson(result);
