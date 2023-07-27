@@ -60,7 +60,7 @@ export class CodelistSearchComponent extends BasicTreeSearchComponent implements
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
             this.detailForm.patchValue(this.dataDetail);
         });
-        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/' +  'detail';
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
     }
 
 }

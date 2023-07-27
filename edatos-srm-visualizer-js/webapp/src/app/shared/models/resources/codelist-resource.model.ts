@@ -1,7 +1,7 @@
 import { Resource } from "./resource.model";
 
 export class CodelistResource extends Resource {
-    lastUpdateDate: string = '';
+    lastUpdatedDate: string = '';
     isRecommended: string = '';
     codelist: string = '';
 }

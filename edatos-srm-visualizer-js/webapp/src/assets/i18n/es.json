@@ -46,21 +46,23 @@
   "codelists": {
     "codelistFamilies": "Familias de clasificaciones",
     "codelistFamiliesDetails": "Detalles de la familia de clasificaciones",
+    "familyCodelist": "Clasificaciones de la familia",
     "codelist": "Clasificación",
     "codelists": "Clasificaciones",
     "codelistsDetails": "Detalles de la clasificación",
     "codes": "Códigos",
-    "otherCodes": "Altres codis de la classificació",
-    "equivalentCodes": "Equal codes",
-    "otherCodes": "Other codelist codes",
+    "otherCodes": "Otros códigos de clasificación",
     "equivalentCodes": "Códigos equivalentes",
     "codesDetails": "Detalles del código",
     "relatedCodelist": "Clasificaciones realcionadas",
     "parameters": {
       "id": "Identificador de la clasificación",
       "idCode": "Identificador del código",
+      "code": "Código",
+      "parentCode": "Códigos padre",
       "agency": "Agencia mantenedora",
       "publicationDate": "Fecha de publicación",
+      "lastUpdatedDate": "Fecha de última modificación",
       "isRecommended": "¿Es recomendada?"
     }
   },
