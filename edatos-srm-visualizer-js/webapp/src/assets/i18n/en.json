@@ -44,17 +44,23 @@
   "codelists": {
     "codelistFamilies": "Codelist families",
     "codelistFamiliesDetails": "Codelist families details",
+    "familyCodelist": "Family codelist",
     "codelist": "Codelist",
     "codelists": "Codelists",
     "codelistsDetails": "Codelists details",
     "codes": "Codes",
+    "equivalentCodes": "Equal codes",
+    "otherCodes": "Other codelist codes",
     "codesDetails": "Codes details",
     "relatedCodelist": "Related classifications",
     "parameters": {
       "id": "Codelist identifier",
       "idCode": "Code identifier",
+      "code": "Code",
+      "parentCode": "Parent code",
       "agency": "Making Agency",
       "publicationDate": "Date of publication",
+      "lastUpdatedDate": "Date last modified",
       "isRecommended": "Is it recommended?"
     }
   },
