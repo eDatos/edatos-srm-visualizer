@@ -6,6 +6,8 @@ import {
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Resource } from '../../../../shared/models/resources/resource.model';
+import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
 
 
 @Component({
@@ -53,4 +55,14 @@ export class FamilySearchComponent extends BasicTreeSearchComponent implements O
         this.loadInitialData();
     }
 
+    public onLoadFamilyCodelistDetail(urn: string): void {
+        this.dataDetail = new CodelistResource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+        console.log(this.dataDetail)
+        this.routerLinkDetail = this.dataDetail?.id + '/detail';
+    }
 }
