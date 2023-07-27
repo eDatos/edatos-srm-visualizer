@@ -8,7 +8,10 @@ import { SchemesDetailComponent } from './schemes/schemes-detail/schemes-detail.
 import { CategoriesDetailComponent } from './categories/categories-detail/categories-detail.component';
 import { CategoriesSearchComponent } from './categories/categories-search/categories-search.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -19,11 +22,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     CategoriesDetailComponent,
     CategoriesSearchComponent
   ],
-  imports: [
-    CommonModule,
-    CategoriesRoutingModule,
-    SharedModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        CategoriesRoutingModule,
+        SharedModule,
+        ReactiveFormsModule,
+        DropdownModule,
+        FormsModule,
+        TabMenuModule,
+        TableModule
+    ]
 })
 export class CategoriesModule { }

@@ -1,5 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.gson.Gson;
-
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -45,10 +45,7 @@ public class ConceptsResource extends GenericResource {
                 treeNode.getChildren().addAll(loadChildren(concept.getUrn(), lang));
                 result.add(treeNode);
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
@@ -57,8 +54,7 @@ public class ConceptsResource extends GenericResource {
     public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
 
         if (!urn.isEmpty()) {
-            Gson gson = new Gson();
-            return gson.toJson(loadChildren(urn, lang));
+            return JsonUtils.toJson(loadChildren(urn, lang));
         }
         return "";
 
@@ -71,7 +67,7 @@ public class ConceptsResource extends GenericResource {
         RestTemplate restTemplate = new RestTemplate();
         Concepts body = restTemplate.getForEntity(urlApi, Concepts.class).getBody();
         List<TreeNode> conceptsChildren = new ArrayList<>();
-        if (body != null && body.getTotal().doubleValue() > 0) {
+        if (body != null && body.getTotal().compareTo(BigInteger.ZERO) > 0) {
             for (ItemResource bodyConcept : body.getConcepts()) {
                 TreeNode treeNode = new TreeNode(bodyConcept.getUrn(), loadInternationalString(bodyConcept.getName().getTexts(), lang));
                 treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));

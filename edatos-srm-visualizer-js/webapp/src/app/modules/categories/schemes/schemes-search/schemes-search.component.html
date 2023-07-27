@@ -39,7 +39,9 @@
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
         [fromRoot]='true'
         (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
-        <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'></table-expandable-rows>
+        <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
+                               [routerLinkDetail]='routerLinkDetail'
+                               (clickEvent)='onLoadCategorySchemeDetail($event)'></table-expandable-rows>
     </div>
 </div>
 <br/>

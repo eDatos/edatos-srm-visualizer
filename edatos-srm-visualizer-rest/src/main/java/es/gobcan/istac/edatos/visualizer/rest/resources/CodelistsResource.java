@@ -1,15 +1,13 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
-import org.siemac.metamac.rest.common.v1_0.domain.Resources;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelist;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.gson.Gson;
-
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j @RestController() @RequestMapping("/api/codelists") public class CodelistsResource extends GenericResource {
@@ -46,12 +43,11 @@ import lombok.extern.slf4j.Slf4j;
             List<String> result = new ArrayList<>();
             for (Resource resource : codelists.getCodelists()) {
                 Urn urnValues = new Urn(resource.getUrn());
-                result.add(urnValues.getVersion());
+                if(!urn.contains(urnValues.getVersion())){
+                    result.add(urnValues.getVersion());
+                }
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
@@ -67,10 +63,7 @@ import lombok.extern.slf4j.Slf4j;
                 treeNode.getChildren().addAll(loadChildren(code.getUrn(), lang));
                 result.add(treeNode);
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
@@ -78,8 +71,7 @@ import lombok.extern.slf4j.Slf4j;
     @GetMapping("/{urn}/codes")
     public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
         if (!urn.isEmpty()) {
-            Gson gson = new Gson();
-            return gson.toJson(loadChildren(urn, lang));
+            return JsonUtils.toJson(loadChildren(urn, lang));
         }
         return "";
     }
@@ -91,7 +83,7 @@ import lombok.extern.slf4j.Slf4j;
         RestTemplate restTemplate = new RestTemplate();
         Codes body = restTemplate.getForEntity(urlApi, Codes.class).getBody();
         List<TreeNode> codesChildren = new ArrayList<>();
-        if (body != null && body.getTotal().doubleValue() > 0) {
+        if (body != null && body.getTotal().compareTo(BigInteger.ZERO) > 0) {
             for (ItemResource code : body.getCodes()) {
                 TreeNode treeNode = new TreeNode(code.getUrn(), loadInternationalString(code.getName().getTexts(), lang));
                 treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
