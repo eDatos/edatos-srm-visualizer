@@ -24,8 +24,8 @@ export class NavigationSearchComponent {
         label: this.translateService.instant('dsd.definitionDataStructures'),
         link: 'dsd'
       }, {
-        label: this.translateService.instant('organizations.organizations'),
-        link: 'organizations'
+        label: this.translateService.instant('organisations.organisations'),
+        link: 'organisations'
       }, {
         label: this.translateService.instant('category.categories'),
         link: 'categories'

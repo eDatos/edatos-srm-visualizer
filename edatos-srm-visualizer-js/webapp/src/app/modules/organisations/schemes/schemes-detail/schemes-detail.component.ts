@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import {
-    OrganizationsSchemeApiService
-} from 'src/app/core/services/api/structural-resources/organizations/organizations-scheme-api.service';
+    OrganisationsSchemeApiService
+} from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
 
 @Component({
     selector: 'app-schemes-detail',
@@ -13,7 +13,7 @@ import {
     styleUrls: ['./schemes-detail.component.scss'],
 })
 export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
-    constructor(formBuilder: FormBuilder, apiService: OrganizationsSchemeApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
+    constructor(formBuilder: FormBuilder, apiService: OrganisationsSchemeApiService, route: ActivatedRoute, private router: Router, localeService: LocaleService) {
         super(formBuilder, apiService, route, localeService);
 
         this.detailForm = this.formBuilder.group({

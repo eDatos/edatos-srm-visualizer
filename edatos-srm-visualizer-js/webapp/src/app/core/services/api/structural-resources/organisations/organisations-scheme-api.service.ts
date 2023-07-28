@@ -6,7 +6,7 @@ import { ApiService } from 'src/app/core/services/api/structural-resources/api.s
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationsSchemeApiService extends ApiService {
+export class OrganisationsSchemeApiService extends ApiService {
 
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);

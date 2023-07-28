@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
-import {OrganizationsSchemeApiService} from "src/app/core/services/api/structural-resources/organizations/organizations-scheme-api.service";
+import {OrganisationsSchemeApiService} from "src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service";
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganizationsSchemeApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsSchemeApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);
 
