@@ -4,6 +4,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import {OrganisationsSchemeApiService} from "src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service";
 import { TranslateService } from '@ngx-translate/core';
+import { OrganisationResource } from '../../../../shared/models/resources/organisation-resource.model';
 
 @Component({
     selector: 'app-schemes-search',
@@ -47,6 +48,18 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
     }
     ngOnInit(): void {
         this.loadInitialData();
+    }
+
+    public onLoadOrganisationSchemeDetail(urn: string): void {
+        this.dataDetail = new OrganisationResource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
+             + this.dataDetail?.version + '/detail';
     }
 
 }

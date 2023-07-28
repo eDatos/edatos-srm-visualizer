@@ -77,6 +77,7 @@
     "organisations": "Organizaciones",
     "organisationsDetails": "Detalles de la organización",
     "otherOrganisationsOfScheme": "Otras organizaciones del esquema",
+    "organisationsOfScheme": "Organizaciones del esquema",
     "parameters": {
       "idOrganisation": "Identificador de la organización",
       "publicationDate": "Fecha de publicación"

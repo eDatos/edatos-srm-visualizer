@@ -77,6 +77,7 @@
     "organisations": "Organisartions",
     "organisationsDetails": "Organisations details",
     "otherOrganisationsOfScheme": "Other organisations of scheme",
+    "organisationsOfScheme": "Organisations of scheme",
     "parameters": {
       "idOrganisation": "Organisation identifier",
       "publicationDate": "Date of publication"
