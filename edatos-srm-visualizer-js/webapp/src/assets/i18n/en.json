@@ -31,7 +31,9 @@
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",
     "displayedFields": "Fields to display",
-    "selfLink": "Access via API"
+    "selfLink": "Access via API",
+    "concept": "Concept",
+    "type": "Type"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
@@ -69,6 +71,9 @@
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",
+    "dimensions": "Dimensions",
+    "attribute": "Attribute",
+    "mainMeasure": "Main measure",
     "parameters": {}
   },
   "organizations": {
