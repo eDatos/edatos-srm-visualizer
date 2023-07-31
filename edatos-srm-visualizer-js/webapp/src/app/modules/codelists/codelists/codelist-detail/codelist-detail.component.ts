@@ -18,7 +18,6 @@ import { DateUtils } from 'src/app/shared/utils/dateUtils';
 })
 export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
     public versions: any[] = [];
-    public fileFormats: any[] = [];
     public items: any[] = [];
     public relatedCodelists: CodelistResource[] = [];
     public selectedVersion: string = '';
@@ -51,13 +50,6 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
             }
         ];
         this.activeLink = this.navLinks[0];
-
-        this.fileFormats = [
-            { name: this.translateService.instant('download.sdmx-xml'), value: "xml", icon: 'fa-thin fa-print' },
-            { name: this.translateService.instant('download.json'), value: "json" },
-            { name: this.translateService.instant('download.csv'), value: "csv" },
-            { name: this.translateService.instant('download.xls'), value: "xls" }
-        ];
 
         this.items= [
             {
@@ -135,18 +127,14 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
                 data.forEach((version: any) => {
                     this.versions.push({value: version});
                 });
-                console.log('loadAllVersionsFromResource', this.versions);
             }
         });
     }
 
     public onLoadDetailVersion(event: any) {
-         //version = event.value;
-         console.log('entro', event.value);
-         //this.versions = [];
-         this.selectedVersion = event.value;
-         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
-         //this.versions = [];
+        this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
 

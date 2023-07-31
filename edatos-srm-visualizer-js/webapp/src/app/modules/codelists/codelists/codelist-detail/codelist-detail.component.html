@@ -12,33 +12,14 @@
                     class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onLoadDetailVersion($event)"
                     (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()" filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=" ">
             <ng-template let-version pTemplate='item'>
-                <div class="country-item">
+                <div>
                     <div>v{{ version.value }}</div>
                 </div>
-                <!--div class='flex align-items-center gap-2'>
-                    <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
-                </div-->
             </ng-template>
         </p-dropdown>
     </div>
     <div>
-        <!---p-dropdown #download [options]='fileFormats'  optionLabel="name" optionValue="value"
-                     placeholder="{{ 'download.title' | translate | uppercase }}"
-                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onDownloadFileFormat($event)"
-                    (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()">
-            <ng-template let-format pTemplate='item'--->
-                <!--div class="country-item">
-                    <div>{{ format.name }}</div>
-                </div-->
-                <!---div class="">
-                    <button (click)='onLoadDetailVersion(format.value)' >
-                    <i class="fa-thin {{ format.icon }}"></i>&nbsp;
-                     <span>{{ format.name }}</span>
-                    </button>
-                </div>
-            </ng-template>
-        </p-dropdown--->
-        <p-menu [model]="items" #menu [popup]="true" styleClass="kk" class="p-menu-custom" (onShow)="handleVisibilityMenu()" (onHide)="handleVisibilityMenu()"></p-menu>
+        <p-menu [model]="items" #menu [popup]="true" class="p-menu-custom" (onShow)="handleVisibilityMenu()" (onHide)="handleVisibilityMenu()"></p-menu>
         <button (click)="menu.toggle($event)"  [ngClass]="expandedMenu ? 'menu-text-icon-button' : 'text-icon-button'">
             <span>{{ 'download.title' | translate | uppercase }}</span>&nbsp;
             <i [ngClass]="expandedMenu ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
