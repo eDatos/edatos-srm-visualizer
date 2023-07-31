@@ -39,7 +39,9 @@
     "concepts": "Conceptes",
     "conceptDetails" : "Detalls del concepte",
     "seeConcept": "Veure aquest concepte",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Conceptes de l'esquema"
+    }
   },
   "codelists": {
     "codelistFamilies": "Famílies de classificacions",

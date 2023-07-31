@@ -8,6 +8,8 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
+import { MenuItem } from 'primeng/api';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Component({
     selector: 'app-concepts-schemes-detail',
@@ -16,11 +18,19 @@ import { TranslateService } from '@ngx-translate/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+    public navLinks: MenuItem[];
+
+    public versions: any[] = [];
+    public conceptsOfScheme: ConceptResource[] = [];
+
+    public selectedVersion: string = '';
+
     constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiService, route, localeService, translateService);
         this.showChildrenTree = true;
+        this.isDataWithChildrenTree = false;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -28,34 +38,72 @@ export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent imp
             description: '',
             version: '',
             agency: '',
-            comments: ''
+            annotations: '',
+            uri: ''
         });
+
+        this.navLinks = [
+            {
+                label: this.translateService.instant('concepts.parameters.schemeConcepts')
+            }
+        ];
+
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-        this.tabletreenode.data = [];
-        this.tabletreenode.dataSource.data = data;
-        this.tabletreenode.treeControl.expandAll();
-    }
+    public updateTableChildrenTreeNode(data: any): void {}
 
-    onLoadDetail(element: string) {
+    public onLoadDetail(element: string) {
         let resource = new Resource(element);
         // FIXME
         this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
-    public loadAllVersionsFromResource(): void {}
+    private loadConceptsOfScheme(): void {
+        this.apiService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
+            if (data[this.apiService.apiChildrenDataPath]) {
+                this.conceptsOfScheme = data[this.apiService.apiChildrenDataPath].map((concept: any) => {
+                    const resource = new ConceptResource(concept.urn);
+                    resource.id = concept.id;
+                    resource.name = this.localeService.getTextValue(concept.name?.text);
+                    resource.description = this.localeService.getTextValue(concept.description?.text);
+                    return resource;
+                });
+                this.dataChildrenLoaded = true;
+                console.log('this.conceptsOfScheme', this.conceptsOfScheme);
+            }
+        });
+    }
+
+    public onLoadDetailVersion(version: string) {
+        this.router.navigate(['concepts', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
+        this.versions = [];
+    }
+    public loadAllVersionsFromResource(): void {
+        this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+            if (data) {
+                data.filter((version: any) => version !== this.dataDetail!.version).reverse().forEach((version: any) => {
+                    this.versions.push({value: version});
+                });
+            }
+        });
+    }
+
+    public parseDesriptionToHtml(): string {
+        return this.detailForm.get('description')?.value || '';
+    }
 
     public mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new Resource(data.urn);
+        this.dataDetail = new ConceptResource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.uri;
+        this.dataDetail!.uri = data.selfLink?.href;
 
         this.detailForm.patchValue(this.dataDetail);
     }
 
-    loadDetailDataOnInit(): void {
+    public loadDetailDataOnInit(): void {
+        this.loadConceptsOfScheme();
     }
+
 }

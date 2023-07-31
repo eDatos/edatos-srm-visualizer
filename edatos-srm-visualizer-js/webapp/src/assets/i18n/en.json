@@ -39,7 +39,9 @@
     "concepts": "Concepts",
     "conceptDetails" : "Concept details",
     "seeConcept": "See this concept",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Concepts of scheme"
+    }
   },
   "codelists": {
     "codelistFamilies": "Codelist families",
