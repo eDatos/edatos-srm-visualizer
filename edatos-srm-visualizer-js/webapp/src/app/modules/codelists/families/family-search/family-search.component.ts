@@ -62,7 +62,7 @@ export class FamilySearchComponent extends BasicTreeSearchComponent implements O
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
             this.detailForm.patchValue(this.dataDetail);
         });
-        console.log(this.dataDetail)
+
         this.routerLinkDetail = this.dataDetail?.id + '/detail';
     }
 }

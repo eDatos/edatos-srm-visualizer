@@ -81,7 +81,6 @@ export class CodesDetailComponent extends BasicTreeDetailComponent implements On
         this.apiService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiService.apiDataStructureComponentsDataPath]) {
                 let dataStructureComponents = data[this.apiService.apiDataStructureComponentsDataPath];
-                console.log(dataStructureComponents)
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
                 this.measures.push(dataStructureComponents[this.apiService.apiMeasureDataPath]?.["primaryMeasure"]);
