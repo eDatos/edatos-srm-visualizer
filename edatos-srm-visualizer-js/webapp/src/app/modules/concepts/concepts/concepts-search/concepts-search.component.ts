@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from '../../../../core/services/locale.service';
-import { Resource } from '../../../../shared/models/resources/resource.model';
-import { ConceptResource } from '../../../../shared/models/resources/concept-resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -13,7 +12,7 @@ import { ConceptResource } from '../../../../shared/models/resources/concept-res
     styleUrls: ['./concepts-search.component.scss'],
 })
 
-export class ConceptsSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class ConceptsSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {

@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
@@ -16,7 +16,7 @@ import { DateUtils } from 'src/app/shared/utils/dateUtils';
     templateUrl: './codelist-detail.component.html',
     styleUrls: ['./codelist-detail.component.scss']
 })
-export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class CodelistDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
     public relatedCodelists: CodelistResource[] = [];
     public selectedVersion: string = '';
@@ -48,11 +48,6 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
             }
         ];
         this.activeLink = this.navLinks[0];
-    }
-
-    public showCodeInformation() {
-        this.router.navigate(['./code'], { relativeTo: this.route }).then(r => {
-        });
     }
 
     updateTableChildrenTreeNode(data: any): void {
@@ -100,10 +95,6 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     public onLoadDetailVersion(version: string) {
         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
         this.versions = [];
-    }
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
     }
 
     public mapperDataResourceDetail(data: any): void {

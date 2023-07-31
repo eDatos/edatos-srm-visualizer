@@ -5,8 +5,7 @@ import {
     CodelistCodesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-codes-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
@@ -16,7 +15,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
     templateUrl: './code-detail.component.html',
     styleUrls: ['./code-detail.component.scss']
 })
-export class CodeDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class CodeDetailComponent extends BasicDetailComponent implements OnInit {
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -54,12 +53,6 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
 
     public updateTableChildrenTreeNode(data: any): void {}
 
-    onLoadDetail(element: string) {
-        let resource = new Resource(element);
-        // FIXME
-        this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
-    }
-
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
@@ -83,10 +76,6 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
                 this.dataChildrenLoaded = true;
             }
         });
-    }
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
     }
 
     public loadAllVersionsFromResource(): void {}

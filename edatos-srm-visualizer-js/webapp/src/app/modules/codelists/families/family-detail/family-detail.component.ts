@@ -5,17 +5,17 @@ import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from '../../../../shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 @Component({
     selector: 'app-family-detail',
     templateUrl: './family-detail.component.html',
     styleUrls: ['./family-detail.component.scss']
 })
-export class FamilyDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class FamilyDetailComponent extends BasicDetailComponent implements OnInit {
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 
 import {
     CategoriesSchemeApiService
@@ -14,7 +14,7 @@ import { CategoryResource } from 'src/app/shared/models/resources/category-resou
     templateUrl: './schemes-search.component.html',
     styleUrls: ['./schemes-search.component.scss'],
 })
-export class SchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class SchemesSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesSchemeApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {

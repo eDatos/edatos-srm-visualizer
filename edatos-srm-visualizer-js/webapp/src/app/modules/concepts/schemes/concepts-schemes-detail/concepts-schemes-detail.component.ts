@@ -5,8 +5,7 @@ import {
     ConceptsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/concepts/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
@@ -17,7 +16,7 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
     styleUrls: ['./concepts-schemes-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class ConceptsSchemesDetailComponent extends BasicDetailComponent implements OnInit {
     public navLinks: MenuItem[];
 
     public versions: any[] = [];
@@ -52,12 +51,6 @@ export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent imp
 
     public updateTableChildrenTreeNode(data: any): void {}
 
-    public onLoadDetail(element: string) {
-        let resource = new Resource(element);
-        // FIXME
-        this.router.navigate(['concepts', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
-    }
-
     private loadConceptsOfScheme(): void {
         this.apiService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
             if (data[this.apiService.apiChildrenDataPath]) {
@@ -69,7 +62,6 @@ export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent imp
                     return resource;
                 });
                 this.dataChildrenLoaded = true;
-                console.log('this.conceptsOfScheme', this.conceptsOfScheme);
             }
         });
     }
@@ -86,10 +78,6 @@ export class ConceptsSchemesDetailComponent extends BasicTreeDetailComponent imp
                 });
             }
         });
-    }
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
     }
 
     public mapperDataResourceDetail(data: any): void {

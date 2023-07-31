@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { MenuItem } from 'primeng/api';
@@ -14,7 +14,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
     templateUrl: './concepts-detail.component.html',
     styleUrls: ['./concepts-detail.component.scss'],
 })
-export class ConceptsDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class ConceptsDetailComponent extends BasicDetailComponent implements OnInit {
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
@@ -51,10 +51,6 @@ export class ConceptsDetailComponent extends BasicTreeDetailComponent implements
     public updateTableChildrenTreeNode(data: any): void {}
 
     public loadAllVersionsFromResource(): void {}
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
-    }
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new ConceptResource(data.urn);

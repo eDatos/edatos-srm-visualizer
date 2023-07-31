@@ -3,7 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import {LocaleService} from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { DateUtils } from 'src/app/shared/utils/dateUtils';
@@ -19,7 +19,7 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
     templateUrl: './codes-detail.component.html',
     styleUrls: ['./codes-detail.component.scss'],
 })
-export class CodesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class CodesDetailComponent extends BasicDetailComponent implements OnInit {
 
     public versions: any[] = [];
     public selectedVersion: string = '';
@@ -61,10 +61,6 @@ export class CodesDetailComponent extends BasicTreeDetailComponent implements On
         ];
 
         this.activeLink = this.navLinks[0];
-    }
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
     }
 
     loadAllVersionsFromResource(): void {

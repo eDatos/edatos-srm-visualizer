@@ -2,23 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import {
     OrganisationsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
-import { BasicTreeDetailComponent } from '../../../../shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
-import { DateUtils } from '../../../../shared/utils/dateUtils';
-import { OrganisationResource } from '../../../../shared/models/resources/organisation-resource.model';
+import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 
 @Component({
     selector: 'app-schemes-detail',
     templateUrl: './schemes-detail.component.html',
     styleUrls: ['./schemes-detail.component.scss'],
 })
-export class SchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
 
     public versions: any[] = [];
     public selectedVersion: string = '';
@@ -51,10 +49,6 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         this.activeLink = this.navLinks[0];
     }
 
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
-    }
-
     public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.dataChildren = data;
@@ -69,7 +63,6 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        console.log('data', data)
         this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
         this.dataDetail!.uri = data.selfLink?.href;
         this.dataDetail!.version = 'v' + this.dataDetail.version;

@@ -4,10 +4,9 @@ import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Resource } from '../../../../shared/models/resources/resource.model';
-import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 
 @Component({
@@ -15,7 +14,7 @@ import { CodelistResource } from '../../../../shared/models/resources/codelist-r
     templateUrl: './family-search.component.html',
     styleUrls: ['./family-search.component.scss']
 })
-export class FamilySearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class FamilySearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistFamiliesApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
