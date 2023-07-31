@@ -3,13 +3,16 @@ import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import {LocaleService} from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from '../../../../shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DateUtils } from '../../../../shared/utils/dateUtils';
-import { DsdResource } from '../../../../shared/models/resources/dsd-resource.model';
-import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import {
+    DsdResource,
+    getAttributeRelationship,
+    getTypeDimension
+} from 'src/app/shared/models/resources/dsd-resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-codes-detail',
@@ -78,28 +81,43 @@ export class CodesDetailComponent extends BasicTreeDetailComponent implements On
         this.apiService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiService.apiDataStructureComponentsDataPath]) {
                 let dataStructureComponents = data[this.apiService.apiDataStructureComponentsDataPath];
-                this.attributes = dataStructureComponents[this.apiService.apiAttributeDataPath]["attribute"].map((attribute: any) => {
-                    const resource = new DsdResource(attribute.urn);
-                    resource.id = attribute.id;
-                    resource.assigmentStatus = attribute.assignmentStatus;
-                    let concept = new Resource(attribute.conceptIdentity?.urn);
-                    resource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId +')';
-                    return resource;
-                });
-                this.dimensions = dataStructureComponents[this.apiService.apiDimensionDataPath]["dimension"].map((dimension: any) => {
-                    const resource = new DsdResource(dimension.urn);
-                    resource.id = dimension.id;
-                    resource.typeDimension = dimension.type;
-                    let concept = new Resource(dimension.conceptIdentity?.urn);
-                    resource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId +')';
-                    return resource;
-                });
-                this.measures.push(dataStructureComponents[this.apiService.apiMeasureDataPath]["primaryMeasure"]);
+                console.log(dataStructureComponents)
+                this.getAttributes(dataStructureComponents);
+                this.getDimensions(dataStructureComponents);
+                this.measures.push(dataStructureComponents[this.apiService.apiMeasureDataPath]?.["primaryMeasure"]);
             }
             this.dataChildrenLoaded = true;
         });
     }
 
+    private getAttributes(dataStructureComponents: any): DsdResource[] {
+        if(dataStructureComponents[this.apiService.apiAttributeDataPath]) {
+            this.attributes = dataStructureComponents[this.apiService.apiAttributeDataPath]["attribute"].map((attribute: any) => {
+                const resource = new DsdResource(attribute.urn);
+                resource.id = attribute.id;
+                resource.assigmentStatus = attribute.assignmentStatus;
+                let concept = new Resource(attribute.conceptIdentity?.urn);
+                resource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
+                resource.attributeRelationship = getAttributeRelationship(attribute['attributeRelationship'], this.translateService);
+                return resource;
+            });
+        }
+        return this.attributes;
+    }
+
+    private getDimensions(dataStructureComponents: any): DsdResource[] {
+        if(dataStructureComponents[this.apiService.apiDimensionDataPath]) {
+            this.dimensions = dataStructureComponents[this.apiService.apiDimensionDataPath]["dimension"].map((dimension: any) => {
+                const resource = new DsdResource(dimension.urn);
+                resource.id = dimension.id;
+                resource.typeDimension = getTypeDimension(dimension.type, this.translateService);
+                let concept = new Resource(dimension.conceptIdentity?.urn);
+                resource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
+                return resource;
+            });
+        }
+        return this.dimensions
+    }
     mapperDataResourceDetail(data: any): void {
         this.dataDetail = new DsdResource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);

@@ -37,9 +37,9 @@
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
-    "conceptSchemesDetails" : "Concept scheme details",
+    "conceptSchemesDetails": "Concept scheme details",
     "concepts": "Concepts",
-    "conceptDetails" : "Concept details",
+    "conceptDetails": "Concept details",
     "seeConcept": "See this concept",
     "parameters": {
       "schemeConcepts": "Concepts of scheme"
@@ -69,14 +69,29 @@
     }
   },
   "dsd": {
-    "definitionDataStructures" : "Data Structures (DSD)",
+    "definitionDataStructures": "Data Structures (DSD)",
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",
     "dimensions": "Dimensions",
     "attribute": "Attribute",
     "mainMeasure": "Main measure",
-    "parameters": {}
+    "parameters": {
+      "relatedTo": "Related to",
+      "assigned": "Assigned"
+    },
+    "attributeRelationship": {
+      "group": "Dimensions group",
+      "primaryMeasure": "Primary measure",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Measure dimension",
+      "dimension": "Dimension",
+      "timeDimension": "Time dimension",
+      "spatial": "Spatial dimension"
+    }
   },
   "organisations": {
     "organisationsSchemes": "Organisations schemes",

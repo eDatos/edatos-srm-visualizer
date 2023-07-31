@@ -33,7 +33,7 @@
     "displayedFields": "Camps a mostrar",
     "selfLink": "Accés via API",
     "concept": "Concepte",
-    "type": "Tipus",
+    "type": "Tipus"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -76,7 +76,22 @@
     "dimensions": "Dimensions",
     "attribute": "Atributs",
     "mainMeasure": "Mesura principal",
-    "parameters": {}
+    "parameters": {
+      "relatedTo": "Relacionat amb",
+      "assigned": "Assignat"
+    },
+    "attributeRelationship": {
+      "group": "Grup de dimensions",
+      "primaryMeasure": "Mesura principal",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensió de mesura",
+      "dimension": "Dimensió",
+      "timeDimension": "Dimensió de temps",
+      "spatial": "Dimensió espaial"
+    }
   },
   "organisations": {
     "organisationsSchemes": "Esquema d'organitzacions",

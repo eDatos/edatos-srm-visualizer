@@ -39,7 +39,7 @@
     "conceptSchemes": "Esquema de conceptos",
     "conceptSchemesDetails": "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
-    "conceptDetails" :"Detalles del concepto",
+    "conceptDetails": "Detalles del concepto",
     "seeConcept": "Ver este concepto",
     "parameters": {
       "schemeConcepts": "Conceptos del esquema"
@@ -76,7 +76,22 @@
     "dimensions": "Dimensiones",
     "attribute": "Atributos",
     "mainMeasure": "Medida principal",
-    "parameters": {}
+    "parameters": {
+      "relatedTo": "Relacionado con",
+      "assigned": "Asignado"
+    },
+    "attributeRelationship": {
+      "group": "Grupo de dimensiones",
+      "primaryMeasure": "Medida principal",
+      "dimensions": "Dimensiones",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensión de medida",
+      "dimension": "Dimensión",
+      "timeDimension": "Dimensión de tiempo",
+      "spatial": "Dimensión espacial"
+    }
   },
   "organisations": {
     "organisationsSchemes": "Esquema de organizaciones",
