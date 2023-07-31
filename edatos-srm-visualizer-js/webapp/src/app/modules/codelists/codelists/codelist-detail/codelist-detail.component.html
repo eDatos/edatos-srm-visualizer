@@ -73,8 +73,10 @@
     <label for='isRecommended' class='title'>{{ 'codelists.parameters.isRecommended' | translate }}</label>
     <span>{{ dataDetail.isRecommended }}</span>
 
-    <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-    <span>{{ dataDetail.annotations }}</span>
+    <div *ngIf="dataDetail.annotations">
+        <label for='annotations'  class='title'>{{ 'resourceParameters.comments' | translate }}</label>
+        <span>{{ dataDetail.annotations }}</span>
+    </div>
 
     <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
     <div class='info-link'>

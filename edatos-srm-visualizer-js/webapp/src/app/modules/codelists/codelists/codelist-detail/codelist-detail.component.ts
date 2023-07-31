@@ -127,6 +127,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
                 data.forEach((version: any) => {
                     this.versions.push({value: version});
                 });
+                this.versions.reverse();
             }
         });
     }
