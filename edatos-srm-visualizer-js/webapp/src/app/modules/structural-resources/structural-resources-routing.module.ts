@@ -15,8 +15,8 @@ const routes: Routes = [
             },
             { path: 'dsd', loadChildren: () => import ('../dsd/dsd.module').then(m => m.DsdModule) },
             {
-                path: 'organizations',
-                loadChildren: () => import ('../organizations/organizations.module').then(m => m.OrganizationsModule)
+                path: 'organisations',
+                loadChildren: () => import ('../organisations/organisations.module').then(m => m.OrganisationsModule)
             },
             {
                 path: 'categories',

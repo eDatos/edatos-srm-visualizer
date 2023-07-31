@@ -7,6 +7,6 @@ export enum StructuralResources {
   DSD = 'dsd',
   Categories = "categories",
   Categories_Scheme = "categories_scheme",
-  Organizations = "organizations",
-  Organizations_Scheme = "organizations_scheme",
+  Organisations = "organisations",
+  Organisations_Scheme = "organisations_scheme",
 }
