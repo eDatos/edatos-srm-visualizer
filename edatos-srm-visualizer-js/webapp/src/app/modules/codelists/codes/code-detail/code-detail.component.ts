@@ -52,8 +52,7 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
         this.activeLink = this.navLinks[0];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-    }
+    public updateTableChildrenTreeNode(data: any): void {}
 
     onLoadDetail(element: string) {
         let resource = new Resource(element);
@@ -90,8 +89,7 @@ export class CodeDetailComponent extends BasicTreeDetailComponent implements OnI
         return this.detailForm.get('description')?.value || '';
     }
 
-    public loadAllVersionsFromResource(): void {
-    }
+    public loadAllVersionsFromResource(): void {}
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CodelistResource(data.urn);

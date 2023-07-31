@@ -35,7 +35,9 @@
     "advancedSearch": "Cerca avançada",
     "showAllVersions": "Mostrar totes les versions",
     "displayedFields": "Camps a mostrar",
-    "selfLink": "Accés via API"
+    "selfLink": "Accés via API",
+    "concept": "Concepte",
+    "type": "Tipus"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -43,11 +45,14 @@
     "concepts": "Conceptes",
     "conceptDetails" : "Detalls del concepte",
     "seeConcept": "Veure aquest concepte",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Conceptes de l'esquema"
+    }
   },
   "codelists": {
     "codelistFamilies": "Famílies de classificacions",
     "codelistFamiliesDetails": "Detalls de les famílies de classificacions",
+    "familyCodelist": "Classificacions de la família",
     "codelist": "Classificació",
     "codelists": "Classificacions",
     "codelistsDetails": "Detalls de les classificacions",
@@ -59,8 +64,11 @@
     "parameters": {
       "id": "Identificador de la classificació",
       "idCode": "Identificador del codi",
+      "code": "Codi",
+      "parentCode": "Codis pare",
       "agency": "Agència mantenidora",
       "publicationDate": "Data de publicació",
+      "lastUpdatedDate": "Data d'última modificació",
       "isRecommended": "¿És recomanada?"
     }
   },
@@ -69,20 +77,47 @@
     "dsd": "DSD",
     "dsdDetails": "Detalls dels DSD",
     "datastructures": "Codis",
-    "parameters": {}
+    "dimensions": "Dimensions",
+    "attribute": "Atributs",
+    "mainMeasure": "Mesura principal",
+    "parameters": {
+      "relatedTo": "Relacionat amb",
+      "assigned": "Assignat"
+    },
+    "attributeRelationship": {
+      "group": "Grup de dimensions",
+      "primaryMeasure": "Mesura principal",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensió de mesura",
+      "dimension": "Dimensió",
+      "timeDimension": "Dimensió de temps",
+      "spatial": "Dimensió espaial"
+    }
   },
-  "organizations": {
-    "organizationsSchemes": "Esquema d'organitzacions",
-    "organizationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
-    "organizations": "Organitzacions",
-    "organizationsDetails": "Detalls de les organitzacions",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Esquema d'organitzacions",
+    "organisationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
+    "organisations": "Organitzacions",
+    "organisationsDetails": "Detalls de les organitzacions",
+    "otherOrganisationsOfScheme": "Altres organitzacions de l'esquema",
+    "organisationsOfScheme": "Organitzacions de l'esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de l'organització",
+      "publicationDate": "Data de publicació"
+    }
   },
   "category": {
     "categorySchemes": "Esquema de temes",
     "categorySchemesDetails": "Detalls de l'esquema de temes",
     "categories": "Temes",
+    "otherCategoriesScheme": "Altres temes de l'esquema",
     "categoriesDetails": "Detalls dels temes",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Data de publicació",
+      "idCategory": "Identificador del tema"
+    }
   }
 }

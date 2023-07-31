@@ -35,34 +35,40 @@
     "advancedSearch": "Búsqueda avanzada",
     "showAllVersions": "Mostrar todas las versiones",
     "displayedFields": "Campos a mostrar",
-    "selfLink": "Acceso vía API"
+    "selfLink": "Acceso vía API",
+    "concept": "Concepto",
+    "type": "Tipo"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
     "conceptSchemesDetails": "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
-    "conceptDetails" :"Detalles del concepto",
+    "conceptDetails": "Detalles del concepto",
     "seeConcept": "Ver este concepto",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Conceptos del esquema"
+    }
   },
   "codelists": {
     "codelistFamilies": "Familias de clasificaciones",
     "codelistFamiliesDetails": "Detalles de la familia de clasificaciones",
+    "familyCodelist": "Clasificaciones de la familia",
     "codelist": "Clasificación",
     "codelists": "Clasificaciones",
     "codelistsDetails": "Detalles de la clasificación",
     "codes": "Códigos",
-    "otherCodes": "Altres codis de la classificació",
-    "equivalentCodes": "Equal codes",
-    "otherCodes": "Other codelist codes",
+    "otherCodes": "Otros códigos de clasificación",
     "equivalentCodes": "Códigos equivalentes",
     "codesDetails": "Detalles del código",
     "relatedCodelist": "Clasificaciones realcionadas",
     "parameters": {
       "id": "Identificador de la clasificación",
       "idCode": "Identificador del código",
+      "code": "Código",
+      "parentCode": "Códigos padre",
       "agency": "Agencia mantenedora",
       "publicationDate": "Fecha de publicación",
+      "lastUpdatedDate": "Fecha de última modificación",
       "isRecommended": "¿Es recomendada?"
     }
   },
@@ -71,20 +77,47 @@
     "dsd": "DSD",
     "dsdDetails": "Detalles del DSD",
     "datastructures": "Códigos",
-    "parameters": {}
+    "dimensions": "Dimensiones",
+    "attribute": "Atributos",
+    "mainMeasure": "Medida principal",
+    "parameters": {
+      "relatedTo": "Relacionado con",
+      "assigned": "Asignado"
+    },
+    "attributeRelationship": {
+      "group": "Grupo de dimensiones",
+      "primaryMeasure": "Medida principal",
+      "dimensions": "Dimensiones",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensión de medida",
+      "dimension": "Dimensión",
+      "timeDimension": "Dimensión de tiempo",
+      "spatial": "Dimensión espacial"
+    }
   },
-  "organizations": {
-    "organizationsSchemes": "Esquema de organizaciones",
-    "organizationsSchemesDetails": "Detalles del esquema de organizaciones",
-    "organizations": "Organizaciones",
-    "organizationsDetails": "Detalles de la organización",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Esquema de organizaciones",
+    "organisationsSchemesDetails": "Detalles del esquema de organizaciones",
+    "organisations": "Organizaciones",
+    "organisationsDetails": "Detalles de la organización",
+    "otherOrganisationsOfScheme": "Otras organizaciones del esquema",
+    "organisationsOfScheme": "Organizaciones del esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de la organización",
+      "publicationDate": "Fecha de publicación"
+    }
   },
   "category": {
     "categorySchemes": "Esquema de temas",
     "categorySchemesDetails": "Detalles del esquema de temas",
     "categories": "Temas",
+    "otherCategoriesScheme": "Otros temas del esquema",
     "categoriesDetails": "Detalles del tema",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Fecha de publicación",
+      "idCategory": "Identificador del tema"
+    }
   }
 }

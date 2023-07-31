@@ -4,6 +4,7 @@ import { CategoriesApiService } from 'src/app/core/services/api/structural-resou
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
 import { TranslateService } from '@ngx-translate/core';
+import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
 
 @Component({
     selector: 'app-categories-search',
@@ -49,4 +50,15 @@ export class CategoriesSearchComponent extends BasicTreeSearchComponent implemen
         this.loadInitialData();
     }
 
+    public onLoadCategoryDetail(urn: string): void {
+        this.dataDetail = new CategoryResource(urn);
+        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
+            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            this.detailForm.patchValue(this.dataDetail);
+        });
+
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
+            +  this.dataDetail?.id  + '/' +  this.dataDetail?.version + '/detail';
+    }
 }

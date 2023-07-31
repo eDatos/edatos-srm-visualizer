@@ -35,52 +35,89 @@
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",
     "displayedFields": "Fields to display",
-    "selfLink": "Access via API"
+    "selfLink": "Access via API",
+    "concept": "Concept",
+    "type": "Type"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
-    "conceptSchemesDetails" : "Concept scheme details",
+    "conceptSchemesDetails": "Concept scheme details",
     "concepts": "Concepts",
-    "conceptDetails" : "Concept details",
+    "conceptDetails": "Concept details",
     "seeConcept": "See this concept",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Concepts of scheme"
+    }
   },
   "codelists": {
     "codelistFamilies": "Codelist families",
     "codelistFamiliesDetails": "Codelist families details",
+    "familyCodelist": "Family codelist",
     "codelist": "Codelist",
     "codelists": "Codelists",
     "codelistsDetails": "Codelists details",
     "codes": "Codes",
+    "equivalentCodes": "Equal codes",
+    "otherCodes": "Other codelist codes",
     "codesDetails": "Codes details",
     "relatedCodelist": "Related classifications",
     "parameters": {
       "id": "Codelist identifier",
       "idCode": "Code identifier",
+      "code": "Code",
+      "parentCode": "Parent code",
       "agency": "Making Agency",
       "publicationDate": "Date of publication",
+      "lastUpdatedDate": "Date last modified",
       "isRecommended": "Is it recommended?"
     }
   },
   "dsd": {
-    "definitionDataStructures" : "Data Structures (DSD)",
+    "definitionDataStructures": "Data Structures (DSD)",
     "dsd": "DSD",
     "dsdDetails": "DSD details",
     "datastructures": "Codes",
-    "parameters": {}
+    "dimensions": "Dimensions",
+    "attribute": "Attribute",
+    "mainMeasure": "Main measure",
+    "parameters": {
+      "relatedTo": "Related to",
+      "assigned": "Assigned"
+    },
+    "attributeRelationship": {
+      "group": "Dimensions group",
+      "primaryMeasure": "Primary measure",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Measure dimension",
+      "dimension": "Dimension",
+      "timeDimension": "Time dimension",
+      "spatial": "Spatial dimension"
+    }
   },
-  "organizations": {
-    "organizationsSchemes": "Organizations schemes",
-    "organizationsSchemesDetails": "Organizations schemes details",
-    "organizations": "Organizartions",
-    "organizationsDetails": "Organizations details",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Organisations schemes",
+    "organisationsSchemesDetails": "Organisations schemes details",
+    "organisations": "Organisartions",
+    "organisationsDetails": "Organisations details",
+    "otherOrganisationsOfScheme": "Other organisations of scheme",
+    "organisationsOfScheme": "Organisations of scheme",
+    "parameters": {
+      "idOrganisation": "Organisation identifier",
+      "publicationDate": "Date of publication"
+    }
   },
   "category": {
     "categorySchemes": "Category scheme",
     "categorySchemesDetails": "Category scheme details",
     "categories": "Categories",
+    "otherCategoriesScheme": "Other categories schemes",
     "categoriesDetails": "Categories details",
-    "parameters": {}
+    "parameters": {
+      "publicationDate": "Date of publication",
+      "idCategory": "Category identifier"
+    }
   }
 }

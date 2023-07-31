@@ -3,12 +3,12 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from '../../../../shared/components/basic-tree-detail/basic-tree-detail.component';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
-import { DateUtils } from '../../../../shared/utils/dateUtils';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { DateUtils } from 'src/app/shared/utils/dateUtils';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
             agency: '',
             annotations: '',
             uri: '',
-            lastUpdateDate: '',
+            lastUpdatedDate: '',
             isRecommended: ''
         });
 
@@ -159,15 +159,14 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.lastUpdateDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
+        this.dataDetail!.lastUpdatedDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
         this.dataDetail!.uri = data.uri;
         this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
 
         this.detailForm.patchValue(this.dataDetail);
     }
 
-    loadDetailDataOnInit(): void {
-    }
+    loadDetailDataOnInit(): void {}
 
     handleVisibilityMenu(): boolean {
         this.expandedMenu = !this.expandedMenu;

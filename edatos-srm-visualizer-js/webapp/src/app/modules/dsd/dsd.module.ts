@@ -6,8 +6,11 @@ import { DsdRoutingModule } from './dsd-routing.module';
 import { DsdNavbarComponent } from './dsd-navbar/dsd-navbar.component';
 import { CodesSearchComponent } from './codes/codes-search/codes-search.component';
 import { CodesDetailComponent } from './codes/codes-detail/codes-detail.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -16,11 +19,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CodesSearchComponent,
     CodesDetailComponent
   ],
-  imports: [
-    CommonModule,
-    DsdRoutingModule,
-    ReactiveFormsModule,
-    SharedModule,
-  ]
+    imports: [
+        CommonModule,
+        DsdRoutingModule,
+        ReactiveFormsModule,
+        SharedModule,
+        DropdownModule,
+        FormsModule,
+        TabMenuModule,
+        TableModule
+    ]
 })
 export class DsdModule { }

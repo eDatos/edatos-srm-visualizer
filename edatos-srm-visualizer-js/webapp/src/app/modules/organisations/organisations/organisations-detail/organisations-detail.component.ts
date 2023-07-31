@@ -5,17 +5,21 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
-    OrganizationsApiService
-} from 'src/app/core/services/api/structural-resources/organizations/organizations-api.service';
+    OrganisationsApiService
+} from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'app-organizations-detail',
-    templateUrl: './organizations-detail.component.html',
-    styleUrls: ['./organizations-detail.component.scss']
+    selector: 'app-organisations-detail',
+    templateUrl: './organisations-detail.component.html',
+    styleUrls: ['./organisations-detail.component.scss']
 })
-export class OrganizationsDetailComponent extends BasicTreeDetailComponent implements OnInit {
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganizationsApiService,
+export class OrganisationsDetailComponent extends BasicTreeDetailComponent implements OnInit {
+
+    public navLinks: MenuItem[];
+    public activeLink: MenuItem;
+    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiService, route, localeService, translateService);
@@ -24,36 +28,46 @@ export class OrganizationsDetailComponent extends BasicTreeDetailComponent imple
             id: '',
             name: '',
             urn: '',
-            description: '',
-            version: '',
+            uri: '',
             agency: '',
-            comments: ''
+            annotations: '',
+            organisationScheme: '',
         });
+
+        this.navLinks = [
+            {
+                label: this.translateService.instant('organisations.otherOrganisationsOfScheme')
+            }
+        ];
+        this.activeLink = this.navLinks[0];
     }
 
     public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
-        this.tabletreenode.dataSource.data = data;
+        this.dataChildren = data;
         this.tabletreenode.treeControl.expandAll();
     }
 
     onLoadDetail(element: string) {
         let resource = new Resource(element);
-        this.router.navigate(['organizations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
     public loadAllVersionsFromResource(): void {}
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new Resource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
         this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
         this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.uri;
+        this.dataDetail!.uri = data.selfLink?.href;
+        this.dataDetail!.organisationScheme = this.dataDetail.resourceId;
 
         this.detailForm.patchValue(this.dataDetail);
     }
 
-    loadDetailDataOnInit(): void {
+    onActiveItemChange(event: any) {
+        this.activeLink = event;
     }
+
+    loadDetailDataOnInit(): void {}
 }
