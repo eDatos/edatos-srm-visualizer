@@ -31,7 +31,9 @@
     "advancedSearch": "Cerca avançada",
     "showAllVersions": "Mostrar totes les versions",
     "displayedFields": "Camps a mostrar",
-    "selfLink": "Accés via API"
+    "selfLink": "Accés via API",
+    "concept": "Concepte",
+    "type": "Tipus"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -74,7 +76,25 @@
     "dsd": "DSD",
     "dsdDetails": "Detalls dels DSD",
     "datastructures": "Codis",
-    "parameters": {}
+    "dimensions": "Dimensions",
+    "attribute": "Atributs",
+    "mainMeasure": "Mesura principal",
+    "parameters": {
+      "relatedTo": "Relacionat amb",
+      "assigned": "Assignat"
+    },
+    "attributeRelationship": {
+      "group": "Grup de dimensions",
+      "primaryMeasure": "Mesura principal",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensió de mesura",
+      "dimension": "Dimensió",
+      "timeDimension": "Dimensió de temps",
+      "spatial": "Dimensió espaial"
+    }
   },
   "organisations": {
     "organisationsSchemes": "Esquema d'organitzacions",
