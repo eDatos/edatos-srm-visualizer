@@ -42,7 +42,8 @@
     "othersConcepts": "Altres conceptes de l'esquema",
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
-      "agency": "Agència mantenidora"
+      "agency": "Agència mantenidora",
+      "schemeConcepts": "Conceptes de l'esquema"
     }
   },
   "codelists": {
@@ -75,12 +76,17 @@
     "datastructures": "Codis",
     "parameters": {}
   },
-  "organizations": {
-    "organizationsSchemes": "Esquema d'organitzacions",
-    "organizationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
-    "organizations": "Organitzacions",
-    "organizationsDetails": "Detalls de les organitzacions",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Esquema d'organitzacions",
+    "organisationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
+    "organisations": "Organitzacions",
+    "organisationsDetails": "Detalls de les organitzacions",
+    "otherOrganisationsOfScheme": "Altres organitzacions de l'esquema",
+    "organisationsOfScheme": "Organitzacions de l'esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de l'organització",
+      "publicationDate": "Data de publicació"
+    }
   },
   "category": {
     "categorySchemes": "Esquema de temes",
@@ -90,6 +96,7 @@
     "categoriesDetails": "Detalls dels temes",
     "parameters": {
       "publicationDate": "Data de publicació",
+      "idCategory": "Identificador del tema"
     }
   }
 }

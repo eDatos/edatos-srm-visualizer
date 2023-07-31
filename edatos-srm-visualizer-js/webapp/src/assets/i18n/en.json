@@ -42,7 +42,8 @@
     "othersConcepts": "Other concepts from scheme",
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
-      "agency": "Agency"
+      "agency": "Agency",
+      "schemeConcepts": "Concepts of scheme"
     }
   },
   "codelists": {
@@ -75,12 +76,17 @@
     "datastructures": "Codes",
     "parameters": {}
   },
-  "organizations": {
-    "organizationsSchemes": "Organizations schemes",
-    "organizationsSchemesDetails": "Organizations schemes details",
-    "organizations": "Organizartions",
-    "organizationsDetails": "Organizations details",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Organisations schemes",
+    "organisationsSchemesDetails": "Organisations schemes details",
+    "organisations": "Organisartions",
+    "organisationsDetails": "Organisations details",
+    "otherOrganisationsOfScheme": "Other organisations of scheme",
+    "organisationsOfScheme": "Organisations of scheme",
+    "parameters": {
+      "idOrganisation": "Organisation identifier",
+      "publicationDate": "Date of publication"
+    }
   },
   "category": {
     "categorySchemes": "Category scheme",
@@ -89,7 +95,8 @@
     "otherCategoriesScheme": "Other categories schemes",
     "categoriesDetails": "Categories details",
     "parameters": {
-      "publicationDate": "Date of publication"
+      "publicationDate": "Date of publication",
+      "idCategory": "Category identifier"
     }
   }
 }

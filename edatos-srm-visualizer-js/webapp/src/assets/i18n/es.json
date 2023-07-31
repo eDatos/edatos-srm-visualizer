@@ -42,7 +42,8 @@
     "othersConcepts": "Otros conceptos del esquema",
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
-      "agency": "Agencia mantenedora"
+      "agency": "Agencia mantenedora",
+      "schemeConcepts": "Conceptos del esquema"
     }
   },
   "codelists": {
@@ -75,12 +76,17 @@
     "datastructures": "Códigos",
     "parameters": {}
   },
-  "organizations": {
-    "organizationsSchemes": "Esquema de organizaciones",
-    "organizationsSchemesDetails": "Detalles del esquema de organizaciones",
-    "organizations": "Organizaciones",
-    "organizationsDetails": "Detalles de la organización",
-    "parameters": {}
+  "organisations": {
+    "organisationsSchemes": "Esquema de organizaciones",
+    "organisationsSchemesDetails": "Detalles del esquema de organizaciones",
+    "organisations": "Organizaciones",
+    "organisationsDetails": "Detalles de la organización",
+    "otherOrganisationsOfScheme": "Otras organizaciones del esquema",
+    "organisationsOfScheme": "Organizaciones del esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de la organización",
+      "publicationDate": "Fecha de publicación"
+    }
   },
   "category": {
     "categorySchemes": "Esquema de temas",
@@ -89,7 +95,8 @@
     "otherCategoriesScheme": "Otros temas del esquema",
     "categoriesDetails": "Detalles del tema",
     "parameters": {
-      "publicationDate": "Fecha de publicación"
+      "publicationDate": "Fecha de publicación",
+      "idCategory": "Identificador del tema"
     }
   }
 }

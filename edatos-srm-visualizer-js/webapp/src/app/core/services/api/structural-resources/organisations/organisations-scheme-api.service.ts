@@ -6,12 +6,16 @@ import { ApiService } from 'src/app/core/services/api/structural-resources/api.s
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationsSchemeApiService extends ApiService {
+export class OrganisationsSchemeApiService extends ApiService {
 
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchDataPath = 'organisationScheme';
     this.apiSearchUrl = '/v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
+    this.apiChildrenUrl = '/api/organisations/{urn}/organisations';
+    this.apiChildrenTreeUrl = '/api/organisations/{urn}/organisations';
+
+    this.apiAllVersionsFromResourceUrl = '/api/organisations/{urn}/all-versions';
   }
 }

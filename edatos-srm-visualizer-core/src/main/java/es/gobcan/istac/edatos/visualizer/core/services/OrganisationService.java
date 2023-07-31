@@ -4,12 +4,15 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
+import org.siemac.metamac.rest.structural_resources.v1_0.domain.OrganisationSchemes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Organisations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.repository.OrganisationRepository;
 import es.gobcan.istac.edatos.visualizer.core.utils.InternationalStringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +23,20 @@ public class OrganisationService {
 
     private final OrganisationRepository organisationRepository;
 
-   @Autowired
+    @Autowired
     public OrganisationService(OrganisationRepository organisationRepository) {
-       this.organisationRepository = organisationRepository;
+        this.organisationRepository = organisationRepository;
+    }
+
+    public List<TreeNode> findOrganisationsFromScheme(String urn, String lang) {
+        List<TreeNode> result = new ArrayList<>();
+        Organisations organisations = organisationRepository.findOrganisations(urn).orElse(new Organisations());
+        organisations.getOrganisations().forEach(organisation -> {
+            TreeNode treeNode = new TreeNode(organisation.getUrn(), InternationalStringUtils.loadInternationalString(organisation.getName().getTexts(), lang));
+            treeNode.getChildren().addAll(loadChildren(organisation.getUrn(), lang));
+            result.add(treeNode);
+        });
+        return result;
     }
 
     public List<TreeNode> loadChildren(String urn, String lang) {
@@ -39,4 +53,16 @@ public class OrganisationService {
         return organisationChildren;
     }
 
+    public List<String> loadAllOrganisationVersions(String urn) {
+        log.debug("Search soon {}", urn);
+        OrganisationSchemes schemes = organisationRepository.findAllVersions(urn).orElse(new OrganisationSchemes());
+        List<String> versions = new ArrayList<>();
+        for (Resource resource : schemes.getOrganisationSchemes()) {
+            Urn urnValues = new Urn(resource.getUrn());
+            if (!urn.contains(urnValues.getVersion())) {
+                versions.add(urnValues.getVersion());
+            }
+        }
+        return versions;
+    }
 }
