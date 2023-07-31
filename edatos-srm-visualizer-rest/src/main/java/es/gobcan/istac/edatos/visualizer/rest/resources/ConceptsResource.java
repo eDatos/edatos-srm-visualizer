@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptScheme;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptSchemes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
@@ -47,10 +45,7 @@ import lombok.extern.slf4j.Slf4j;
                 Urn urnValues = new Urn(resource.getUrn());
                 result.add(urnValues.getVersion());
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(result);
-            log.debug(json);
-            return json;
+            return JsonUtils.toJson(result);
         }
         return "";
     }
