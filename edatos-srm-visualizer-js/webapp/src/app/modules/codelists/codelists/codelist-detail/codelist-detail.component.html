@@ -48,45 +48,62 @@
 
 <div [formGroup]='detailForm' class="detail-info">
     <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
-    <input type='text' class='info-id' formControlName='id' id='id' readonly>
+    <span class="info-id">{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <input type='text' formControlName='name' id='name' readonly>
+    <span>{{ dataDetail.name }}</span>
 
     <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
-    <input type='text' formControlName='version' id='version' readonly>
+    <span>{{ dataDetail.version }}</span>
 
     <label for='lastUpdateDate' class='title'>{{ 'codelists.parameters.publicationDate' | translate }}</label>
-    <input type='text' formControlName='lastUpdateDate' id='lastUpdateDate' readonly>
+    <span>{{ dataDetail.lastUpdateDate }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div  id='description' [innerHTML]='parseDesriptionToHtml()'></div>
-
-    <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-    <div class='info-link'>
-        <input type='text' formControlName='uri' id='uri' readonly>
-        <div class="element-link-actions">
-        <button type="button" >
-            <i class="fa-thin fa-arrow-up-right-from-square"></i>
-        </button>
-        <button  >
-            <i class="fa-thin fa-copy"></i>
-        </button>
-    </div>
-    </div>
+    <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
     
+    <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+    <div class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.uri }}</code>
+        </div>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+            <button>
+                <i class="fa-thin fa-copy"></i>
+            </button>
+        </div>
+    </div>
 
     <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-    <input type='text' formControlName='urn' id='urn' readonly>
+    <div class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.urn }}</code>
+        </div>
+        <div class="element-link-actions">
+            <button>
+                <i class="fa-thin fa-copy"></i>
+            </button>
+        </div>
+    </div>
 
     <label for='isRecommended' class='title'>{{ 'codelists.parameters.isRecommended' | translate }}</label>
-    <input type='text' formControlName='isRecommended' id='isRecommended' readonly>
+    <span>{{ dataDetail.isRecommended }}</span>
 
     <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-    <input type='text' formControlName='annotations' id='annotations' readonly>
+    <span>{{ dataDetail.annotations }}</span>
 
     <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
-    <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
+    <div class='info-link'>
+        <span class="info-agency">{{ dataDetail.agency }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+        </div>
+    </div>
 </div>
 
     <br>

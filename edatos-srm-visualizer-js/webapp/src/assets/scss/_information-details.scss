@@ -7,6 +7,7 @@
     gap: 10px;
 }
 
+
 //primeng dropdown - OTHER VERSIONS
 .p-dropdown-custom .p-dropdown {
     height: 30px;
@@ -105,16 +106,13 @@
 //primeng menu
 .p-menu-custom {
     .p-menu.p-menu-overlay {
-        //left: 1227px !important;
         background: $color-azul-oscuro-100;
         right:calc($menu-popup-min-width + 2*$padding-10px - 2px);
         left:unset !important;
-        //position:sticky;
         
     }
     .p-menu {
         &.p-component {
-            //padding: 10px;
             min-width: $menu-popup-min-width;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 5px 0px 5px 5px;
@@ -159,7 +157,7 @@
         font-size: 18px;
         margin-bottom: 0px;
     }
-    input {
+    span {
         padding: 0px;
         color: $color-negro-100;
         font-size: 14px;
@@ -169,8 +167,11 @@
             font-size: 28px;
             line-height: 38px;
         }
+        &.info-agency {
+            color: $color-azul-oscuro-100;
+        }
     }
-    input:disabled, input[readonly]{
+    input:disabled, input[readonly] {
         background-color: inherit;
         border: 0px;
     }
@@ -180,41 +181,31 @@
 .info-link {
     display: flex;
     flex-direction: row;
-    //justify-content: flex-end;
-    padding: $padding-10px;
     gap: 5px;
-    height: 40px;
-    background: $color-azul-10;
-    border-radius: 5px;
     align-items: center;
     color: #231F20;
-    code {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    &.background {
+        background: $color-azul-10;
+        height: 40px;
+        padding: $padding-10px;
+        border-radius: 5px;
     }
-  }
-
-  .element-link {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: $padding-10px;
-    gap: 5px;
-    font-size: 12px;
-    line-height: 16px;
+    .code {
+        font-size: 12px;
+        flex-grow: 2;
+    }
   }
 
   .element-link-actions {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    gap: 5px;
     button {
         width: 1.25rem;
-    font-size: 16px;
-    background: transparent;
-    border: none;
+        font-size: 16px;
+        background: transparent;
+        border: none;
+        color: $color-azul-oscuro-100;
     }
   }
 
