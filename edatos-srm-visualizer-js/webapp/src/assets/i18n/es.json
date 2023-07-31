@@ -41,7 +41,9 @@
     "concepts": "Conceptos",
     "conceptDetails" :"Detalles del concepto",
     "seeConcept": "Ver este concepto",
-    "parameters": {}
+    "parameters": {
+      "schemeConcepts": "Conceptos del esquema"
+    }
   },
   "codelists": {
     "codelistFamilies": "Familias de clasificaciones",

@@ -5,6 +5,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.siemac.metamac.rest.common.v1_0.domain.Resource;
+import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
+import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptScheme;
+import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptSchemes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Concepts;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +25,34 @@ import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionServ
 import es.gobcan.istac.edatos.visualizer.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@RestController()
-@RequestMapping("/api/concepts")
-public class ConceptsResource extends GenericResource {
+@Slf4j @RestController() @RequestMapping("/api/concepts") public class ConceptsResource extends GenericResource {
 
     private final String urlApiChildrenDetails;
+    private final String urlApiAllVersionsResource;
 
     @Autowired
     public ConceptsResource(MetadataConfiguracionService metadataConfiguracionService) {
         super(metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/~all/~all/~latest/concepts?query=PARENT%20eq%20%27#ID#%27"));
         this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#/#VERSION#/concepts");
+        this.urlApiAllVersionsResource = metadataConfiguracionService.getStructuralResourcesApi().concat("/v1.0/conceptschemes/#AGENCY#/#SCHEME#");
+    }
+
+    @GetMapping("/{urn}/all-versions")
+    public String getAllVersionsFromResource(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
+        RestTemplate restTemplate = new RestTemplate();
+        ConceptSchemes conceptSchemes= restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), ConceptSchemes.class).getBody();
+        if (conceptSchemes != null) {
+            List<String> result = new ArrayList<>();
+            for (Resource resource : conceptSchemes.getConceptSchemes()) {
+                Urn urnValues = new Urn(resource.getUrn());
+                result.add(urnValues.getVersion());
+            }
+            Gson gson = new Gson();
+            String json = gson.toJson(result);
+            log.debug(json);
+            return json;
+        }
+        return "";
     }
 
     @GetMapping("/schemes/{urn}/concepts")
