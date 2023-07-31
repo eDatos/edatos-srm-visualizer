@@ -6,7 +6,7 @@ import { ApiService } from 'src/app/core/services/api/structural-resources/api.s
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationsApiService extends ApiService{
+export class OrganisationsApiService extends ApiService{
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchDataPath = 'organisation';
