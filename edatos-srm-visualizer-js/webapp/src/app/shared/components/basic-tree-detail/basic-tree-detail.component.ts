@@ -84,7 +84,6 @@ export abstract class BasicTreeDetailComponent implements OnInit {
     }
 
     onDownloadFileFormat(format: string) {
-        console.log('onDownloadFileFormat', format, this.dataDetail!.id + '.' + format);
         this.apiService.getFile().subscribe((blob) => {
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
