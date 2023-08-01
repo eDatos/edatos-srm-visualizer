@@ -1,0 +1,26 @@
+.text-icon-button, .menu-text-icon-button {
+    padding: 0px $padding-10px;
+    height: 30px;
+    border: 1px solid $color-azul-oscuro-100;
+    border-radius: 5px;
+    background: $color-negro-0;
+    color: $color-azul-oscuro-100;
+    font-size: 16px;
+    line-height: 16px;
+    span {
+        font-size: 14px;
+        font-weight: $font-weight-300;
+    }
+    display: inline-block;
+    align-self: flex-end;
+}
+
+.menu-text-icon-button {
+    background-color: $color-azul-oscuro-100;
+    border: 2px solid $color-azul-oscuro-100;
+    border-radius: 5px 5px 0px 0px;
+    color: $color-negro-0;
+    span {
+        font-weight: $font-weight-600;
+    }
+}

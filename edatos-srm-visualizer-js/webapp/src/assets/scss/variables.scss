@@ -2,6 +2,7 @@ $color-azul-100: #009BD7;
 $azul-istac-100: $color-azul-100;
 $color-azul-50: #66C3E7;
 $color-azul-25: #B2E1F3;
+$color-azul-10: #D8F0F9;
 $azul-istac-25: $color-azul-25;
 $color-azul-oscuro-100: #004678;
 $color-azul-oscuro-50: #4D7EA0;
@@ -48,4 +49,6 @@ $padding-10px: 10px;
 
 $container-max-widths: 1280px;
 $container-2columns-max-width: calc($container-max-widths/2 - 2*$padding-10px);
+
+$menu-popup-min-width: 250px;
 
