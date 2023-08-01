@@ -45,7 +45,10 @@
     "concepts": "Concepts",
     "conceptDetails": "Concept details",
     "seeConcept": "See this concept",
+    "othersConcepts": "Other concepts from scheme",
+    "recommendedCodelists": "Recommended codelists",
     "parameters": {
+      "agency": "Agency",
       "schemeConcepts": "Concepts of scheme"
     }
   },

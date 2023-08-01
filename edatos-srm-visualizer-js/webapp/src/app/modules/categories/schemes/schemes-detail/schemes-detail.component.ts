@@ -6,7 +6,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
@@ -17,7 +17,7 @@ import { DateUtils } from 'src/app/shared/utils/dateUtils';
     templateUrl: './schemes-detail.component.html',
     styleUrls: ['./schemes-detail.component.scss']
 })
-export class SchemesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
     public selectedVersion: string = '';
 
@@ -49,18 +49,13 @@ export class SchemesDetailComponent extends BasicTreeDetailComponent implements 
         this.activeLink = this.navLinks[0];
     }
 
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
-    }
-
     public updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.dataChildren = data;
         this.tabletreenode.treeControl.expandAll();
     }
 
-    loadDetailDataOnInit(): void {
-    }
+    loadDetailDataOnInit(): void {}
 
     mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CategoryResource(data.urn);

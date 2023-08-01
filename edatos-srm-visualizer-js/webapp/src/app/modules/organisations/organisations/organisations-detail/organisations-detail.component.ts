@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     OrganisationsApiService
@@ -15,7 +15,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './organisations-detail.component.html',
     styleUrls: ['./organisations-detail.component.scss']
 })
-export class OrganisationsDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class OrganisationsDetailComponent extends BasicDetailComponent implements OnInit {
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;

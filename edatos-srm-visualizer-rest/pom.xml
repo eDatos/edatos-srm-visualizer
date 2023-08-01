@@ -24,11 +24,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.siemac.metamac.metamac-srm</groupId>
-			<artifactId>metamac-srm-rest-external-api</artifactId>
-			<version>${metamac-srm-rest-external-api.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>

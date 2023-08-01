@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import {OrganisationsSchemeApiService} from "src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service";
 import { TranslateService } from '@ngx-translate/core';
-import { OrganisationResource } from '../../../../shared/models/resources/organisation-resource.model';
+import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 
 @Component({
     selector: 'app-schemes-search',
     templateUrl: './schemes-search.component.html',
     styleUrls: ['./schemes-search.component.scss'],
 })
-export class SchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class SchemesSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsSchemeApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
@@ -24,7 +24,7 @@ export class SchemesSearchComponent extends BasicTreeSearchComponent implements 
             description: '',
         });
 
-        this.detailForm = this.formBuilder.group({ // TODO This attribute should be REMOVED when the list has been adapted to the new design
+        this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
             urn: '',

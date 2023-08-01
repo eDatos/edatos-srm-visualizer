@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
@@ -16,7 +16,7 @@ import { DateUtils } from 'src/app/shared/utils/dateUtils';
     templateUrl: './codelist-detail.component.html',
     styleUrls: ['./codelist-detail.component.scss']
 })
-export class CodelistDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class CodelistDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
     public items: any[] = [];
     public relatedCodelists: CodelistResource[] = [];
@@ -84,11 +84,6 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         
     }
 
-    public showCodeInformation() {
-        this.router.navigate(['./code'], { relativeTo: this.route }).then(r => {
-        });
-    }
-
     updateTableChildrenTreeNode(data: any): void {
         this.tabletreenode.data = [];
         this.dataChildren = data;
@@ -103,7 +98,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
     onActiveItemChange(event: any) {
         this.activeLink = event;
         if(this.activeLink == this.navLinks[1]){
-            this.apiService.loadRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
+            this.apiService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);
@@ -137,12 +132,7 @@ export class CodelistDetailComponent extends BasicTreeDetailComponent implements
         this.selectedVersion = event.value;
         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
-
-
-    public parseDesriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
-    }
-
+    
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CodelistResource(data.urn);
         this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);

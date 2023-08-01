@@ -49,6 +49,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.siemac.metamac.metamac-srm</groupId>
+            <artifactId>metamac-srm-rest-external-api</artifactId>
+            <version>2.7.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

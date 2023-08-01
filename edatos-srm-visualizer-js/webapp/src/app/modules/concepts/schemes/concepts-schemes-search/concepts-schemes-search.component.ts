@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ConceptsSchemeApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
@@ -11,7 +11,7 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
     templateUrl: './concepts-schemes-search.component.html',
     styleUrls: ['./concepts-schemes-search.component.scss'],
 })
-export class ConceptsSchemesSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class ConceptsSchemesSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService, 
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
