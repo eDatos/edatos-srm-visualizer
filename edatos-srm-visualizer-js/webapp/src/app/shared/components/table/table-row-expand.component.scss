@@ -122,22 +122,6 @@ tr.detail-row {
   height: 100%;
 }
 
-.element-button {
-  width: 180px;
-  height: 30px;
-  border: 1px solid $color-azul-oscuro-100;
-  border-radius: 5px;
-  background: $color-negro-0;
-  color: $color-azul-oscuro-100;
-  font-size: 16px;
-  span {
-    font-size: 14px;
-    font-weight: $font-weight-300;
-  }
-  display: inline-block;
-  align-self: flex-end;
-}
-
 .empty-td {
   width: $container-max-widths;
   padding: 32px 10px;

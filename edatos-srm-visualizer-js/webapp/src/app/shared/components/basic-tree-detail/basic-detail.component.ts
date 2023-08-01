@@ -6,6 +6,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Dropdown } from 'primeng/dropdown';
 
 @Component({
     selector: 'app-basic-detail',
@@ -13,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export abstract class BasicDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
+    @ViewChild('select') select!: Dropdown;
 
     public resource: any;
 
@@ -81,6 +83,17 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
+    onDownloadFileFormat(format: string) {
+        this.apiService.getFile().subscribe((blob) => {
+            const a = document.createElement('a');
+            const objectUrl = URL.createObjectURL(blob);
+            a.href = objectUrl;
+            a.download = this.dataDetail!.id + '.' + format;
+            a.click();
+            URL.revokeObjectURL(objectUrl);
+        });
+    }
+
     public onReturn() {
         window.history.back();
     }
@@ -92,4 +105,12 @@ export abstract class BasicDetailComponent implements OnInit {
     abstract loadDetailDataOnInit(): void;
     abstract mapperDataResourceDetail(data: any): void;
     abstract loadAllVersionsFromResource(): void;
+
+    public handleOnPanelShow() {
+        this.select.dropdownIcon = 'fa-solid fa-chevron-up';
+    }
+
+    public handleOnPanelHide() {
+        this.select.dropdownIcon = 'fa-thin fa-chevron-down';
+    }
 }
