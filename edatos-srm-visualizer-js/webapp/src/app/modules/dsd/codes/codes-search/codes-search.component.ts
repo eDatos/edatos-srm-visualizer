@@ -2,18 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
-import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
-import { DsdResource } from '../../../../shared/models/resources/dsd-resource.model';
-
-
+import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
 @Component({
     selector: 'app-codes-search',
     templateUrl: './codes-search.component.html',
     styleUrls: ['./codes-search.component.scss'],
 })
-export class CodesSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class CodesSearchComponent extends BasicSearchComponent implements OnInit {
     constructor(protected override formBuilder: FormBuilder, protected override apiService: DsdApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);
@@ -25,7 +22,7 @@ export class CodesSearchComponent extends BasicTreeSearchComponent implements On
             description: '',
         });
 
-        this.detailForm = this.formBuilder.group({ // TODO This attribute should be REMOVED when the list has been adapted to the new design
+        this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
             urn: '',

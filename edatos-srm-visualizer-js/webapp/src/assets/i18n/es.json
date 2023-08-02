@@ -45,7 +45,10 @@
     "conceptSchemesDetails": "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
     "conceptDetails": "Detalles del concepto",
+    "othersConcepts": "Otros conceptos del esquema",
+    "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
+      "agency": "Agencia mantenedora",
       "schemeConcepts": "Conceptos del esquema"
     }
   },

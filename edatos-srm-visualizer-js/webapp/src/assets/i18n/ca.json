@@ -45,7 +45,10 @@
     "conceptSchemesDetails" : "Detalls de l'esquema de conceptes",
     "concepts": "Conceptes",
     "conceptDetails" : "Detalls del concepte",
+    "othersConcepts": "Altres conceptes de l'esquema",
+    "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
+      "agency": "Agència mantenidora",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },

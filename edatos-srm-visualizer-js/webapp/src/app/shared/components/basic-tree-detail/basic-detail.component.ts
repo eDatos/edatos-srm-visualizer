@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { TableTreeComponent } from '../table-tree/table-tree.component';
+import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
 
 @Component({
-    selector: 'app-basic-tree-detail',
-    templateUrl: './basic-tree-detail.component.html',
+    selector: 'app-basic-detail',
+    templateUrl: './basic-detail.component.html',
 })
-export abstract class BasicTreeDetailComponent implements OnInit {
+export abstract class BasicDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
     @ViewChild('select') select!: Dropdown;
 
@@ -96,6 +96,10 @@ export abstract class BasicTreeDetailComponent implements OnInit {
 
     public onReturn() {
         window.history.back();
+    }
+
+    public parseDesriptionToHtml(): string {
+        return this.detailForm.get('description')?.value || '';
     }
 
     abstract loadDetailDataOnInit(): void;

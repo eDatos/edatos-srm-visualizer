@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import {
     OrganisationsApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
@@ -15,7 +15,7 @@ import {
     templateUrl: './organisations-search.component.html',
     styleUrls: ['./organisations-search.component.scss']
 })
-export class OrganisationsSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class OrganisationsSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {

@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesApiService } from 'src/app/core/services/api/structural-resources/categories/categories-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-tree-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
@@ -13,7 +13,7 @@ import { CategoryResource } from 'src/app/shared/models/resources/category-resou
     templateUrl: './categories-detail.component.html',
     styleUrls: ['./categories-detail.component.scss'],
 })
-export class CategoriesDetailComponent extends BasicTreeDetailComponent implements OnInit {
+export class CategoriesDetailComponent extends BasicDetailComponent implements OnInit {
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;

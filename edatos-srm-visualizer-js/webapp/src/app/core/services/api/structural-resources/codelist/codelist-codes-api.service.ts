@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
-import { CodelistResource } from '../../../../../shared/models/resources/codelist-resource.model';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 
 @Injectable({

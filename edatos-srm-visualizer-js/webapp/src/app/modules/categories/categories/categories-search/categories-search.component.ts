@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CategoriesApiService } from 'src/app/core/services/api/structural-resources/categories/categories-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
-import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
+import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
 
 @Component({
     selector: 'app-categories-search',
     templateUrl: './categories-search.component.html',
     styleUrls: ['./categories-search.component.scss'],
 })
-export class CategoriesSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class CategoriesSearchComponent extends BasicSearchComponent implements OnInit {
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {

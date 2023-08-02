@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
-import { BasicTreeSearchComponent } from 'src/app/shared/components/basic-search/basic-tree-search.component';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from '../../../../core/services/locale.service';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 
 @Component({
     selector: 'app-codelist-search',
     templateUrl: './codelist-search.component.html',
     styleUrls: ['./codelist-search.component.scss']
 })
-export class CodelistSearchComponent extends BasicTreeSearchComponent implements OnInit {
+export class CodelistSearchComponent extends BasicSearchComponent implements OnInit {
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
 
@@ -54,7 +54,7 @@ export class CodelistSearchComponent extends BasicTreeSearchComponent implements
     }
 
     public onLoadCodelistDetail(urn: string): void {
-        this.dataDetail = new Resource(urn);
+        this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
             (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');

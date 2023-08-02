@@ -6,19 +6,17 @@ import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TableTreeComponent } from '../table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
-import { TableExpandableRows } from '../table/table-row-expand.component';
+import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { Column } from 'src/app/shared/models/table/column.model';
 
 @Component({
-    selector: 'app-basic-tree-search',
-    templateUrl: './basic-tree-search.component.html'
+    selector: 'app-basic-search',
+    templateUrl: './basic-search.component.html'
 })
-export abstract class BasicTreeSearchComponent {
+export abstract class BasicSearchComponent {
 
-    @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent; // TODO This attribute should be REMOVED when the list has been adapted to the new design
     @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
     @ViewChild('searchResults') searchResults: ElementRef | undefined;
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
@@ -48,7 +46,7 @@ export abstract class BasicTreeSearchComponent {
 
     public searchForm: FormGroup = new FormGroup({});
 
-    public detailForm: any; // TODO This attribute should be REMOVED when the list has been adapted to the new design
+    public detailForm: any;
 
     public dataDetail: Resource | undefined;
     public dataChildrenLoaded: boolean = false;
@@ -114,16 +112,7 @@ export abstract class BasicTreeSearchComponent {
         }
     }
 
-    public onLoadDetail(urn: string): void { // TODO This method should be REMOVED when the list has been adapted to the new design
-        this.dataDetail = new Resource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
-            this.updateDetailForm();
-        });
-    }
-
-    public onReset(): void { // TODO This method should be PRIVATE when the list has been adapted to the new design
+    private onReset(): void {
         this.searchSimpleForm.reset();
         this.defaultParametersSearch();
         this.loadInitialData();
@@ -136,11 +125,6 @@ export abstract class BasicTreeSearchComponent {
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore
         this.searchResults.nativeElement.scrollTop = 0;
-    }
-
-
-    public updateDetailForm(): void {
-        this.detailForm.patchValue(this.dataDetail);
     }
 
     private onSearchSimple(): void {
