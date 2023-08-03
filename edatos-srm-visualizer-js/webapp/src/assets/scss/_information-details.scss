@@ -196,9 +196,9 @@
         font-size: 12px;
         flex-grow: 2;
     }
-  }
+}
 
-  .element-link-actions {
+.element-link-actions {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -209,6 +209,13 @@
         border: none;
         color: $color-azul-oscuro-100;
     }
-  }
+}
+
+.detail-table {
+    padding: 0px 20px;
+    max-width: $container-max-widths;
+}
+
+
 
 

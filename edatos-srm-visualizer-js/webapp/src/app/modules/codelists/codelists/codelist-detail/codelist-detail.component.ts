@@ -6,7 +6,6 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { DateUtils } from 'src/app/shared/utils/dateUtils';
 
@@ -21,8 +20,8 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public items: any[] = [];
     public relatedCodelists: CodelistResource[] = [];
     public selectedVersion: string = '';
-    public navLinks: MenuItem[];
-    public activeLink: MenuItem;
+    public navLinks: any[];
+    public activeLink: string;
     public expandedMenu: boolean = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
@@ -49,9 +48,10 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 label: this.translateService.instant('codelists.relatedCodelist')
             }
         ];
-        this.activeLink = this.navLinks[0];
 
-        this.items= [
+        this.activeLink = this.navLinks[0].label? this.navLinks[0].label : '';
+
+        this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
                 icon: 'fa-thin fa-code',
@@ -95,9 +95,9 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
-        if(this.activeLink == this.navLinks[1]){
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
+        if(this.activeLink == this.navLinks[1].label) {
             this.apiService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
