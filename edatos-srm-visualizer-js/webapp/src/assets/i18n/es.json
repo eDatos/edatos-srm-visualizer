@@ -63,7 +63,7 @@
     "otherCodes": "Otros códigos de clasificación",
     "equivalentCodes": "Códigos equivalentes",
     "codesDetails": "Detalles del código",
-    "relatedCodelist": "Clasificaciones realcionadas",
+    "relatedCodelist": "Clasificaciones relacionadas",
     "parameters": {
       "id": "Identificador de la clasificación",
       "idCode": "Identificador del código",

@@ -8,4 +8,37 @@
     }
 }
 
+//primeng table
+.p-table-custom .p-datatable-thead .element-header { //Cabecera de la tabla de resultados
+  height: 30px;
+  border-radius: 5px;
+  th {
+    background: $color-negro-5;
+    padding: 5px $padding-10px;
+    line-height: 19px;
+    font-weight: $font-weight-600;
+    color: $color-negro-100;
+    font-size: 14px;
+    border: none;
+  }
+}
+
+.p-table-custom .p-datatable-tbody .element-row {  //filas de la tabla
+  height: 39px;
+  td {
+    padding: $padding-10px;
+    line-height: 16px;
+    font-size: 12px;
+    border-bottom: 1px solid $color-negro-5;
+    color: $color-negro-100;
+  }
+  &:not(.expanded-row):hover {
+    background: $azul-istac-25;
+   td {
+    color: $color-azul-oscuro-100;
+   }
+  }
+
+}
+
 
