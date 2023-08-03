@@ -17,6 +17,7 @@
     "csv": "Download in CSV format",
     "xls": "Download in XLS format"
   },
+  "seeResource": "See this resource",
   "noResourceResults": "No results found for those conditions",
   "retrySearch": "Please, change the search parameters and try again.",
   "elements": "Elements",
@@ -44,7 +45,6 @@
     "conceptSchemesDetails": "Concept scheme details",
     "concepts": "Concepts",
     "conceptDetails": "Concept details",
-    "seeConcept": "See this concept",
     "othersConcepts": "Other concepts from scheme",
     "recommendedCodelists": "Recommended codelists",
     "parameters": {

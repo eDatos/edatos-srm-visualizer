@@ -17,6 +17,7 @@
     "csv": "Descarregar en format CSV",
     "xls": "Descarregar en format XLS"
   },
+  "seeResource": "Veure aquest recurs",
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
   "elements": "Elements",
@@ -44,7 +45,6 @@
     "conceptSchemesDetails" : "Detalls de l'esquema de conceptes",
     "concepts": "Conceptes",
     "conceptDetails" : "Detalls del concepte",
-    "seeConcept": "Veure aquest concepte",
     "othersConcepts": "Altres conceptes de l'esquema",
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {

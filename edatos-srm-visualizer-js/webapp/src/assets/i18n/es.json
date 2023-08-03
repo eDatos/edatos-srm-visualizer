@@ -17,6 +17,7 @@
     "csv": "Descargar en formato CSV",
     "xls": "Descargar en formato XLS"
   },
+  "seeResource": "Ver este recurso",
   "noResourceResults": "No se ha encontrado ningún resultado para esas condiciones",
   "retrySearch": "Por favor, cambia los parámetros de búsqueda e inténtalo de nuevo.",
   "elements": "Elementos",
@@ -44,7 +45,6 @@
     "conceptSchemesDetails": "Detalles del esquema de conceptos",
     "concepts": "Conceptos",
     "conceptDetails": "Detalles del concepto",
-    "seeConcept": "Ver este concepto",
     "othersConcepts": "Otros conceptos del esquema",
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
