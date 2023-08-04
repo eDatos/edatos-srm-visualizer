@@ -19,10 +19,12 @@ import { OrganisationResource } from 'src/app/shared/models/resources/organisati
 export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
 
     public versions: any[] = [];
+    public items: any[] = [];
     public selectedVersion: string = '';
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
+    public expandedMenu: boolean = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsSchemeApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -44,6 +46,37 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.navLinks = [
             {
                 label: this.translateService.instant('organisations.organisationsOfScheme')
+            }
+        ];
+
+        this.items = [
+            {
+                label: this.translateService.instant('download.sdmx-xml'),
+                icon: 'fa-thin fa-code',
+                command: () => {
+                            this.onDownloadFileFormat('xml');
+                }
+            },
+            {
+                label: this.translateService.instant('download.json'),
+                icon: 'fa-thin fa-brackets-curly',
+                command: () => {
+                    this.onDownloadFileFormat('json');
+                }
+            },
+            {
+                label: this.translateService.instant('download.csv'),
+                icon: 'fa-thin fa-semicolon',
+                command: () => {
+                    this.onDownloadFileFormat('csv');
+                }
+            },
+            {
+                label: this.translateService.instant('download.xls'),
+                icon: 'fa-thin fa-file-spreadsheet',
+                command: () => {
+                    this.onDownloadFileFormat('xls');
+                }
             }
         ];
         this.activeLink = this.navLinks[0];
@@ -76,19 +109,25 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 data.forEach((version: any) => {
                     this.versions.push({ value: version });
                 });
+                this.versions.reverse();
             }
         });
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetailVersion(event: any) {
         this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
     }
 
+    handleVisibilityMenu(): boolean {
+        this.expandedMenu = !this.expandedMenu;
+        return this.expandedMenu;
+    }
 
 
 }

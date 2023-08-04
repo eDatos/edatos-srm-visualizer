@@ -1,59 +1,91 @@
-<div class='m-30'>
-    <div class='general-buttons'>
-        <div class='general-left-buttons row'>
-            <button (click)='onReturn()'>
-                <span>{{ 'back' | translate }}</span>
-            </button>
+<div class='general-buttons row'>
+    <div class='col'>
+        <button (click)='onReturn()' class="text-icon-button">
+            <i class="fa-thin fa-left"></i>&nbsp;
+            <span>{{ 'back' | translate | uppercase }}</span>
+        </button>
+    </div>
+    <div>
+        <p-dropdown [options]='versions' [filter]='true'  optionLabel="name" optionValue="value"
+        filterBy='value' placeholder="{{ 'otherVersions' | translate | uppercase }}"
+        class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onLoadDetailVersion($event)"
+        (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()" filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=" ">
+            <ng-template let-version pTemplate='item'>
+                <div>
+                    <div>v{{ version.value }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+    <div>
+        <p-menu [model]="items" #menu [popup]="true" class="p-menu-custom" (onShow)="handleVisibilityMenu()" (onHide)="handleVisibilityMenu()"></p-menu>
+        <button (click)="menu.toggle($event)"  [ngClass]="expandedMenu ? 'menu-text-icon-button' : 'text-icon-button'">
+            <span>{{ 'download.title' | translate | uppercase }}</span>&nbsp;
+            <i [ngClass]="expandedMenu ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
+        </button>
+    </div>
+</div>
+
+<div [formGroup]='detailForm' class='detail-info'>
+    <label for='id' class='title'>{{ 'organisations.parameters.idOrganisation' | translate }}</label>
+    <span class="info-id">{{ dataDetail.id }}</span>
+
+    <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+    <span>{{ dataDetail.name }}</span>
+
+    <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
+    <span>{{ dataDetail.version }}</span>
+
+    <label for='publicationDate' class='title'>{{ 'category.parameters.publicationDate' | translate }}</label>
+    <input type='text' class='form-control' formControlName='publicationDate' id='publicationDate' readonly>
+    <span>{{ dataDetail.publicationDate }}</span>
+
+    <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
+    <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
+
+    <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+    <div class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.uri }}</code>
         </div>
-        <div class='general-right-buttons row'>
-            <p-dropdown [options]='versions' [(ngModel)]='selectedVersion' optionLabel='name' [filter]='true'
-                        filterBy='value' [showClear]='true' placeholder="{{ 'otherVersions' | translate | uppercase }}"
-                        class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'>
-                <ng-template pTemplate='selectedItem'>
-                    <div class='flex align-items-center gap-2' *ngIf='selectedVersion'>
-                        <div>{{ selectedVersion }}</div>
-                    </div>
-                </ng-template>
-                <ng-template let-version pTemplate='item'>
-                    <div class='flex align-items-center gap-2'>
-                        <button (click)='onLoadDetailVersion(version.value)'>v{{ version.value }}</button>
-                    </div>
-                </ng-template>
-            </p-dropdown>
-            <button color='primary' (click)='onDownloadSdmx()'>
-                <span>{{ 'download.sdmx-xml' | translate }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+            <button>
+                <i class="fa-thin fa-copy"></i>
             </button>
         </div>
     </div>
-    <div [formGroup]='detailForm' class='container'>
-        <label for='id' class='title'>{{ 'organisations.parameters.idOrganisation' | translate }}</label>
-        <input type='text' class='form-control' formControlName='id' id='id' readonly>
 
-        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-        <input type='text' class='form-control' formControlName='name' id='name' readonly>
+    <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+    <div class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.urn }}</code>
+        </div>
+        <div class="element-link-actions">
+            <button>
+                <i class="fa-thin fa-copy"></i>
+            </button>
+        </div>
+    </div>
 
-        <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
-        <input type='text' class='form-control' formControlName='version' id='version' readonly>
-
-        <label for='publicationDate' class='title'>{{ 'category.parameters.publicationDate' | translate }}</label>
-        <input type='text' class='form-control' formControlName='publicationDate' id='publicationDate' readonly>
-
-        <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-        <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
-
-        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
-
-        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
-
+    <div *ngIf="dataDetail.annotations">
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
-
-        <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
-        <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
-
+        <span>{{ dataDetail.annotations }}</span>
     </div>
+
+    <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+    <div class='info-link'>
+        <span class="info-agency">{{ dataDetail.agency }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
     <br>
     <div class='container'>
         <div class='section-tab'>
@@ -70,4 +102,4 @@
         </div>
     </div>
     <br />
-</div>
+

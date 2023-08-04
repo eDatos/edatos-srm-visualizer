@@ -11,6 +11,7 @@ import { OrganisationsDetailComponent } from './organisations/organisations-deta
 import { OrganisationsSearchComponent } from './organisations/organisations-search/organisations-search.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DropdownModule } from 'primeng/dropdown';
         OrganisationsRoutingModule,
         SharedModule,
         ReactiveFormsModule,
+        MenuModule,
         TabMenuModule,
         DropdownModule,
         FormsModule
