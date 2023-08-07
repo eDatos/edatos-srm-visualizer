@@ -36,7 +36,7 @@
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>
     </div>
-    <div class='search-results-table' [scrollWindow]='false' infinite-scroll
+    <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
