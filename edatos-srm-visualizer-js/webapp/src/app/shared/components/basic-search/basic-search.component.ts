@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { SearchConfig } from 'src/app/shared/models/search-config';
@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { Column } from 'src/app/shared/models/table/column.model';
+import { BuildQueryHelper } from '../../../core/services/helper/build-query-helper';
 
 @Component({
     selector: 'app-basic-search',
@@ -40,8 +41,8 @@ export abstract class BasicSearchComponent {
 
     public searchSimpleForm = this.formBuilder.group({
         filter: ['', Validators.required],
-        selectedFields:  [this.selectedDefault],
-        showAllVersions: [false],
+        selectedFields: [this.selectedDefault],
+        showAllVersions: [false]
     });
 
     public searchForm: FormGroup = new FormGroup({});
@@ -54,8 +55,12 @@ export abstract class BasicSearchComponent {
 
     public routerLinkDetail: string = '';
 
-    protected constructor(protected apiService: ApiService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService?: LocaleService) {}
+    protected isMapperWithMaintainer: boolean = true;
+    protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
+
+    protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
+                          protected translateService: TranslateService, protected localeService?: LocaleService) {
+    }
 
     public loadInitialData() {
         this.columnsToDisplay();
@@ -85,18 +90,16 @@ export abstract class BasicSearchComponent {
 
     public onScrollDown($event: IInfiniteScrollEvent) {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        this.apiService.getSearch(this.searchConfig, this.buildQueryResultOffset()).subscribe((data) => {
+        let query = this.buildQueryHelper.buildQueryResultOffset(this.searchSimpleForm, this.searchForm);
+        this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
                 this.mapperResource();
             }
         });
     }
 
-    private buildQueryResultOffset() {
-        return this.searchSimpleForm.value.filter ? this.apiService.buildQueryFromForm(this.searchForm) : '';
+    public onScrollUp($event: IInfiniteScrollEvent) {
     }
-
-    public onScrollUp($event: IInfiniteScrollEvent) {}
 
     public onSearch(): void {
         this.defaultParametersSearch();
@@ -151,20 +154,43 @@ export abstract class BasicSearchComponent {
 
     private mapperResource() {
         this.dataSearch.forEach((resource) => {
-            this.apiService.getDetailFromStructureResource(new Resource(resource.urn)).subscribe((data) => {
-                let scheme = data.urn.split(':')[3] ? data.urn.split(':')[3].split('(')[0] : '';
-                const resourceToTreeNode: TreeNode = {
-                    name: this.localeService ? this.localeService?.getTextValue(resource.name.text) : '',
-                    id: resource.id,
-                    urn: resource.urn,
-                    description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
-                    selfLink: resource.selfLink.href,
-                    maintainer: data.agencyID,
-                    scheme: scheme,
-                };
-                this.dataChildren = [...this.dataChildren, resourceToTreeNode];
+            this.apiService.getDetailFromSrm(new Resource(resource.urn)).subscribe((data) => {
+                if(this.isMapperWithMaintainer) {
+                    this.getDetailManteinerFromSrm(data);
+                } else {
+                    const resourceToTreeNode: TreeNode = {
+                        name: this.localeService ? this.localeService?.getTextValue(data.name.text) : '',
+                        id: data.id,
+                        urn: data.urn,
+                        description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
+                        selfLink: data.selfLink.href,
+                        maintainer: '',
+                        scheme: ''
+                    };
+                    this.dataChildren = [...this.dataChildren, resourceToTreeNode];
+                }
             });
         });
     }
-}
 
+    private getDetailManteinerFromSrm(data: any) {
+        let node = new Resource(data.urn);
+        this.apiService.getDetailManteinerFromSrm(node.agency).subscribe((maintainer) => {
+            let nameMaintainer = this.localeService ? this.localeService?.getTextValue(maintainer.name.text) : '';
+
+            const resourceToTreeNode: TreeNode = {
+                name: this.localeService ? this.localeService?.getTextValue(data.name.text) : '',
+                id: data.id,
+                urn: data.urn,
+                description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
+                selfLink: data.selfLink.href,
+                maintainer: maintainer.id + ' - ' + nameMaintainer,
+                scheme: ''
+            };
+            this.mapResourceToDetail(resourceToTreeNode, node, maintainer);
+            this.dataChildren = [...this.dataChildren, resourceToTreeNode];
+        });
+    }
+
+    abstract mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void;
+}

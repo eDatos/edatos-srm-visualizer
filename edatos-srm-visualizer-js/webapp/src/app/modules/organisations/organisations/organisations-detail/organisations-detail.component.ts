@@ -9,6 +9,7 @@ import {
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 
 @Component({
     selector: 'app-organisations-detail',
@@ -19,10 +20,10 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: OrganisationsApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -32,6 +33,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
             agency: '',
             annotations: '',
             organisationScheme: '',
+            maintainer: ''
         });
 
         this.navLinks = [
@@ -56,13 +58,12 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     public loadAllVersionsFromResource(): void {}
 
     public mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new Resource(data.urn);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
-        this.dataDetail!.organisationScheme = this.dataDetail.resourceId;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.dataDetail = new OrganisationResource(data.urn);
+        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
+            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
+            this.dataDetail!.organisationScheme = scheme.id + ' (' + nameScheme + ')';
+            this.getDetailForm();
+        });
     }
 
     onActiveItemChange(event: any) {

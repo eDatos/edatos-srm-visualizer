@@ -10,6 +10,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 import { DateUtils } from 'src/app/shared/utils/dateUtils';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
 
 
 @Component({
@@ -31,10 +32,11 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public dataChildrenTable: TreeNode[] = [];
     @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistsApiService,
                 protected override route: ActivatedRoute, private router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: CodelistApiSdmxService) {
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -44,8 +46,9 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
             agency: '',
             annotations: '',
             uri: '',
-            lastUpdatedDate: '',
-            isRecommended: ''
+            publicationDate: '',
+            isRecommended: '',
+            maintainer: ''
         });
 
         this.navLinks = [
@@ -63,28 +66,28 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 label: this.translateService.instant('download.sdmx-xml'),
                 icon: 'fa-thin fa-code',
                 command: () => {
-                            this.onDownloadFileFormat('xml');
+                    this.onDownloadSdmx(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.json'),
                 icon: 'fa-thin fa-brackets-curly',
                 command: () => {
-                    this.onDownloadFileFormat('json');
+                    this.onDownloadFileFormat(this.resource, 'json');
                 }
             },
             {
                 label: this.translateService.instant('download.csv'),
                 icon: 'fa-thin fa-semicolon',
                 command: () => {
-                    this.onDownloadFileFormat('csv');
+                    this.onDownloadFileFormat(this.resource, 'csv');
                 }
             },
             {
                 label: this.translateService.instant('download.xls'),
                 icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
-                    this.onDownloadFileFormat('xls');
+                    this.onDownloadFileFormat(this.resource, 'xls');
                 }
             }
         ];
@@ -94,7 +97,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
         ];
-        
+
     }
 
     updateTableChildrenTreeNode(data: any): void {
@@ -111,9 +114,9 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     onActiveItemChange(link: any) {
         this.activeLink = link;
         if (this.activeLink == this.navLinks[1].label) {
-            this.apiService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
-                if (data[this.apiService.apiSearchDataPath]) {
-                    data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
+            this.apiSrmService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
+                if (data[this.apiSrmService.apiSearchDataPath]) {
+                    data[this.apiSrmService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);
                         resource.id = codelist.id;
                         resource.name = this.localeService ? this.localeService?.getTextValue(codelist.name.text) : '',
@@ -135,17 +138,16 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                     this.dataChildrenLoaded = true;
                 }
             });
-        }
-        else {
+        } else {
             this.relatedCodelists = [];
         }
     }
 
     public loadAllVersionsFromResource() {
-        this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+        this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {
-                    this.versions.push({value: version});
+                    this.versions.push({ value: version });
                 });
                 this.versions.reverse();
             }
@@ -157,17 +159,12 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         this.selectedVersion = event.value;
         this.router.navigate(['codelists', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
-    
+
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CodelistResource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.lastUpdatedDate = data.lifeCycle? DateUtils.formatSimpleDate(data.lifeCycle?.lastUpdatedDate) : '';
-        this.dataDetail!.uri = data.uri;
-        this.dataDetail!.isRecommended = data.isRecommended ?  this.translateService.instant('yes') : this.translateService.instant('no');
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.dataDetail!.publicationDate = this.resource.lifeCycle ? DateUtils.formatSimpleDate(this.resource.lifeCycle?.lastUpdatedDate) : '';
+        this.dataDetail!.isRecommended = this.resource.isRecommended ? this.translateService.instant('yes') : this.translateService.instant('no');
+        this.getDetailForm();
     }
 
     loadDetailDataOnInit(): void {

@@ -12,7 +12,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 @Component({
     selector: 'app-concepts-detail',
     templateUrl: './concepts-detail.component.html',
-    styleUrls: ['./concepts-detail.component.scss'],
+    styleUrls: ['./concepts-detail.component.scss']
 })
 export class ConceptsDetailComponent extends BasicDetailComponent implements OnInit {
     public navLinks: MenuItem[];
@@ -20,10 +20,11 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
 
     public recommendedCodelists: ConceptResource[] = [];
     public otherConcepts: CodelistResource[] = [];
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsApiService,
+
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.isDataWithChildrenTree = false;
         this.detailForm = this.formBuilder.group({
@@ -34,7 +35,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
             uri: '',
             annotations: '',
             resourceId: '',
-            agency: '',
+            conceptScheme: '',
+            maintainer: ''
         });
 
         this.navLinks = [
@@ -48,26 +50,27 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.activeLink = this.navLinks[0];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {}
+    public updateTableChildrenTreeNode(data: any): void {
+    }
 
-    public loadAllVersionsFromResource(): void {}
+    public loadAllVersionsFromResource(): void {
+    }
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new ConceptResource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
+            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
+            this.dataDetail!.conceptScheme = scheme.id + ' (' + nameScheme + ')';
+            this.getDetailForm();
+        });
     }
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
-            this.apiService.getOtherConcepts(this.dataDetail).subscribe((data) => {
-                if (data[this.apiService.apiSearchDataPath]) {
-                    this.otherConcepts = data[this.apiService.apiSearchDataPath].map((concept: any) => {
+            this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((data) => {
+                if (data[this.apiSrmService.apiSearchDataPath]) {
+                    this.otherConcepts = data[this.apiSrmService.apiSearchDataPath].map((concept: any) => {
                         const resource = new ConceptResource(concept.urn);
                         resource.id = concept.id;
                         resource.name = this.localeService.getTextValue(concept.name?.text);
@@ -82,13 +85,13 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     }
 
     loadDetailDataOnInit(): void {
-        this.loadRecommendedCodelists()
+        this.loadRecommendedCodelists();
     }
 
     private loadRecommendedCodelists(): void {
-        this.apiService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
-            if (data[this.apiService.apiCodelistDataPath]) {
-                this.recommendedCodelists = data[this.apiService.apiCodelistDataPath].map((codelist: any) => {
+        this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
+            if (data[this.apiSrmService.apiCodelistDataPath]) {
+                this.recommendedCodelists = data[this.apiSrmService.apiCodelistDataPath].map((codelist: any) => {
                     const resource = new CodelistResource(codelist.urn);
                     resource.id = codelist.id;
                     resource.name = this.localeService.getTextValue(codelist.name?.text);

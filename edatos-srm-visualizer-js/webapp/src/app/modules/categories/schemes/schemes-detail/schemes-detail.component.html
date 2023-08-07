@@ -20,7 +20,7 @@
                     </div>
                 </ng-template>
             </p-dropdown>
-            <button color='primary' (click)='onDownloadSdmx()'>
+            <button color='primary'>
                 <span>{{ 'download.sdmx-xml' | translate }}</span>
             </button>
         </div>
@@ -51,8 +51,8 @@
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
         <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
 
-        <label for='agency' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
-        <input type='text' class='form-control' formControlName='agency' id='agency' readonly>
+        <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+        <input type='text' class='form-control' formControlName='maintainer' id='maintainer' readonly>
 
     </div>
     <br>

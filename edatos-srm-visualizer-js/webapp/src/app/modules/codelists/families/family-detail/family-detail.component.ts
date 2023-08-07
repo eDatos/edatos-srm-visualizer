@@ -22,10 +22,10 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
 
     public familyCodelist: CodelistResource[] = [];
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistFamiliesApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistFamiliesApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -42,6 +42,9 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         ];
 
         this.activeLink = this.navLinks[0];
+
+        this.isMapperWithMaintainer = false;
+        this.isDataWithChildrenTree = false;
     }
 
     loadAllVersionsFromResource(): void {}
@@ -66,10 +69,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
 
     mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CodelistResource(data.urn);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.getDetailForm();
     }
 
     updateTableChildrenTreeNode(data: any): void {}

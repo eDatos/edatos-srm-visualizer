@@ -21,7 +21,7 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
     }
 
     @Override
-    public String getSdmxApi () { return retrieveSdmxSrmExternalApiUrlBase();}
+    public String getSdmxApi () { return retrieveSdmxRegistryExternalApiUrlBase();}
 
     @Override
     public String getLanguageCookie () { return retrieveInternationalizationCookieId();}

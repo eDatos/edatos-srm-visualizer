@@ -4,4 +4,5 @@ export class CodelistResource extends Resource {
     lastUpdatedDate: string = '';
     isRecommended: string = '';
     codelist: string = '';
+    maintainer: string = '';
 }
