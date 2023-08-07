@@ -23,10 +23,10 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public otherCodes: CodelistResource[] = [];
     public equivalentCodes: CodelistResource[] = [];
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistCodesApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistCodesApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.isDataWithChildrenTree = false;
         this.detailForm = this.formBuilder.group({
@@ -35,7 +35,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
             urn: '',
             description: '',
             version: '',
-            agency: '',
+            maintainer: '',
             annotations: '',
             codelist: '',
             uri: ''
@@ -63,9 +63,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     private loadOtherCodes(): void {
-        this.apiService.loadOtherCodes(this.dataDetail).subscribe((data) => {
-            if (data[this.apiService.apiSearchDataPath]) {
-                data[this.apiService.apiSearchDataPath].filter((code: any) => code.id != this.dataDetail.id)
+        this.apiSrmService.loadOtherCodes(this.dataDetail).subscribe((data) => {
+            if (data[this.apiSrmService.apiSearchDataPath]) {
+                data[this.apiSrmService.apiSearchDataPath].filter((code: any) => code.id != this.dataDetail.id)
                     .map((code: any) => {
                         const resource = new CodelistResource(code.urn);
                         resource.id = code.id;
@@ -82,13 +82,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CodelistResource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
         this.dataDetail!.codelist = this.dataDetail.resourceId + '(v' + this.dataDetail.version + ')';
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.getDetailForm();
     }
 
     loadDetailDataOnInit(): void {

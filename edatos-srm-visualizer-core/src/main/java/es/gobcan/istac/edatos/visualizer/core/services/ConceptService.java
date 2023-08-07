@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
+import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.repository.ConceptRepository;
 import es.gobcan.istac.edatos.visualizer.core.utils.InternationalStringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +58,10 @@ public class ConceptService {
         ConceptSchemes conceptSchemes = conceptRepository.findAllVersions(urn).orElse(new ConceptSchemes());
         List<String> versions = new ArrayList<>();
         for (Resource resource : conceptSchemes.getConceptSchemes()) {
-            versions.add(resource.getUrn());
+            Urn urnValues = new Urn(resource.getUrn());
+            if (!urn.contains(urnValues.getVersion())) {
+                versions.add(urnValues.getVersion());
+            }
         }
         return versions;
     }

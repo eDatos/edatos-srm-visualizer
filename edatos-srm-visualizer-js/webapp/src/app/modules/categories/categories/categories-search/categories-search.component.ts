@@ -5,11 +5,13 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-categories-search',
     templateUrl: './categories-search.component.html',
-    styleUrls: ['./categories-search.component.scss'],
+    styleUrls: ['./categories-search.component.scss']
 })
 export class CategoriesSearchComponent extends BasicSearchComponent implements OnInit {
 
@@ -21,7 +23,7 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
             id: '',
             name: '',
             urn: '',
-            description: '',
+            description: ''
         });
 
         this.detailForm = this.formBuilder.group({
@@ -30,7 +32,7 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
             urn: '',
             description: '',
             version: '',
-            scheme: '',
+            scheme: ''
         });
 
         this.fields = [
@@ -42,23 +44,31 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
         this.selectedDefault = this.fields.map(field => field);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
-            selectedFields:  [this.selectedDefault],
-            showAllVersions: [false],
+            selectedFields: [this.selectedDefault],
+            showAllVersions: [false]
         });
     }
+
     ngOnInit(): void {
         this.loadInitialData();
     }
 
     public onLoadCategoryDetail(urn: string): void {
         this.dataDetail = new CategoryResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
             (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
             this.detailForm.patchValue(this.dataDetail);
         });
 
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
-            +  this.dataDetail?.id  + '/' +  this.dataDetail?.version + '/detail';
+            + this.dataDetail?.id + '/' + this.dataDetail?.version + '/detail';
+    }
+
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
+            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
+            resourceToTreeNode.scheme = scheme.id + '(' + scheme.version + ') - ' + nameScheme;
+        });
     }
 }

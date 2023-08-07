@@ -7,6 +7,8 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 
 @Component({
@@ -47,6 +49,8 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
             selectedFields:  [this.selectedDefault],
             showAllVersions: [false],
         });
+
+        this.isMapperWithMaintainer = false;
     }
 
 
@@ -56,7 +60,7 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
 
     public onLoadFamilyCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
             (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
             this.detailForm.patchValue(this.dataDetail);
@@ -64,4 +68,6 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
 
         this.routerLinkDetail = this.dataDetail?.id + '/detail';
     }
+
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {}
 }

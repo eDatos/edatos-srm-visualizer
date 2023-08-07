@@ -5,6 +5,8 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import {OrganisationsSchemeApiService} from "src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service";
 import { TranslateService } from '@ngx-translate/core';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from '../../../../shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-schemes-search',
@@ -52,7 +54,7 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
 
     public onLoadOrganisationSchemeDetail(urn: string): void {
         this.dataDetail = new OrganisationResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
             (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
             (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
             this.detailForm.patchValue(this.dataDetail);
@@ -62,4 +64,7 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
              + this.dataDetail?.version + '/detail';
     }
 
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+    }
 }
