@@ -8,6 +8,7 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
 import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
+import { Resource } from '../../models/resources/resource.model';
 
 @Component({
     selector: 'app-basic-detail',
@@ -77,11 +78,12 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     public onDownloadSdmx(resource: any) {
-        this.apiSdmxService?.getFile(resource).subscribe((blob) => {
+        let resourceSdmx = new Resource(resource.urn);
+        this.apiSdmxService?.getFile(resourceSdmx).subscribe((blob) => {
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;
-            a.download = this.dataDetail!.id + '.xml';
+            a.download = resourceSdmx.id + '.xml';
             a.click();
             URL.revokeObjectURL(objectUrl);
         });

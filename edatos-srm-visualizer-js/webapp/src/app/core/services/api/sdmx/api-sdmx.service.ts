@@ -19,18 +19,12 @@ export abstract class ApiSdmxService extends ApiService{
             return next.handle(req.clone({ headers: headers, body: instanceToPlain(req.body) }));
         }
      */
-    private httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/xml', // Set the content type to XML
-            'Accept': 'application/xml' // Set the accept type to XML
-        }),
-    };
     public getFile(resource: any): Observable<any> {
         let api = this.apiSDMXUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
-        return this.httpClient.get(ApiSdmxService.apiSdmx.concat(api), this.httpOptions);
+        return this.httpClient.get(ApiSdmxService.apiSdmx.concat(api));
     }
 
     /*
