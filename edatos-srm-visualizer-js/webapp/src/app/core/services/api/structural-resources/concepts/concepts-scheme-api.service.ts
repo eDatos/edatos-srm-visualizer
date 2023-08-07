@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ConceptsSchemeApiService extends ApiService {
+export class ConceptsSchemeApiService extends ApiSrmService {
 
     private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
     constructor(httpClient: HttpClient, config: ConfigService) {
@@ -28,6 +28,6 @@ export class ConceptsSchemeApiService extends ApiService {
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
             .replace('{id}', resource.id);
-        return this.getData(ApiService.apiStructuralResource.concat(api));
+        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 }

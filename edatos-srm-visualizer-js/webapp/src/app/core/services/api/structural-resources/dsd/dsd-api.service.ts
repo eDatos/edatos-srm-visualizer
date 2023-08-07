@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class DsdApiService extends ApiService {
+export class DsdApiService extends ApiSrmService {
 
     public apiDataStructureComponentsDataPath = 'dataStructureComponents'; //dimensions
     public apiDimensionDataPath = 'dimensions'; //dimensions
@@ -26,7 +26,7 @@ export class DsdApiService extends ApiService {
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
-        return this.getData(ApiService.apiStructuralResource.concat(api));
+        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 
     /*
