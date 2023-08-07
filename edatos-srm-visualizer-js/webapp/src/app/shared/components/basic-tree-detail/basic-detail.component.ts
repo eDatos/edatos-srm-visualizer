@@ -1,16 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
+import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
 
 @Component({
     selector: 'app-basic-detail',
-    templateUrl: './basic-detail.component.html',
+    templateUrl: './basic-detail.component.html'
 })
 export abstract class BasicDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
@@ -21,15 +22,18 @@ export abstract class BasicDetailComponent implements OnInit {
     detailForm: any;
     dataDetail: any | undefined;
 
-    apiSDMX: boolean = false;
     showChildrenTree: boolean = false;
 
     isDataWithChildrenTree: boolean = true;
     dataChildrenLoaded: boolean = false;
     dataChildren: TreeNode[] = [];
 
-    constructor(protected formBuilder: FormBuilder, protected apiService: ApiService, protected route: ActivatedRoute,
-                protected localeService: LocaleService, protected translateService: TranslateService) {}
+    protected isMapperWithMaintainer: boolean = true;
+
+    constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
+                protected localeService: LocaleService, protected translateService: TranslateService,
+                protected apiSdmxService?: ApiSdmxService) {
+    }
 
     public abstract updateTableChildrenTreeNode(data: any): void;
 
@@ -49,11 +53,11 @@ export abstract class BasicDetailComponent implements OnInit {
             name: '',
             urn: '',
             annotations: '',
-            uri: '',
+            uri: ''
         };
 
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            this.resource= data;
+        this.apiSrmService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
+            this.resource = data;
             this.mapperDataResourceDetail(this.resource);
             this.loadAllVersionsFromResource();
             this.loadDetailDataOnInit();
@@ -64,7 +68,7 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     public loadChildrenTreeData() {
-        this.apiService.getChildrenTree(this.dataDetail!).subscribe((data) => {
+        this.apiSrmService.getChildrenTree(this.dataDetail!).subscribe((data) => {
             if (data) {
                 this.updateTableChildrenTreeNode(data);
                 this.dataChildrenLoaded = true;
@@ -72,8 +76,10 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
-    public onDownloadSdmx() {
-        this.apiService.getFile().subscribe((blob) => {
+    public onDownloadSdmx(resource: any) {
+        console.log('onDownloadSdmx', resource);
+        this.apiSdmxService?.getFile(resource).subscribe((blob) => {
+            console.log('onDownloadSdmx', blob);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;
@@ -83,15 +89,15 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
-    onDownloadFileFormat(format: string) {
-        this.apiService.getFile().subscribe((blob) => {
-            const a = document.createElement('a');
-            const objectUrl = URL.createObjectURL(blob);
-            a.href = objectUrl;
-            a.download = this.dataDetail!.id + '.' + format;
-            a.click();
-            URL.revokeObjectURL(objectUrl);
-        });
+    onDownloadFileFormat(data: any, format: string) {
+        /* this.apiService.getFile().subscribe((blob) => {
+             const a = document.createElement('a');
+             const objectUrl = URL.createObjectURL(blob);
+             a.href = objectUrl;
+             a.download = this.dataDetail!.id + '.' + format;
+             a.click();
+             URL.revokeObjectURL(objectUrl);
+         });*/
     }
 
     public onReturn() {
@@ -102,10 +108,6 @@ export abstract class BasicDetailComponent implements OnInit {
         return this.detailForm.get('description')?.value || '';
     }
 
-    abstract loadDetailDataOnInit(): void;
-    abstract mapperDataResourceDetail(data: any): void;
-    abstract loadAllVersionsFromResource(): void;
-
     public handleOnPanelShow() {
         this.select.dropdownIcon = 'fa-solid fa-chevron-up';
     }
@@ -113,4 +115,31 @@ export abstract class BasicDetailComponent implements OnInit {
     public handleOnPanelHide() {
         this.select.dropdownIcon = 'fa-thin fa-chevron-down';
     }
+
+    protected getDetailForm() {
+        if(this.isMapperWithMaintainer) {
+            this.apiSrmService.getDetailManteinerFromSrm(this.dataDetail.agency).subscribe((maintainer) => {
+                let nameMaintainer = this.localeService ? this.localeService?.getTextValue(maintainer.name.text) : '';
+                this.dataDetail!.description = this.localeService.getTextValue(this.resource.description?.text);
+                this.dataDetail!.name = this.localeService.getTextValue(this.resource.name?.text);
+                this.dataDetail!.annotations = this.localeService.getTextValue(this.resource.annotations?.text);
+                this.dataDetail!.uri = this.resource.selfLink?.href;
+                this.dataDetail!.maintainer = maintainer.id + ' - ' + nameMaintainer;
+                this.dataDetail!.version = 'v' + this.dataDetail.version;
+
+                this.detailForm.patchValue(this.dataDetail);
+            });
+        } else {
+            this.dataDetail!.name = this.localeService.getTextValue(this.resource.name?.text);
+            this.dataDetail!.uri = this.resource.selfLink?.href;
+
+            this.detailForm.patchValue(this.dataDetail);
+        }
+    }
+
+    abstract loadDetailDataOnInit(): void;
+
+    abstract mapperDataResourceDetail(data: any): void;
+
+    abstract loadAllVersionsFromResource(): void;
 }

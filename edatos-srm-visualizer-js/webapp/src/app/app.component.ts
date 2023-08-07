@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './core/services/api/structural-resources/api.service';
+import { ApiSrmService } from './core/services/api/structural-resources/api-srm.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -7,12 +7,12 @@ import { ApiService } from './core/services/api/structural-resources/api.service
 })
 export class AppComponent {
 
-    public constructor(private apiService: ApiService) {
+    public constructor(private apiService: ApiSrmService) {
         apiService.loadConfiguration();
     }
 
     public isLoadConfiguration(): boolean {
-        return !!ApiService.apiStructuralResource;
+        return !!ApiSrmService.apiStructuralResource;
     }
     
 }
