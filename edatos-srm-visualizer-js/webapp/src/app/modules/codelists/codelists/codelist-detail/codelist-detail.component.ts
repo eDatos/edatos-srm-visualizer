@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
@@ -8,6 +8,8 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 
 
 @Component({
@@ -23,6 +25,11 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public navLinks: any[];
     public activeLink: string;
     public expandedMenu: boolean = false;
+    public selectedResource: any;
+    public routerLinkDetail: string = '';
+    public columns: any[];
+    public dataChildrenTable: TreeNode[] = [];
+    @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -81,6 +88,12 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 }
             }
         ];
+
+        this.columns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+        ];
         
     }
 
@@ -97,15 +110,27 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     onActiveItemChange(link: any) {
         this.activeLink = link;
-        if(this.activeLink == this.navLinks[1].label) {
+        if (this.activeLink == this.navLinks[1].label) {
             this.apiService.getRelatedCodelist(this.resource.variable.urn).subscribe((data) => {
                 if (data[this.apiService.apiSearchDataPath]) {
                     data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);
                         resource.id = codelist.id;
-                        resource.name = this.localeService.getTextValue(codelist.name?.text);
+                        resource.name = this.localeService ? this.localeService?.getTextValue(codelist.name.text) : '',
                         resource.description = this.localeService.getTextValue(codelist.description?.text);
                         this.relatedCodelists.push(resource);
+                        let scheme = codelist.urn.split(':')[3] ? codelist.urn.split(':')[3].split('(')[0] : '';
+                        const resourceToTreeNode: TreeNode = {
+                            name: resource.name,
+                            id: resource.id,
+                            urn: codelist.urn,
+                            description: resource.description,
+                            selfLink: codelist.selfLink.href,
+                            maintainer: codelist.agencyID,
+                            scheme: scheme,
+                        };
+
+                        this.dataChildrenTable = [...this.dataChildrenTable, resourceToTreeNode];
                     });
                     this.dataChildrenLoaded = true;
                 }
@@ -145,10 +170,17 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         this.detailForm.patchValue(this.dataDetail);
     }
 
-    loadDetailDataOnInit(): void {}
+    loadDetailDataOnInit(): void {
+        this.activeLink = this.navLinks[0].label? this.navLinks[0].label : this.navLinks[1].label ? this.navLinks[1].label : '';
+    }
 
     handleVisibilityMenu(): boolean {
         this.expandedMenu = !this.expandedMenu;
         return this.expandedMenu;
+    }
+
+    public onLoadCodelistDetail(urn: string): void {
+        this.dataDetail = new CodelistResource(urn);
+        this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
     }
 }

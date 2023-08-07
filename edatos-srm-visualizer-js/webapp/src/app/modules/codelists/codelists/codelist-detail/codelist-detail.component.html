@@ -112,22 +112,10 @@
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1].label' >
-        <p-table [value]='relatedCodelists' class="p-table-custom">
-            <ng-template pTemplate='header'>
-                <tr class="element-header">
-                    <th>{{ 'resourceParameters.identifier' | translate }}</th>
-                    <th>{{ 'resourceParameters.name' | translate }}</th>
-                    <th>{{ 'resourceParameters.description' | translate }}</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate='body' let-codelist>
-                <tr class="element-row">
-                    <td>{{ codelist.id }}</td>
-                    <td>{{ codelist.name }}</td>
-                    <td>{{ codelist.description }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
+        <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
+                               [routerLinkDetail]='routerLinkDetail'
+                               (clickEvent)='onLoadCodelistDetail($event)'>
+        </table-expandable-rows>
     </div>
     <div *ngIf='dataChildren === null'>
         <span>{{ 'resultsNotFound' | translate }}</span>
