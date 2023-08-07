@@ -6,7 +6,7 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-concepts-schemes-search',
@@ -67,5 +67,4 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
         resourceToTreeNode.id = resource.id + '(' + resource.version + ')'
     }
-
 }

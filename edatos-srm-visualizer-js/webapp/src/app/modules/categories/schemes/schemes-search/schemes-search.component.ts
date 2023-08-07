@@ -9,7 +9,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-schemes-search',

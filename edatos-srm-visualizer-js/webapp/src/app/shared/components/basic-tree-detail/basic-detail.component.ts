@@ -77,9 +77,7 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     public onDownloadSdmx(resource: any) {
-        console.log('onDownloadSdmx', resource);
         this.apiSdmxService?.getFile(resource).subscribe((blob) => {
-            console.log('onDownloadSdmx', blob);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;

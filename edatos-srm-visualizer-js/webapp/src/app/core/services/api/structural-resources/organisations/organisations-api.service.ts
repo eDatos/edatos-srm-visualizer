@@ -10,11 +10,18 @@ export class OrganisationsApiService extends ApiSrmService{
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchDataPath = 'organisation';
-    this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations';
+    this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations/?query=ORGANISATION_SCHEME_LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations/{id}';
     this.apiChildrenUrl = '/api/organisations/{urn}/organisations';
     this.apiChildrenTreeUrl = '/api/organisations/{urn}/organisations';
     this.apiChildrenDataPath = '';
     this.apiSchemeUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
+  }
+
+  public getApiSearchUrl(): string {
+    if (this.isLatestVersion) {
+      return this.apiSearchUrl = this.apiSearchUrl.concat('?query=ORGANISATION_SCHEME_LATEST%20EQ%20%27true%27')
+    }
+    return this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations/';
   }
 }

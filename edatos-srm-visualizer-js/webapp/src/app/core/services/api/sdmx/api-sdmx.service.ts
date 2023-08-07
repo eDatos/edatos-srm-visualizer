@@ -26,12 +26,10 @@ export abstract class ApiSdmxService extends ApiService{
         }),
     };
     public getFile(resource: any): Observable<any> {
-        console.log('getFile', resource);
         let api = this.apiSDMXUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
-        console.log('getFile', api)
         return this.httpClient.get(ApiSdmxService.apiSdmx.concat(api), this.httpOptions);
     }
 

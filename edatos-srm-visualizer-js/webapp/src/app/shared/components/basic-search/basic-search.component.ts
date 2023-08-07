@@ -59,8 +59,7 @@ export abstract class BasicSearchComponent {
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService?: LocaleService) {
-    }
+                          protected translateService: TranslateService, protected localeService?: LocaleService) {}
 
     public loadInitialData() {
         this.columnsToDisplay();
@@ -70,6 +69,12 @@ export abstract class BasicSearchComponent {
             this.mapperResource();
             this.dataChildrenLoaded = true;
         });
+    }
+
+    public onSearchWithAllVersions(): void {
+        this.apiService.isLatestVersion = !this.apiService.isLatestVersion;
+        this.apiService.getApiSearchUrl();
+        this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {
@@ -98,8 +103,7 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onScrollUp($event: IInfiniteScrollEvent) {
-    }
+    public onScrollUp($event: IInfiniteScrollEvent) {}
 
     public onSearch(): void {
         this.defaultParametersSearch();
@@ -193,4 +197,5 @@ export abstract class BasicSearchComponent {
     }
 
     abstract mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void;
+
 }

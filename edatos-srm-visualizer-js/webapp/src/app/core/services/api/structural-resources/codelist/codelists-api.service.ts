@@ -22,6 +22,13 @@ export class CodelistsApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
     }
 
+    public getApiSearchUrl(): string {
+        if (this.isLatestVersion) {
+            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+        }
+        return this.apiSearchUrl = '/v1.0/codelists/';
+    }
+
     public getRelatedCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
     }
