@@ -168,7 +168,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     loadDetailDataOnInit(): void {
-        this.activeLink = this.navLinks[0].label? this.navLinks[0].label : this.navLinks[1].label ? this.navLinks[1].label : '';
+        this.activeLink = this.navLinks[0].label;
     }
 
     handleVisibilityMenu(): boolean {
@@ -178,6 +178,8 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     public onLoadCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
-        this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
+        if (this.dataDetail) {
+            this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' +  this.dataDetail.version + '/detail';
+        }
     }
 }
