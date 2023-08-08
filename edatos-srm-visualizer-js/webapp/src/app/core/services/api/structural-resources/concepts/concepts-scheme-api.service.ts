@@ -16,6 +16,7 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiSearchDataPath = 'conceptScheme';
         this.apiSearchUrl = '/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
+        this.apiDetailForFileUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
         this.apiChildrenUrl = '/v2.1/conceptscheme/{agencyID}/{resourceID}/{version}';
         this.apiChildrenTreeUrl = '/api/concepts/schemes/{urn}/concepts';
         this.apiChildrenDataPath = 'concept';

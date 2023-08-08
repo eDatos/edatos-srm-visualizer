@@ -13,6 +13,7 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
     this.apiSearchDataPath = 'organisationScheme';
     this.apiSearchUrl = '/v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
+    this.apiDetailForFileUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations';
     this.apiChildrenUrl = '/api/organisations/{urn}/organisations';
     this.apiChildrenTreeUrl = '/api/organisations/{urn}/organisations';
 

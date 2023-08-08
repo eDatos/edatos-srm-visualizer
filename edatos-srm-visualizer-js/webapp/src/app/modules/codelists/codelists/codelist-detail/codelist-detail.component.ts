@@ -11,6 +11,7 @@ import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
+import { FileDonwloadHelper } from '../../../../core/services/helper/file-donwload-helper';
 
 
 @Component({
@@ -26,17 +27,20 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public navLinks: any[];
     public activeLink: string;
     public expandedMenu: boolean = false;
-    public selectedResource: any;
+
     public routerLinkDetail: string = '';
     public columns: any[];
     public dataChildrenTable: TreeNode[] = [];
     @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
 
+    protected fileDownloadHelper: FileDonwloadHelper;
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
                 protected override apiSdmxService: CodelistApiSdmxService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
+        this.fileDownloadHelper = new FileDonwloadHelper(apiSdmxService, apiSrmService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -66,29 +70,28 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 label: this.translateService.instant('download.sdmx-xml'),
                 icon: 'fa-thin fa-code',
                 command: () => {
-                    this.onDownloadSdmx(this.dataDetail);
+                    this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.json'),
                 icon: 'fa-thin fa-brackets-curly',
                 command: () => {
-                    this.onDownloadJson(this.dataDetail, 'json');
+                    this.fileDownloadHelper.onDownloadJson(this.dataDetail, 'json');
                 }
             },
             {
                 label: this.translateService.instant('download.csv'),
                 icon: 'fa-thin fa-semicolon',
                 command: () => {
-                    this.onDownloadSdmx(this.dataDetail);
+                    this.fileDownloadHelper.onDownloadCsv(this.dataDetail, 'csv');
                 }
             },
             {
                 label: this.translateService.instant('download.xls'),
                 icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
-                    this.onDownloadSdmx(this.resource);
-                }
+                    this.fileDownloadHelper.onDownloadXLS(this.dataDetail, 'xls');                }
             }
         ];
 
@@ -118,16 +121,12 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     data[this.apiSrmService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);
-                        resource.id = codelist.id;
-                        resource.name = this.localeService.getTextValue(codelist.name.text);
-                        resource.description = this.localeService.getTextValue(codelist.description?.text);
-                        this.relatedCodelists.push(resource);
                         let scheme = codelist.urn.split(':')[3] ? codelist.urn.split(':')[3].split('(')[0] : '';
                         const resourceToTreeNode: TreeNode = {
-                            name: resource.name,
+                            name: this.localeService.getTextValue(codelist.name?.text),
                             id: resource.id,
                             urn: codelist.urn,
-                            description: resource.description,
+                            description: this.localeService.getTextValue(codelist.description?.text),
                             selfLink: codelist.selfLink.href,
                             maintainer: codelist.agencyID,
                             scheme: scheme,

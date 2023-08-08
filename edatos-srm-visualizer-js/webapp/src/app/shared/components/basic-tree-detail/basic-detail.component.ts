@@ -8,8 +8,6 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
 import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
-import * as xml2js from 'xml2js';
 
 @Component({
     selector: 'app-basic-detail',
@@ -75,45 +73,6 @@ export abstract class BasicDetailComponent implements OnInit {
                 this.updateTableChildrenTreeNode(data);
                 this.dataChildrenLoaded = true;
             }
-        });
-    }
-
-    public onDownloadSdmx(resource: any) {
-        let resourceSdmx = new Resource(resource.urn);
-        this.apiSdmxService?.getSDMXFile(resourceSdmx).subscribe((blob) => {
-            const a = document.createElement('a');
-            const objectUrl = URL.createObjectURL(blob);
-            a.href = objectUrl;
-            a.download = resourceSdmx.id + '.xml';
-            a.click();
-            URL.revokeObjectURL(objectUrl);
-        });
-    }
-
-    public onDownloadJson(resource: any, format: string) {
-        let resourceSdmx = new Resource(resource.urn);
-        this.apiSdmxService?.getSDMXFile(resourceSdmx).subscribe((blob) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                const xmlData = reader.result as string;
-                const parser = new xml2js.Parser({ explicitArray: false });
-                parser.parseString(xmlData, (err: any, result: any) => {
-                    if (err) {
-                        console.error('Error parsing XML:', err);
-                    } else {
-                        const jsonData = JSON.stringify(result);
-                        const jsonBlob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
-
-                        const a = document.createElement('a');
-                        const objectUrl = URL.createObjectURL(jsonBlob);
-                        a.href = objectUrl;
-                        a.download = resourceSdmx.id + '.' + format;
-                        a.click();
-                        URL.revokeObjectURL(objectUrl);
-                    }
-                });
-            };
-            reader.readAsText(blob);
         });
     }
 

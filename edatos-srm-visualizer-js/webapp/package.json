@@ -27,8 +27,10 @@
     "@ng-bootstrap/ng-bootstrap": "^14.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "@types/file-saver": "^2.0.5",
     "@types/xml2js": "^0.4.11",
     "bootstrap": "^4.6.0",
+    "file-saver": "^2.0.5",
     "jquery": "^3.6.1",
     "material-icons": "^1.13.7",
     "ngx-cookie-service": "^15.0.0",
@@ -39,6 +41,7 @@
     "stream": "0.0.2",
     "timers": "^0.1.1",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.12.0"
   },
   "devDependencies": {

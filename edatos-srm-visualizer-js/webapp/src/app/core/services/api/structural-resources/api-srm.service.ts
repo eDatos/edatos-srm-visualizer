@@ -13,7 +13,6 @@ export abstract class ApiSrmService extends ApiService {
     public apiSearchDataPath: string = '';
     public apiSearchUrl: string = '';
 
-    public apiDetailUrl: string = '';
     public apiAllVersionsFromResourceUrl: string = '';
 
     public apiChildrenTreeUrl: string = '';
@@ -21,20 +20,26 @@ export abstract class ApiSrmService extends ApiService {
     public apiChildrenDataPath: string = '';
 
     private apiManteinerUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies/{organisationID}';
-    public apiSchemeUrl: string = '';
-
 
     public isLatestVersion: boolean = true;
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
+    public getJSONFile(resource: Resource): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.json'),
+            { responseType: 'blob' });
+    }
+
+    public getCSVFile(resource: Resource): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv'), { responseType: 'blob' });
+    }
+
+    public getXLSFile(resource: Resource): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xls'), { responseType: 'blob' });
+    }
+
     /* Detail */
     public getDetailFromSrm(resource: Resource): Observable<any> {
-        let api = this.apiDetailUrl
-            .replace('{agencyID}', resource.agency)
-            .replace('{resourceID}', resource.resourceId)
-            .replace('{version}', resource.version)
-            .replace('{id}', resource.id);
-        return this.getDataFromSrm(api);
+        return this.getDataFromSrm(this.getApiDetailUrl(resource));
     }
 
     public getDetailManteinerFromSrm(agency: string): Observable<any> {
@@ -44,11 +49,7 @@ export abstract class ApiSrmService extends ApiService {
     }
 
     public getDetailSchemeFromSrm(resource: Resource): Observable<any> {
-        let api = this.apiSchemeUrl
-            .replace('{agencyID}', resource.agency)
-            .replace('{resourceID}', resource.resourceId)
-            .replace('{version}', resource.version)
-        return this.getDataFromSrm(api);
+        return this.getDataFromSrm(this.getApiSchemeUrl(resource));
     }
 
     public getAllVersionsFromResource(dataDetail: Resource): Observable<any> {

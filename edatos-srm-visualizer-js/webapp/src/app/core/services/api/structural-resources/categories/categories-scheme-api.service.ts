@@ -13,6 +13,7 @@ export class CategoriesSchemeApiService extends ApiSrmService {
     this.apiSearchDataPath = 'categoryScheme';
     this.apiSearchUrl = '/v1.0/categoryschemes/?query=LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
+    this.apiDetailForFileUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}/categories';
     this.apiChildrenUrl = '/api/categories/schemes/{urn}/categories';
     this.apiChildrenTreeUrl = '/api/categories/schemes/{urn}/categories';
     this.apiChildrenDataPath = '';
