@@ -7,7 +7,7 @@ import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detai
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';

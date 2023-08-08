@@ -1,3 +1,5 @@
+import { UrnUtils } from 'src/app/shared/utils/urn-utils';
+
 export class Resource {
     agency: string = '';
     version: string = '';
@@ -13,16 +15,11 @@ export class Resource {
     constructor(urn?: string) {
         if (urn) {
             this.urn = urn;
-            let splitText = urn.split('=')[1].split(':');
-            this.agency = splitText[0];
-            if (splitText.length > 1) {
-                splitText = splitText[1].split(')');
-                this.version = splitText[0].split('(')[1];
-                this.resourceId = splitText[0].split('(')[0];
-                this.id = splitText[1] ? splitText[1].replace('.', '') : this.resourceId;
-            } else {
-                this.id = splitText[0];
-            }
+            UrnUtils.splitUrn(urn);
+            this.agency = UrnUtils.agency;
+            this.resourceId = UrnUtils.resourceId;
+            this.version = UrnUtils.version;
+            this.id = UrnUtils.id;
         }
     }
 }
