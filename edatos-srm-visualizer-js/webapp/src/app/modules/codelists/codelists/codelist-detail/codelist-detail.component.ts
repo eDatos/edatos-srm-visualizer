@@ -73,21 +73,21 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 label: this.translateService.instant('download.json'),
                 icon: 'fa-thin fa-brackets-curly',
                 command: () => {
-                    this.onDownloadFileFormat(this.resource, 'json');
+                    this.onDownloadJson(this.dataDetail, 'json');
                 }
             },
             {
                 label: this.translateService.instant('download.csv'),
                 icon: 'fa-thin fa-semicolon',
                 command: () => {
-                    this.onDownloadFileFormat(this.resource, 'csv');
+                    this.onDownloadSdmx(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.xls'),
                 icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
-                    this.onDownloadFileFormat(this.resource, 'xls');
+                    this.onDownloadSdmx(this.resource);
                 }
             }
         ];
@@ -119,7 +119,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                     data[this.apiSrmService.apiSearchDataPath].forEach((codelist: any) => {
                         const resource = new CodelistResource(codelist.urn);
                         resource.id = codelist.id;
-                        resource.name = this.localeService ? this.localeService?.getTextValue(codelist.name.text) : '',
+                        resource.name = this.localeService.getTextValue(codelist.name.text);
                         resource.description = this.localeService.getTextValue(codelist.description?.text);
                         this.relatedCodelists.push(resource);
                         let scheme = codelist.urn.split(':')[3] ? codelist.urn.split(':')[3].split('(')[0] : '';
