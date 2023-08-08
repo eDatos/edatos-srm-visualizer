@@ -56,8 +56,8 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
     public onLoadDsdDetail(urn: string): void {
         this.dataDetail = new DsdResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 
@@ -66,6 +66,8 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
     }
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+        if(!this.apiService.isLatestVersion) {
+            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+        }
     }
 }

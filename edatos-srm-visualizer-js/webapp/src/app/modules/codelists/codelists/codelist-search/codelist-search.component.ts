@@ -32,7 +32,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             urn: '',
             description: '',
             version: '',
-            scheme: '',
+            scheme: ''
         });
 
         this.fields = [
@@ -42,11 +42,11 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.selectedDefault = this.fields.filter(opt => opt.value !== 'description').map(a => a);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
-            selectedFields:  [this.selectedDefault],
-            showAllVersions: [false],
+            selectedFields: [this.selectedDefault],
+            showAllVersions: [false]
         });
 
     }
@@ -58,14 +58,16 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     public onLoadCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
-        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' + this.dataDetail?.version + '/detail';
     }
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        resourceToTreeNode.id = resource.id + '(' + resource.version + ')'
+        if (!this.apiService.isLatestVersion) {
+            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+        }
     }
 }

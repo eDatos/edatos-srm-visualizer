@@ -60,8 +60,8 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
     public onLoadCodeDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text) );
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text) );
             this.detailForm.patchValue(this.dataDetail);
         });
 
@@ -70,6 +70,10 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
     }
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        resourceToTreeNode.scheme = resource.id + '(' + resource.version + ')' + ' / ' + resourceToTreeNode.maintainer;
+        if(!this.apiService.isLatestVersion) {
+            resourceToTreeNode.scheme = `${resource.id}(${resource.version}) / ${resourceToTreeNode.maintainer}`;
+        } else {
+            resourceToTreeNode.scheme = `${resource.id} / ${resourceToTreeNode.maintainer}`;
+        }
     }
 }

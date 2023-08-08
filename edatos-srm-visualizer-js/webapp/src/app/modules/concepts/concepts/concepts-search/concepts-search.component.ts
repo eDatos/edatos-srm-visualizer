@@ -59,8 +59,8 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
     public onLoadConceptDetail(urn: string): void {
         this.dataDetail = new ConceptResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 
@@ -70,8 +70,12 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
         this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
-            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
-            resourceToTreeNode.scheme = scheme.id + '(' + scheme.version + ') - ' + nameScheme;
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
+            if(!this.apiService.isLatestVersion) {
+                resourceToTreeNode.scheme = `${scheme.id}(${scheme.version}) - ${nameScheme}`;
+            } else {
+                resourceToTreeNode.scheme = `${scheme.id} - ${nameScheme}`;
+            }
         });
     }
 }
