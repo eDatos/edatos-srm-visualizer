@@ -75,7 +75,6 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
-                console.log(data);
                 data.filter((version: any) => version !== this.dataDetail!.version).reverse().forEach((version: any) => {
                     this.versions.push({value: version});
                 });

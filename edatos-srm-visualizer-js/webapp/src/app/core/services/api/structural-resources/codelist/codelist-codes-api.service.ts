@@ -23,6 +23,13 @@ export class CodelistCodesApiService extends ApiSrmService {
         this.apiChildrenDataPath = '';
     }
 
+    public getApiSearchUrl(): string {
+        if (this.isLatestVersion) {
+            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CODELIST_LATEST%20EQ%20%27true%27')
+        }
+        return this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/';
+    }
+
     public loadOtherCodes(resource: CodelistResource): Observable<any> {
         let api = this.apiOtherCodesUrl
             .replace('{agencyID}', resource.agency)

@@ -21,6 +21,13 @@ export class DsdApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = '/api/datastructures/{urn}/all-versions';
     }
 
+    public getApiSearchUrl(): string {
+        if (this.isLatestVersion) {
+            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+        }
+        return this.apiSearchUrl = '/v1.0/datastructures/';
+    }
+
     public getDimensionAndAttributeAndMeasureData(resource: DsdResource) {
         let api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)

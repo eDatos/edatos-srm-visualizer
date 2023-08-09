@@ -61,8 +61,8 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
     public onLoadFamilyCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 

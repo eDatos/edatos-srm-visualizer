@@ -54,7 +54,7 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CategoryResource(data.urn);
         this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
             this.dataDetail!.categoryScheme = scheme.id + ' (' + nameScheme + ')';
             this.getDetailForm();
         });

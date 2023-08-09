@@ -10,7 +10,7 @@ import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detai
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
-import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { DateUtils } from 'src/app/shared/utils/date-utils';
 
 @Component({
     selector: 'app-schemes-detail',

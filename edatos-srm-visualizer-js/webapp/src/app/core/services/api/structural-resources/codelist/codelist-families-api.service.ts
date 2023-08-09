@@ -18,6 +18,9 @@ export class CodelistFamiliesApiService extends ApiSrmService {
         this.apiDetailUrl = '/v1.0/codelistfamilies/{id}/';
     }
 
+    public getApiSearchUrl(): string {
+        return this.apiSearchUrl;
+    }
     public loadFamilyCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiFamilyCodelistUrl.replace('{variableUrn}', variableUrn)));
     }

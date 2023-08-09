@@ -59,10 +59,10 @@ export abstract class BasicSearchComponent {
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService?: LocaleService) {
-    }
+                          protected translateService: TranslateService, protected localeService: LocaleService) {}
 
     public loadInitialData() {
+        this.dataChildren = [];
         this.columnsToDisplay();
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
             this.dataSearch = data[this.apiService.apiSearchDataPath];
@@ -70,6 +70,12 @@ export abstract class BasicSearchComponent {
             this.mapperResource();
             this.dataChildrenLoaded = true;
         });
+    }
+
+    public onSearchWithAllVersions(): void {
+        this.apiService.isLatestVersion = !this.apiService.isLatestVersion;
+        this.apiService.getApiSearchUrl();
+        this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {
@@ -98,8 +104,7 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onScrollUp($event: IInfiniteScrollEvent) {
-    }
+    public onScrollUp($event: IInfiniteScrollEvent) {}
 
     public onSearch(): void {
         this.defaultParametersSearch();
@@ -159,10 +164,10 @@ export abstract class BasicSearchComponent {
                     this.getDetailManteinerFromSrm(data);
                 } else {
                     const resourceToTreeNode: TreeNode = {
-                        name: this.localeService ? this.localeService?.getTextValue(data.name.text) : '',
+                        name: this.localeService.getTextValue(data.name.text),
                         id: data.id,
                         urn: data.urn,
-                        description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
+                        description: this.localeService.getTextValue(data.description?.text),
                         selfLink: data.selfLink.href,
                         maintainer: '',
                         scheme: ''
@@ -176,13 +181,13 @@ export abstract class BasicSearchComponent {
     private getDetailManteinerFromSrm(data: any) {
         let node = new Resource(data.urn);
         this.apiService.getDetailManteinerFromSrm(node.agency).subscribe((maintainer) => {
-            let nameMaintainer = this.localeService ? this.localeService?.getTextValue(maintainer.name.text) : '';
+            let nameMaintainer = this.localeService.getTextValue(maintainer.name.text);
 
             const resourceToTreeNode: TreeNode = {
-                name: this.localeService ? this.localeService?.getTextValue(data.name.text) : '',
+                name: this.localeService.getTextValue(data.name.text),
                 id: data.id,
                 urn: data.urn,
-                description: this.localeService ? this.localeService?.getTextValue(data.description?.text) : '',
+                description: this.localeService.getTextValue(data.description?.text),
                 selfLink: data.selfLink.href,
                 maintainer: maintainer.id + ' - ' + nameMaintainer,
                 scheme: ''
@@ -193,4 +198,5 @@ export abstract class BasicSearchComponent {
     }
 
     abstract mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void;
+
 }

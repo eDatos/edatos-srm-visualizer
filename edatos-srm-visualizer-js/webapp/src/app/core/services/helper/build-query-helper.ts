@@ -17,7 +17,7 @@ export class BuildQueryHelper {
     }
 
     public buildQueryUrl(url: string, query: string, api?: string) {
-        if (!api?.includes(BuildQueryHelper.withQuery)) {
+        if (!url?.includes(BuildQueryHelper.withQuery)) {
             return url.concat(BuildQueryHelper.withQuery.concat(encodeURIComponent(query)));
         } else {
             return url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
