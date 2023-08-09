@@ -10,8 +10,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class ConceptsApiService extends ApiSrmService {
 
-  public apiOtherConceptsUrl  = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?fields=%2Bdescription';
-  public apiRecommendedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
+  public apiOtherConceptsUrl  = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
+  public apiRecommendedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27AND%20LATEST%20EQ%20%27true%27&fields=%2Bdescription';
   public apiCodelistDataPath = 'codelist';
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
@@ -35,7 +35,7 @@ export class ConceptsApiService extends ApiSrmService {
     let api = this.apiOtherConceptsUrl
         .replace('{agencyID}', resource.agency)
         .replace('{resourceID}', resource.resourceId)
-        .replace('{version}', resource.version)
+        .replace('{version}', resource.version);
     return this.getData(ApiSrmService.apiStructuralResource.concat(api));
   }
 

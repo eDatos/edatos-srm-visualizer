@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { ApiSdmxService } from '../api-sdmx.service';
 
 @Injectable({

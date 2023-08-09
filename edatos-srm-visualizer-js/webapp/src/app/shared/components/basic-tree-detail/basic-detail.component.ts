@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
@@ -8,6 +8,8 @@ import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-t
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
 import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
+import { FileDonwloadHelper } from 'src/app/core/services/helper/file-donwload-helper';
+import { TableExpandableRows } from '../table/table-row-expand.component';
 
 @Component({
     selector: 'app-basic-detail',
@@ -15,7 +17,11 @@ import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service'
 })
 export abstract class BasicDetailComponent implements OnInit {
     @ViewChild('tabletreenode') tabletreenode!: TableTreeComponent;
+    @ViewChild('searchResults') searchResults: ElementRef | undefined;
     @ViewChild('select') select!: Dropdown;
+    @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
+
+    public items: any[] = [];
 
     public resource: any;
 
@@ -30,9 +36,40 @@ export abstract class BasicDetailComponent implements OnInit {
 
     protected isMapperWithMaintainer: boolean = true;
 
+    protected fileDownloadHelper: FileDonwloadHelper;
     constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
                 protected localeService: LocaleService, protected translateService: TranslateService,
                 protected apiSdmxService?: ApiSdmxService) {
+        this.fileDownloadHelper = new FileDonwloadHelper(apiSdmxService, apiSrmService);
+        this.items = [
+            {
+                label: this.translateService.instant('download.sdmx-xml'),
+                icon: 'fa-thin fa-code',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
+                }
+            },
+            {
+                label: this.translateService.instant('download.json'),
+                icon: 'fa-thin fa-brackets-curly',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadJson(this.dataDetail, 'json');
+                }
+            },
+            {
+                label: this.translateService.instant('download.csv'),
+                icon: 'fa-thin fa-semicolon',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadCsv(this.dataDetail, 'csv');
+                }
+            },
+            {
+                label: this.translateService.instant('download.xls'),
+                icon: 'fa-thin fa-file-spreadsheet',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadXLS(this.dataDetail, 'xls');                }
+            }
+        ];
     }
 
     public abstract updateTableChildrenTreeNode(data: any): void;
@@ -53,7 +90,7 @@ export abstract class BasicDetailComponent implements OnInit {
             name: '',
             urn: '',
             annotations: '',
-            uri: ''
+            uri: '',
         };
 
         this.apiSrmService.getDetailFromSrm(this.dataDetail).subscribe((data) => {

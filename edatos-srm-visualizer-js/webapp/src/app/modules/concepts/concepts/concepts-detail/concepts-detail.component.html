@@ -1,91 +1,113 @@
-<div class='m-30'>
-    <div class='general-buttons'>
-        <div class='general-left-buttons row'>
-            <button (click)='onReturn()'>
-                <span>{{ 'back' | translate }}</span>
+<div class='general-buttons row'>
+    <div class='col'>
+        <button (click)='onReturn()' class='text-icon-button'>
+            <i class='fa-thin fa-left'></i>&nbsp;
+            <span>{{ 'back' | translate | uppercase }}</span>
+        </button>
+    </div>
+</div>
+
+
+<div [formGroup]='detailForm' class='detail-info'>
+    <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
+    <span class='info-id' id='id'>{{ dataDetail.id }}</span>
+
+    <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+    <span id='name'>{{ dataDetail.name }}</span>
+
+    <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
+    <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
+
+    <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+    <div id='uri' class='info-link background'>
+        <div class='code'>
+            <code>{{ dataDetail.uri }}</code>
+        </div>
+        <div class='element-link-actions'>
+            <button type='button'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
+            </button>
+            <button>
+                <i class='fa-thin fa-copy'></i>
             </button>
         </div>
     </div>
 
-    <div [formGroup]='detailForm' class='container'>
-        <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
-        <input type='text' class='form-control' formControlName='id' id='id' readonly>
+    <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+    <div id='urn' class='info-link background'>
+        <div class='code'>
+            <code>{{ dataDetail.urn }}</code>
+        </div>
+        <div class='element-link-actions'>
+            <button>
+                <i class='fa-thin fa-copy'></i>
+            </button>
+        </div>
+    </div>
 
-        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-        <input type='text' class='form-control' formControlName='name' id='name' readonly>
-
-        <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-        <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
-
-        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
-
-        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
-
+    <div *ngIf='dataDetail.annotations'>
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
-
-        <label for='conceptScheme' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
-        <input type='text' class='form-control' formControlName='conceptScheme' id='conceptScheme' readonly>
-
-        <label for='maintainer' class='title'>{{ 'concepts.parameters.agency' | translate }}</label>
-        <input type='text' class='form-control' formControlName='maintainer' id='maintainer' readonly>
-
+        <span id='annotations'>{{ dataDetail.annotations }}</span>
     </div>
-    <div class='container'>
-        <div class='section-tab'>
-            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
-                       (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
-        </div>
-        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
-            <div class='m-30' *ngIf='!dataChildrenLoaded'>
-                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-            </div>
-            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <p-table [value]='recommendedCodelists' class='search-results'>
-                    <ng-template pTemplate='header'>
-                        <tr>
-                            <th>{{ 'resourceParameters.identifier' | translate }}</th>
-                            <th>{{ 'resourceParameters.name' | translate }}</th>
-                            <th>{{ 'resourceParameters.description' | translate }}</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate='body' let-code>
-                        <tr>
-                            <td>{{ code.id }}</td>
-                            <td>{{ code.name }}</td>
-                            <td>{{ code.description }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
-        <div class='m-30' *ngIf='activeLink == navLinks[1]'>
-            <div class='m-30' *ngIf='!dataChildrenLoaded'>
-                <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-            </div>
-            <p-table [value]='otherConcepts' class='search-results'
-                     [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <ng-template pTemplate='header'>
-                    <tr>
-                        <th>{{ 'resourceParameters.identifier' | translate }}</th>
-                        <th>{{ 'resourceParameters.name' | translate }}</th>
-                        <th>{{ 'resourceParameters.description' | translate }}</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate='body' let-code>
-                    <tr>
-                        <td>{{ code.id }}</td>
-                        <td>{{ code.name }}</td>
-                        <td>{{ code.description }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <div class='m-30' *ngIf='dataChildren === null'>
-            <span>{{ 'resultsNotFound' | translate }}</span>
+
+    <label for='conceptScheme' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
+    <div class='info-link'>
+        <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme }}</span>
+        <div class='element-link-actions'>
+            <button type='button'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
+            </button>
         </div>
     </div>
-    <br />
+
+    <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+    <div class='info-link'>
+        <span class='info-agency' id='maintainer'>{{ dataDetail.maintainer }}</span>
+        <div class='element-link-actions'>
+            <button type='button'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
+            </button>
+        </div>
+    </div>
 </div>
+
+<div class="subsection-tab detail-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let link of navLinks">
+            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" (click)="activeLink = link; onActiveItemChange(link)"
+               routerLinkActive="active">{{link.label}}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class='container detail-table'>
+    <div class='m-30' *ngIf='activeLink == navLinks[0]'>
+        <div class='m-30' *ngIf='!dataChildrenLoaded'>
+            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+        </div>
+        <div #searchResults class='search-results-table'>
+            <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
+                                   [routerLinkDetail]='routerLinkDetail'
+                                   (clickEvent)='onLoadCodelistDetail($event)'>
+            </table-expandable-rows>
+        </div>
+    </div>
+    <div class='m-30' *ngIf='activeLink == navLinks[1]'>
+        <div class='m-30' *ngIf='!dataChildrenLoaded'>
+            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+        </div>
+
+        <div #searchResults class='search-results-table'>
+            <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
+                                   [routerLinkDetail]='routerLinkDetail'
+                                   (clickEvent)='onLoadConceptsDetail($event)'>
+            </table-expandable-rows>
+
+        </div>
+    </div>
+    <div class='m-30' *ngIf='dataChildren === null'>
+        <span>{{ 'resultsNotFound' | translate }}</span>
+    </div>
+</div>
+<br />
