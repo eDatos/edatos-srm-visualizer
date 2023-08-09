@@ -16,12 +16,19 @@ export class ConceptsApiService extends ApiSrmService {
   constructor( httpClient: HttpClient, config: ConfigService) {
     super(httpClient, config);
     this.apiSearchDataPath = 'concept';
-    this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/';
+    this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27';
     this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/{id}';
     this.apiChildrenUrl = '/api/concepts/{urn}/concepts';
     this.apiChildrenTreeUrl = '/api/concepts/{urn}/concepts';
     this.apiSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}';
     this.apiChildrenDataPath = '';
+  }
+
+  public getApiSearchUrl(): string {
+    if (this.isLatestVersion) {
+      return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27')
+    }
+    return this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/';
   }
 
   public getOtherConcepts(resource: CodelistResource): Observable<any> {

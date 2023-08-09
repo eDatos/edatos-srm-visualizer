@@ -6,7 +6,7 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-concepts-schemes-search',
@@ -57,15 +57,16 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
     public onLoadConceptSchemeDetail(urn: string): void {
         this.dataDetail = new ConceptResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
     }
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        resourceToTreeNode.id = resource.id + '(' + resource.version + ')'
+        if(!this.apiService.isLatestVersion) {
+            resourceToTreeNode.id = resource.id + '(' + resource.version + ')'
+        }
     }
-
 }

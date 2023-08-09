@@ -19,4 +19,11 @@ export class CategoriesApiService extends ApiSrmService{
     this.apiSchemeUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
   }
 
+  public getApiSearchUrl(): string {
+    if (this.isLatestVersion) {
+      return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CATEGORY_SCHEME_LATEST%20EQ%20%27true%27')
+    }
+    return this.apiSearchUrl = '/v1.0//v1.0/categoryschemes/~all/~all/~latest/categories/';
+  }
+
 }

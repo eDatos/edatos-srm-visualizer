@@ -8,7 +8,7 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { Resource } from '../../../../shared/models/resources/resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-code-search',
@@ -60,8 +60,8 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
     public onLoadCodeDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text) );
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text) );
             this.detailForm.patchValue(this.dataDetail);
         });
 
@@ -70,6 +70,10 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
     }
 
     public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        resourceToTreeNode.scheme = resource.id + '(' + resource.version + ')' + ' / ' + resourceToTreeNode.maintainer;
+        if(!this.apiService.isLatestVersion) {
+            resourceToTreeNode.scheme = `${resource.id}(${resource.version}) / ${resourceToTreeNode.maintainer}`;
+        } else {
+            resourceToTreeNode.scheme = `${resource.id} / ${resourceToTreeNode.maintainer}`;
+        }
     }
 }

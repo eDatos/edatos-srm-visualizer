@@ -76,30 +76,6 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
-    public onDownloadSdmx(resource: any) {
-        console.log('onDownloadSdmx', resource);
-        this.apiSdmxService?.getFile(resource).subscribe((blob) => {
-            console.log('onDownloadSdmx', blob);
-            const a = document.createElement('a');
-            const objectUrl = URL.createObjectURL(blob);
-            a.href = objectUrl;
-            a.download = this.dataDetail!.id + '.xml';
-            a.click();
-            URL.revokeObjectURL(objectUrl);
-        });
-    }
-
-    onDownloadFileFormat(data: any, format: string) {
-        /* this.apiService.getFile().subscribe((blob) => {
-             const a = document.createElement('a');
-             const objectUrl = URL.createObjectURL(blob);
-             a.href = objectUrl;
-             a.download = this.dataDetail!.id + '.' + format;
-             a.click();
-             URL.revokeObjectURL(objectUrl);
-         });*/
-    }
-
     public onReturn() {
         window.history.back();
     }
@@ -119,7 +95,7 @@ export abstract class BasicDetailComponent implements OnInit {
     protected getDetailForm() {
         if(this.isMapperWithMaintainer) {
             this.apiSrmService.getDetailManteinerFromSrm(this.dataDetail.agency).subscribe((maintainer) => {
-                let nameMaintainer = this.localeService ? this.localeService?.getTextValue(maintainer.name.text) : '';
+                let nameMaintainer = this.localeService.getTextValue(maintainer.name.text);
                 this.dataDetail!.description = this.localeService.getTextValue(this.resource.description?.text);
                 this.dataDetail!.name = this.localeService.getTextValue(this.resource.name?.text);
                 this.dataDetail!.annotations = this.localeService.getTextValue(this.resource.annotations?.text);

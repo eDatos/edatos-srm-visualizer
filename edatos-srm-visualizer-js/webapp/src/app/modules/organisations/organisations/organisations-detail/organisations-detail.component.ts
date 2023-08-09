@@ -60,7 +60,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new OrganisationResource(data.urn);
         this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            let nameScheme = this.localeService ? this.localeService?.getTextValue(scheme.name.text) : '';
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
             this.dataDetail!.organisationScheme = scheme.id + ' (' + nameScheme + ')';
             this.getDetailForm();
         });

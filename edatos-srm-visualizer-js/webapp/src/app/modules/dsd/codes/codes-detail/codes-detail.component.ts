@@ -6,7 +6,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { DateUtils } from 'src/app/shared/utils/date-utils';
 import {
     DsdResource,
     getAttributeRelationship,

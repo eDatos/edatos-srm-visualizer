@@ -8,7 +8,7 @@ import {
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 
 @Component({
