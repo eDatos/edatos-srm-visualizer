@@ -73,6 +73,7 @@ import { RouterLink } from '@angular/router';
         CommonModule,
         MatIconModule,
         MatTableModule,
+        MatTreeModule,
         MatButtonModule,
         ReactiveFormsModule,
         ScrollingModule,
