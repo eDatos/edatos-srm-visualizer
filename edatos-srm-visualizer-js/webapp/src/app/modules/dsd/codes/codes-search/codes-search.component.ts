@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import { TranslateService } from '@ngx-translate/core';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-codes-search',
@@ -65,9 +67,7 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
             + this.dataDetail?.version + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        if(!this.apiService.isLatestVersion) {
-            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
-        }
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

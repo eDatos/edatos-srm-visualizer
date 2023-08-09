@@ -1,8 +1,8 @@
 export interface FlatTreeNode {
     expandable: boolean;
-    name: string;
     count: number | undefined;
     level: number;
+    name: string;
     urn: string;
     id: string;
     description: string;

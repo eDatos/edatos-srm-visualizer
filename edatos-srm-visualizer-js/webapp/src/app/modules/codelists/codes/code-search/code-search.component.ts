@@ -4,11 +4,13 @@ import {
     CodelistCodesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-codes-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-code-search',
@@ -69,11 +71,7 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
             this.dataDetail?.id + '/' + this.dataDetail?.version + '/' + 'detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        if(!this.apiService.isLatestVersion) {
-            resourceToTreeNode.scheme = `${resource.id}(${resource.version}) / ${resourceToTreeNode.maintainer}`;
-        } else {
-            resourceToTreeNode.scheme = `${resource.id} / ${resourceToTreeNode.maintainer}`;
-        }
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsWithMaintainerAndCodelistFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

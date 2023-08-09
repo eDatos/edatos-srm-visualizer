@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ConceptsSchemeApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-concepts-schemes-search',
@@ -64,9 +66,8 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        if(!this.apiService.isLatestVersion) {
-            resourceToTreeNode.id = resource.id + '(' + resource.version + ')'
-        }
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
+
 }

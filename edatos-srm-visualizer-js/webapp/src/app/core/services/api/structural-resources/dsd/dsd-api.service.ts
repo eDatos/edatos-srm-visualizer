@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
+import { LocaleService } from '../../../locale.service';
 
 @Injectable({
     providedIn: 'root',
@@ -13,8 +14,8 @@ export class DsdApiService extends ApiSrmService {
     public apiDimensionDataPath = 'dimensions'; //dimensions
     public apiAttributeDataPath = 'attributes'; //attributes
     public apiMeasureDataPath = 'measure'; //primaryMeasure
-    constructor(httpClient: HttpClient, config: ConfigService) {
-        super(httpClient, config);
+    constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
+        super(httpClient, config, localeService);
         this.apiSearchDataPath = 'dataStructure';
         this.apiSearchUrl = '/v1.0/datastructures/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/datastructures/{agencyID}/{resourceID}/{version}';
@@ -29,7 +30,7 @@ export class DsdApiService extends ApiSrmService {
     }
 
     public getDimensionAndAttributeAndMeasureData(resource: DsdResource) {
-        let api = this.apiDetailUrl
+        const api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)

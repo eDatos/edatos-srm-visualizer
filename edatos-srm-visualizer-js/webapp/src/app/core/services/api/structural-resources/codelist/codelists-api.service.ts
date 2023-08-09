@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { LocaleService } from '../../../locale.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,8 @@ import { Observable } from 'rxjs/internal/Observable';
 export class CodelistsApiService extends ApiSrmService {
 
     private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
-    constructor(httpClient: HttpClient, config: ConfigService) {
-        super(httpClient, config);
+    constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
+        super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelist';
         this.apiSearchUrl = '/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
@@ -33,4 +34,5 @@ export class CodelistsApiService extends ApiSrmService {
     public getRelatedCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
     }
+
 }

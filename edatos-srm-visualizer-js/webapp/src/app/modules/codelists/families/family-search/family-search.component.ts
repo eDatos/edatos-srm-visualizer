@@ -4,11 +4,13 @@ import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Component({
@@ -49,8 +51,6 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
             selectedFields:  [this.selectedDefault],
             showAllVersions: [false],
         });
-
-        this.isMapperWithMaintainer = false;
     }
 
 
@@ -69,5 +69,6 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
         this.routerLinkDetail = this.dataDetail?.id + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {}
-}
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsFromSrm(resources, this.apiService.isLatestVersion);
+    }}

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import {OrganisationsSchemeApiService} from "src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service";
 import { TranslateService } from '@ngx-translate/core';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 
 @Component({
     selector: 'app-schemes-search',
@@ -64,9 +66,7 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
              + this.dataDetail?.version + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        if(!this.apiService.isLatestVersion) {
-            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
-        }
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

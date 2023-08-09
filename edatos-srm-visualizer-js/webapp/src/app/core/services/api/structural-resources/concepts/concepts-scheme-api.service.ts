@@ -4,6 +4,7 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
+import { LocaleService } from '../../../locale.service';
 
 @Injectable({
     providedIn: 'root',
@@ -11,8 +12,8 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
 export class ConceptsSchemeApiService extends ApiSrmService {
 
     private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
-    constructor(httpClient: HttpClient, config: ConfigService) {
-        super(httpClient, config);
+    constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
+        super(httpClient, config, localeService);
         this.apiSearchDataPath = 'conceptScheme';
         this.apiSearchUrl = '/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
@@ -30,7 +31,7 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         return this.apiSearchUrl = '/v1.0/conceptschemes/';
     }
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {
-        let api = this.apiConceptsOfSchemeUrl
+        const api = this.apiConceptsOfSchemeUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)

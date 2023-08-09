@@ -77,7 +77,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new ConceptResource(data.urn);
         this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            let nameScheme = this.localeService.getTextValue(scheme.name.text);
+            const nameScheme = this.localeService.getTextValue(scheme.name.text);
             this.dataDetail!.conceptScheme = scheme.id + ' (' + nameScheme + ')';
             this.getDetailForm();
         });
@@ -86,58 +86,38 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
-            this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((concept) => {
-                if (concept[this.apiSrmService.apiSearchDataPath]) {
-                    let resource = new ConceptResource(concept.urn);
-                    this.apiSrmService.getDetailManteinerFromSrm(resource.agency).subscribe((maintainer) => {
-                        this.apiSrmService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
-                            let nameScheme = this.localeService.getTextValue(scheme.name.text);
-                            let nameMaintainer = this.localeService.getTextValue(maintainer.name.text);
-
-                            const resourceToTreeNode: TreeNode = {
-                                name: this.localeService.getTextValue(concept.name?.text),
-                                id: resource.id,
-                                urn: concept.urn,
-                                description: this.localeService.getTextValue(concept.description?.text),
-                                selfLink: concept.selfLink.href,
-                                maintainer: `${maintainer.id} - ${nameMaintainer}`,
-                                scheme: `${scheme.id} - ${nameScheme}`
-                            };
-                            this.otherConcepts = [...this.otherConcepts, resourceToTreeNode];
-                        });
-                    });
-                    this.otherConcepts.filter((concept: any) => concept.id != this.dataDetail?.id);
-                }
-                this.dataChildrenLoaded = true;
-            });
         }
+    }
+
+    private getOtherConcepts() {
+        this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((concept) => {
+            if (concept[this.apiSrmService.apiSearchDataPath]) {
+                const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
+                this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true).subscribe((data) => {
+                    this.otherConcepts = data;
+                    this.dataChildrenLoaded = true;
+                });
+            }
+        });
     }
 
     loadDetailDataOnInit(): void {
         this.loadRecommendedCodelists();
+        this.getOtherConcepts();
     }
 
     private loadRecommendedCodelists(): void {
-        this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
-            if (data[this.apiSrmService.apiCodelistDataPath]) {
-                data[this.apiSrmService.apiCodelistDataPath].forEach((codelist: any) => {
-                    this.apiSrmService.getDetailManteinerFromSrm(new CodelistResource(codelist.urn).agency).subscribe((maintainer) => {
-                        let nameMaintainer = this.localeService.getTextValue(maintainer.name.text);
-                        const resourceToTreeNode: TreeNode = {
-                            name: this.localeService.getTextValue(codelist.name.text),
-                            id: codelist.id,
-                            urn: codelist.urn,
-                            description: this.localeService.getTextValue(codelist.description?.text),
-                            selfLink: codelist.selfLink.href,
-                            maintainer: `${maintainer.id} - ${nameMaintainer}`,
-                            scheme: ''
-                        };
-                        this.recommendedCodelists = [...this.recommendedCodelists, resourceToTreeNode];
+        if (this.resource.variable) {
+            this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
+                if (data[this.apiSrmService.apiCodelistDataPath]) {
+                    const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];
+                    this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
+                        this.recommendedCodelists = data;
+                        this.dataChildrenLoaded = true;
                     });
-                });
-            }
-            this.dataChildrenLoaded = true;
-        });
+                }
+            });
+        }
     }
 
     public onLoadCodelistDetail(urn: string): void {

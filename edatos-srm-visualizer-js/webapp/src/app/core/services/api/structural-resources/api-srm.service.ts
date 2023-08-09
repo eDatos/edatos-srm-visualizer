@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
+import { map } from 'rxjs/internal/operators/map';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +20,6 @@ export abstract class ApiSrmService extends ApiService {
     public apiChildrenTreeUrl: string = '';
     public apiChildrenUrl: string = '';
     public apiChildrenDataPath: string = '';
-
-    private apiManteinerUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies/{organisationID}';
 
     public isLatestVersion: boolean = true;
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
@@ -40,6 +40,98 @@ export abstract class ApiSrmService extends ApiService {
     /* Detail */
     public getDetailFromSrm(resource: Resource): Observable<any> {
         return this.getDataFromSrm(this.getApiDetailUrl(resource));
+    }
+
+    public findAllDetailsFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+        return forkJoin(
+            resources.map(resource => this.getDetailsFromSrm(resource, isLatestVersion))
+        );
+    }
+    public getDetailsFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url)
+            }
+        ).pipe(
+            map(({data}) => {
+                    const treeNode: TreeNode = {
+                        name: this.localeService.getTextValue(data.name.text),
+                        id: data.id ,
+                        urn: data.urn,
+                        description: this.localeService.getTextValue(data.description?.text),
+                        selfLink: data.selfLink.href,
+                        maintainer: '',
+                        scheme: ''
+                    };
+                    return treeNode;
+                }
+            ));
+    }
+
+    public findAllDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+        return forkJoin(
+            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion))
+        );
+    }
+    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer),
+            }
+        ).pipe(
+            map(({data, maintainer}) => {
+                    const maintainerName = this.localeService.getTextValue(maintainer.name.text);
+
+                    const treeNode: TreeNode = {
+                        name: this.localeService.getTextValue(data.name.text),
+                        id: isLatestVersion ? data.id : `${data.id}(${data.version})`,
+                        urn: data.urn,
+                        description: this.localeService.getTextValue(data.description?.text),
+                        selfLink: data.selfLink.href,
+                        maintainer: `${maintainer.id} - ${maintainerName}`,
+                        scheme: ''
+                    };
+                    return treeNode;
+                }
+            ));
+    }
+
+    public findAllDetailsWithMaintainerAndSchemeFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+        return forkJoin(
+            resources.map(resource => this.getDetailWithMaintainerAndSchemeFromSrm(resource, isLatestVersion))
+        );
+    }
+    public getDetailWithMaintainerAndSchemeFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
+        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(resource));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer),
+                scheme: this.httpClient.get<any>(urlScheme)
+            }
+        ).pipe(
+            map(({data, maintainer, scheme}) => {
+                    const maintainerName = this.localeService.getTextValue(maintainer.name.text);
+                    const schemeName = this.localeService.getTextValue(scheme.name.text);
+
+                    const treeNode: TreeNode = {
+                        name: this.localeService.getTextValue(data.name.text),
+                        id: data.id,
+                        urn: data.urn,
+                        description: this.localeService.getTextValue(data.description?.text),
+                        selfLink: data.selfLink.href,
+                        maintainer: `${maintainer.id} - ${maintainerName}`,
+                        scheme: isLatestVersion ? `${scheme.id} - ${schemeName}` : `${scheme.id}(${scheme.version}) - ${schemeName}`
+                    };
+                    return treeNode;
+                }
+            ));
     }
 
     public getDetailManteinerFromSrm(agency: string): Observable<any> {

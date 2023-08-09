@@ -93,7 +93,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                             description: this.localeService.getTextValue(codelist.description?.text),
                             selfLink: codelist.selfLink.href,
                             maintainer: codelist.agencyID,
-                            scheme: scheme,
+                            scheme: scheme
                         };
 
                         this.dataChildrenTable = [...this.dataChildrenTable, resourceToTreeNode];

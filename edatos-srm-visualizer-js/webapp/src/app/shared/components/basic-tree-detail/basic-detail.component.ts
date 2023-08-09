@@ -138,7 +138,7 @@ export abstract class BasicDetailComponent implements OnInit {
                 this.dataDetail!.annotations = this.localeService.getTextValue(this.resource.annotations?.text);
                 this.dataDetail!.uri = this.resource.selfLink?.href;
                 this.dataDetail!.maintainer = maintainer.id + ' - ' + nameMaintainer;
-                this.dataDetail!.version = 'v' + this.dataDetail.version;
+                this.dataDetail!.version = this.dataDetail.version;
 
                 this.detailForm.patchValue(this.dataDetail);
             });

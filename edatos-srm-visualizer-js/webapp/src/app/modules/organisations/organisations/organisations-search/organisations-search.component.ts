@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import {
     OrganisationsApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
@@ -11,6 +11,8 @@ import {
 } from 'src/app/shared/models/resources/organisation-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-organisations-search',
@@ -69,14 +71,7 @@ export class OrganisationsSearchComponent extends BasicSearchComponent implement
             + this.dataDetail?.id + '/' + this.dataDetail?.version + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
-            let nameScheme = this.localeService.getTextValue(scheme.name.text);
-            if(!this.apiService.isLatestVersion) {
-                resourceToTreeNode.scheme = scheme.id + '(' + scheme.version + ') - ' + nameScheme;
-            } else {
-                resourceToTreeNode.scheme = scheme.id + ' - ' + nameScheme;
-            }
-        });
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

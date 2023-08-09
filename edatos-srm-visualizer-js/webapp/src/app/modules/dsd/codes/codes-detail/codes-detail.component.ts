@@ -79,7 +79,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     loadDetailDataOnInit(): void {
         this.apiSrmService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiSrmService.apiDataStructureComponentsDataPath]) {
-                let dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
+                const dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
                 this.measures.push(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']);
@@ -94,7 +94,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 const resource = new DsdResource(attribute.urn);
                 resource.id = attribute.id;
                 resource.assigmentStatus = attribute.assignmentStatus;
-                let concept = new Resource(attribute.conceptIdentity?.urn);
+                const concept = new Resource(attribute.conceptIdentity?.urn);
                 resource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
                 resource.attributeRelationship = getAttributeRelationship(attribute['attributeRelationship'], this.translateService);
                 return resource;
@@ -109,7 +109,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 const resource = new DsdResource(dimension.urn);
                 resource.id = dimension.id;
                 resource.typeDimension = getTypeDimension(dimension.type, this.translateService);
-                let concept = new Resource(dimension.conceptIdentity?.urn);
+                const concept = new Resource(dimension.conceptIdentity?.urn);
                 resource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
                 return resource;
             });
