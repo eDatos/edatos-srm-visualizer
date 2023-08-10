@@ -60,8 +60,8 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         });
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 
     loadDetailDataOnInit(): void {

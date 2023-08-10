@@ -19,7 +19,9 @@ import { DateUtils } from 'src/app/shared/utils/date-utils';
 })
 export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
+    public items: any[] = [];
     public selectedVersion: string = '';
+    public expandedMenu: boolean = false;
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -48,6 +50,25 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
             }
         ];
         this.activeLink = this.navLinks[0];
+
+        this.items = [
+            {
+                label: this.translateService.instant('download.sdmx-xml'),
+                icon: 'fa-thin fa-code'
+            },
+            {
+                label: this.translateService.instant('download.json'),
+                icon: 'fa-thin fa-brackets-curly'
+            },
+            {
+                label: this.translateService.instant('download.csv'),
+                icon: 'fa-thin fa-semicolon'
+            },
+            {
+                label: this.translateService.instant('download.xls'),
+                icon: 'fa-thin fa-file-spreadsheet'   
+            }
+        ];
     }
 
     public updateTableChildrenTreeNode(data: any): void {
@@ -80,8 +101,13 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.versions = [];
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
+    }
+
+    handleVisibilityMenu(): boolean {
+        this.expandedMenu = !this.expandedMenu;
+        return this.expandedMenu;
     }
 
 }
