@@ -6,7 +6,6 @@ import {
     OrganisationsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
-import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
@@ -22,8 +21,8 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
     public items: any[] = [];
     public selectedVersion: string = '';
 
-    public navLinks: MenuItem[];
-    public activeLink: MenuItem;
+    public navLinks: any[];
+    public activeLink: string;
     public expandedMenu: boolean = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsSchemeApiService,
@@ -53,34 +52,34 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code',
+                icon: 'fa-thin fa-code'/*,
                 command: () => {
                             this.onDownloadFileFormat('xml');
-                }
+                }*/ //TODO: pendiente de tarea EDATOS-4143
             },
             {
                 label: this.translateService.instant('download.json'),
-                icon: 'fa-thin fa-brackets-curly',
+                icon: 'fa-thin fa-brackets-curly'/*,
                 command: () => {
                     this.onDownloadFileFormat('json');
-                }
+                }*/
             },
             {
                 label: this.translateService.instant('download.csv'),
-                icon: 'fa-thin fa-semicolon',
+                icon: 'fa-thin fa-semicolon'/*,
                 command: () => {
                     this.onDownloadFileFormat('csv');
-                }
+                }*/
             },
             {
                 label: this.translateService.instant('download.xls'),
-                icon: 'fa-thin fa-file-spreadsheet',
+                icon: 'fa-thin fa-file-spreadsheet'/*,
                 command: () => {
                     this.onDownloadFileFormat('xls');
-                }
+                }*/
             }
         ];
-        this.activeLink = this.navLinks[0];
+        this.activeLink = this.navLinks[0].label;
     }
 
     public updateTableChildrenTreeNode(data: any): void {
@@ -115,8 +114,8 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 
     handleVisibilityMenu(): boolean {

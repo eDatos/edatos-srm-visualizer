@@ -18,8 +18,8 @@ import { OrganisationResource } from 'src/app/shared/models/resources/organisati
 })
 export class OrganisationsDetailComponent extends BasicDetailComponent implements OnInit {
 
-    public navLinks: MenuItem[];
-    public activeLink: MenuItem;
+    public navLinks: any[];
+    public activeLink: string;
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
@@ -41,7 +41,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
                 label: this.translateService.instant('organisations.otherOrganisationsOfScheme')
             }
         ];
-        this.activeLink = this.navLinks[0];
+        this.activeLink = this.navLinks[0].label;
     }
 
     public updateTableChildrenTreeNode(data: any): void {
@@ -66,8 +66,8 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
         });
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 
     loadDetailDataOnInit(): void {}

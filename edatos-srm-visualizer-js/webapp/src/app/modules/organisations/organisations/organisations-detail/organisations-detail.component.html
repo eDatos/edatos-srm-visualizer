@@ -57,24 +57,37 @@
     </div>
 
     <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
-    <input type='text' class='form-control' formControlName='maintainer' id='maintainer' readonly>
-   
+    <div class="info-link">
+        <span class="info-agency" id='maintainer'>{{ dataDetail.maintainer }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+        </div>
+    </div>
 </div>
 
 <br>
-    <div class='container'>
-        <div class='section-tab'>
-            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
-                       (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
-        </div>
-        <div class='m-30' *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
-            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
-            </div>
+<div class="subsection-tab detail-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let link of navLinks">
+          <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label; onActiveItemChange(link.label)" 
+            routerLinkActive="active">{{link.label}}
+          </a>
+        </li>
+    </ul>
+</div>
+
+<br/>
+<div class='container detail-table'>
+    <div *ngIf='!dataChildrenLoaded'>
+        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+    </div>
+    <div *ngIf='activeLink == navLinks[0].label'>
+        <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+            <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
         </div>
     </div>
-    <br />
+</div>
+<br />
 
