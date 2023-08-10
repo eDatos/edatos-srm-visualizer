@@ -5,6 +5,8 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-codelist-search',
@@ -40,11 +42,11 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.selectedDefault = this.fields.filter(opt => opt.value !== 'description').map(a => a);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
-            selectedFields:  [this.selectedDefault],
-            showAllVersions: [false],
+            selectedFields: [this.selectedDefault],
+            showAllVersions: [false]
         });
 
     }
@@ -55,12 +57,17 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
 
     public onLoadCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
-        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +  this.dataDetail?.version + '/detail';
+        this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' + this.dataDetail?.version + '/detail';
     }
 
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        if (!this.apiService.isLatestVersion) {
+            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+        }
+    }
 }

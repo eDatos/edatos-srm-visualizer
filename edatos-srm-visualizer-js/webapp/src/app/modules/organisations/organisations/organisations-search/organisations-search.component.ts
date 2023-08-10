@@ -9,6 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import {
     OrganisationResource
 } from 'src/app/shared/models/resources/organisation-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-organisations-search',
@@ -57,13 +59,24 @@ export class OrganisationsSearchComponent extends BasicSearchComponent implement
 
     public onLoadOrganisationDetail(urn: string): void {
         this.dataDetail = new OrganisationResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
             + this.dataDetail?.id + '/' + this.dataDetail?.version + '/detail';
+    }
+
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
+            if(!this.apiService.isLatestVersion) {
+                resourceToTreeNode.scheme = scheme.id + '(' + scheme.version + ') - ' + nameScheme;
+            } else {
+                resourceToTreeNode.scheme = scheme.id + ' - ' + nameScheme;
+            }
+        });
     }
 }

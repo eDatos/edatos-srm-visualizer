@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
+
 @Component({
     selector: 'app-concepts-schemes-detail',
     templateUrl: './concepts-schemes-detail.component.html',
@@ -24,10 +25,10 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     public selectedVersion: string = '';
 
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: ConceptsSchemeApiService,
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.isDataWithChildrenTree = false;
         this.detailForm = this.formBuilder.group({
@@ -38,7 +39,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
             version: '',
             agency: '',
             annotations: '',
-            uri: ''
+            uri: '',
+            maintainer: '',
         });
 
         this.navLinks = [
@@ -52,9 +54,9 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public updateTableChildrenTreeNode(data: any): void {}
 
     private loadConceptsOfScheme(): void {
-        this.apiService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
-            if (data[this.apiService.apiChildrenDataPath]) {
-                this.conceptsOfScheme = data[this.apiService.apiChildrenDataPath].map((concept: any) => {
+        this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
+            if (data[this.apiSrmService.apiChildrenDataPath]) {
+                this.conceptsOfScheme = data[this.apiSrmService.apiChildrenDataPath].map((concept: any) => {
                     const resource = new ConceptResource(concept.urn);
                     resource.id = concept.id;
                     resource.name = this.localeService.getTextValue(concept.name?.text);
@@ -67,11 +69,11 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     }
 
     public onLoadDetailVersion(version: string) {
-        this.router.navigate(['concepts', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
         this.versions = [];
     }
     public loadAllVersionsFromResource(): void {
-        this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+        this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.filter((version: any) => version !== this.dataDetail!.version).reverse().forEach((version: any) => {
                     this.versions.push({value: version});
@@ -82,12 +84,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new ConceptResource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.getDetailForm();
     }
 
     public loadDetailDataOnInit(): void {

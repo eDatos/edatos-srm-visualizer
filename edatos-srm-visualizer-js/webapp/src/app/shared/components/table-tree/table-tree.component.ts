@@ -1,7 +1,7 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
@@ -50,7 +50,7 @@ export class TableTreeComponent {
 
     dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    constructor(private apiService: ApiService, private localeService: LocaleService) {
+    constructor(private apiService: ApiSrmService, private localeService: LocaleService) {
     }
 
 

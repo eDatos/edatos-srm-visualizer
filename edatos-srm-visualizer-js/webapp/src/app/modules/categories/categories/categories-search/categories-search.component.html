@@ -7,15 +7,15 @@
             <input type="text" class="form-control" formControlName="filter" id="filter"
                    placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="onSearch()">
         </div>
-        <div class="custom-control custom-switch col" *ngIf="marked">
-            <p-inputSwitch inputId="allVersions" formControlName="showAllVersions"></p-inputSwitch>
-            <label for="allVersions"
-                   [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+        <div class='custom-control custom-switch col' *ngIf='marked'>
+            <label for='allVersions'
+                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+            <p-inputSwitch id="allVersions" inputId='allVersions' (onChange)='onSearchWithAllVersions()'/>
         </div>
-        <div class="custom-control custom-switch">
-            <p-inputSwitch inputId="advancedSearch" (onChange)="toggleVisibility($event)"></p-inputSwitch>
-            <label for="advancedSearch"
-                   [ngClass]="(marked === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+        <div class='custom-control custom-switch'>
+            <label for='advancedSearch'
+                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+            <p-inputSwitch id="advancedSearch" inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
         </div>
     </div>
 </div>

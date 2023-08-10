@@ -20,14 +20,14 @@
             </p-multiSelect>
         </div>
         <div class='custom-control custom-switch col' *ngIf='marked'>
-            <p-inputSwitch inputId='allVersions' formControlName='showAllVersions'></p-inputSwitch>
             <label for='allVersions'
-                   [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+            <p-inputSwitch id="allVersions" inputId='allVersions' (onChange)='onSearchWithAllVersions()'/>
         </div>
         <div class='custom-control custom-switch'>
-            <p-inputSwitch inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
             <label for='advancedSearch'
-                   [ngClass]="(marked === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+            <p-inputSwitch id="advancedSearch" inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>
     </div>
-    <div class='search-results-table' [scrollWindow]='false' infinite-scroll
+    <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'

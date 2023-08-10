@@ -11,16 +11,17 @@ import { CategoryResource } from 'src/app/shared/models/resources/category-resou
 @Component({
     selector: 'app-categories-detail',
     templateUrl: './categories-detail.component.html',
-    styleUrls: ['./categories-detail.component.scss'],
+    styleUrls: ['./categories-detail.component.scss']
 })
 export class CategoriesDetailComponent extends BasicDetailComponent implements OnInit {
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: CategoriesApiService,
+
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CategoriesApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -30,6 +31,7 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
             agency: '',
             annotations: '',
             categoryScheme: '',
+            maintainer: ''
         });
 
         this.navLinks = [
@@ -46,20 +48,22 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         this.tabletreenode.treeControl.expandAll();
     }
 
-    public loadAllVersionsFromResource(): void {}
+    public loadAllVersionsFromResource(): void {
+    }
 
     public mapperDataResourceDetail(data: any): void {
         this.dataDetail = new CategoryResource(data.urn);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
-        this.dataDetail!.uri = data.selfLink?.href;
-        this.dataDetail!.categoryScheme = this.dataDetail.resourceId;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
+            this.dataDetail!.categoryScheme = scheme.id + ' (' + nameScheme + ')';
+            this.getDetailForm();
+        });
     }
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
     }
-    loadDetailDataOnInit(): void {}
+
+    loadDetailDataOnInit(): void {
+    }
 }

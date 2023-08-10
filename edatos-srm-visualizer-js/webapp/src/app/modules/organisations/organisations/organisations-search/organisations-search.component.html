@@ -8,14 +8,14 @@
                    placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
         </div>
         <div class='custom-control custom-switch col' *ngIf='marked'>
-            <p-inputSwitch inputId='allVersions' formControlName='showAllVersions'></p-inputSwitch>
             <label for='allVersions'
-                   [ngClass]="(showAllVersions === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+            <p-inputSwitch id="allVersions" inputId='allVersions' (onChange)='onSearchWithAllVersions()'/>
         </div>
         <div class='custom-control custom-switch'>
-            <p-inputSwitch inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
             <label for='advancedSearch'
-                   [ngClass]="(marked === true)?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+            <p-inputSwitch id="advancedSearch" inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
         </div>
     </div>
 </div>
@@ -29,7 +29,8 @@
          (scrolled)='onScrollDown($event)' (scrolledUp)='onScrollUp($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadOrganisationDetail($event)'></table-expandable-rows>
+                               (clickEvent)='onLoadOrganisationDetail($event)'
+                               (onChange)='marked && onSearch()'></table-expandable-rows>
     </div>
 </div>
 <br />

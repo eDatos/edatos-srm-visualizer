@@ -5,21 +5,24 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
 import { TranslateService } from '@ngx-translate/core';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
+
 @Component({
     selector: 'app-codes-search',
     templateUrl: './codes-search.component.html',
-    styleUrls: ['./codes-search.component.scss'],
+    styleUrls: ['./codes-search.component.scss']
 })
 export class CodesSearchComponent extends BasicSearchComponent implements OnInit {
     constructor(protected override formBuilder: FormBuilder, protected override apiService: DsdApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
         super(apiService, formBuilder, translateService, localeService);
-        
+
         this.searchForm = this.formBuilder.group({
             id: '',
             name: '',
             urn: '',
-            description: '',
+            description: ''
         });
 
         this.detailForm = this.formBuilder.group({
@@ -28,7 +31,7 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
             urn: '',
             description: '',
             version: '',
-            scheme: '',
+            scheme: ''
         });
 
         this.fields = [
@@ -38,26 +41,33 @@ export class CodesSearchComponent extends BasicSearchComponent implements OnInit
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description').map(a => a);
+        this.selectedDefault = this.fields.filter(opt => opt.value !== 'description').map(a => a);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
-            selectedFields:  [this.selectedDefault],
-            showAllVersions: [false],
+            selectedFields: [this.selectedDefault],
+            showAllVersions: [false]
         });
     }
+
     ngOnInit(): void {
         this.loadInitialData();
     }
 
     public onLoadDsdDetail(urn: string): void {
         this.dataDetail = new DsdResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/'
-            +  this.dataDetail?.version + '/detail';
+            + this.dataDetail?.version + '/detail';
+    }
+
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        if(!this.apiService.isLatestVersion) {
+            resourceToTreeNode.id = resource.id + '(' + resource.version + ')';
+        }
     }
 }

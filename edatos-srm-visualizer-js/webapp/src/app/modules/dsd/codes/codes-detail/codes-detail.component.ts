@@ -1,23 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {DsdApiService} from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
-import {LocaleService} from 'src/app/core/services/locale.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DateUtils } from 'src/app/shared/utils/dateUtils';
+import { DateUtils } from 'src/app/shared/utils/date-utils';
 import {
     DsdResource,
     getAttributeRelationship,
     getTypeDimension
 } from 'src/app/shared/models/resources/dsd-resource.model';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
 
 @Component({
     selector: 'app-codes-detail',
     templateUrl: './codes-detail.component.html',
-    styleUrls: ['./codes-detail.component.scss'],
+    styleUrls: ['./codes-detail.component.scss']
 })
 export class CodesDetailComponent extends BasicDetailComponent implements OnInit {
 
@@ -30,11 +31,12 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public dimensions: DsdResource[] = [];
     public attributes: DsdResource[] = [];
     public measures: DsdResource[] = [];
-    constructor(protected override formBuilder: FormBuilder, protected override apiService: DsdApiService,
+
+    constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService
     ) {
-        super(formBuilder, apiService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService);
         this.isDataWithChildrenTree = false;
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -45,7 +47,8 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
             version: '',
             agency: '',
             annotations: '',
-            publicationDate: ''
+            publicationDate: '',
+            maintainer: ''
         });
 
         this.navLinks = [
@@ -64,7 +67,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     loadAllVersionsFromResource(): void {
-        this.apiService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+        this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {
                     this.versions.push({ value: version });
@@ -74,20 +77,20 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     loadDetailDataOnInit(): void {
-        this.apiService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
-            if (data[this.apiService.apiDataStructureComponentsDataPath]) {
-                let dataStructureComponents = data[this.apiService.apiDataStructureComponentsDataPath];
+        this.apiSrmService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
+            if (data[this.apiSrmService.apiDataStructureComponentsDataPath]) {
+                let dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
-                this.measures.push(dataStructureComponents[this.apiService.apiMeasureDataPath]?.["primaryMeasure"]);
+                this.measures.push(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']);
             }
             this.dataChildrenLoaded = true;
         });
     }
 
     private getAttributes(dataStructureComponents: any): DsdResource[] {
-        if(dataStructureComponents[this.apiService.apiAttributeDataPath]) {
-            this.attributes = dataStructureComponents[this.apiService.apiAttributeDataPath]["attribute"].map((attribute: any) => {
+        if (dataStructureComponents[this.apiSrmService.apiAttributeDataPath]) {
+            this.attributes = dataStructureComponents[this.apiSrmService.apiAttributeDataPath]['attribute'].map((attribute: any) => {
                 const resource = new DsdResource(attribute.urn);
                 resource.id = attribute.id;
                 resource.assigmentStatus = attribute.assignmentStatus;
@@ -101,8 +104,8 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     private getDimensions(dataStructureComponents: any): DsdResource[] {
-        if(dataStructureComponents[this.apiService.apiDimensionDataPath]) {
-            this.dimensions = dataStructureComponents[this.apiService.apiDimensionDataPath]["dimension"].map((dimension: any) => {
+        if (dataStructureComponents[this.apiSrmService.apiDimensionDataPath]) {
+            this.dimensions = dataStructureComponents[this.apiSrmService.apiDimensionDataPath]['dimension'].map((dimension: any) => {
                 const resource = new DsdResource(dimension.urn);
                 resource.id = dimension.id;
                 resource.typeDimension = getTypeDimension(dimension.type, this.translateService);
@@ -111,22 +114,17 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 return resource;
             });
         }
-        return this.dimensions
+        return this.dimensions;
     }
+
     mapperDataResourceDetail(data: any): void {
         this.dataDetail = new DsdResource(data.urn);
-        this.dataDetail!.description = this.localeService.getTextValue(data.description?.text);
-        this.dataDetail!.name = this.localeService.getTextValue(data.name?.text);
-        this.dataDetail!.annotations = this.localeService.getTextValue(data.annotations?.text);
         this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
-        this.dataDetail!.uri = data.selfLink?.href;
-
-        this.dataDetail!.version = this.dataDetail.version;
-
-        this.detailForm.patchValue(this.dataDetail);
+        this.getDetailForm();
     }
 
-    updateTableChildrenTreeNode(data: any): void {}
+    updateTableChildrenTreeNode(data: any): void {
+    }
 
     onActiveItemChange(event: any) {
         this.activeLink = event;

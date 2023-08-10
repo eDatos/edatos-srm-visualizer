@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { ApiService } from 'src/app/core/services/api/structural-resources/api.service';
+import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class DsdApiService extends ApiService {
+export class DsdApiService extends ApiSrmService {
 
     public apiDataStructureComponentsDataPath = 'dataStructureComponents'; //dimensions
     public apiDimensionDataPath = 'dimensions'; //dimensions
@@ -21,12 +21,19 @@ export class DsdApiService extends ApiService {
         this.apiAllVersionsFromResourceUrl = '/api/datastructures/{urn}/all-versions';
     }
 
+    public getApiSearchUrl(): string {
+        if (this.isLatestVersion) {
+            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+        }
+        return this.apiSearchUrl = '/v1.0/datastructures/';
+    }
+
     public getDimensionAndAttributeAndMeasureData(resource: DsdResource) {
         let api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
-        return this.getData(ApiService.apiStructuralResource.concat(api));
+        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 
     /*

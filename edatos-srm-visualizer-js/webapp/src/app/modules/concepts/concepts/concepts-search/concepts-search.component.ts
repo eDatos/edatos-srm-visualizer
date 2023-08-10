@@ -5,6 +5,8 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -38,7 +40,7 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'urn' }
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
         ];
         this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description');
 
@@ -56,13 +58,24 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
 
     public onLoadConceptDetail(urn: string): void {
         this.dataDetail = new ConceptResource(urn);
-        this.apiService.getDetailFromStructureResource(this.dataDetail).subscribe((data) => {
-            (this.dataDetail!.description = this.localeService ? this.localeService.getTextValue(data.description?.text) : ' ');
-            (this.dataDetail!.name = this.localeService ? this.localeService.getTextValue(data.name?.text) : ' ');
+        this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
+            (this.dataDetail!.description = this.localeService.getTextValue(data.description?.text));
+            (this.dataDetail!.name = this.localeService.getTextValue(data.name?.text));
             this.detailForm.patchValue(this.dataDetail);
         });
 
         this.routerLinkDetail = this.dataDetail?.agency + '/' + this.dataDetail?.resourceId + '/' +
             this.dataDetail?.id + '/' +  this.dataDetail?.version + '/detail';
+    }
+
+    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
+        this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
+            let nameScheme = this.localeService.getTextValue(scheme.name.text);
+            if(!this.apiService.isLatestVersion) {
+                resourceToTreeNode.scheme = `${scheme.id}(${scheme.version}) - ${nameScheme}`;
+            } else {
+                resourceToTreeNode.scheme = `${scheme.id} - ${nameScheme}`;
+            }
+        });
     }
 }
