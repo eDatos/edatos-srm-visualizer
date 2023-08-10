@@ -91,7 +91,7 @@
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-          <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label; onActiveItemChange(link.label)" 
+          <a class="nav-link" [ngClass]="activeLink.label == link.label ? 'active' : ''" (click)="activeLink.label = link.label; onActiveItemChange(link)" 
             routerLinkActive="active">{{link.label}}
           </a>
         </li>
@@ -103,7 +103,7 @@
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>
     </div>
-    <div *ngIf='activeLink == navLinks[0].label'>
+    <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
             <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
         </div>

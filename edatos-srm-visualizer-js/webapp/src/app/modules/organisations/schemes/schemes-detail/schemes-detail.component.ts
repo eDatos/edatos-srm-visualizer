@@ -6,6 +6,7 @@ import {
     OrganisationsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
+import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
@@ -21,8 +22,8 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
     public items: any[] = [];
     public selectedVersion: string = '';
 
-    public navLinks: any[];
-    public activeLink: string;
+    public navLinks: MenuItem[];
+    public activeLink: MenuItem;
     public expandedMenu: boolean = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsSchemeApiService,
@@ -79,7 +80,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 }*/
             }
         ];
-        this.activeLink = this.navLinks[0].label;
+        this.activeLink = this.navLinks[0];
     }
 
     public updateTableChildrenTreeNode(data: any): void {
