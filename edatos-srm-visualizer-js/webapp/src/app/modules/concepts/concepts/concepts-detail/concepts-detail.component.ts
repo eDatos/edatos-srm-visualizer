@@ -3,18 +3,18 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-concepts-detail',
     templateUrl: './concepts-detail.component.html',
-    styleUrls: ['./concepts-detail.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./concepts-detail.component.scss']
 })
 export class ConceptsDetailComponent extends BasicDetailComponent implements OnInit {
     public navLinks: MenuItem[];
@@ -31,8 +31,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
-        this.isDataWithChildrenTree = false;
+
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -68,25 +67,24 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         ];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-    }
-
-    public loadAllVersionsFromResource(): void {
-    }
-
-    public mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new ConceptResource(data.urn);
-        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            const nameScheme = this.localeService.getTextValue(scheme.name.text);
-            this.dataDetail!.conceptScheme = scheme.id + ' (' + nameScheme + ')';
-            this.getDetailForm();
+    loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadRecommendedCodelists();
+            this.getOtherConcepts();
         });
     }
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
+            this.getOtherConcepts();
         }
+    }
+
+    private loadDataDetailResource(data: any): Observable<ConceptResource> {
+        return this.apiSrmService.getDataDetailConceptResourceFromSrm(data);
     }
 
     private getOtherConcepts() {
@@ -101,13 +99,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         });
     }
 
-    loadDetailDataOnInit(): void {
-        this.loadRecommendedCodelists();
-        this.getOtherConcepts();
-    }
-
     private loadRecommendedCodelists(): void {
-        if (this.resource.variable) {
+        if (this.resource && this.resource.variable !== undefined) {
             this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
                 if (data[this.apiSrmService.apiCodelistDataPath]) {
                     const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];

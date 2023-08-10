@@ -67,6 +67,6 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
+        return this.apiService.findAllResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

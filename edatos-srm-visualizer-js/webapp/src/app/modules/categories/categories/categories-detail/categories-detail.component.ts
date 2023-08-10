@@ -3,10 +3,11 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesApiService } from 'src/app/core/services/api/structural-resources/categories/categories-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
+import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-categories-detail',
@@ -22,7 +23,6 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -42,28 +42,21 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         this.activeLink = this.navLinks[0];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-        this.tabletreenode.data = [];
-        this.dataChildren = data;
-        this.tabletreenode.treeControl.expandAll();
-    }
 
-    public loadAllVersionsFromResource(): void {
-    }
-
-    public mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new CategoryResource(data.urn);
-        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            const nameScheme = this.localeService.getTextValue(scheme.name.text);
-            this.dataDetail!.categoryScheme = scheme.id + ' (' + nameScheme + ')';
-            this.getDetailForm();
+    protected loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadChildrenTreeData();
         });
+    }
+
+    private loadDataDetailResource(data: any): Observable<CategoryResource> {
+        return this.apiSrmService.getDataDetailCategoryResourceFromSrm(data);
     }
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
     }
 
-    loadDetailDataOnInit(): void {
-    }
 }

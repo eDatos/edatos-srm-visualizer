@@ -4,16 +4,20 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { DsdResource } from 'src/app/shared/models/resources/dsd-resource.model';
 import { LocaleService } from '../../../locale.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { CategoryResource } from '../../../../../shared/models/resources/category-resource.model';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DsdApiService extends ApiSrmService {
 
-    public apiDataStructureComponentsDataPath = 'dataStructureComponents'; //dimensions
-    public apiDimensionDataPath = 'dimensions'; //dimensions
-    public apiAttributeDataPath = 'attributes'; //attributes
-    public apiMeasureDataPath = 'measure'; //primaryMeasure
+    public apiDataStructureComponentsDataPath = 'dataStructureComponents';
+    public apiDimensionDataPath = 'dimensions';
+    public apiAttributeDataPath = 'attributes';
+    public apiMeasureDataPath = 'measure';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'dataStructure';
@@ -29,6 +33,21 @@ export class DsdApiService extends ApiSrmService {
         return this.apiSearchUrl = '/v1.0/datastructures/';
     }
 
+    public getDataDetailDsdResourceFromSrm(dataDetail: any): Observable<DsdResource> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer)
+            }
+        ).pipe(
+            map(({ data, maintainer }) => {
+                    return DsdResource.dsdResource(data, maintainer, this.localeService);
+                }
+            ));
+    }
+
     public getDimensionAndAttributeAndMeasureData(resource: DsdResource) {
         const api = this.apiDetailUrl
             .replace('{agencyID}', resource.agency)
@@ -37,14 +56,4 @@ export class DsdApiService extends ApiSrmService {
         return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 
-    /*
-
-      public getOtherConcepts(resource: CodelistResource): Observable<any> {
-    let api = this.apiOtherConceptsUrl
-        .replace('{agencyID}', resource.agency)
-        .replace('{resourceID}', resource.resourceId)
-        .replace('{version}', resource.version)
-    return this.getData(ApiService.apiStructuralResource.concat(api));
-  }
-     */
 }

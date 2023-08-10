@@ -70,5 +70,5 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllDetailsFromSrm(resources, this.apiService.isLatestVersion);
+        return this.apiService.findAllResourcesDetailsFromSrm(resources, this.apiService.isLatestVersion);
     }}

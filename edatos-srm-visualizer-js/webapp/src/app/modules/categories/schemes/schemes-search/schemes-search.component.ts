@@ -71,6 +71,6 @@ export class SchemesSearchComponent extends BasicSearchComponent implements OnIn
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
+        return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

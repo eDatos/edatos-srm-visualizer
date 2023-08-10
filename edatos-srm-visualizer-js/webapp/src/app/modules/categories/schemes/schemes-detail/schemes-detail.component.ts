@@ -6,11 +6,11 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
-import { DateUtils } from 'src/app/shared/utils/date-utils';
+import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-schemes-detail',
@@ -28,7 +28,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
+
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -50,22 +50,20 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.activeLink = this.navLinks[0];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-        this.tabletreenode.data = [];
-        this.dataChildren = data;
-        this.tabletreenode.treeControl.expandAll();
+    protected loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadAllVersionsFromResource();
+            this.loadChildrenTreeData();
+        });
     }
 
-    loadDetailDataOnInit(): void {
+    private loadDataDetailResource(data: any): Observable<CategoryResource> {
+        return this.apiSrmService.getDataDetailCategorySchemeResourceFromSrm(data);
     }
 
-    mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new CategoryResource(data.urn);
-        this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
-        this.getDetailForm();
-    }
-
-    public loadAllVersionsFromResource(): void {
+    private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {

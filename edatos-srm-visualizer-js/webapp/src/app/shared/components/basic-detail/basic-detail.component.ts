@@ -11,6 +11,7 @@ import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service'
 import { FileDonwloadHelper } from 'src/app/core/services/helper/file-donwload-helper';
 import { TableExpandableRows } from '../table/table-row-expand.component';
 
+
 @Component({
     selector: 'app-basic-detail',
     templateUrl: './basic-detail.component.html'
@@ -28,13 +29,9 @@ export abstract class BasicDetailComponent implements OnInit {
     detailForm: any;
     dataDetail: any | undefined;
 
-    showChildrenTree: boolean = false;
-
-    isDataWithChildrenTree: boolean = true;
+    public expandedMenu: boolean = false;
     dataChildrenLoaded: boolean = false;
     dataChildren: TreeNode[] = [];
-
-    protected isMapperWithMaintainer: boolean = true;
 
     protected fileDownloadHelper: FileDonwloadHelper;
     constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
@@ -72,46 +69,34 @@ export abstract class BasicDetailComponent implements OnInit {
         ];
     }
 
-    public abstract updateTableChildrenTreeNode(data: any): void;
-
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
+            this.dataDetail = {
+                id: this.route.snapshot.paramMap.get('id')!,
+                resourceId: this.route.snapshot.paramMap.get('resourceID')!,
+                version: this.route.snapshot.paramMap.get('version')!,
+                agency: this.route.snapshot.paramMap.get('agencyID')!,
+                description: '',
+                name: '',
+                urn: this.route.snapshot.paramMap.get('urn')!,
+                annotations: '',
+                uri: '',
+            };
             this.loadDetailData();
         });
     }
 
-    public loadDetailData() {
-        this.dataDetail = {
-            id: this.route.snapshot.paramMap.get('id')!,
-            resourceId: this.route.snapshot.paramMap.get('resourceID')!,
-            version: this.route.snapshot.paramMap.get('version')!,
-            agency: this.route.snapshot.paramMap.get('agencyID')!,
-            description: '',
-            name: '',
-            urn: '',
-            annotations: '',
-            uri: '',
-        };
-
-        this.apiSrmService.getDetailFromSrm(this.dataDetail).subscribe((data) => {
-            this.resource = data;
-            this.mapperDataResourceDetail(this.resource);
-            this.loadAllVersionsFromResource();
-            this.loadDetailDataOnInit();
-            if (this.isDataWithChildrenTree) {
-                this.loadChildrenTreeData();
-            }
-        });
-    }
-
     public loadChildrenTreeData() {
-        this.apiSrmService.getChildrenTree(this.dataDetail!).subscribe((data) => {
-            if (data) {
-                this.updateTableChildrenTreeNode(data);
+        this.apiSrmService.getChildrenTree(this.dataDetail!).subscribe((children) => {
+            if (children) {
+                this.tabletreenode.data = [];
+                this.dataChildren = children;
+                this.tabletreenode.treeControl.expandAll();
                 this.dataChildrenLoaded = true;
             }
         });
     }
+
 
     public onReturn() {
         window.history.back();
@@ -129,30 +114,13 @@ export abstract class BasicDetailComponent implements OnInit {
         this.select.dropdownIcon = 'fa-thin fa-chevron-down';
     }
 
-    protected getDetailForm() {
-        if(this.isMapperWithMaintainer) {
-            this.apiSrmService.getDetailManteinerFromSrm(this.dataDetail.agency).subscribe((maintainer) => {
-                let nameMaintainer = this.localeService.getTextValue(maintainer.name.text);
-                this.dataDetail!.description = this.localeService.getTextValue(this.resource.description?.text);
-                this.dataDetail!.name = this.localeService.getTextValue(this.resource.name?.text);
-                this.dataDetail!.annotations = this.localeService.getTextValue(this.resource.annotations?.text);
-                this.dataDetail!.uri = this.resource.selfLink?.href;
-                this.dataDetail!.maintainer = maintainer.id + ' - ' + nameMaintainer;
-                this.dataDetail!.version = this.dataDetail.version;
-
-                this.detailForm.patchValue(this.dataDetail);
-            });
-        } else {
-            this.dataDetail!.name = this.localeService.getTextValue(this.resource.name?.text);
-            this.dataDetail!.uri = this.resource.selfLink?.href;
-
-            this.detailForm.patchValue(this.dataDetail);
-        }
+    public handleVisibilityMenu(): boolean {
+        this.expandedMenu = !this.expandedMenu;
+        return this.expandedMenu;
     }
 
-    abstract loadDetailDataOnInit(): void;
+    protected abstract loadDetailData(): void;
 
-    abstract mapperDataResourceDetail(data: any): void;
+   // public abstract updateTableChildrenTreeNode(data: any): void;
 
-    abstract loadAllVersionsFromResource(): void;
 }

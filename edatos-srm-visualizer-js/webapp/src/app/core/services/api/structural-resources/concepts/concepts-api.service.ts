@@ -6,9 +6,14 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 import { Observable } from 'rxjs/internal/Observable';
 import { LocaleService } from '../../../locale.service';
 import { Resource } from '../../../../../shared/models/resources/resource.model';
-import { TreeNode } from '../../../../../shared/models/tree/tree-node';
+import {
+    TreeNode,
+    treeNodeWithMaintainer,
+    treeNodeWithMaintainerAndScheme
+} from '../../../../../shared/models/tree/tree-node';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { ConceptResource } from '../../../../../shared/models/resources/concept-resource.model';
 
 @Injectable({
     providedIn: 'root'
@@ -45,6 +50,23 @@ export class ConceptsApiService extends ApiSrmService {
         return api;
     }
 
+    public getDataDetailConceptResourceFromSrm(dataDetail: any): Observable<ConceptResource> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(dataDetail));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer),
+                scheme: this.httpClient.get<any>(urlScheme)
+            }
+        ).pipe(
+            map(({ data, maintainer, scheme }) => {
+                    return ConceptResource.conceptResource(data, maintainer, this.localeService, scheme);
+                }
+            ));
+    }
+
     public getOtherConcepts(resource: Resource): Observable<any> {
         const api = this.getApiOtherConceptsUrl(resource);
         return this.getData(ApiSrmService.apiStructuralResource.concat(api));
@@ -66,20 +88,7 @@ export class ConceptsApiService extends ApiSrmService {
             }
         ).pipe(
             map(({ maintainer, scheme }) => {
-                    const maintainerName = this.localeService.getTextValue(maintainer.name.text);
-                    const schemeName = this.localeService.getTextValue(scheme.name.text);
-                    const name = this.localeService.getTextValue(resource.name?.text);
-
-                    const treeNode: TreeNode = {
-                        name: name,
-                        id: resource.id,
-                        urn: resource.urn,
-                        description: this.localeService.getTextValue(resource.description?.text),
-                        selfLink: resource.selfLink.href,
-                        maintainer: `${maintainer.id} - ${maintainerName}`,
-                        scheme: isLatestVersion ? `${scheme.id} - ${schemeName}` : `${scheme.id}(${scheme.version}) - ${schemeName}`
-                    };
-                    return treeNode;
+                    return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));
     }
@@ -93,22 +102,12 @@ export class ConceptsApiService extends ApiSrmService {
             resources.map(resource => this.getDetailRecommendedCodelistsFromSrm(resource, isLatestVersion))
         );
     }
+
     private getDetailRecommendedCodelistsFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
         const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
         return this.httpClient.get<any>(urlMaintainer).pipe(
-            map((maintainer ) => {
-                    const maintainerName = this.localeService.getTextValue(maintainer.name.text);
-
-                    const treeNode: TreeNode = {
-                        name: this.localeService.getTextValue(resource.name.text),
-                        id: resource.id,
-                        urn: resource.urn,
-                        description: this.localeService.getTextValue(resource.description?.text),
-                        selfLink: resource.selfLink.href,
-                        maintainer: `${maintainer.id} - ${maintainerName}`,
-                        scheme: ''
-                    };
-                    return treeNode;
+            map((maintainer) => {
+                return treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService);
                 }
             ));
     }

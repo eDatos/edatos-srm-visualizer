@@ -71,6 +71,6 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
+        return this.apiService.findAllResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

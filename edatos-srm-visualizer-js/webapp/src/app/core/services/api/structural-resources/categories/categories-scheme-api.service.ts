@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from '../../../locale.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { CategoryResource } from '../../../../../shared/models/resources/category-resource.model';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +31,19 @@ export class CategoriesSchemeApiService extends ApiSrmService {
     }
     return this.apiSearchUrl = '/v1.0/categoryschemes/';
   }
+
+    public getDataDetailCategorySchemeResourceFromSrm(dataDetail: any): Observable<CategoryResource> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer)
+            }
+        ).pipe(
+            map(({ data, maintainer }) => {
+                    return CategoryResource.categoryResource(data, maintainer, this.localeService);
+                }
+            ));
+    }
 }

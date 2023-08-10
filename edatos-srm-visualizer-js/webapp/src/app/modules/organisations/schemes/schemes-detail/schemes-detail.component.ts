@@ -5,11 +5,11 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import {
     OrganisationsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { DateUtils } from 'src/app/shared/utils/date-utils';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
+import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-schemes-detail',
@@ -50,22 +50,20 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.activeLink = this.navLinks[0];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-        this.tabletreenode.data = [];
-        this.dataChildren = data;
-        this.tabletreenode.treeControl.expandAll();
+    protected loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadAllVersionsFromResource();
+            this.loadChildrenTreeData();
+        });
     }
 
-    loadDetailDataOnInit(): void {
+    private loadDataDetailResource(data: any): Observable<OrganisationResource> {
+        return this.apiSrmService.getDataDetailOrganisationSchemeResourceFromSrm(data);
     }
 
-    mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new OrganisationResource(data.urn);
-        this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
-        this.getDetailForm();
-    }
-
-    public loadAllVersionsFromResource(): void {
+    private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {

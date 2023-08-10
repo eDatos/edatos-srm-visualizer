@@ -20,6 +20,8 @@ export class ApiService {
     public apiDetailUrl: string = '';
     public apiSchemeUrl: string = '';
 
+    public apiAllVersionsFromResourceUrl: string = '';
+
     protected constructor(protected httpClient: HttpClient, protected config: ConfigService,
                           protected localeService: LocaleService) {}
 
@@ -68,6 +70,10 @@ export class ApiService {
     public getApiManteinerUrl(resource: Resource) {
         return this.apiManteinerUrl
             .replace('{organisationID}', resource.agency);
+    }
+
+    public getApiAllVersionsFromResourceUrl(resource: Resource) {
+        return this.apiAllVersionsFromResourceUrl.replace('{urn}', resource.urn)
     }
 
 }
