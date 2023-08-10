@@ -1,49 +1,93 @@
-<div class='m-30'>
-    <div class='general-buttons'>
-        <div class='general-left-buttons row'>
-            <button (click)='onReturn()'>
-                <span>{{ 'back' | translate }}</span>
+<div class='general-buttons row'>
+    <div class='col'>
+        <button (click)='onReturn()' class="text-icon-button">
+            <i class="fa-thin fa-left"></i>&nbsp;
+            <span>{{ 'back' | translate | uppercase }}</span>
+        </button>
+    </div>
+</div>
+
+<div [formGroup]='detailForm' class='detail-info'>
+    <label for='id' class='title'>{{ 'category.parameters.idCategory' | translate }}</label>
+    <span class="info-id" id='id'>{{ dataDetail.id }}</span>
+
+    <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
+    <span id='name'>{{ dataDetail.name }}</span>
+
+    <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
+    <div id='uri' class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.uri }}</code>
+        </div>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+            <button>
+                <i class="fa-thin fa-copy"></i>
             </button>
         </div>
     </div>
 
-    <div [formGroup]='detailForm' class='container'>
-        <label for='id' class='title'>{{ 'category.parameters.idCategory' | translate }}</label>
-        <input type='text' class='form-control' formControlName='id' id='id' readonly>
+    <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
+    <div id='urn' class='info-link background'>
+        <div class="code">
+            <code>{{ dataDetail.urn }}</code>
+        </div>
+        <div class="element-link-actions">
+            <button>
+                <i class="fa-thin fa-copy"></i>
+            </button>
+        </div>
+    </div>
 
-        <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-        <input type='text' class='form-control' formControlName='name' id='name' readonly>
-
-        <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-        <input type='text' class='form-control' formControlName='uri' id='uri' readonly>
-
-        <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-        <input type='text' class='form-control' formControlName='urn' id='urn' readonly>
-
+    <div *ngIf="dataDetail.annotations">
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <input type='text' class='form-control' formControlName='annotations' id='annotations' readonly>
-
-        <label for='categroyScheme' class='title'>{{ 'category.categorySchemes' | translate }}</label>
-        <input type='text' class='form-control' formControlName='categoryScheme' id='categroyScheme' readonly>
-
-        <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
-        <input type='text' class='form-control' formControlName='maintainer' id='maintainer' readonly>
-
+        <span id='annotations'>{{ dataDetail.annotations }}</span>
     </div>
-    <br>
-    <div class='container'>
-        <div class='section-tab'>
-            <p-tabMenu [model]='navLinks' [activeItem]='activeLink'
-                       (activeItemChange)='onActiveItemChange($event)'></p-tabMenu>
-        </div>
-        <div class='m-30' *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div class='m-30' *ngIf='activeLink == navLinks[0]'>
-            <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
-            </div>
+
+    <label for='categroyScheme' class='title'>{{ 'category.categorySchemes' | translate }}</label>
+    <div class='info-link'>
+        <span class="info-agency">{{ dataDetail.categoryScheme }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
         </div>
     </div>
-    <br />
+
+    <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+    <div class='info-link'>
+        <span class="info-agency" id='maintainer'>{{ dataDetail.maintainer }}</span>
+        <div class="element-link-actions">
+            <button type="button">
+                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+            </button>
+        </div>
+    </div>
 </div>
+
+<br>
+<div class="subsection-tab detail-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let link of navLinks">
+          <a class="nav-link" [ngClass]="activeLink.label == link.label ? 'active' : ''" (click)="onActiveItemChange(link)" 
+            routerLinkActive="active">{{link.label}}
+          </a>
+        </li>
+    </ul>
+</div>
+
+<br/>
+<div class='container detail-table'>
+    <div *ngIf='!dataChildrenLoaded'>
+        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+    </div>
+    <div *ngIf='activeLink == navLinks[0]'>
+        <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+            <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
+        </div>
+    </div>
+</div>
+<br />
+
