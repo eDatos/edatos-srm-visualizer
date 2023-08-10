@@ -1,3 +1,42 @@
-:host ::ng-deep table > thead {
-  display: none;
+@import '../../../../assets/scss/variables.scss';
+
+.mat-tree-node {
+  padding: $padding-10px;
+  min-height: 40px;
+  border-bottom: 1px solid $color-negro-5;
+  .text-icon-button {
+    font-family: $font-family-sans-serif;
+  }
+  .node-detail-info {
+    font-family: $font-family-sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-negro-100;
+    padding: 0px 10px;
+    flex:2;
+    .node-detail-info-id {
+      font-weight: $font-weight-600;
+    }
+  }
+  &:hover {
+    background: $color-azul-25;
+    height: 50px;
+    .node-detail-info {
+      color:$color-azul-oscuro-100;
+    }
+    .hidden {
+      display: block;
+    }
+  }
 }
+
+.element-actions {
+  color: $color-azul-oscuro-100;
+  width: 1.25rem;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  padding: 0px 10px;
+}
+
+

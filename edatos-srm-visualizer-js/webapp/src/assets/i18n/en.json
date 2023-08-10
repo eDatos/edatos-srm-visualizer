@@ -17,6 +17,7 @@
     "csv": "Download in CSV format",
     "xls": "Download in XLS format"
   },
+  "seeCode": "See this code",
   "seeResource": "See this resource",
   "noResourceResults": "No results found for those conditions",
   "retrySearch": "Please, change the search parameters and try again.",

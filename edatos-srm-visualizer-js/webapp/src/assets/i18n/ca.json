@@ -17,6 +17,7 @@
     "csv": "Descarregar en format CSV",
     "xls": "Descarregar en format XLS"
   },
+  "seeCode": "Veure aquest codi",
   "seeResource": "Veure aquest recurs",
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",

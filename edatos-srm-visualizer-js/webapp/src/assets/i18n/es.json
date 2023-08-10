@@ -17,6 +17,7 @@
     "csv": "Descargar en formato CSV",
     "xls": "Descargar en formato XLS"
   },
+  "seeCode": "Ver este código",
   "seeResource": "Ver este recurso",
   "noResourceResults": "No se ha encontrado ningún resultado para esas condiciones",
   "retrySearch": "Por favor, cambia los parámetros de búsqueda e inténtalo de nuevo.",

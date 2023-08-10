@@ -29,16 +29,16 @@
 
 <div [formGroup]='detailForm' class="detail-info">
     <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
-    <span class="info-id"  id='id'>{{ dataDetail.id }}</span>
+    <span class="info-id" id='id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
     <span id='name'>{{ dataDetail.name }}</span>
 
     <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
-    <span  id='version'>{{ dataDetail.version }}</span>
+    <span id='version'>{{ dataDetail.version }}</span>
 
     <label for='publicationDate' class='title'>{{ 'codelists.parameters.publicationDate' | translate }}</label>
-    <span id='publicationDate' >{{ dataDetail.publicationDate }}</span>
+    <span id='publicationDate'>{{ dataDetail.publicationDate }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
     <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
@@ -71,7 +71,7 @@
     </div>
 
     <label for='isRecommended' class='title'>{{ 'codelists.parameters.isRecommended' | translate }}</label>
-    <span  id='isRecommended'> {{ dataDetail.isRecommended }}</span>
+    <span id='isRecommended'> {{ dataDetail.isRecommended }}</span>
 
     <div *ngIf="dataDetail.annotations">
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
@@ -107,8 +107,8 @@
     </div>
     <div *ngIf='activeLink == navLinks[0].label'>
         <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <app-table-tree #tabletreenode [data]='dataChildren'
-                                (clickEvent)='onLoadDetail($event)'></app-table-tree>
+            <app-table-tree #tabletreenode [data]='dataChildren'
+                            (clickEvent)='onLoadDetail($event)'></app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1].label' >
