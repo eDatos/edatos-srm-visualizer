@@ -72,13 +72,16 @@ export abstract class BasicSearchComponent {
     }
 
     public onSearchWithAllVersions(): void {
-        this.apiService.isLatestVersion = !this.apiService.isLatestVersion;
-        this.apiService.getApiSearchUrl();
+        this.apiService.isLatestVersion = !this.marked? true : !this.apiService.isLatestVersion;
+        this.apiService.setApiSearchUrl();
         this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
+        if(!this.marked) {
+            this.onSearchWithAllVersions();
+        }
     }
 
     public onSelectFields() {
@@ -97,7 +100,9 @@ export abstract class BasicSearchComponent {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
         let query = this.buildQueryHelper.buildQueryResultOffset(this.searchSimpleForm, this.searchForm);
         this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
+            console.log('onScrollDown',data);
             if (data[this.apiService.apiSearchDataPath]) {
+                console.log('entro onScrollDown',data);
                 this.loadDetailDataChildren();
             }
         });
@@ -159,8 +164,9 @@ export abstract class BasicSearchComponent {
 
     private loadDetailDataChildren() {
         const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
+        console.log(resources)
         this.getDataChildren(resources).subscribe((data) => {
-            this.dataChildren = data;
+            this.dataChildren = [...this.dataChildren, ...data];
             this.dataChildrenLoaded = true;
         });
     }

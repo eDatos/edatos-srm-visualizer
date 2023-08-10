@@ -36,6 +36,7 @@
     "generalSearchEngine": "General search engine",
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",
+    "isRecommended": "Show only recommended codelist",
     "displayedFields": "Fields to display",
     "selfLink": "Access via API",
     "concept": "Concept",

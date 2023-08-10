@@ -57,6 +57,12 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.loadInitialData();
     }
 
+    public onSearchWithIsRecommended() { //TODO: pending to implement in SRM API
+        this.apiService.isRecommended = !this.apiService.isRecommended;
+        this.apiService.setApiRecommendedSearchUrl();
+        this.loadInitialData();
+    }
+
     public onLoadCodelistDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         this.apiService.getDetailFromSrm(this.dataDetail).subscribe((data) => {

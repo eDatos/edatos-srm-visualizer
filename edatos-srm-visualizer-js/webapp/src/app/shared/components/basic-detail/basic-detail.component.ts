@@ -96,8 +96,7 @@ export abstract class BasicDetailComponent implements OnInit {
             }
         });
     }
-
-
+    
     public onReturn() {
         window.history.back();
     }
@@ -120,7 +119,5 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     protected abstract loadDetailData(): void;
-
-   // public abstract updateTableChildrenTreeNode(data: any): void;
 
 }

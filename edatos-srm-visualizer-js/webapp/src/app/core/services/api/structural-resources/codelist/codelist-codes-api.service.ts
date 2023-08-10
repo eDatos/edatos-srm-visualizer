@@ -4,16 +4,14 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { LocaleService } from '../../../locale.service';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     TreeNode,
-    treeNodeWithMaintainerAndCodelistScheme,
-    treeNodeWithMaintainerAndScheme
-} from '../../../../../shared/models/tree/tree-node';
+    treeNodeWithMaintainerAndCodelistScheme
+} from 'src/app/shared/models/tree/tree-node';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { ConceptResource } from '../../../../../shared/models/resources/concept-resource.model';
 import { TranslateService } from '@ngx-translate/core';
 
 
@@ -35,11 +33,11 @@ export class CodelistCodesApiService extends ApiSrmService {
         this.apiSchemeUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}'
     }
 
-    public getApiSearchUrl(): string {
+    public setApiSearchUrl(): void {
         if (this.isLatestVersion) {
-            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CODELIST_LATEST%20EQ%20%27true%27')
+             this.apiSearchUrl = this.apiSearchUrl.concat('?query=CODELIST_LATEST%20EQ%20%27true%27')
         }
-        return this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/';
+        this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/';
     }
 
     public loadOtherCodes(resource: CodelistResource): Observable<any> {

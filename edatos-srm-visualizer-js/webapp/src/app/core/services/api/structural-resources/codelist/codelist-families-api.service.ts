@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { LocaleService } from '../../../locale.service';
-import { TranslateService } from '@ngx-translate/core';
-import { CodelistResource } from '../../../../../shared/models/resources/codelist-resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
@@ -23,9 +22,8 @@ export class CodelistFamiliesApiService extends ApiSrmService {
         this.apiDetailUrl = '/v1.0/codelistfamilies/{id}/';
     }
 
-    public getApiSearchUrl(): string {
-        return this.apiSearchUrl;
-    }
+    public setApiSearchUrl(): void {}
+
     public loadFamilyCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiFamilyCodelistUrl.replace('{variableUrn}', variableUrn)));
     }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
-import { LocaleService } from '../../../locale.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 
 @Injectable({
   providedIn: 'root'

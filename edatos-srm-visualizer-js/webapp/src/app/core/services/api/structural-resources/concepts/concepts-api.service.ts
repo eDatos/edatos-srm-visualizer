@@ -2,18 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
-import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { LocaleService } from '../../../locale.service';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     TreeNode,
     treeNodeWithMaintainer,
     treeNodeWithMaintainerAndScheme
-} from '../../../../../shared/models/tree/tree-node';
+} from 'src/app/shared/models/tree/tree-node';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { ConceptResource } from '../../../../../shared/models/resources/concept-resource.model';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Injectable({
     providedIn: 'root'
@@ -35,11 +34,11 @@ export class ConceptsApiService extends ApiSrmService {
         this.apiChildrenDataPath = '';
     }
 
-    public getApiSearchUrl(): string {
+    public setApiSearchUrl(): void {
         if (this.isLatestVersion) {
-            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27');
+            this.apiSearchUrl = this.apiSearchUrl.concat('?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27');
         }
-        return this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/';
+        this.apiSearchUrl = '/v1.0/conceptschemes/~all/~all/~latest/concepts/';
     }
 
     public getApiOtherConceptsUrl(resource: Resource): string {

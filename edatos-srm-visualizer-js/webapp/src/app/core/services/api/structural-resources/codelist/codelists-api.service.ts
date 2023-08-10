@@ -4,22 +4,22 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { LocaleService } from '../../../locale.service';
-import { CategoryResource } from '../../../../../shared/models/resources/category-resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { ConceptResource } from '../../../../../shared/models/resources/concept-resource.model';
-import { CodelistResource } from '../../../../../shared/models/resources/codelist-resource.model';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TranslateService } from '@ngx-translate/core';
-import { TreeNode, treeNodeWithMaintainerAndScheme } from '../../../../../shared/models/tree/tree-node';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
+import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CodelistsApiService extends ApiSrmService {
 
+    public isRecommended: boolean = false;
     private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
+    private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelist';
@@ -32,11 +32,18 @@ export class CodelistsApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
     }
 
-    public getApiSearchUrl(): string {
+    public setApiSearchUrl(): void {
         if (this.isLatestVersion) {
-            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+             this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
         }
-        return this.apiSearchUrl = '/v1.0/codelists/';
+         this.apiSearchUrl = '/v1.0/codelists/';
+    }
+
+    public setApiRecommendedSearchUrl(): void {
+        if (this.isLatestVersion) {
+            this.apiRecommendedSearchUrl = this.apiRecommendedSearchUrl.concat('&LATEST%20EQ%20%27true%27')
+        }
+        this.apiRecommendedSearchUrl = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27';
     }
 
     public getRelatedCodelist(variableUrn: string): Observable<any> {

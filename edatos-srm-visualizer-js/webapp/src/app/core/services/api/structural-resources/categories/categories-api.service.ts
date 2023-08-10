@@ -2,13 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
-import { LocaleService } from '../../../locale.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { ConceptResource } from '../../../../../shared/models/resources/concept-resource.model';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { CategoryResource } from '../../../../../shared/models/resources/category-resource.model';
+import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +24,11 @@ export class CategoriesApiService extends ApiSrmService{
     this.apiSchemeUrl = '/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
   }
 
-  public getApiSearchUrl(): string {
+  public setApiSearchUrl(): void {
     if (this.isLatestVersion) {
-      return this.apiSearchUrl = this.apiSearchUrl.concat('?query=CATEGORY_SCHEME_LATEST%20EQ%20%27true%27')
+      this.apiSearchUrl = this.apiSearchUrl.concat('?query=CATEGORY_SCHEME_LATEST%20EQ%20%27true%27')
     }
-    return this.apiSearchUrl = '/v1.0//v1.0/categoryschemes/~all/~all/~latest/categories/';
+    this.apiSearchUrl = '/v1.0//v1.0/categoryschemes/~all/~all/~latest/categories/';
   }
 
     public getDataDetailCategoryResourceFromSrm(dataDetail: any): Observable<CategoryResource> {

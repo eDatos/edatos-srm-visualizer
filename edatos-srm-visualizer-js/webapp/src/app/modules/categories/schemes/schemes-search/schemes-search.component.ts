@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { LocaleService } from 'src/app/core/services/locale.service';
-
-
 import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';

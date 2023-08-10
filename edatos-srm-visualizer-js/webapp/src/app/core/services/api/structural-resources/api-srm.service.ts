@@ -161,5 +161,5 @@ export abstract class ApiSrmService extends ApiService {
         return this.httpClient.get<any>(url);
     }
 
-    abstract getApiSearchUrl(): string;
+    abstract setApiSearchUrl(): void;
 }

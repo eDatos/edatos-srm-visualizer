@@ -4,8 +4,7 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
-import { LocaleService } from '../../../locale.service';
-import { Resource } from '../../../../../shared/models/resources/resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
@@ -28,11 +27,11 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = '/api/concepts/{urn}/all-versions';
     }
 
-    public getApiSearchUrl(): string {
+    public setApiSearchUrl(): void {
         if (this.isLatestVersion) {
-            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27');
+            this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27');
         }
-        return this.apiSearchUrl = '/v1.0/conceptschemes/';
+        this.apiSearchUrl = '/v1.0/conceptschemes/';
     }
 
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {

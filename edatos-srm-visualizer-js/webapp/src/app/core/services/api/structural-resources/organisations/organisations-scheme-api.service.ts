@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
-import { LocaleService } from '../../../locale.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { OrganisationResource } from '../../../../../shared/models/resources/organisation-resource.model';
+import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
@@ -25,11 +25,11 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
     this.apiAllVersionsFromResourceUrl = '/api/organisations/{urn}/all-versions';
   }
 
-  public getApiSearchUrl(): string {
+  public setApiSearchUrl(): void {
     if (this.isLatestVersion) {
-      return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+      this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
     }
-    return this.apiSearchUrl = '/v1.0/organisationschemes/';
+    this.apiSearchUrl = '/v1.0/organisationschemes/';
   }
 
   public getDataDetailOrganisationSchemeResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {
