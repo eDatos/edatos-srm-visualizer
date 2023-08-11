@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 
 

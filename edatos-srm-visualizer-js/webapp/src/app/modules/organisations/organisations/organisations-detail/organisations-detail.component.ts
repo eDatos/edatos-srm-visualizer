@@ -9,8 +9,11 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
+import {
+    OrganisationSchemeApiSdmxService
+} from 'src/app/core/services/api/sdmx/organisation/organisation-scheme-api-sdmx.service';
 
 @Component({
     selector: 'app-organisations-detail',
@@ -23,8 +26,9 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     public activeLink: MenuItem;
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: OrganisationSchemeApiSdmxService) {
+        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
 
         this.detailForm = this.formBuilder.group({
             id: '',

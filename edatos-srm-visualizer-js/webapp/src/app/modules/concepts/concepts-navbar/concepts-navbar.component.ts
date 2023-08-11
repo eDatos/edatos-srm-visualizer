@@ -4,7 +4,7 @@ import { StructuralResources } from 'src/app/shared/models/enums/structural-reso
 
 
 @Component({
-  selector: 'app-concepts-navbar-search',
+  selector: 'app-concept-navbar-search',
   templateUrl: './concepts-navbar.component.html',
   styleUrls: ['./concepts-navbar.component.scss']
 })

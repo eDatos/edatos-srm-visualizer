@@ -10,10 +10,13 @@ import { MenuItem, TreeNode } from 'primeng/api';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
+import {
+    ConceptsSchemeApiSdmxService
+} from 'src/app/core/services/api/sdmx/concept/concepts-scheme-api-sdmx.service';
 
 
 @Component({
-    selector: 'app-concepts-schemes-detail',
+    selector: 'app-concept-schemes-detail',
     templateUrl: './concepts-schemes-detail.component.html',
     styleUrls: ['./concepts-schemes-detail.component.scss']
 })
@@ -27,8 +30,9 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, private router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: ConceptsSchemeApiSdmxService) {
+        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -43,7 +47,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
         this.navLinks = [
             {
-                label: this.translateService.instant('concepts.parameters.schemeConcepts')
+                label: this.translateService.instant('concept.parameters.schemeConcepts')
             }
         ];
 

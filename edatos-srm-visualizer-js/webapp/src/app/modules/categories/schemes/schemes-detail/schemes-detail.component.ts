@@ -9,7 +9,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({

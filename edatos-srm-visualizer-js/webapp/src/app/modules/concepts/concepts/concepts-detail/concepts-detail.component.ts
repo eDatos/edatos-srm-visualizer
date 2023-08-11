@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
@@ -8,11 +8,11 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
-    selector: 'app-concepts-detail',
+    selector: 'app-concept-detail',
     templateUrl: './concepts-detail.component.html',
     styleUrls: ['./concepts-detail.component.scss']
 })
@@ -116,14 +116,14 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public onLoadCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
         if (codelist) {
-            this.routerLinkDetail = `/concepts/concepts/${codelist.agency}/${codelist.resourceId}/${codelist.id}/${codelist.version}/detail`;
+            this.routerLinkDetail = `/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
         }
     }
 
     public onLoadConceptsDetail(urn: string): void {
-        const codelist = new CodelistResource(urn);
-        if (codelist) {
-            this.routerLinkDetail = `/concepts/concepts/${codelist.agency}/${codelist.resourceId}/${codelist.id}/${codelist.version}/detail`;
+        const concept = new ConceptResource(urn);
+        if (concept) {
+            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }
     }
 }

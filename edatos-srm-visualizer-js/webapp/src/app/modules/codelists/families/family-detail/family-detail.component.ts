@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 
 @Component({
     selector: 'app-family-detail',

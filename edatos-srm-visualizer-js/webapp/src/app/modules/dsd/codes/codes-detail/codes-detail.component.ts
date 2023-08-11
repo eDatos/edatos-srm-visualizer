@@ -5,16 +5,13 @@ import { DsdApiService } from 'src/app/core/services/api/structural-resources/ds
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DateUtils } from 'src/app/shared/utils/date-utils';
 import {
-    DsdResource,
-    getAttributeRelationship,
-    getTypeDimension
+    DsdResource
 } from 'src/app/shared/models/resources/dsd-resource.model';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
-import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
+import { DsdApiSdmxService } from 'src/app/core/services/api/sdmx/dsd/dsd-api-sdmx.service';
+
 
 @Component({
     selector: 'app-codes-detail',
@@ -35,9 +32,9 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, private router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService
-    ) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: DsdApiSdmxService) {
+        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',

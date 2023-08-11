@@ -48,36 +48,6 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
             }
         ];
 
-        this.items = [
-            {
-                label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code'/*,
-                command: () => {
-                            this.onDownloadFileFormat('xml');
-                }*/ //TODO: pendiente de tarea EDATOS-4143
-            },
-            {
-                label: this.translateService.instant('download.json'),
-                icon: 'fa-thin fa-brackets-curly'/*,
-                command: () => {
-                    this.onDownloadFileFormat('json');
-                }*/
-            },
-            {
-                label: this.translateService.instant('download.csv'),
-                icon: 'fa-thin fa-semicolon'/*,
-                command: () => {
-                    this.onDownloadFileFormat('csv');
-                }*/
-            },
-            {
-                label: this.translateService.instant('download.xls'),
-                icon: 'fa-thin fa-file-spreadsheet'/*,
-                command: () => {
-                    this.onDownloadFileFormat('xls');
-                }*/
-            }
-        ];
         this.activeLink = this.navLinks[0];
     }
 

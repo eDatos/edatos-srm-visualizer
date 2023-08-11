@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
 import { Column } from 'src/app/shared/models/table/column.model';
-import { BuildQueryHelper } from '../../../core/services/helper/build-query-helper';
+import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -100,9 +100,7 @@ export abstract class BasicSearchComponent {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
         let query = this.buildQueryHelper.buildQueryResultOffset(this.searchSimpleForm, this.searchForm);
         this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
-            console.log('onScrollDown',data);
             if (data[this.apiService.apiSearchDataPath]) {
-                console.log('entro onScrollDown',data);
                 this.loadDetailDataChildren();
             }
         });
@@ -164,7 +162,6 @@ export abstract class BasicSearchComponent {
 
     private loadDetailDataChildren() {
         const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
-        console.log(resources)
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
             this.dataChildrenLoaded = true;
