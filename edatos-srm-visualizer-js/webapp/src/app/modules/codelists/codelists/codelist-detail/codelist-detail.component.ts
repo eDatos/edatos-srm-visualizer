@@ -88,12 +88,12 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     onActiveItemChange(link: any) {
         this.activeLink = link;
         if (this.activeLink == this.navLinks[1].label) {
-            this.loadRelatedCodelistDetails(this.dataDetail.variable?.urn);
+            this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
         }
     }
 
     private loadRelatedCodelistDetails(variableUrn: string) {
-        if (this.dataDetail.variable !== undefined) {
+        if (this.dataDetail.variableUrn !== '') {
             this.apiSrmService.getRelatedCodelist(variableUrn).subscribe((data) => {
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
