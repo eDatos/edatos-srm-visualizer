@@ -107,9 +107,10 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     }
 
     public onLoadConceptsDetail(urn: string): void {
-        this.dataDetail = new ConceptResource(urn);
-        if (this.dataDetail) {
-            this.routerLinkDetail = '/concepts/concepts/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' + this.dataDetail.version + '/detail';
+        const concept = new ConceptResource(urn);
+
+        if (concept) {
+            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }
     }
 }
