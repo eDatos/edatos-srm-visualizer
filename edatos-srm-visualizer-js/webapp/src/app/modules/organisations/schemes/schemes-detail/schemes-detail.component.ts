@@ -8,7 +8,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
-import { BasicDetailComponent } from '../../../../shared/components/basic-detail/basic-detail.component';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -47,6 +47,37 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 label: this.translateService.instant('organisations.organisationsOfScheme')
             }
         ];
+
+        this.items = [
+            {
+                label: this.translateService.instant('download.sdmx-xml'),
+                icon: 'fa-thin fa-code'/*,
+                command: () => {
+                            this.onDownloadFileFormat('xml');
+                }*/ //TODO: pendiente de tarea EDATOS-4143
+            },
+            {
+                label: this.translateService.instant('download.json'),
+                icon: 'fa-thin fa-brackets-curly'/*,
+                command: () => {
+                    this.onDownloadFileFormat('json');
+                }*/
+            },
+            {
+                label: this.translateService.instant('download.csv'),
+                icon: 'fa-thin fa-semicolon'/*,
+                command: () => {
+                    this.onDownloadFileFormat('csv');
+                }*/
+            },
+            {
+                label: this.translateService.instant('download.xls'),
+                icon: 'fa-thin fa-file-spreadsheet'/*,
+                command: () => {
+                    this.onDownloadFileFormat('xls');
+                }*/
+            }
+        ];
         this.activeLink = this.navLinks[0];
     }
 
@@ -69,19 +100,20 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 data.forEach((version: any) => {
                     this.versions.push({ value: version });
                 });
+                this.versions.reverse();
             }
         });
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetailVersion(event: any) {
         this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
-
 
 }
 

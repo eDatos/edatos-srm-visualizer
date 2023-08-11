@@ -1,4 +1,4 @@
-import { LocaleService } from '../../../core/services/locale.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 
 export interface TreeNode {
     name: string;

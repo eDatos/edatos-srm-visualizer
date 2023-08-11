@@ -55,8 +55,8 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         return this.apiSrmService.getDataDetailCategoryResourceFromSrm(data);
     }
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 
 }

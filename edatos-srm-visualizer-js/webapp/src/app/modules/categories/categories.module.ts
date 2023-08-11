@@ -10,6 +10,7 @@ import { CategoriesSearchComponent } from './categories/categories-search/catego
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenuModule } from 'primeng/menu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
 
@@ -29,6 +30,7 @@ import { TableModule } from 'primeng/table';
         ReactiveFormsModule,
         DropdownModule,
         FormsModule,
+        MenuModule,
         TabMenuModule,
         TableModule
     ]

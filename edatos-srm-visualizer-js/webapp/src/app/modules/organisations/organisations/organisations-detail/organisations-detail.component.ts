@@ -64,8 +64,8 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     }
 
 
-    onActiveItemChange(event: any) {
-        this.activeLink = event;
+    onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 
 }

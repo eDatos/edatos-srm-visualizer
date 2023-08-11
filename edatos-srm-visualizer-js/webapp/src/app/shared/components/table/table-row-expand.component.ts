@@ -5,7 +5,6 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Column } from 'src/app/shared/models/table/column.model';
-import { Resource } from '../../models/resources/resource.model';
 
 @Component({
     selector: 'table-expandable-rows',

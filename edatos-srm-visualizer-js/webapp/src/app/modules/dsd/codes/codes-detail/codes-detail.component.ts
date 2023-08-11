@@ -123,9 +123,10 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.activeLink = event;
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['dataStructure', this.dataDetail!.agency, version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetailVersion(event: any) {
         this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
 }
