@@ -16,7 +16,7 @@ export class NavigationSearchComponent {
     this.navLinks = [
       {
         label: this.translateService.instant('concepts.concepts'),
-        link: 'concept'
+        link: 'concepts'
       }, {
         label: this.translateService.instant('codelists.codelists'),
         link: 'codelists'
