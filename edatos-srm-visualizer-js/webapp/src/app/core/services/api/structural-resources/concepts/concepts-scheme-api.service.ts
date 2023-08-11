@@ -4,15 +4,19 @@ import { ConfigService } from 'src/app/core/services/config/config.service';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class ConceptsSchemeApiService extends ApiSrmService {
 
-    private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
-    constructor(httpClient: HttpClient, config: ConfigService) {
-        super(httpClient, config);
+    private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27';
+
+    constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
+        super(httpClient, config, localeService);
         this.apiSearchDataPath = 'conceptScheme';
         this.apiSearchUrl = '/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
         this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
@@ -23,18 +27,36 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = '/api/concepts/{urn}/all-versions';
     }
 
-    public getApiSearchUrl(): string {
+    public setApiSearchUrl(): void {
         if (this.isLatestVersion) {
-            return this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
+            this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27');
         }
-        return this.apiSearchUrl = '/v1.0/conceptschemes/';
+        this.apiSearchUrl = '/v1.0/conceptschemes/';
     }
+
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {
-        let api = this.apiConceptsOfSchemeUrl
+        const api = this.apiConceptsOfSchemeUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
             .replace('{id}', resource.id);
         return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
+
+    public getDataDetailConceptResourceFromSrm(dataDetail: any): Observable<ConceptResource> {
+        const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        return forkJoin(
+            {
+                data: this.httpClient.get<any>(url),
+                maintainer: this.httpClient.get<any>(urlMaintainer)
+            }
+        ).pipe(
+            map(({ data, maintainer }) => {
+                    return ConceptResource.conceptResource(data, maintainer, this.localeService);
+                }
+            ));
+    }
+
+
 }

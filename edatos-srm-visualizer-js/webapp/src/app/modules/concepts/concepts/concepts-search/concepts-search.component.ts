@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { BasicSearchComponent } from 'src/app/shared/components/basic-search/basic-search.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-concepts-navbar-search',
@@ -68,14 +70,7 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
             this.dataDetail?.id + '/' +  this.dataDetail?.version + '/detail';
     }
 
-    public mapResourceToDetail(resourceToTreeNode: TreeNode, resource: Resource, maintainer: any): void {
-        this.apiService.getDetailSchemeFromSrm(resource).subscribe((scheme) => {
-            let nameScheme = this.localeService.getTextValue(scheme.name.text);
-            if(!this.apiService.isLatestVersion) {
-                resourceToTreeNode.scheme = `${scheme.id}(${scheme.version}) - ${nameScheme}`;
-            } else {
-                resourceToTreeNode.scheme = `${scheme.id} - ${nameScheme}`;
-            }
-        });
+    protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        return this.apiService.findAllResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

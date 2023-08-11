@@ -11,6 +11,7 @@ import { ConceptsNavbarComponent } from './concepts-navbar/concepts-navbar.compo
 import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { TableModule } from 'primeng/table';
         DropdownModule,
         FormsModule,
         TabMenuModule,
-        TableModule
+        TableModule,
+        MenuModule
     ]
 })
 export class ConceptsModule {

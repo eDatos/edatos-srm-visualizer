@@ -10,6 +10,7 @@ export class Resource {
     name: string = '';
     annotations: string = '';
     uri: string = '';
+    maintainer: string = '';
 
 
     constructor(urn?: string) {

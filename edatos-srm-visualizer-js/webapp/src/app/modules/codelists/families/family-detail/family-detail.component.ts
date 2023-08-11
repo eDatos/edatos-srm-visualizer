@@ -5,10 +5,11 @@ import {
     CodelistFamiliesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 
 @Component({
     selector: 'app-family-detail',
@@ -26,7 +27,6 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -42,14 +42,20 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         ];
 
         this.activeLink = this.navLinks[0];
-
-        this.isMapperWithMaintainer = false;
-        this.isDataWithChildrenTree = false;
     }
 
-    loadAllVersionsFromResource(): void {}
+    loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.dataChildrenLoaded = true;
+        });
+    }
 
-    loadDetailDataOnInit(): void {
+    private loadDataDetailResource(data: any): Observable<CodelistResource> {
+        return this.apiSrmService.getDataDetailFamilyCodelistResourceFromSrm(data);
+    }
+
         // TODO - pending development modification in SRM project
      /*   this.apiService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
@@ -65,13 +71,5 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         });
         
       */
-    }
-
-    mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new CodelistResource(data.urn);
-        this.getDetailForm();
-    }
-
-    updateTableChildrenTreeNode(data: any): void {}
 
 }

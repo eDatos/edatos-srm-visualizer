@@ -3,17 +3,15 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
-import { DateUtils } from 'src/app/shared/utils/date-utils';
 import {
-    DsdResource,
-    getAttributeRelationship,
-    getTypeDimension
+    DsdResource
 } from 'src/app/shared/models/resources/dsd-resource.model';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { CategoryResource } from '../../../../shared/models/resources/category-resource.model';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
+import { DsdApiSdmxService } from 'src/app/core/services/api/sdmx/dsd/dsd-api-sdmx.service';
+
 
 @Component({
     selector: 'app-codes-detail',
@@ -34,10 +32,9 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, private router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService
-    ) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.isDataWithChildrenTree = false;
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: DsdApiSdmxService) {
+        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -66,6 +63,19 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.activeLink = this.navLinks[0];
     }
 
+    protected loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadAllVersionsFromResource();
+            this.loadDetailDimensionAttributeAndMesures();
+        });
+    }
+
+    private loadDataDetailResource(data: any): Observable<DsdResource> {
+        return this.apiSrmService.getDataDetailDsdResourceFromSrm(data);
+    }
+
     loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
@@ -76,10 +86,10 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         });
     }
 
-    loadDetailDataOnInit(): void {
+    loadDetailDimensionAttributeAndMesures(): void {
         this.apiSrmService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiSrmService.apiDataStructureComponentsDataPath]) {
-                let dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
+                const dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
                 this.measures.push(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']);
@@ -91,13 +101,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     private getAttributes(dataStructureComponents: any): DsdResource[] {
         if (dataStructureComponents[this.apiSrmService.apiAttributeDataPath]) {
             this.attributes = dataStructureComponents[this.apiSrmService.apiAttributeDataPath]['attribute'].map((attribute: any) => {
-                const resource = new DsdResource(attribute.urn);
-                resource.id = attribute.id;
-                resource.assigmentStatus = attribute.assignmentStatus;
-                let concept = new Resource(attribute.conceptIdentity?.urn);
-                resource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
-                resource.attributeRelationship = getAttributeRelationship(attribute['attributeRelationship'], this.translateService);
-                return resource;
+                return DsdResource.dsdAttributeResource(attribute, this.translateService);
             });
         }
         return this.attributes;
@@ -106,32 +110,20 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     private getDimensions(dataStructureComponents: any): DsdResource[] {
         if (dataStructureComponents[this.apiSrmService.apiDimensionDataPath]) {
             this.dimensions = dataStructureComponents[this.apiSrmService.apiDimensionDataPath]['dimension'].map((dimension: any) => {
-                const resource = new DsdResource(dimension.urn);
-                resource.id = dimension.id;
-                resource.typeDimension = getTypeDimension(dimension.type, this.translateService);
-                let concept = new Resource(dimension.conceptIdentity?.urn);
-                resource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
-                return resource;
+                return DsdResource.dsdDimensionResource(dimension, this.translateService);
             });
         }
         return this.dimensions;
-    }
-
-    mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new DsdResource(data.urn);
-        this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
-        this.getDetailForm();
-    }
-
-    updateTableChildrenTreeNode(data: any): void {
     }
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['dataStructure', this.dataDetail!.agency, version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetailVersion(event: any) {
         this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
+
 }

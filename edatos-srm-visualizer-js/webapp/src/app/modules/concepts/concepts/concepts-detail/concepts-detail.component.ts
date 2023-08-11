@@ -3,14 +3,16 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
-    selector: 'app-concepts-detail',
+    selector: 'app-concept-detail',
     templateUrl: './concepts-detail.component.html',
     styleUrls: ['./concepts-detail.component.scss']
 })
@@ -18,15 +20,18 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public recommendedCodelists: ConceptResource[] = [];
-    public otherConcepts: CodelistResource[] = [];
+    public recommendedCodelists: TreeNode[] = [];
+    public otherConcepts: TreeNode[] = [];
+
+    public conceptColumns: any[];
+    public codelistColumns: any[];
+    public routerLinkDetail: string = '';
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
-        this.isDataWithChildrenTree = false;
+
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -48,58 +53,77 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         ];
 
         this.activeLink = this.navLinks[0];
+
+        this.codelistColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+        ];
+
+        this.conceptColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+        ];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-    }
-
-    public loadAllVersionsFromResource(): void {
-    }
-
-    public mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new ConceptResource(data.urn);
-        this.apiSrmService.getDetailSchemeFromSrm(this.dataDetail).subscribe((scheme) => {
-            let nameScheme = this.localeService.getTextValue(scheme.name.text);
-            this.dataDetail!.conceptScheme = scheme.id + ' (' + nameScheme + ')';
-            this.getDetailForm();
+    loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadRecommendedCodelists();
+            this.getOtherConcepts();
         });
     }
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
         if (this.activeLink == this.navLinks[1]) {
-            this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((data) => {
-                if (data[this.apiSrmService.apiSearchDataPath]) {
-                    this.otherConcepts = data[this.apiSrmService.apiSearchDataPath].map((concept: any) => {
-                        const resource = new ConceptResource(concept.urn);
-                        resource.id = concept.id;
-                        resource.name = this.localeService.getTextValue(concept.name?.text);
-                        resource.description = this.localeService.getTextValue(concept.description?.text);
-                        return resource;
-                    });
-                    this.dataChildrenLoaded = true;
-                }
-            });
-            this.otherConcepts.filter((concept: any) => concept.id != this.dataDetail?.id);
+            this.getOtherConcepts();
         }
     }
 
-    loadDetailDataOnInit(): void {
-        this.loadRecommendedCodelists();
+    private loadDataDetailResource(data: any): Observable<ConceptResource> {
+        return this.apiSrmService.getDataDetailConceptResourceFromSrm(data);
+    }
+
+    private getOtherConcepts() {
+        this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((concept) => {
+            if (concept[this.apiSrmService.apiSearchDataPath]) {
+                const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
+                this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true).subscribe((data) => {
+                    this.otherConcepts = data;
+                    this.dataChildrenLoaded = true;
+                });
+            }
+        });
     }
 
     private loadRecommendedCodelists(): void {
-        this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
-            if (data[this.apiSrmService.apiCodelistDataPath]) {
-                this.recommendedCodelists = data[this.apiSrmService.apiCodelistDataPath].map((codelist: any) => {
-                    const resource = new CodelistResource(codelist.urn);
-                    resource.id = codelist.id;
-                    resource.name = this.localeService.getTextValue(codelist.name?.text);
-                    resource.description = this.localeService.getTextValue(codelist.description?.text);
-                    return resource;
-                });
-                this.dataChildrenLoaded = true;
-            }
-        });
+        if (this.resource && this.resource.variable !== undefined) {
+            this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
+                if (data[this.apiSrmService.apiCodelistDataPath]) {
+                    const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];
+                    this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
+                        this.recommendedCodelists = data;
+                        this.dataChildrenLoaded = true;
+                    });
+                }
+            });
+        }
+    }
+
+    public onLoadCodelistDetail(urn: string): void {
+        const codelist = new CodelistResource(urn);
+        if (codelist) {
+            this.routerLinkDetail = `/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+        }
+    }
+
+    public onLoadConceptsDetail(urn: string): void {
+        const concept = new ConceptResource(urn);
+        if (concept) {
+            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+        }
     }
 }

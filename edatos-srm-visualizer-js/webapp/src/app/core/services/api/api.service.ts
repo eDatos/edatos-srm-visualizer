@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { Resource } from '../../../shared/models/resources/resource.model';
+import { LocaleService } from '../locale.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +12,18 @@ export class ApiService {
     public static apiInternalDomain: string = '';
     public static apiSdmx: string = '';
 
+    public apiManteinerUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies/{organisationID}';
+
     public apiSDMXUrl: string = '';
     public apiDetailForFileUrl: string = '';
 
     public apiDetailUrl: string = '';
     public apiSchemeUrl: string = '';
 
-    ALL_ELEMENTS: string = '~all';
-    protected constructor(protected httpClient: HttpClient, protected config: ConfigService) {}
+    public apiAllVersionsFromResourceUrl: string = '';
+
+    protected constructor(protected httpClient: HttpClient, protected config: ConfigService,
+                          protected localeService: LocaleService) {}
 
     public loadConfiguration() {
         this.config.getApiStructuralResources().subscribe((url) => {
@@ -60,6 +65,15 @@ export class ApiService {
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
+    }
+
+    public getApiManteinerUrl(resource: Resource) {
+        return this.apiManteinerUrl
+            .replace('{organisationID}', resource.agency);
+    }
+
+    public getApiAllVersionsFromResourceUrl(resource: Resource) {
+        return this.apiAllVersionsFromResourceUrl.replace('{urn}', resource.urn)
     }
 
 }

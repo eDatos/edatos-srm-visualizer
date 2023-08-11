@@ -6,11 +6,11 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import {
     CategoriesSchemeApiService
 } from 'src/app/core/services/api/structural-resources/categories/categories-scheme-api.service';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-tree-detail/basic-detail.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
-import { DateUtils } from 'src/app/shared/utils/date-utils';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-schemes-detail',
@@ -19,9 +19,7 @@ import { DateUtils } from 'src/app/shared/utils/date-utils';
 })
 export class SchemesDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
-    public items: any[] = [];
     public selectedVersion: string = '';
-    public expandedMenu: boolean = false;
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
@@ -30,7 +28,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
         super(formBuilder, apiSrmService, route, localeService, translateService);
-        this.showChildrenTree = true;
+
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -71,22 +69,20 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         ];
     }
 
-    public updateTableChildrenTreeNode(data: any): void {
-        this.tabletreenode.data = [];
-        this.dataChildren = data;
-        this.tabletreenode.treeControl.expandAll();
+    protected loadDetailData(): void {
+        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+            this.dataDetail = data;
+            this.detailForm.patchValue(this.dataDetail);
+            this.loadAllVersionsFromResource();
+            this.loadChildrenTreeData();
+        });
     }
 
-    loadDetailDataOnInit(): void {
+    private loadDataDetailResource(data: any): Observable<CategoryResource> {
+        return this.apiSrmService.getDataDetailCategorySchemeResourceFromSrm(data);
     }
 
-    mapperDataResourceDetail(data: any): void {
-        this.dataDetail = new CategoryResource(data.urn);
-        this.dataDetail!.publicationDate = data.validFrom ? DateUtils.formatSimpleDate(data.validFrom) : '';
-        this.getDetailForm();
-    }
-
-    public loadAllVersionsFromResource(): void {
+    private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {
@@ -96,18 +92,14 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         });
     }
 
-    public onLoadDetailVersion(version: string) {
-        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetailVersion(event: any) {
         this.versions = [];
+        this.selectedVersion = event.value;
+        this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
     onActiveItemChange(link: any) {
         this.activeLink = link;
-    }
-
-    handleVisibilityMenu(): boolean {
-        this.expandedMenu = !this.expandedMenu;
-        return this.expandedMenu;
     }
 
 }

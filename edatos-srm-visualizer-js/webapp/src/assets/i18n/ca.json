@@ -36,6 +36,7 @@
     "generalSearchEngine": "Cercador general",
     "advancedSearch": "Cerca avançada",
     "showAllVersions": "Mostrar totes les versions",
+    "isRecommended": "Mostrar només les clasificacions recomanades",
     "displayedFields": "Camps a mostrar",
     "selfLink": "Accés via API",
     "concept": "Concepte",

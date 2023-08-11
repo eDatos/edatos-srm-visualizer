@@ -1,5 +1,7 @@
 import { Resource } from './resource.model';
 import { TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../../core/services/locale.service';
+import { DateUtils } from '../../utils/date-utils';
 
 export class DsdResource extends Resource {
     publicationDate: string = '';
@@ -9,8 +11,48 @@ export class DsdResource extends Resource {
 
     assigmentStatus: string = '';
     attributeRelationship: string = '';
-}
 
+    public static dsdResource(resource: any, maintainer: any, localeService: LocaleService): DsdResource {
+        const dsdResource = new DsdResource(resource.urn);
+
+        const maintainerName = localeService.getTextValue(maintainer.name.text);
+        const name = localeService.getTextValue(resource.name?.text);
+        const description = localeService.getTextValue(resource.description?.text);
+        const annotations = localeService.getTextValue(resource.annotations?.text);
+
+        dsdResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
+        dsdResource.description = description;
+        dsdResource.name = name;
+        dsdResource.annotations = annotations;
+        dsdResource.uri = resource.selfLink?.href;
+        dsdResource.maintainer = `${maintainer.id} - ${maintainerName}`;
+
+        return dsdResource;
+    }
+
+    public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
+        const dsdResource = new DsdResource(dimension.urn);
+        dsdResource.id = dimension.id;
+        dsdResource.typeDimension = getTypeDimension(dimension.type, translateService);
+
+        const concept = new Resource(dimension.conceptIdentity?.urn);
+        dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
+
+        return dsdResource;
+    }
+
+    public static dsdAttributeResource(attribute: any, translateService: TranslateService): DsdResource {
+        const dsdResource = new DsdResource(attribute.urn);
+        dsdResource.id = attribute.id;
+        dsdResource.assigmentStatus = attribute.assignmentStatus;
+
+        const concept = new Resource(attribute.conceptIdentity?.urn);
+        dsdResource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
+        dsdResource.attributeRelationship = getAttributeRelationship(attribute['attributeRelationship'], translateService);
+
+        return dsdResource;
+    }
+}
 
 class DsdAttributeRelationshipResourceType {
     static readonly GROUP = new DsdAttributeRelationshipResourceType('group');
