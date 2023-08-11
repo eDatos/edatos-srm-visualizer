@@ -86,21 +86,32 @@
 
 </div>
 <br>
-<!--
-<div class='container'>
-    <div class='section-tab'>
-        <p-tabMenu [model]='navLinks'></p-tabMenu>
-    </div>
-    <div class='m-30'>
-        <div class='m-30' *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+<div class="subsection-tab detail-tab">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let link of navLinks">
+            <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label;"
+               routerLinkActive="active">{{link.label}}
+            </a>
+        </li>
+    </ul>
+</div>
 
-        </div>
+<br/>
+<div class='container detail-table'>
+    <div *ngIf='!dataChildrenLoaded'>
+        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+    </div>
+    <div *ngIf='activeLink == navLinks[0].label' >
+        <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
+                               [routerLinkDetail]='routerLinkDetail'
+                               (clickEvent)='onLoadConceptsDetail($event)'>
+        </table-expandable-rows>
+    </div>
+    <div *ngIf='dataChildren === null'>
+        <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>
--->
+<br />
 <br />
 
 

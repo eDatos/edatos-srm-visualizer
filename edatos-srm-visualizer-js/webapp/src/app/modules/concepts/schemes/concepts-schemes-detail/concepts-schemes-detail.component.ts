@@ -6,13 +6,14 @@ import {
 } from 'src/app/core/services/api/structural-resources/concepts/concepts-scheme-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem, TreeNode } from 'primeng/api';
+
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 import {
     ConceptsSchemeApiSdmxService
 } from 'src/app/core/services/api/sdmx/concept/concepts-scheme-api-sdmx.service';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 
 
 @Component({
@@ -21,10 +22,14 @@ import {
     styleUrls: ['./concepts-schemes-detail.component.scss']
 })
 export class ConceptsSchemesDetailComponent extends BasicDetailComponent implements OnInit {
-    public navLinks: MenuItem[];
+    public navLinks: any[];
+    public activeLink: string;
 
     public versions: any[] = [];
     public conceptsOfScheme: TreeNode[] = [];
+
+    public columns: any[];
+    public routerLinkDetail: string = '';
 
     public selectedVersion: string = '';
 
@@ -50,6 +55,13 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
                 label: this.translateService.instant('concepts.parameters.schemeConcepts')
             }
         ];
+        this.activeLink = this.navLinks[0].label ? this.navLinks[0].label : '';
+
+        this.columns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+        ];
 
     }
 
@@ -58,6 +70,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
             this.loadAllVersionsFromResource();
+            this.loadConceptsOfScheme();
         });
 
     }
@@ -65,8 +78,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     private loadConceptsOfScheme(): void {
         this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
             if (data[this.apiSrmService.apiChildrenDataPath]) {
-                const resources = data[this.apiSrmService.apiChildrenDataPath];
-                this.apiSrmService.findAllResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((data) => {
+                const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
+                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((data) => {
                     this.conceptsOfScheme = data;
                     this.dataChildrenLoaded = true;
                 });
@@ -91,5 +104,12 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     private loadDataDetailResource(data: any): Observable<ConceptResource> {
         return this.apiSrmService.getDataDetailConceptResourceFromSrm(data);
+    }
+
+    public onLoadConceptsDetail(urn: string): void {
+        this.dataDetail = new ConceptResource(urn);
+        if (this.dataDetail) {
+            this.routerLinkDetail = '/concepts/concepts/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' + this.dataDetail.version + '/detail';
+        }
     }
 }

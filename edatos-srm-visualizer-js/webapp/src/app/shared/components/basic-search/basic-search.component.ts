@@ -79,7 +79,7 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if(!this.marked) {
+        if(!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }
     }
