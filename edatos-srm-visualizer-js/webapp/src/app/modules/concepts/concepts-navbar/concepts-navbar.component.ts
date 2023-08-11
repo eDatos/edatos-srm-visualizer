@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StructuralResources } from 'src/app/shared/models/enums/structural-resources';
 
 
 @Component({
-  selector: 'app-concept-navbar-search',
+  selector: 'app-concepts-navbar-search',
   templateUrl: './concepts-navbar.component.html',
   styleUrls: ['./concepts-navbar.component.scss']
 })

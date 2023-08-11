@@ -11,7 +11,7 @@ import { BasicSearchComponent } from 'src/app/shared/components/basic-search/bas
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
-    selector: 'app-concept-navbar-search',
+    selector: 'app-concepts-navbar-search',
     templateUrl: './concepts-search.component.html',
     styleUrls: ['./concepts-search.component.scss'],
 })

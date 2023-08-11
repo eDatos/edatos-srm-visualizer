@@ -16,7 +16,7 @@ import {
 
 
 @Component({
-    selector: 'app-concept-schemes-detail',
+    selector: 'app-concepts-schemes-detail',
     templateUrl: './concepts-schemes-detail.component.html',
     styleUrls: ['./concepts-schemes-detail.component.scss']
 })
@@ -47,7 +47,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
         this.navLinks = [
             {
-                label: this.translateService.instant('concept.parameters.schemeConcepts')
+                label: this.translateService.instant('concepts.parameters.schemeConcepts')
             }
         ];
 
