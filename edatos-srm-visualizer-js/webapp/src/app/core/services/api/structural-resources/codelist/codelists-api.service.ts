@@ -30,6 +30,7 @@ export class CodelistsApiService extends ApiSrmService {
         this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
         this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
+        this.apiSchemeUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}'
     }
 
     public setApiSearchUrl(): void {
@@ -74,6 +75,7 @@ export class CodelistsApiService extends ApiSrmService {
     public getDetailRelatedCodelistWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
         const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
+
         return forkJoin(
             {
                 maintainer: this.httpClient.get<any>(urlMaintainer),

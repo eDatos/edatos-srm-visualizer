@@ -8,6 +8,8 @@ export class CodelistResource extends Resource {
     isRecommended: string = '';
     codelist: string = '';
 
+    variableUrn: string = '';
+
     public static familyCodelistResource(resource: any, localeService: LocaleService): CodelistResource {
         const codelistResource = new CodelistResource(resource.urn);
 
@@ -19,6 +21,7 @@ export class CodelistResource extends Resource {
         codelistResource.name = name;
         codelistResource.annotations = annotations;
         codelistResource.uri = resource.selfLink?.href;
+        codelistResource.variableUrn = resource.variable ? resource.variable.urn : '';
         codelistResource.maintainer = '';
 
         return codelistResource;
@@ -42,6 +45,7 @@ export class CodelistResource extends Resource {
         codelistResource.description = description;
         codelistResource.name = name;
         codelistResource.annotations = annotations;
+        codelistResource.variableUrn = resource.variable ? resource.variable.urn : '';
         codelistResource.uri = resource.selfLink?.href;
         codelistResource.maintainer = `${maintainer.id} - ${maintainerName}`;
 
