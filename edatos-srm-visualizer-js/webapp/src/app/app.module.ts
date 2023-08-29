@@ -17,6 +17,8 @@ import { catchError, Observable } from 'rxjs';
 import { MissingTranslationCustomHandler } from './core/handler/missing-translation-custom-handler';
 import { ScriptLoaderModule } from 'ngx-script-loader';
 import { MatIconModule } from '@angular/material/icon';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 class CustomTranslateHttpLoader extends TranslateHttpLoader {
@@ -64,6 +66,7 @@ export function initTranslations(translateService: TranslateService, cookieServi
         BrowserModule,
         HttpClientModule,
         MatIconModule,
+        ReactiveFormsModule,
         ScriptLoaderModule,
         StructuralResourcesModule,
         TranslateModule.forRoot({
@@ -85,7 +88,8 @@ export function initTranslations(translateService: TranslateService, cookieServi
             useFactory: initTranslations,
             deps: [TranslateService, CookieService, ConfigService],
             multi: true
-        }
+        },
+        { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     ],
     bootstrap: [AppComponent]
 })

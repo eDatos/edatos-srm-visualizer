@@ -5,6 +5,8 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Column } from 'src/app/shared/models/table/column.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'table-expandable-rows',
@@ -21,6 +23,8 @@ import { Column } from 'src/app/shared/models/table/column.model';
 export class TableExpandableRows {
     public columnsToDisplay: Column[] = [];
     public routerLink: string | undefined;
+
+    public isAdvancedSearch: boolean = false;
 
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
@@ -51,6 +55,21 @@ export class TableExpandableRows {
 
     dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
+    filters: any;
+
+    positionFilter: FormGroup = new FormGroup({});
+    reducer = (accumulator: boolean, currentValue: boolean) => accumulator && currentValue;
+
+
+    constructor() {
+        this.filters = {};
+    }
+
+    applyFilters(column: string, filterValue: any) {
+        const filter = filterValue.value;
+        this.onKeyupResource(filterValue.value, column);
+    }
+
     @Input()
     set data(dataNodes: TreeNode[]) {
         if (dataNodes) {
@@ -59,9 +78,23 @@ export class TableExpandableRows {
     }
 
     @Input()
+    set filterFormControl(searchForm: FormGroup) {
+        if (searchForm) {
+            this.positionFilter = searchForm;
+        }
+    }
+
+    @Input()
     set routerLinkDetail(data: string) {
         if (data) {
             this.routerLink = data;
+        }
+    }
+
+    @Input()
+    set advancedSearch(isAdvancedSearch: boolean) {
+        if (isAdvancedSearch != undefined) {
+            this.isAdvancedSearch = isAdvancedSearch;
         }
     }
 
@@ -76,6 +109,8 @@ export class TableExpandableRows {
     }
 
     @Output() clickEvent = new EventEmitter<string>();
+
+    @Output() keyupEvent = new EventEmitter<{ filterValue: string, column: string }>();
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
@@ -107,6 +142,10 @@ export class TableExpandableRows {
 
     private onClickResource(resource: string) {
         this.clickEvent.emit(resource);
+    }
+
+    private onKeyupResource(filter: string, column: string) {
+        this.keyupEvent.emit({ filterValue: filter, column: column });
     }
 }
 

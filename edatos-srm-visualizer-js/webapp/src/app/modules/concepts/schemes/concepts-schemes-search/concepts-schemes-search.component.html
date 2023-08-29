@@ -40,8 +40,8 @@
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)' >
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadConceptSchemeDetail($event)'></table-expandable-rows>
+                               [routerLinkDetail]='routerLinkDetail' [filterFormControl]='searchForm' [advancedSearch]='marked'
+                               (clickEvent)='onLoadConceptSchemeDetail($event)' (keyupEvent)='onAdvancedSearch($event)' ></table-expandable-rows>
     </div>
 </div>
 <br />

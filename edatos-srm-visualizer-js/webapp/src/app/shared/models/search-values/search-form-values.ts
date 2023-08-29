@@ -5,4 +5,6 @@ export interface SearchFormValues {
     name: AbstractControl<string>;
     urn: AbstractControl<string>;
     description: AbstractControl<string>;
+    maintainer: AbstractControl<string>;
+    scheme: AbstractControl<string>;
 }

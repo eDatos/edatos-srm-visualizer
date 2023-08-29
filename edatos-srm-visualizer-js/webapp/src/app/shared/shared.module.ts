@@ -4,7 +4,7 @@ import { SchemePipe } from 'src/app/core/pipes/scheme/scheme.pipe';
 import { VersionPipe } from 'src/app/core/pipes/concepts/version/version.pipe';
 import { AgencyPipe } from 'src/app/core/pipes/concepts/agency/agency.pipe';
 import { PaginationsComponent } from './components/paginations/paginations.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -80,7 +80,8 @@ import { RouterLink } from '@angular/router';
         TranslateModule,
         MultiSelectModule,
         InputSwitchModule,
-        RouterLink
+        RouterLink,
+        FormsModule
     ],
     exports: [
         AgencyPipe,

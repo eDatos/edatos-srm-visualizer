@@ -47,6 +47,7 @@ export abstract class BasicSearchComponent {
     });
 
     public searchForm: FormGroup = new FormGroup({});
+    public searchAdvancedForm: FormGroup = new FormGroup({});
 
     public detailForm: any;
 
@@ -80,6 +81,8 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
+        this.defaultParametersSearch();
+        this.loadInitialData();
         if (!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }
@@ -107,10 +110,10 @@ export abstract class BasicSearchComponent {
             }
         });
     }
-    
+
     public onSearch(): void {
         this.defaultParametersSearch();
-        this.onSearchSimple();
+        this.mapper(this.searchForm.controls);
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
@@ -122,10 +125,18 @@ export abstract class BasicSearchComponent {
         }
     }
 
-    private onReset(): void {
-        this.searchSimpleForm.reset();
+    public onAdvancedSearch(event: any): void {
         this.defaultParametersSearch();
-        this.loadInitialData();
+        this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
+        if (this.searchForm.valid) {
+            this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
+                this.searchConfig.resultSize = data['total'];
+                if (this.searchConfig.resultSize > 0) {
+                    this.dataSearch = data[this.apiService.apiSearchDataPath];
+                    this.loadDetailDataChildrenWithQuery(this.searchAdvancedForm);
+                }
+            });
+        }
     }
 
     private defaultParametersSearch(): void {
@@ -135,13 +146,6 @@ export abstract class BasicSearchComponent {
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore
         this.searchResults.nativeElement.scrollTop = 0;
-    }
-
-    private onSearchSimple(): void {
-        if (!this.searchSimpleForm.valid) {
-            this.onReset();
-        }
-        this.mapper(this.searchForm.controls);
     }
 
     private mapper<T>(obj: T) {
@@ -165,6 +169,19 @@ export abstract class BasicSearchComponent {
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
             this.dataChildrenLoaded = true;
+        });
+    }
+
+    private loadDetailDataChildrenWithQuery(form?: FormGroup) {
+        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
+        this.getDataChildren(resources).subscribe((data) => {
+            this.dataChildren = [...this.dataChildren, ...data];
+            this.dataChildrenLoaded = true;
+            if(form?.controls['maintainer'].value){
+                this.dataChildren = this.dataChildren.filter((field: any) => {
+                    return field.maintainer.toLowerCase().indexOf(form?.controls['maintainer'].value.toLowerCase()) !== -1;
+                });
+            }
         });
     }
 
