@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
-import { Column } from 'src/app/shared/models/table/column.model';
+import { Column, sortColumns } from 'src/app/shared/models/table/column.model';
 import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -24,7 +24,7 @@ export abstract class BasicSearchComponent {
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
     advancedSearch = false;
     showAllVersions = false;
-    selectedDefault: any[] = [];
+    selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
     filter = '';
     marked = false;
@@ -38,7 +38,7 @@ export abstract class BasicSearchComponent {
 
     public dataSearch: any[] = [];
 
-    public fields: any[] = [];
+    public fields: Column[] = [];
 
     public searchSimpleForm = this.formBuilder.group({
         filter: ['', Validators.required],
@@ -59,7 +59,8 @@ export abstract class BasicSearchComponent {
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService: LocaleService) {}
+                          protected translateService: TranslateService, protected localeService: LocaleService) {
+    }
 
     public loadInitialData() {
         this.dataChildren = [];
@@ -72,19 +73,20 @@ export abstract class BasicSearchComponent {
     }
 
     public onSearchWithAllVersions(): void {
-        this.apiService.isLatestVersion = !this.marked? true : !this.apiService.isLatestVersion;
+        this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
         this.apiService.setApiSearchUrl();
         this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if(!this.marked && !this.apiService.isLatestVersion) {
+        if (!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }
     }
 
-    public onSelectFields() {
+    public onSelectFields(event: any) {
+        event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
     }
 
@@ -105,10 +107,7 @@ export abstract class BasicSearchComponent {
             }
         });
     }
-
-    public onScrollUp($event: IInfiniteScrollEvent) {
-    }
-
+    
     public onSearch(): void {
         this.defaultParametersSearch();
         this.onSearchSimple();
@@ -156,8 +155,9 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value };
-        });
+            return { name: field.name, value: field.value, enabled: field.enabled };
+        }).filter((field: any) => field.enabled);
+        this.selectedFields = sortColumns(this.selectedFields, this.fields);
     }
 
     private loadDetailDataChildren() {
