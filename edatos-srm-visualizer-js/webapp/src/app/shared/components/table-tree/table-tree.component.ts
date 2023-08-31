@@ -41,6 +41,10 @@ export class TableTreeComponent {
             selfLink: node.selfLink,
             maintainer: node.maintainer,
             scheme: node.scheme,
+            concept: node.concept,
+            typeDimension: node.typeDimension,
+            assigmentStatus: node.assigmentStatus,
+            attributeRelationship: node.attributeRelationship
         };
     };
 

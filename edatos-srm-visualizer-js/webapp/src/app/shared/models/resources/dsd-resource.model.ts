@@ -37,7 +37,8 @@ export class DsdResource extends Resource {
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
-
+        dsdResource.urn = dimension.localRepresentation?.enumerationCodelist?.selfLink.href;
+        
         return dsdResource;
     }
 
@@ -45,6 +46,7 @@ export class DsdResource extends Resource {
         const dsdResource = new DsdResource(attribute.urn);
         dsdResource.id = attribute.id;
         dsdResource.assigmentStatus = attribute.assignmentStatus;
+        dsdResource.typeDimension = getTypeDimension(attribute.type, translateService);
 
         const concept = new Resource(attribute.conceptIdentity?.urn);
         dsdResource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';

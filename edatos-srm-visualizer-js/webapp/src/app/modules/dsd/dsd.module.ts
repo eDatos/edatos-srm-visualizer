@@ -9,6 +9,7 @@ import { CodesDetailComponent } from './codes/codes-detail/codes-detail.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenuModule } from 'primeng/menu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
 
@@ -25,6 +26,7 @@ import { TableModule } from 'primeng/table';
         ReactiveFormsModule,
         SharedModule,
         DropdownModule,
+        MenuModule,
         FormsModule,
         TabMenuModule,
         TableModule

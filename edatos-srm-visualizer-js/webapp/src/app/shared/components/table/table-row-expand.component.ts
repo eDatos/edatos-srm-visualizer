@@ -41,7 +41,11 @@ export class TableExpandableRows {
             description: node.description,
             selfLink: node.selfLink,
             maintainer: node.maintainer,
-            scheme: node.scheme
+            scheme: node.scheme,
+            concept: node.concept,
+            typeDimension: node.typeDimension,
+            assigmentStatus: node.assigmentStatus,
+            attributeRelationship: node.attributeRelationship
         };
     };
 
