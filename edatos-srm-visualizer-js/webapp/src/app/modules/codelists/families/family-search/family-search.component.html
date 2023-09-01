@@ -10,12 +10,13 @@
         <div class='custom-control custom-switch col' *ngIf='marked'>
             <label for='allVersions'
                    [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
-            <p-inputSwitch id="allVersions" inputId='allVersions' (onChange)='onSearchWithAllVersions()'/>
+            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions()' />
         </div>
         <div class='custom-control custom-switch'>
             <label for='advancedSearch'
                    [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
-            <p-inputSwitch id="advancedSearch" inputId='advancedSearch' (onChange)='toggleVisibility($event)'></p-inputSwitch>
+            <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
+                           (onChange)='toggleVisibility($event)'></p-inputSwitch>
         </div>
     </div>
 </div>
@@ -26,10 +27,12 @@
     </div>
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
          [fromRoot]='true'
-         (scrolled)='onScrollDown($event)' >
+         (scrolled)='onScrollDown($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadFamilyCodelistDetail($event)'></table-expandable-rows>
+                               (clickEvent)='onLoadFamilyCodelistDetail($event)' [advancedSearch]='marked'
+                               (keyupEvent)='onAdvancedSearch($event)'>
+        </table-expandable-rows>
     </div>
 </div>
 <br />

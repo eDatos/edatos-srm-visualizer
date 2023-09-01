@@ -19,15 +19,7 @@ export class BuildQueryHelper {
     public buildAdvanceQueryFromForm(form?: FormGroup<SearchFormValues>): string {
         let query = '';
         if (form) {
-            query = this.simpleSearchFilter.getCriteriaAdvance(form.controls);
-        }
-        return query;
-    }
-
-    public buildAdvanceQueryByMaintainer(form?: FormGroup<SearchFormValues>): string {
-        let query = '';
-        if (form) {
-            query = this.simpleSearchFilter.getCriteriaAdvanceByMaintainer(form.controls);
+            query = this.simpleSearchFilter.getCriteriaAdvanced(form.controls);
         }
         return query;
     }
@@ -41,8 +33,8 @@ export class BuildQueryHelper {
     }
 
     public buildUrlOfQuery(url: string, query: string): string {
-        let beginParamurl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
-        return beginParamurl.concat(query);
+        let beginParamUrl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
+        return beginParamUrl.concat(query);
     }
 
     public buildUrlLatestOfQuery(url: string, query: string): string {

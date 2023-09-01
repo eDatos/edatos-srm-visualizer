@@ -28,14 +28,6 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
             description: '',
         });
 
-        this.searchAdvancedForm = this.formBuilder.group({
-            id: '',
-            name: '',
-            urn: '',
-            description: '',
-            maintainer: '',
-        });
-
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',

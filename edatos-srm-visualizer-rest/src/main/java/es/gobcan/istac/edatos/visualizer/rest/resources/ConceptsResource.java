@@ -1,10 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 import java.util.List;
 
-
-import org.siemac.metamac.rest.common.v1_0.domain.Resource;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptSchemes;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

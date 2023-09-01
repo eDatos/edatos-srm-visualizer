@@ -47,7 +47,15 @@ export abstract class BasicSearchComponent {
     });
 
     public searchForm: FormGroup = new FormGroup({});
-    public searchAdvancedForm: FormGroup = new FormGroup({});
+    public searchAdvancedForm = this.formBuilder.group({
+        id: '',
+        name: '',
+        urn: '',
+        description: '',
+        scheme: '',
+        maintainer: '',
+    });
+
 
     public detailForm: any;
 
@@ -127,13 +135,14 @@ export abstract class BasicSearchComponent {
 
     public onAdvancedSearch(event: any): void {
         this.defaultParametersSearch();
+        // @ts-ignore
         this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (this.searchForm.valid) {
             this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
                 if (this.searchConfig.resultSize > 0) {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
-                    this.loadDetailDataChildrenWithQuery(this.searchAdvancedForm);
+                    this.loadDetailDataChildren();
                 }
             });
         }

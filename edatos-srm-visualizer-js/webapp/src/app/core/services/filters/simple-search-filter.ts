@@ -29,13 +29,13 @@ export class SimpleSearchFilter {
         return criterias;
     }
 
-    public getCriteriaAdvance(values: SearchFormValues): string {
+    public getCriteriaAdvanced(values: SearchFormValues): string {
         let criterias = '';
         if (values.id.value) {
             criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'`);
         }
-        if (values.urn.value) {
-            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.urn.value}%'`);
+        if (values.maintainer.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.maintainer.value}%'`);
         }
         if (values.name.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name.value}%'`);
@@ -43,13 +43,8 @@ export class SimpleSearchFilter {
         if (values.description.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`DESCRIPTION ILIKE '%${values.description.value}%'`);
         }
-        return criterias;
-    }
-
-    public getCriteriaAdvanceByMaintainer(values: SearchFormValues) : string {
-        let criterias = '';
-        if (values.maintainer.value) {
-            criterias = `ID ILIKE '%${values.maintainer.value}%' OR NAME ILIKE '%${values.maintainer.value}%'`;
+        if (values.scheme.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.scheme.value}%'`);
         }
         return criterias;
     }
