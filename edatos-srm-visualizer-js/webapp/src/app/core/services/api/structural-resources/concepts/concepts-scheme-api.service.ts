@@ -7,6 +7,8 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +27,7 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiChildrenTreeUrl = '/api/concepts/schemes/{urn}/concepts';
         this.apiChildrenDataPath = 'concept';
         this.apiAllVersionsFromResourceUrl = '/api/concepts/{urn}/all-versions';
+        this.apiSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}';
     }
 
     public setApiSearchUrl(): void {
@@ -35,6 +38,7 @@ export class ConceptsSchemeApiService extends ApiSrmService {
     }
 
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {
+
         const api = this.apiConceptsOfSchemeUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
@@ -54,6 +58,28 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         ).pipe(
             map(({ data, maintainer }) => {
                     return ConceptResource.conceptResource(data, maintainer, this.localeService);
+                }
+            ));
+    }
+
+    public findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+        return forkJoin(
+            resources.map(resource => this.getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource, isLatestVersion))
+        );
+    }
+
+    public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
+        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
+
+        return forkJoin(
+            {
+                maintainer: this.httpClient.get<any>(urlMaintainer),
+                scheme: this.httpClient.get<any>(urlScheme)
+            }
+        ).pipe(
+            map(({ maintainer, scheme }) => {
+                    return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));
     }

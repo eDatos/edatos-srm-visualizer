@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
-import { Resource } from '../../../shared/models/resources/resource.model';
-import { LocaleService } from '../locale.service';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
@@ -67,7 +68,10 @@ export class ApiService {
             .replace('{version}', resource.version)
     }
 
-    public getApiManteinerUrl(resource: Resource) {
+    public getApiManteinerUrl(resource: Resource, form?: FormGroup ) {
+        if (form) {
+            return this.apiManteinerUrl.replace('{organisationID}', '');
+        }
         return this.apiManteinerUrl
             .replace('{organisationID}', resource.agency);
     }

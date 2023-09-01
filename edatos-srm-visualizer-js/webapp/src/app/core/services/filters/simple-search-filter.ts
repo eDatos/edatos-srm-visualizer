@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchFormValues } from 'src/app/shared/models/search-values/search-form-values';
+import { FormControl } from '@angular/forms';
 
 @Injectable()
 export class SimpleSearchFilter {
@@ -24,6 +25,34 @@ export class SimpleSearchFilter {
     private concatOrIsNotEmpty(criterias: string): string{
         if(criterias){
             criterias = criterias.concat(` OR `);
+        }
+        return criterias;
+    }
+
+    public getCriteriaAdvanced(values: SearchFormValues): string {
+        let criterias = '';
+        if (values.id.value) {
+            criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'`);
+        }
+        if (values.maintainer.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.maintainer.value}%'`);
+        }
+        if (values.name.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name.value}%'`);
+        }
+        if (values.description.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`DESCRIPTION ILIKE '%${values.description.value}%'`);
+        }
+        if (values.scheme.value) {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.scheme.value}%'`);
+        }
+        return criterias;
+    }
+
+
+    private concatAndIsNotEmpty(criterias: string): string{
+        if(criterias){
+            criterias = criterias.concat(` AND `);
         }
         return criterias;
     }

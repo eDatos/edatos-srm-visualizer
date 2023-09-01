@@ -16,17 +16,30 @@ export class BuildQueryHelper {
         return query;
     }
 
-    public buildQueryUrl(url: string, query: string, api?: string) {
+    public buildAdvanceQueryFromForm(form?: FormGroup<SearchFormValues>): string {
+        let query = '';
+        if (form) {
+            query = this.simpleSearchFilter.getCriteriaAdvanced(form.controls);
+        }
+        return query;
+    }
+
+    public buildQueryUrl(url: string, query: string, isLatestVersion: boolean, api?: string) {
         if (!url?.includes(BuildQueryHelper.withQuery)) {
             return url.concat(BuildQueryHelper.withQuery.concat(encodeURIComponent(query)));
         } else {
-            return url.concat(encodeURIComponent(this.buildUrlOfQuery(url, query)));
+            return url.concat(encodeURIComponent(isLatestVersion ? this.buildUrlLatestOfQuery(url, query) :this.buildUrlOfQuery(url, query)));
         }
     }
 
     public buildUrlOfQuery(url: string, query: string): string {
-        let beginParamurl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
-        return beginParamurl.concat(query);
+        let beginParamUrl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
+        return beginParamUrl.concat(query);
+    }
+
+    public buildUrlLatestOfQuery(url: string, query: string): string {
+        let beginParamurl = url.includes('?') ? ' AND (' : BuildQueryHelper.withQuery;
+        return beginParamurl.concat(query).concat(')');
     }
 
     public getResultLimit(url: string, searchConfig: SearchConfig): string {

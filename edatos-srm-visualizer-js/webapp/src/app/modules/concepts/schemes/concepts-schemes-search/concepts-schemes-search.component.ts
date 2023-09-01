@@ -38,13 +38,13 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
         });
 
         this.fields = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' ,enabled: true},
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' ,enabled: false},
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.value !== 'description');
+        this.selectedDefault = this.fields.filter(opt=>opt.enabled);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
             selectedFields:  [this.selectedDefault],

@@ -16,6 +16,7 @@ import {
 @Injectable({
     providedIn: 'root'
 })
+
 export abstract class ApiSrmService extends ApiService {
     public apiSearchDataPath: string = '';
     public apiSearchUrl: string = '';
@@ -63,12 +64,12 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, form?: FormGroup): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion))
+            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion, form))
         );
     }
-    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
+    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean ,form?: FormGroup): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
         return forkJoin(
@@ -131,6 +132,11 @@ export abstract class ApiSrmService extends ApiService {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
+    public getAdvancedSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
+        let query = this.buildQueryHelper.buildAdvanceQueryFromForm(form);
+        return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
+    }
+
     public getSearch(searchConfig?: SearchConfig, query?: string): Observable<any> {
         if (searchConfig) {
             return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
@@ -156,7 +162,7 @@ export abstract class ApiSrmService extends ApiService {
 
     protected getData(url: string, query?: string): Observable<any> {
         if (query) {
-            url = this.buildQueryHelper.buildQueryUrl(url, query);
+            url = this.buildQueryHelper.buildQueryUrl(url, query, this.isLatestVersion);
         }
         return this.httpClient.get<any>(url);
     }
