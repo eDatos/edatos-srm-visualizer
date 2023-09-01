@@ -7,7 +7,6 @@
     </div>
 </div>
 
-
 <div [formGroup]='detailForm' class='detail-info'>
     <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
     <span class='info-id' id='id'>{{ dataDetail.id }}</span>
@@ -71,6 +70,7 @@
     </div>
 </div>
 
+<br/>
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
@@ -81,9 +81,10 @@
     </ul>
 </div>
 
+<br/>
 <div class='container detail-table'>
-    <div class='m-30' *ngIf='activeLink == navLinks[0]'>
-        <div class='m-30' *ngIf='!dataChildrenLoaded'>
+    <div *ngIf='activeLink == navLinks[0]'>
+        <div *ngIf='!dataChildrenLoaded'>
             <mat-progress-bar mode='indeterminate'></mat-progress-bar>
         </div>
         <div #searchResults class='search-results-table'>
@@ -93,8 +94,8 @@
             </table-expandable-rows>
         </div>
     </div>
-    <div class='m-30' *ngIf='activeLink == navLinks[1]'>
-        <div class='m-30' *ngIf='!dataChildrenLoaded'>
+    <div *ngIf='activeLink == navLinks[1]'>
+        <div *ngIf='!dataChildrenLoaded'>
             <mat-progress-bar mode='indeterminate'></mat-progress-bar>
         </div>
 
@@ -106,7 +107,7 @@
 
         </div>
     </div>
-    <div class='m-30' *ngIf='dataChildren === null'>
+    <div *ngIf='dataChildren === null'>
         <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>
