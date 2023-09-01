@@ -42,7 +42,7 @@
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
     <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
-    
+
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
         <div class="code">
@@ -93,7 +93,7 @@
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-          <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label; onActiveItemChange(link.label)" 
+          <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label; onActiveItemChange(link.label)"
             routerLinkActive="active">{{link.label}}
           </a>
         </li>
@@ -114,7 +114,7 @@
     <div *ngIf='activeLink == navLinks[1].label' >
         <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
                                [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadCodelistDetail($event)'>
+                               (clickEvent)='onLoadCodelistDetail($event)' >
         </table-expandable-rows>
     </div>
     <div *ngIf='dataChildren === null'>

@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { MultiSelect } from 'primeng/multiselect';
 import { TableExpandableRows } from 'src/app/shared/components/table/table-row-expand.component';
-import { Column } from 'src/app/shared/models/table/column.model';
+import { Column, sortColumns } from 'src/app/shared/models/table/column.model';
 import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -24,7 +24,7 @@ export abstract class BasicSearchComponent {
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
     advancedSearch = false;
     showAllVersions = false;
-    selectedDefault: any[] = [];
+    selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
     filter = '';
     marked = false;
@@ -38,7 +38,7 @@ export abstract class BasicSearchComponent {
 
     public dataSearch: any[] = [];
 
-    public fields: any[] = [];
+    public fields: Column[] = [];
 
     public searchSimpleForm = this.formBuilder.group({
         filter: ['', Validators.required],
@@ -47,6 +47,15 @@ export abstract class BasicSearchComponent {
     });
 
     public searchForm: FormGroup = new FormGroup({});
+    public searchAdvancedForm = this.formBuilder.group({
+        id: '',
+        name: '',
+        urn: '',
+        description: '',
+        scheme: '',
+        maintainer: '',
+    });
+
 
     public detailForm: any;
 
@@ -59,7 +68,8 @@ export abstract class BasicSearchComponent {
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService: LocaleService) {}
+                          protected translateService: TranslateService, protected localeService: LocaleService) {
+    }
 
     public loadInitialData() {
         this.dataChildren = [];
@@ -72,19 +82,22 @@ export abstract class BasicSearchComponent {
     }
 
     public onSearchWithAllVersions(): void {
-        this.apiService.isLatestVersion = !this.marked? true : !this.apiService.isLatestVersion;
+        this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
         this.apiService.setApiSearchUrl();
         this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if(!this.marked) {
+        this.defaultParametersSearch();
+        this.loadInitialData();
+        if (!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }
     }
 
-    public onSelectFields() {
+    public onSelectFields(event: any) {
+        event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
     }
 
@@ -106,12 +119,9 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onScrollUp($event: IInfiniteScrollEvent) {
-    }
-
     public onSearch(): void {
         this.defaultParametersSearch();
-        this.onSearchSimple();
+        this.mapper(this.searchForm.controls);
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
@@ -123,10 +133,19 @@ export abstract class BasicSearchComponent {
         }
     }
 
-    private onReset(): void {
-        this.searchSimpleForm.reset();
+    public onAdvancedSearch(event: any): void {
         this.defaultParametersSearch();
-        this.loadInitialData();
+        // @ts-ignore
+        this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
+        if (this.searchForm.valid) {
+            this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
+                this.searchConfig.resultSize = data['total'];
+                if (this.searchConfig.resultSize > 0) {
+                    this.dataSearch = data[this.apiService.apiSearchDataPath];
+                    this.loadDetailDataChildren();
+                }
+            });
+        }
     }
 
     private defaultParametersSearch(): void {
@@ -136,13 +155,6 @@ export abstract class BasicSearchComponent {
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore
         this.searchResults.nativeElement.scrollTop = 0;
-    }
-
-    private onSearchSimple(): void {
-        if (!this.searchSimpleForm.valid) {
-            this.onReset();
-        }
-        this.mapper(this.searchForm.controls);
     }
 
     private mapper<T>(obj: T) {
@@ -156,8 +168,9 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value };
-        });
+            return { name: field.name, value: field.value, enabled: field.enabled };
+        }).filter((field: any) => field.enabled);
+        this.selectedFields = sortColumns(this.selectedFields, this.fields);
     }
 
     private loadDetailDataChildren() {
@@ -165,6 +178,19 @@ export abstract class BasicSearchComponent {
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
             this.dataChildrenLoaded = true;
+        });
+    }
+
+    private loadDetailDataChildrenWithQuery(form?: FormGroup) {
+        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
+        this.getDataChildren(resources).subscribe((data) => {
+            this.dataChildren = [...this.dataChildren, ...data];
+            this.dataChildrenLoaded = true;
+            if(form?.controls['maintainer'].value){
+                this.dataChildren = this.dataChildren.filter((field: any) => {
+                    return field.maintainer.toLowerCase().indexOf(form?.controls['maintainer'].value.toLowerCase()) !== -1;
+                });
+            }
         });
     }
 
