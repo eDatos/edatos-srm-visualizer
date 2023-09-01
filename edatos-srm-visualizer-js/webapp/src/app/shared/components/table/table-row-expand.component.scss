@@ -125,9 +125,7 @@ tr.detail-row {
 .empty-td {
   width: $container-max-widths;
   padding: 32px 10px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  padding: 32px calc($container-max-widths/2 - ($empty-td-container-width)/2);
 }
 
 .empty-td-container {
@@ -137,7 +135,7 @@ tr.detail-row {
   text-align: center;
   background: $color-amarillo-25;
   border-radius: 3px;
-  width: calc($container-max-widths/4 + $padding-10px);
+  width: $empty-td-container-width;
   padding: 20px 30px;
   span {
     &.text-no-result {
