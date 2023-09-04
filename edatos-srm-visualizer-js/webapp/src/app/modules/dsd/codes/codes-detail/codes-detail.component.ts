@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 import {
     DsdResource
 } from 'src/app/shared/models/resources/dsd-resource.model';
+import { TreeNode, treeNode } from 'src/app/shared/models/tree/tree-node';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { DsdApiSdmxService } from 'src/app/core/services/api/sdmx/dsd/dsd-api-sdmx.service';
@@ -26,9 +27,14 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public dimensions: DsdResource[] = [];
-    public attributes: DsdResource[] = [];
-    public measures: DsdResource[] = [];
+    public measureColumns: any[];
+    public dimensionColumns: any[];
+    public attributeColumns: any[];
+    public routerLinkDetail: string = '';
+
+    public dimensions: TreeNode[] = [];
+    public attributes: TreeNode[] = [];
+    public measures: TreeNode[] = [];
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -61,14 +67,32 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         ];
 
         this.activeLink = this.navLinks[0];
+
+        this.measureColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+        ];
+        this.dimensionColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
+            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' }
+        ];
+        this.attributeColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
+            { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
+            { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'assigmentStatus' },
+            { name: this.translateService.instant('dsd.parameters.assigned'), value: 'attributeRelationship' }
+        ];
     }
 
     protected loadDetailData(): void {
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
-            this.loadAllVersionsFromResource();
             this.loadDetailDimensionAttributeAndMesures();
+            this.loadAllVersionsFromResource();
         });
     }
 
@@ -90,15 +114,15 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.apiSrmService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiSrmService.apiDataStructureComponentsDataPath]) {
                 const dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
+                this.getMeasures(dataStructureComponents);
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
-                this.measures.push(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']);
             }
             this.dataChildrenLoaded = true;
         });
     }
 
-    private getAttributes(dataStructureComponents: any): DsdResource[] {
+    private getAttributes(dataStructureComponents: any): TreeNode[] {
         if (dataStructureComponents[this.apiSrmService.apiAttributeDataPath]) {
             this.attributes = dataStructureComponents[this.apiSrmService.apiAttributeDataPath]['attribute'].map((attribute: any) => {
                 return DsdResource.dsdAttributeResource(attribute, this.translateService);
@@ -107,13 +131,18 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         return this.attributes;
     }
 
-    private getDimensions(dataStructureComponents: any): DsdResource[] {
+    private getDimensions(dataStructureComponents: any): TreeNode[] {
         if (dataStructureComponents[this.apiSrmService.apiDimensionDataPath]) {
             this.dimensions = dataStructureComponents[this.apiSrmService.apiDimensionDataPath]['dimension'].map((dimension: any) => {
                 return DsdResource.dsdDimensionResource(dimension, this.translateService);
             });
         }
         return this.dimensions;
+    }
+
+    private getMeasures(dataStructureComponents: any): TreeNode[] {
+        this.measures.push(treeNode(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']['conceptIdentity'], false, this.localeService));
+        return this.measures;
     }
 
     onActiveItemChange(event: any) {
@@ -124,6 +153,21 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.versions = [];
         this.selectedVersion = event.value;
         this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
+    }
+
+    public onLoadMeasureDetail(urn: string): void {
+        const measure = new DsdResource(urn);
+        if (measure) {
+            this.routerLinkDetail = `/codelists/${measure.agency}/${measure.resourceId}/${measure.version}/detail`;
+        }
+    }
+
+    public onLoadDimensionDetail(urn: string): void {
+        //TODO
+    }
+
+    public onLoadAttributeDetail(urn: string): void {
+        //TODO
     }
 
 }

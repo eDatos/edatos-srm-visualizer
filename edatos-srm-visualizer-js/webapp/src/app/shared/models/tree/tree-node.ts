@@ -8,10 +8,15 @@ export interface TreeNode {
     selfLink: string;
     maintainer: string;
     scheme: string;
+    concept?: string;
+    typeDimension?: string;
+    assigmentStatus?: string;
+    attributeRelationship?: string;
     count?: number;
     children?: TreeNode[];
     version?: string;
     urlChildren?: string;
+    
 }
 
 export function treeNode(data: any, isLatestVersion: boolean, localeService: LocaleService) {
@@ -22,7 +27,11 @@ export function treeNode(data: any, isLatestVersion: boolean, localeService: Loc
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: '',
-        scheme: ''
+        scheme: '',
+        concept: '',
+        typeDimension: '',
+        assigmentStatus: '',
+        attributeRelationship: ''
     };
     return treeNode;
 }

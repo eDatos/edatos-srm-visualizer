@@ -9,4 +9,8 @@ export interface FlatTreeNode {
     selfLink: string;
     maintainer: string;
     scheme: string;
+    concept: string | undefined;
+    typeDimension: string | undefined;
+    assigmentStatus: string | undefined;
+    attributeRelationship: string | undefined;
 }
