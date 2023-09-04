@@ -25,6 +25,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public otherCodes: TreeNode[] = [];
     public equivalentCodes: TreeNode[] = [];
 
+    public codeColumns: any[];
+    public routerLinkDetail: string = '';
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistCodesApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
@@ -50,6 +53,13 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         ];
 
         this.activeLink = this.navLinks[0];
+
+        this.codeColumns = [
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+        ];
+        
     }
 
     loadDetailData(): void {
@@ -78,6 +88,10 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
                 });
             }
         });
+    }
+
+    public onLoadCodeDetail(urn: string): void {
+        //TODO
     }
 
 }
