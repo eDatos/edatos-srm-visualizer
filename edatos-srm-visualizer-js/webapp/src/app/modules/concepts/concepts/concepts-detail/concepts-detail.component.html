@@ -70,7 +70,6 @@
     </div>
 </div>
 
-<span class="gap"></span>
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
@@ -81,7 +80,6 @@
     </ul>
 </div>
 
-<span class="gap"></span>
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div *ngIf='!dataChildrenLoaded'>
@@ -111,4 +109,3 @@
         <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>
-<span class="gap"></span>
