@@ -7,6 +7,7 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { MenuItem } from 'primeng/api'
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
@@ -21,8 +22,8 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public versions: any[] = [];
 
     public selectedVersion: string = '';
-    public navLinks: any[];
-    public activeLink: string;
+    public navLinks: MenuItem[];
+    public activeLink: MenuItem;
 
     public routerLinkDetail: string = '';
     public columns: any[];
@@ -56,7 +57,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
             }
         ];
 
-        this.activeLink = this.navLinks[0].label ? this.navLinks[0].label : '';
+        this.activeLink = this.navLinks[0];
 
         this.columns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
@@ -67,7 +68,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     protected loadDetailData(): void {
-        this.activeLink = this.navLinks[0].label;
+        this.activeLink = this.navLinks[0];
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
@@ -87,7 +88,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     onActiveItemChange(link: any) {
         this.activeLink = link;
-        if (this.activeLink == this.navLinks[1].label) {
+        if (this.activeLink == this.navLinks[1]) {
             this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
         }
     }

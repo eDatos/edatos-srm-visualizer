@@ -89,29 +89,27 @@
     </div>
 </div>
 
-<br>
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-          <a class="nav-link" [ngClass]="activeLink == link.label ? 'active' : ''" (click)="activeLink = link.label; onActiveItemChange(link.label)"
+          <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" (click)="activeLink = link; onActiveItemChange(link)"
             routerLinkActive="active">{{link.label}}
           </a>
         </li>
     </ul>
 </div>
 
-<br/>
 <div class='container detail-table'>
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>
     </div>
-    <div *ngIf='activeLink == navLinks[0].label'>
+    <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
             <app-table-tree #tabletreenode [data]='dataChildren'
                             (clickEvent)='onLoadDetail($event)'></app-table-tree>
         </div>
     </div>
-    <div *ngIf='activeLink == navLinks[1].label' >
+    <div *ngIf='activeLink == navLinks[1]'>
         <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
                                [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadCodelistDetail($event)' >
@@ -121,5 +119,4 @@
         <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>
-<br />
 
