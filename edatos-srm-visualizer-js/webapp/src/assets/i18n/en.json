@@ -10,6 +10,7 @@
   "no": "No",
   "otherVersions": "Other versions",
   "back": "Back to list",
+  "copy": "Copy",
   "download": {
     "title": "Download",
     "sdmx-xml": "Download in SDMX-XML format",

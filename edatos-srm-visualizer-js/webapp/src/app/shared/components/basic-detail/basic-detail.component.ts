@@ -26,6 +26,8 @@ export abstract class BasicDetailComponent implements OnInit {
 
     public resource: any;
 
+    public copied: boolean = false;
+
     detailForm: any;
     dataDetail: any | undefined;
 
@@ -120,6 +122,13 @@ export abstract class BasicDetailComponent implements OnInit {
 
     public openSelfLink(selfLink: string) {
         window.open(selfLink, '_blank');
+    }
+
+    public onCopySuccess() {
+        this.copied = true;
+        setTimeout(() => {
+            this.copied = false;
+        }, 3000);
     }
 
     protected abstract loadDetailData(): void;

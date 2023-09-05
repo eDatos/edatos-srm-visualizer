@@ -22,6 +22,8 @@ export class TableExpandableRows {
     public columnsToDisplay: Column[] = [];
     public routerLink: string | undefined;
 
+    public copied: boolean = false;
+
     public isAdvancedSearch: boolean = false;
 
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
@@ -105,6 +107,14 @@ export class TableExpandableRows {
     public openSelfLink(selfLink: string) {
         window.open(selfLink, '_blank');
     }
+
+    public onCopySuccess() {
+        this.copied = true;
+        setTimeout(() => {
+            this.copied = false;
+        }, 3000);
+    }
+
     public isRowExpanded(data: any): boolean {
         return this.expandedElements.includes(data);
     }
@@ -115,6 +125,7 @@ export class TableExpandableRows {
             this.expandedElements.splice(index, 1);
         }
     }
+
 
     public expandRow(data: any): void {
         if (!this.isRowExpanded(data)) {
