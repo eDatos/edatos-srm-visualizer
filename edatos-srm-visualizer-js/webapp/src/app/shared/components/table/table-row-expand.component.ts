@@ -102,6 +102,9 @@ export class TableExpandableRows {
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
+    public openSelfLink(selfLink: string) {
+        window.open(selfLink, '_blank');
+    }
     public isRowExpanded(data: any): boolean {
         return this.expandedElements.includes(data);
     }

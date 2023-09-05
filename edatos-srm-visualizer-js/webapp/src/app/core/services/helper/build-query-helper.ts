@@ -16,10 +16,10 @@ export class BuildQueryHelper {
         return query;
     }
 
-    public buildAdvanceQueryFromForm(form?: FormGroup<SearchFormValues>): string {
+    public buildAdvanceQueryFromForm(isLatestVersion: boolean, form: FormGroup<SearchFormValues>): string {
         let query = '';
         if (form) {
-            query = this.simpleSearchFilter.getCriteriaAdvanced(form.controls);
+            query = this.simpleSearchFilter.getCriteriaAdvanced(isLatestVersion, form.controls);
         }
         return query;
     }

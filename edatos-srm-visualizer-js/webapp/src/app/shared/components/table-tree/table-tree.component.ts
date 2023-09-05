@@ -54,8 +54,7 @@ export class TableTreeComponent {
 
     dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    constructor(private apiService: ApiSrmService, private localeService: LocaleService) {
-    }
+    constructor(private apiService: ApiSrmService, private localeService: LocaleService) {}
 
 
     onClickResource(resource: string) {

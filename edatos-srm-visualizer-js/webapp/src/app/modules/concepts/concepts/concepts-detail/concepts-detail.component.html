@@ -23,7 +23,7 @@
             <code>{{ dataDetail.uri }}</code>
         </div>
         <div class='element-link-actions'>
-            <button type='button'>
+            <button type='button' (click)="openSelfLink(dataDetail.uri)">
                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
             <button>
@@ -53,7 +53,7 @@
     <div class='info-link'>
         <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme }}</span>
         <div class='element-link-actions'>
-            <button type='button'>
+            <button type='button' (click)="openSelfLink(dataDetail.conceptScheme)">
                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>
@@ -63,7 +63,7 @@
     <div class='info-link'>
         <span class='info-agency' id='maintainer'>{{ dataDetail.maintainer }}</span>
         <div class='element-link-actions'>
-            <button type='button'>
+            <button type='button' (click)="openSelfLink(dataDetail.maintainer)">
                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>

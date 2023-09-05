@@ -36,7 +36,7 @@
                         <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
                         <div class='element-link-attribution'>
                             <code>{{data.selfLink}}</code>
-                            <button type='button' class='element-link-actions'>
+                            <button type='button' class='element-link-actions' (click)="openSelfLink(data.selfLink)">
                                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
                             </button>
                             <button class='element-link-actions'>

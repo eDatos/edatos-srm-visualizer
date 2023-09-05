@@ -132,8 +132,8 @@ export abstract class ApiSrmService extends ApiService {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
-    public getAdvancedSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
-        let query = this.buildQueryHelper.buildAdvanceQueryFromForm(form);
+    public getAdvancedSearchFromForms(searchConfig: SearchConfig, form: FormGroup): Observable<any> {
+        let query = this.buildQueryHelper.buildAdvanceQueryFromForm(this.isLatestVersion, form);
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 

@@ -118,6 +118,10 @@ export abstract class BasicDetailComponent implements OnInit {
         return this.expandedMenu;
     }
 
+    public openSelfLink(selfLink: string) {
+        window.open(selfLink, '_blank');
+    }
+
     protected abstract loadDetailData(): void;
 
 }

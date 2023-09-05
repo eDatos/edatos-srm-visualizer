@@ -24,7 +24,7 @@
     color: $color-azul-oscuro-100;
    }
   }
-  &.expanded-row, &.expanded-row:hover {  //fila expandida
+  &.expanded-row, &.expanded-row:hover {
     height: 51px;
     > td:first-child {
       border-radius: 5px 0px 0px 0px;
