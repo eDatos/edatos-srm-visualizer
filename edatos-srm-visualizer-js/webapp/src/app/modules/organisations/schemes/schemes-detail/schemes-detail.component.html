@@ -37,7 +37,6 @@
     <span>{{ dataDetail.version }}</span>
 
     <label for='publicationDate' class='title'>{{ 'category.parameters.publicationDate' | translate }}</label>
-    <input type='text' class='form-control' formControlName='publicationDate' id='publicationDate' readonly>
     <span>{{ dataDetail.publicationDate }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
@@ -86,8 +85,6 @@
     </div>
 </div>
 
-
-<br>
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
@@ -98,7 +95,6 @@
     </ul>
 </div>
 
-<br/>
 <div class='container detail-table'>
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>

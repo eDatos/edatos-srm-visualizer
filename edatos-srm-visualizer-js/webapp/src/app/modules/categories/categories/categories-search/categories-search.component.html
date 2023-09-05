@@ -1,7 +1,7 @@
 <div [formGroup]='searchSimpleForm'>
     <div class='general-search row'>
         <div *ngIf='!marked'>
-            <label for='filter' class='title'>{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
+            <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
         </div>
         <div class='col' *ngIf='!marked'>
             <input type='text' class='form-control' formControlName='filter' id='filter'
