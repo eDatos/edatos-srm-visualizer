@@ -84,4 +84,8 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         /**TODO */
     }
 
+    public copyUrn(urn: string): void {
+        //TODO
+    }
+
 }
