@@ -33,7 +33,7 @@
     "comments": "Comments",
     "maintainer": "Maintainer",
     "codelist": "Codelist",
-    "generalSearchEngine": "General search engine",
+    "generalSearch": "General search",
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",
     "isRecommended": "Show only recommended codelist",
