@@ -49,10 +49,10 @@
             <code>{{ dataDetail.uri }}</code>
         </div>
         <div class="element-link-actions">
-            <button type="button">
+            <button type="button" (click)="openSelfLink(dataDetail.uri)">
                 <i class="fa-thin fa-arrow-up-right-from-square"></i>
             </button>
-            <button>
+            <button copyClipboard="{{dataDetail.uri}}" (click)="onCopySuccess()">
                 <i class="fa-thin fa-copy"></i>
             </button>
         </div>
@@ -64,7 +64,7 @@
             <code>{{ dataDetail.urn }}</code>
         </div>
         <div class="element-link-actions">
-            <button>
+            <button copyClipboard="{{dataDetail.urn}}" (click)="onCopySuccess()">
                 <i class="fa-thin fa-copy"></i>
             </button>
         </div>
@@ -82,7 +82,7 @@
     <div class='info-link'>
         <span class="info-agency" id='maintainer'>{{ dataDetail.maintainer }}</span>
         <div class="element-link-actions">
-            <button type="button">
+            <button type="button" (click)="openSelfLink(dataDetail.maintainer)">
                 <i class="fa-thin fa-arrow-up-right-from-square"></i>
             </button>
         </div>
