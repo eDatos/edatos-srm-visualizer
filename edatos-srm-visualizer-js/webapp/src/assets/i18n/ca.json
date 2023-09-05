@@ -34,7 +34,7 @@
     "comments": "Comentaris",
     "maintainer": "Mantenidor",
     "codelist": "Classificació",
-    "generalSearchEngine": "Cercador general",
+    "generalSearch": "Cercador general",
     "advancedSearch": "Cerca avançada",
     "showAllVersions": "Mostrar totes les versions",
     "isRecommended": "Mostrar només les clasificacions recomanades",

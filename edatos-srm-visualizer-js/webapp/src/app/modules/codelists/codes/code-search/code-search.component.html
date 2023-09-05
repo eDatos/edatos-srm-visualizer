@@ -1,7 +1,7 @@
 <div [formGroup]='searchSimpleForm'>
     <div class='general-search row'>
         <div *ngIf='!marked'>
-            <label for='filter' class='title'>{{ 'resourceParameters.generalSearchEngine' | translate }}</label>
+            <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
         </div>
         <div class='col' *ngIf='!marked'>
             <input type='text' class='form-control' formControlName='filter' id='filter'
@@ -33,22 +33,17 @@
     </div>
 </div>
 
-<div class='mlr'>
-    <br>
-    <div>
-        <div class='search-results-table' *ngIf='!dataChildrenLoaded'>
+<div>
+    <div class='search-results-table' *ngIf='!dataChildrenLoaded'>
             <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true'
-             (scrolled)='onScrollDown($event)'>
-            <table-expandable-rows #tableExpandable [columns]='selectedFields'
-                                   [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
-                                   (clickEvent)='onLoadCodeDetail($event)' [advancedSearch]='marked'
-                                   (keyupEvent)='onAdvancedSearch($event)'>
-            </table-expandable-rows>
-        </div>
-
+    </div>
+    <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
+          [fromRoot]='true'
+          (scrolled)='onScrollDown($event)'>
+        <table-expandable-rows #tableExpandable [columns]='selectedFields'
+                                [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
+                                (clickEvent)='onLoadCodeDetail($event)' [advancedSearch]='marked'
+                                (keyupEvent)='onAdvancedSearch($event)'>
+        </table-expandable-rows>
     </div>
 </div>
-<br />

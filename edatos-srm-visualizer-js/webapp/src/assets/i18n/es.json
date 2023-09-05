@@ -34,7 +34,7 @@
     "comments": "Anotaciones",
     "maintainer": "Mantenedor",
     "codelist": "Clasificación",
-    "generalSearchEngine": "Buscador general",
+    "generalSearch": "Buscador general",
     "advancedSearch": "Búsqueda avanzada",
     "showAllVersions": "Mostrar todas las versiones",
     "isRecommended": "Mostrar sólo las clasificaciones recomendadas",

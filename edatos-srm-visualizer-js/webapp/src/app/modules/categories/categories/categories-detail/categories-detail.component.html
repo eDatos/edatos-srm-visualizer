@@ -9,13 +9,13 @@
 
 <div [formGroup]='detailForm' class='detail-info'>
     <label for='id' class='title'>{{ 'category.parameters.idCategory' | translate }}</label>
-    <span class="info-id" id='id'>{{ dataDetail.id }}</span>
+    <span class="info-id">{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span id='name'>{{ dataDetail.name }}</span>
+    <span>{{ dataDetail.name }}</span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-    <div id='uri' class='info-link background'>
+    <div class='info-link background'>
         <div class="code">
             <code>{{ dataDetail.uri }}</code>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-    <div id='urn' class='info-link background'>
+    <div class='info-link background'>
         <div class="code">
             <code>{{ dataDetail.urn }}</code>
         </div>
@@ -43,7 +43,7 @@
 
     <div *ngIf="dataDetail.annotations">
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <span id='annotations'>{{ dataDetail.annotations }}</span>
+        <span>{{ dataDetail.annotations }}</span>
     </div>
 
     <label for='categroyScheme' class='title'>{{ 'category.categorySchemes' | translate }}</label>
@@ -67,7 +67,6 @@
     </div>
 </div>
 
-<br>
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
@@ -78,7 +77,6 @@
     </ul>
 </div>
 
-<br/>
 <div class='container detail-table'>
     <div *ngIf='!dataChildrenLoaded'>
         <mat-progress-bar mode='indeterminate'></mat-progress-bar>

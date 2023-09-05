@@ -6,7 +6,7 @@ import {
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, TreeNode } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
@@ -21,7 +21,9 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public familyCodelist: CodelistResource[] = [];
+    public familyCodelist: TreeNode[] = [];
+    public columns: any[];
+    public routerLinkDetail: string = '';
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistFamiliesApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -42,6 +44,12 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         ];
 
         this.activeLink = this.navLinks[0];
+
+        this.columns = [
+            { name: this.translateService.instant('codelists.parameters.code'), value: 'id' },
+            { name: this.translateService.instant('codelists.parameters.parentCode'), value: 'name' },
+            { name: this.translateService.instant('codelists.parameters.agency'), value: 'agency' }
+        ];
     }
 
     loadDetailData(): void {
@@ -71,5 +79,13 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         });
         
       */
+
+    public onLoadFamilyCodelistDetail(urn: string): void {
+        /**TODO */
+    }
+
+    public copyUrn(urn: string): void {
+        //TODO
+    }
 
 }
