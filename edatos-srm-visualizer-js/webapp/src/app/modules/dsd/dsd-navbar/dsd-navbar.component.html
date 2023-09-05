@@ -1,8 +1,9 @@
-<div class="subsection-tab">
+<div class="subsection-tab" *ngIf="navLinks.length > 1">
     <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['codes']" routerLinkActive="active">
-                <span>{{ 'dsd.datastructures' | translate}}</span>
+        <li class="nav-item" *ngFor="let link of navLinks">
+            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" 
+               routerLinkActive="active" [routerLink]="link.routerLink">
+                <span>{{link.label}}</span>
             </a>
         </li>
     </ul>

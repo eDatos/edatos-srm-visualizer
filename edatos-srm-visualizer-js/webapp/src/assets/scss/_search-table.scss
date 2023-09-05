@@ -2,9 +2,13 @@
     height: 800px;
     min-height: 300px;
     overflow-y: auto;
-    table th, table td{
-        letter-spacing: normal;
-        font-family: $font-family-sans-serif;
+    padding: 0px $padding-20px;
+    table {
+        box-shadow: none;
+        th, td {
+            letter-spacing: normal;
+            font-family: $font-family-sans-serif;
+        }
     }
 }
 
