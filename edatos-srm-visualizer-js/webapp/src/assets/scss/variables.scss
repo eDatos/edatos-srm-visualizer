@@ -56,7 +56,7 @@ $padding-10px: 10px;
 $padding-20px: 20px;
 
 $container-max-widths: 1280px;
-$container-2columns-max-width: calc($container-max-widths/2 - 2*$padding-10px);
+$container-2columns-max-width: calc($container-max-widths/2 - 3*$padding-10px);
 $empty-td-container-width: calc($container-max-widths/4 + $padding-10px);
 
 $menu-popup-min-width: 250px;
