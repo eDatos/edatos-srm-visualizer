@@ -17,7 +17,9 @@ import es.gobcan.istac.edatos.visualizer.core.repository.CodelistRepository;
 import es.gobcan.istac.edatos.visualizer.core.utils.InternationalStringUtils;
 import lombok.extern.slf4j.Slf4j;
 
-@Service @Slf4j public class CodelistService {
+@Service
+@Slf4j
+public class CodelistService {
 
     private final CodelistRepository codeListRepository;
 

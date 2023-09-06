@@ -17,39 +17,41 @@
 
 <div [formGroup]='detailForm' class='detail-info'>
     <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
-    <span class='info-id'>{{ dataDetail.id }}</span>
+    <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span>{{ dataDetail.name }}</span>
+    <span id='name'>{{ dataDetail.name }}</span>
 
     <label for='lastUpdatedDate' class='title'>{{ 'codelists.parameters.lastUpdatedDate' | translate }}</label>
-    <span>{{ dataDetail.lastUpdatedDate }}</span>
+    <span id='lastUpdatedDate'>{{ dataDetail.lastUpdatedDate }}</span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
-    <div class='info-link background'>
+    <div id='uri' class='info-link background'>
         <div class="code">
             <code>{{ dataDetail.uri }}</code>
         </div>
         <div class="element-link-actions">
-            <button type="button">
+            <button type="button" (click)="openSelfLink(dataDetail.uri)">
                 <i class="fa-thin fa-arrow-up-right-from-square"></i>
             </button>
-            <button>
+            <button copyClipboard="{{dataDetail.uri}}" (click)="onCopyUriSuccess()">
                 <i class="fa-thin fa-copy"></i>
             </button>
         </div>
+        <div class="copied-message" *ngIf="copiedUri">{{ 'copy' | translate }}</div>
     </div>
 
     <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-    <div class='info-link background'>
+    <div id="urn" class='info-link background'>
         <div class="code">
             <code>{{ dataDetail.urn }}</code>
         </div>
         <div class="element-link-actions">
-            <button (click)="copyUrn(dataDetail.urn)">
+            <button copyClipboard="{{dataDetail.urn}}" (click)="onCopyUrnSuccess()">
                 <i class="fa-thin fa-copy"></i>
             </button>
         </div>
+        <div class="copied-message" *ngIf="copiedUrn">{{ 'copy' | translate }}</div>
     </div>
 </div>
 

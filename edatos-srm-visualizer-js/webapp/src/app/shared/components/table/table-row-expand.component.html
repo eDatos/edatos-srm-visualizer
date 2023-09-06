@@ -36,14 +36,15 @@
                         <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
                         <div class='element-link-attribution'>
                             <code>{{data.selfLink}}</code>
-                            <button type='button' class='element-link-actions'>
+                            <button type='button' class='element-link-actions' (click)="openSelfLink(data.selfLink)">
                                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
                             </button>
-                            <button class='element-link-actions'>
+                            <button class='element-link-actions' ngxClipboard copyClipboard="{{data.selfLink}}" (click)="onCopySuccess()">
                                 <i class='fa-thin fa-copy'></i>
                             </button>
                         </div>
                     </div>
+                    <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
                     <div class='element-detail-button'>
                         <button type='button' class='text-icon-button' [routerLink]='[routerLink]'>
                             <i class='fa-thin fa-eye'></i>&nbsp;

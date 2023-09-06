@@ -59,6 +59,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { TableExpandableRows } from './components/table/table-row-expand.component';
 import { RouterLink } from '@angular/router';
+import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { RouterLink } from '@angular/router';
         TableTreeComponent,
         TableExpandableRows,
         VersionPipe,
+        CopyClipboardDirective
     ],
     imports: [
         CommonModule,
@@ -80,6 +82,7 @@ import { RouterLink } from '@angular/router';
         TranslateModule,
         MultiSelectModule,
         InputSwitchModule,
+        ClipboardModule,
         RouterLink,
         FormsModule
     ],
@@ -132,6 +135,7 @@ import { RouterLink } from '@angular/router';
         MatTreeModule,
         OverlayModule,
         PortalModule,
+        CopyClipboardDirective,
         PaginationsComponent,
         SchemePipe,
         ScrollingModule,

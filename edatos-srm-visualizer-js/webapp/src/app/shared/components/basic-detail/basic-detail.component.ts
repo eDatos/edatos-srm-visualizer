@@ -26,6 +26,9 @@ export abstract class BasicDetailComponent implements OnInit {
 
     public resource: any;
 
+    public copiedUri: boolean = false;
+    public copiedUrn: boolean = false;
+
     detailForm: any;
     dataDetail: any | undefined;
 
@@ -116,6 +119,24 @@ export abstract class BasicDetailComponent implements OnInit {
     public handleVisibilityMenu(): boolean {
         this.expandedMenu = !this.expandedMenu;
         return this.expandedMenu;
+    }
+
+    public openSelfLink(selfLink: string) {
+        window.open(selfLink, '_blank');
+    }
+
+    public onCopyUriSuccess() {
+        this.copiedUri = true;
+        setTimeout(() => {
+            this.copiedUri = false;
+        }, 3000);
+    }
+
+    public onCopyUrnSuccess() {
+        this.copiedUrn = true;
+        setTimeout(() => {
+            this.copiedUrn = false;
+        }, 3000);
     }
 
     protected abstract loadDetailData(): void;

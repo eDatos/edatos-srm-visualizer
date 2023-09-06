@@ -29,10 +29,12 @@ export class SimpleSearchFilter {
         return criterias;
     }
 
-    public getCriteriaAdvanced(values: SearchFormValues): string {
+    public getCriteriaAdvanced(isLatestVersion: boolean, values: SearchFormValues): string {
         let criterias = '';
+        let version: string = '';
         if (values.id.value) {
-            criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'`);
+            version = isLatestVersion ? '' : ` OR URN ILIKE '%${values.id.value}%' `;
+            criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'` + version);
         }
         if (values.maintainer.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.maintainer.value}%'`);
