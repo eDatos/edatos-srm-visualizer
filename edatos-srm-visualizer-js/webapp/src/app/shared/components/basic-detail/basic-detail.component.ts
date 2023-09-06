@@ -26,7 +26,8 @@ export abstract class BasicDetailComponent implements OnInit {
 
     public resource: any;
 
-    public copied: boolean = false;
+    public copiedUri: boolean = false;
+    public copiedUrn: boolean = false;
 
     detailForm: any;
     dataDetail: any | undefined;
@@ -124,10 +125,17 @@ export abstract class BasicDetailComponent implements OnInit {
         window.open(selfLink, '_blank');
     }
 
-    public onCopySuccess() {
-        this.copied = true;
+    public onCopyUriSuccess() {
+        this.copiedUri = true;
         setTimeout(() => {
-            this.copied = false;
+            this.copiedUri = false;
+        }, 3000);
+    }
+
+    public onCopyUrnSuccess() {
+        this.copiedUrn = true;
+        setTimeout(() => {
+            this.copiedUrn = false;
         }, 3000);
     }
 
