@@ -30,7 +30,6 @@ public class ConceptsResource  {
         return versions.isEmpty()? "" : JsonUtils.toJson(versions);
     }
 
-
     @GetMapping("/schemes/{urn}/concepts")
     public String getChildrenFromScheme(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
         List<TreeNode> result = conceptService.findConceptsFromScheme(urn, lang);
@@ -45,5 +44,4 @@ public class ConceptsResource  {
         }
         return "";
     }
-
 }

@@ -134,7 +134,7 @@ tr.detail-row {
   padding: 32px calc($container-max-widths/2 - ($empty-td-container-width)/2);
 }
 
-.empty-td-container {
+.empty-td-container, .error-td-container {
   gap: 10px;
   display: flex;
   flex-direction: column;
@@ -154,7 +154,24 @@ tr.detail-row {
       line-height: 19px;
     }
   }
- 
+}
+
+.sipnner-td-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 35%;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  ::ng-deep circle {
+    stroke: #009BD7; // --color-azul-100
+  }
+}
+
+.error-td-container {
+  background: $color-rojo-25;
 }
 
 

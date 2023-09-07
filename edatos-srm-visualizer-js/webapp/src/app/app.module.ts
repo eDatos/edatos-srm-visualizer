@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { SafeHtmlPipe } from './shared/pipes/safe-html/safe-html.pipe';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -19,6 +19,7 @@ import { ScriptLoaderModule } from 'ngx-script-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorApiInterceptor } from './core/interceptor/error-api.interceptor';
 
 
 class CustomTranslateHttpLoader extends TranslateHttpLoader {
@@ -90,6 +91,11 @@ export function initTranslations(translateService: TranslateService, cookieServi
             multi: true
         },
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorApiInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent]
 })

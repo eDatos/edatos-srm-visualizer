@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Column } from 'src/app/shared/models/table/column.model';
+import { ErrorService } from '../../../core/services/error/error.service';
 
 @Component({
     selector: 'table-expandable-rows',
@@ -18,11 +19,13 @@ import { Column } from 'src/app/shared/models/table/column.model';
         ])
     ]
 })
-export class TableExpandableRows {
+export class TableExpandableRows implements OnInit{
     public columnsToDisplay: Column[] = [];
     public routerLink: string | undefined;
 
     public copied: boolean = false;
+    public apiError: boolean = false;
+    public dataLoaded: boolean = false;
 
     public isAdvancedSearch: boolean = false;
 
@@ -61,6 +64,14 @@ export class TableExpandableRows {
 
     reducer = (accumulator: boolean, currentValue: boolean) => accumulator && currentValue;
 
+    constructor(private errorService: ErrorService) {}
+
+    ngOnInit() {
+        this.errorService.getErrorStatus().subscribe((status) => {
+            this.apiError = status !== null;
+            this.dataLoaded = status !== null;
+        });
+    }
 
     applyFilters(column: string, filterValue: any) {
         this.onKeyupResource(filterValue.value, column);
@@ -73,6 +84,12 @@ export class TableExpandableRows {
         }
     }
 
+    @Input()
+    set spinner(dataLoaded: boolean) {
+        if (dataLoaded) {
+            this.dataLoaded = dataLoaded;
+        }
+    }
 
     @Input()
     set routerLinkDetail(data: string) {

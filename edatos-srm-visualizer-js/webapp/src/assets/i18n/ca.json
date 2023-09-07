@@ -22,6 +22,8 @@
   "seeResource": "Veure aquest recurs",
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
+  "apiError": "No s'ha pogut obtenir resultats",
+  "retryError": "Pot ser que el servidor no estigui disponible. Si us plau, intenta-ho de nou més tard.",
   "elements": "Elements",
   "resourceParameters": {
     "id": "ID",

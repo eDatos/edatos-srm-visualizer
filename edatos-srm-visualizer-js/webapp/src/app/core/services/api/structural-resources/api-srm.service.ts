@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { forkJoin, Observable } from 'rxjs';
+import { catchError, forkJoin, Observable, throwError } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ApiService } from 'src/app/core/services/api/api.service';
@@ -12,6 +12,7 @@ import {
     treeNodeWithMaintainer,
     treeNodeWithMaintainerAndScheme
 } from 'src/app/shared/models/tree/tree-node';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
