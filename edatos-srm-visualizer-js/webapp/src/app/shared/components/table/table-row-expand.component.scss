@@ -1,12 +1,18 @@
 @import '../../../../assets/scss/variables.scss';
 .element-header { //Cabecera de la tabla de resultados
-  background: $color-negro-5;
-  border-radius: 5px;
   height: 30px;
   th {
     padding: 5px $padding-10px;
     line-height: 19px;
     font-weight: $font-weight-600;
+    background: $color-negro-5;
+    border: none;
+    &:first-child {
+      border-radius: 5px 0px 0px 5px;
+    }
+    &:last-child {
+      border-radius: 0px 5px 5px 0px;
+    }
   }
 }
 
