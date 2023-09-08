@@ -124,6 +124,8 @@
         .p-menuitem-link  {
             padding: 3px;
             .p-menuitem-icon {
+                display: flex;
+                justify-content: center;
                 color: $color-negro-0;
                 font-size: $size-16;
                 width: 20px;
@@ -214,6 +216,9 @@
 .detail-table {
     padding: 20px;
     max-width: $container-max-widths;
+    table {
+        box-shadow: none;
+    }
 }
 
 
