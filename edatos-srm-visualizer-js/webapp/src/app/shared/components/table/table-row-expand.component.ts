@@ -85,13 +85,6 @@ export class TableExpandableRows implements OnInit{
     }
 
     @Input()
-    set spinner(dataLoaded: boolean) {
-        if (dataLoaded) {
-            this.dataLoaded = dataLoaded;
-        }
-    }
-
-    @Input()
     set routerLinkDetail(data: string) {
         if (data) {
             this.routerLink = data;
