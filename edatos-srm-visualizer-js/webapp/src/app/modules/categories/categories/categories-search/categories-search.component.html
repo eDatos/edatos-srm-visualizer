@@ -1,5 +1,5 @@
 <div [formGroup]='searchSimpleForm'>
-    <div class='general-search row'>
+    <div class='general-search row end'>
         <div *ngIf='!marked'>
             <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
         </div>
@@ -7,21 +7,16 @@
             <input type='text' class='form-control' formControlName='filter' id='filter'
                    placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
         </div>
-        <div class='custom-control custom-switch col' *ngIf='marked'>
-            <label for='allVersions'
-                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions()' />
-        </div>
         <div class='custom-control custom-switch'>
-            <label for='advancedSearch'
-                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
                            (onChange)='toggleVisibility($event)'></p-inputSwitch>
+            <label for='advancedSearch'
+                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
         </div>
     </div>
 </div>
 
-<div>
+<div class='search-results-container'>
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)'>
