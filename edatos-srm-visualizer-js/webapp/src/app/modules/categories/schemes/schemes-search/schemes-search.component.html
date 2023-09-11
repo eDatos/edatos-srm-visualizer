@@ -33,10 +33,8 @@
     </div>
 </div>
 
+
 <div class='search-results-container'>
-    <div *ngIf='!dataChildrenLoaded'>
-        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-    </div>
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)'>

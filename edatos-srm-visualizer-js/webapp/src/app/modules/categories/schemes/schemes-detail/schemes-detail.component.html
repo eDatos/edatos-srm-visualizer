@@ -98,9 +98,6 @@
 </div>
 
 <div class='container detail-table'>
-    <div *ngIf='!dataChildrenLoaded'>
-        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-    </div>
     <div class='search-results-table' *ngIf='activeLink == navLinks[0]'>
         <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
             <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>

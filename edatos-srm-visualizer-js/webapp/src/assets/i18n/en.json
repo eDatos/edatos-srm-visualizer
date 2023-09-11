@@ -22,6 +22,8 @@
   "seeResource": "See this resource",
   "noResourceResults": "No results found for those conditions",
   "retrySearch": "Please, change the search parameters and try again.",
+  "apiError": "Can not obtain a results.",
+  "retryError": "Could be a temporary error. Please, try again later.",
   "elements": "Elements",
   "resourceParameters": {
     "id": "ID",

@@ -99,9 +99,6 @@
 </div>
 
 <div class='container detail-table'>
-    <div *ngIf='!dataChildrenLoaded'>
-        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-    </div>
     <div *ngIf='activeLink == navLinks[0].label' >
         <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
                                [routerLinkDetail]='routerLinkDetail'
