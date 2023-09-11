@@ -18,6 +18,12 @@
 
 .element-row {  //filas de la tabla
   height: 39px;
+  td:not(:first-child) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: calc($container-2columns-max-width/2 - $padding-10px);
+  }
   td {
     padding: $padding-10px;
     line-height: 16px;
