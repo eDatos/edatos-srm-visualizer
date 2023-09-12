@@ -98,9 +98,9 @@
 </div>
 
 <div class='container detail-table'>
-    <div class='search-results-table' *ngIf='activeLink == navLinks[0]'>
-        <div class='search-results' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-            <app-table-tree #tabletreenode [data]='dataChildren'></app-table-tree>
+    <div *ngIf='activeLink == navLinks[0]'>
+        <div class='search-results-table-detail'>
+            <app-table-tree #tabletreenode [data]='dataChildren' [loaded]='dataChildrenLoaded'></app-table-tree>
         </div>
     </div>
 </div>

@@ -84,10 +84,7 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div #searchResults class='search-results-table'>
+        <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
                                    [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadCodelistDetail($event)'>
@@ -95,19 +92,12 @@
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-
-        <div #searchResults class='search-results-table'>
+        <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
                                    [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadConceptsDetail($event)'>
             </table-expandable-rows>
 
         </div>
-    </div>
-    <div *ngIf='dataChildren === null'>
-        <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>

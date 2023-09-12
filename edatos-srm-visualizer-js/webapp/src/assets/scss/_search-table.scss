@@ -1,4 +1,4 @@
-.search-results-table {
+.search-results-table, .search-results-table-detail  {
     height: 800px;
     min-height: 300px;
     overflow-y: auto;
@@ -11,6 +11,10 @@
     }
 }
 
+
+.search-results-table-detail {
+    height: auto;
+}
 
 
 

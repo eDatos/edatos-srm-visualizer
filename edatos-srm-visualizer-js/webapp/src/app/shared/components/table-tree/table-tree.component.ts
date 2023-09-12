@@ -1,10 +1,11 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { ErrorService } from '../../../core/services/error/error.service';
 
 
 @Component({
@@ -12,7 +13,10 @@ import { TreeNode } from 'src/app/shared/models/tree/tree-node';
     templateUrl: './table-tree.component.html',
     styleUrls: ['./table-tree.component.scss']
 })
-export class TableTreeComponent {
+export class TableTreeComponent implements OnInit{
+
+    public dataLoaded: boolean = false;
+    public apiError: boolean = false;
 
     @Input()
     displayedColumns: string[] = ['name', 'id'];
@@ -21,6 +25,13 @@ export class TableTreeComponent {
     set data(dataNodes: TreeNode[]) {
         if (dataNodes) {
             this.dataSource.data = dataNodes;
+        }
+    }
+
+    @Input()
+    set loaded(dataLoaded: boolean) {
+        if (dataLoaded) {
+            this.dataLoaded= dataLoaded;
         }
     }
 
@@ -54,8 +65,14 @@ export class TableTreeComponent {
 
     dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    constructor(private apiService: ApiSrmService, private localeService: LocaleService) {}
+    constructor(private errorService: ErrorService) {}
 
+    ngOnInit() {
+        this.errorService.getErrorStatus().subscribe((status) => {
+            this.apiError = status !== null;
+            this.dataLoaded = status !== null;
+        });
+    }
 
     onClickResource(resource: string) {
         this.clickEvent.emit(resource);

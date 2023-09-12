@@ -1,36 +1,45 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="mat-elevation-z8">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [matTreeNodePaddingIndent]="22">
-    <!-- use a disabled button to provide padding for tree leaf -->
-    <button matTreeNodeToggle class="element-actions" disabled>
-      <span>
-        <i class="fa-thin fa-hyphen"></i>
-      </span>
-    </button>
-      <div class="node-detail-info">
-        <span class="node-detail-info-id">{{node.id}}</span>
-        &nbsp;{{node.name}}
-      </div>
+<div class='no-data-container'>
+    <div *ngIf='!dataLoaded'>
+        <mat-spinner class='sipnner-td-container' mode='indeterminate'></mat-spinner>
+    </div>
 
-      <button type="button" class="text-icon-button hidden">
-        <i class="fa-thin fa-eye"></i>&nbsp;
-        <span>{{ 'seeCode' | translate | uppercase }}</span>
-      </button>
+    <div class='error-td-container' *ngIf='apiError'>
+        <span class='text-no-result '>{{ 'apiError' | translate }}</span>
+        <span class='text-retry'>{{ 'retryError' | translate }}</span>
+    </div>
+</div>
+
+<mat-tree *ngIf='dataLoaded' [dataSource]='dataSource' [treeControl]='treeControl' class='mat-elevation-z8'>
+    <mat-tree-node *matTreeNodeDef='let node' matTreeNodePadding [matTreeNodePaddingIndent]='22'>
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button matTreeNodeToggle class='element-actions' disabled>
+      <span>
+        <i class='fa-thin fa-hyphen'></i>
+      </span>
+        </button>
+        <div class='node-detail-info'>
+            <span class='node-detail-info-id'>{{node.id}}</span>
+            &nbsp;{{node.name}}
+        </div>
+
+        <button type='button' class='text-icon-button hidden'>
+            <i class='fa-thin fa-eye'></i>&nbsp;
+            <span>{{ 'seeCode' | translate | uppercase }}</span>
+        </button>
     </mat-tree-node>
 
-    <!-- This is the tree node template for expandable nodes -->
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="22">
-      <button matTreeNodeToggle class="element-actions"
-              [attr.aria-label]="'Toggle ' + node.name">
-              <i [ngClass]="treeControl.isExpanded(node) ? 'fa-thin fa-chevron-down' : 'fa-thin fa-chevron-right'"></i> 
-      </button>
-      <div class="node-detail-info">
-        <span class="node-detail-info-id">{{node.id}}</span>
-        &nbsp;{{node.name}}
-      </div>
-      <button type="button" class="text-icon-button hidden">
-        <i class="fa-thin fa-eye"></i>&nbsp;
-        <span>{{ 'seeCode' | translate | uppercase }}</span>
-      </button>
+    <mat-tree-node *matTreeNodeDef='let node;when: hasChild' matTreeNodePadding [matTreeNodePaddingIndent]='22'>
+        <button matTreeNodeToggle class='element-actions'
+                [attr.aria-label]="'Toggle ' + node.name">
+            <i [ngClass]="treeControl.isExpanded(node) ? 'fa-thin fa-chevron-down' : 'fa-thin fa-chevron-right'"></i>
+        </button>
+        <div class='node-detail-info'>
+            <span class='node-detail-info-id'>{{node.id}}</span>
+            &nbsp;{{node.name}}
+        </div>
+        <button type='button' class='text-icon-button hidden'>
+            <i class='fa-thin fa-eye'></i>&nbsp;
+            <span>{{ 'seeCode' | translate | uppercase }}</span>
+        </button>
     </mat-tree-node>
 </mat-tree>
-  

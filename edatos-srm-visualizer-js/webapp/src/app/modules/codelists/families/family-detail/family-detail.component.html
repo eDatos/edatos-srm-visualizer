@@ -67,18 +67,12 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div #searchResults class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
+        <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='columns'  
                                [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadFamilyCodelistDetail($event)' >
             </table-expandable-rows>
         </div>
-    </div>
-    <div *ngIf='dataChildren === null'>
-        <span>{{ 'resultsNotFound' | translate }}</span>
     </div>
 </div>
 
