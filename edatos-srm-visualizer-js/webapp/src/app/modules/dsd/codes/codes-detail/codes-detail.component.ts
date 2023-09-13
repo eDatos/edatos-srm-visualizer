@@ -141,6 +141,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     private getMeasures(dataStructureComponents: any): TreeNode[] {
+        this.measures = [];
         this.measures.push(treeNode(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']['conceptIdentity'], false, this.localeService));
         return this.measures;
     }
@@ -152,7 +153,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public onLoadDetailVersion(event: any) {
         this.versions = [];
         this.selectedVersion = event.value;
-        this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['codes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
     public onLoadMeasureDetail(urn: string): void {

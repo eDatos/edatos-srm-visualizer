@@ -57,9 +57,10 @@ export class TableTreeComponent {
     constructor(private apiService: ApiSrmService, private localeService: LocaleService) {}
 
 
-    onClickResource(resource: string) {
-        this.clickEvent.emit(resource);
+    loadResource(resource: FlatTreeNode) {
+        this.clickEvent.emit(resource.urn);
     }
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
+
 }  

@@ -94,4 +94,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         //TODO
     }
 
+    public onloadTreeNodeDetailData(urn: string) {
+        let resource = new CodelistResource(urn);
+        this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
 }
