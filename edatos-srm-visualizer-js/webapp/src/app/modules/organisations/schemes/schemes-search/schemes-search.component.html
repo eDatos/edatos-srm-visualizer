@@ -28,7 +28,7 @@
          [fromRoot]='true'
          (scrolled)='onScrollDown($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
-                               [routerLinkDetail]='routerLinkDetail'
+                               [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
                                (clickEvent)='onLoadOrganisationSchemeDetail($event)' [advancedSearch]='marked'
                                (keyupEvent)='onAdvancedSearch($event)'>
         </table-expandable-rows>

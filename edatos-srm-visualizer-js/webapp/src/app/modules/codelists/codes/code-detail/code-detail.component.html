@@ -79,13 +79,16 @@
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
-            <app-table-tree #tabletreenode [data]='otherCodes' [loaded]='dataChildrenLoaded'></app-table-tree>
+            <app-table-tree #tabletreenode [data]='otherCodes' [loaded]='dataChildrenLoaded'
+                            (clickEvent)='onLoadDetail($event)'></app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
+        <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='codeColumns' [data]='equivalentCodes'
-                                   [routerLinkDetail]='routerLinkDetail'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
                                    (clickEvent)='onLoadCodeDetail($event)'>
             </table-expandable-rows>
+        </div>
     </div>
 </div>

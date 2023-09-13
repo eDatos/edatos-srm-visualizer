@@ -23,7 +23,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public activeLink: MenuItem;
 
     public otherCodes: TreeNode[] = [];
-    public equivalentCodes: TreeNode[] = [];
+    public equivalentCodes: TreeNode[] = []; //TODO: pending implementation - API srm external
 
     public codeColumns: any[];
     public routerLinkDetail: string = '';
@@ -91,7 +91,15 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     public onLoadCodeDetail(urn: string): void {
-        //TODO
+        this.dataDetail = new CodelistResource(urn);
+        if (this.dataDetail) {
+            this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`
+        }
+    }
+
+    public onLoadDetail(event: any) {
+        const resource = new CodelistResource(event);
+        this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`
     }
 
 }

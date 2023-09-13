@@ -37,7 +37,7 @@
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
           [fromRoot]='true'
           (scrolled)='onScrollDown($event)'>
-        <table-expandable-rows #tableExpandable [columns]='selectedFields'
+        <table-expandable-rows #tableExpandable [columns]='selectedFields' [loaded]='dataChildrenLoaded'
                                 [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
                                 (clickEvent)='onLoadCodeDetail($event)' [advancedSearch]='marked'
                                 (keyupEvent)='onAdvancedSearch($event)'>

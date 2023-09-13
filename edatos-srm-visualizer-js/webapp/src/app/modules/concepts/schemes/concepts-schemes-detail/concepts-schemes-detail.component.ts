@@ -94,6 +94,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         this.selectedVersion = event.value;
         this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
+
     private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {

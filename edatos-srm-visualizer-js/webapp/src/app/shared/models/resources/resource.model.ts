@@ -11,6 +11,7 @@ export class Resource {
     annotations: string = '';
     uri: string = '';
     maintainer: string = '';
+    selfLink: string = '';
 
 
     constructor(urn?: string) {

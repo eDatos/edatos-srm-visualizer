@@ -37,7 +37,7 @@
             <span class='node-detail-info-id'>{{node.id}}</span>
             &nbsp;{{node.name}}
         </div>
-        <button type='button' class='text-icon-button hidden'>
+        <button type='button' class='text-icon-button hidden' (click)="onClickResource(node.urn)">
             <i class='fa-thin fa-eye'></i>&nbsp;
             <span>{{ 'seeCode' | translate | uppercase }}</span>
         </button>

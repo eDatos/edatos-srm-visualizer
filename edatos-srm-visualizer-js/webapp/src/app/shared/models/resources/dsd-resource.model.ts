@@ -30,6 +30,11 @@ export class DsdResource extends Resource {
         return dsdResource;
     }
 
+    public static dsdMeasureResource(measure: any, translateService: TranslateService): DsdResource {
+        const dsdResource = new DsdResource(measure.urn);
+        return dsdResource;
+    }
+
     public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
@@ -37,8 +42,9 @@ export class DsdResource extends Resource {
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
-        dsdResource.urn = dimension.localRepresentation?.enumerationCodelist?.selfLink.href;
-        
+        dsdResource.urn = dimension.conceptIdentity?.urn;
+        dsdResource.selfLink = dimension.conceptIdentity?.selfLink.href;
+
         return dsdResource;
     }
 
@@ -51,6 +57,8 @@ export class DsdResource extends Resource {
         const concept = new Resource(attribute.conceptIdentity?.urn);
         dsdResource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
         dsdResource.attributeRelationship = getAttributeRelationship(attribute['attributeRelationship'], translateService);
+        dsdResource.urn = attribute.conceptIdentity?.urn;
+        dsdResource.selfLink = attribute.conceptIdentity?.selfLink.href;
 
         return dsdResource;
     }

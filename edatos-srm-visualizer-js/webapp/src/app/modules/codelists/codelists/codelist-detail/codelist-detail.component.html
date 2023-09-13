@@ -111,11 +111,13 @@
                             (clickEvent)='onLoadDetail($event)'></app-table-tree>
         </div>
     </div>
-</div>
-<div *ngIf='activeLink == navLinks[1]'>
-    <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
-                           [routerLinkDetail]='routerLinkDetail'
-                           (clickEvent)='onLoadCodelistDetail($event)'>
-    </table-expandable-rows>
+    <div *ngIf='activeLink == navLinks[1]'>
+        <div #searchResults class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   (clickEvent)='onLoadCodelistDetail($event)'>
+            </table-expandable-rows>
+        </div>
+    </div>
 </div>
 

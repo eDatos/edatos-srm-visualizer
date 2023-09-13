@@ -12,6 +12,7 @@ import { TreeNode, treeNode } from 'src/app/shared/models/tree/tree-node';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { DsdApiSdmxService } from 'src/app/core/services/api/sdmx/dsd/dsd-api-sdmx.service';
+import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
 
 
 @Component({
@@ -100,7 +101,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         return this.apiSrmService.getDataDetailDsdResourceFromSrm(data);
     }
 
-    loadAllVersionsFromResource(): void {
+    private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {
                 data.forEach((version: any) => {
@@ -110,15 +111,15 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         });
     }
 
-    loadDetailDimensionAttributeAndMesures(): void {
+    private loadDetailDimensionAttributeAndMesures(): void {
         this.apiSrmService.getDimensionAndAttributeAndMeasureData(this.dataDetail!).subscribe((data) => {
             if (data[this.apiSrmService.apiDataStructureComponentsDataPath]) {
                 const dataStructureComponents = data[this.apiSrmService.apiDataStructureComponentsDataPath];
                 this.getMeasures(dataStructureComponents);
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
+                this.dataChildrenLoaded = true;
             }
-            this.dataChildrenLoaded = true;
         });
     }
 
@@ -141,6 +142,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     private getMeasures(dataStructureComponents: any): TreeNode[] {
+        this.measures = [];
         this.measures.push(treeNode(dataStructureComponents[this.apiSrmService.apiMeasureDataPath]?.['primaryMeasure']['conceptIdentity'], false, this.localeService));
         return this.measures;
     }
@@ -155,19 +157,11 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
-    public onLoadMeasureDetail(urn: string): void {
-        const measure = new DsdResource(urn);
-        if (measure) {
-            this.routerLinkDetail = `/codelists/${measure.agency}/${measure.resourceId}/${measure.version}/detail`;
+    public onLoadConceptDetail(urn: string): void {
+        const concept = new CodelistResource(urn);
+        if (concept) {
+            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`
         }
-    }
-
-    public onLoadDimensionDetail(urn: string): void {
-        //TODO
-    }
-
-    public onLoadAttributeDetail(urn: string): void {
-        //TODO
     }
 
 }

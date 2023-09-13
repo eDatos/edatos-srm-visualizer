@@ -91,7 +91,7 @@
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-            <a class="nav-link" [ngClass]="activeLink.label == link.label ? 'active' : ''" (click)="activeLink.label = link.label; onActiveItemChange(link)"
+            <a class="nav-link" [ngClass]="activeLink.label  == link.label ? 'active' : ''" (click)="activeLink.label = link.label; onActiveItemChange(link)"
                routerLinkActive="active">{{link.label}}
             </a>
         </li>
@@ -101,7 +101,7 @@
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
-                               [routerLinkDetail]='routerLinkDetail'
+                               [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
                                (clickEvent)='onLoadConceptsDetail($event)'>
         </table-expandable-rows>
     </div>

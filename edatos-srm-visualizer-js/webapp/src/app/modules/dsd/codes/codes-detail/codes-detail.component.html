@@ -103,22 +103,29 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <table-expandable-rows #tableExpandable [columns]='measureColumns' [data]='measures'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadMeasureDetail($event)'>
-        </table-expandable-rows>
+        <div class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='measureColumns' [data]='measures'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   (clickEvent)='onLoadConceptDetail($event)'>
+            </table-expandable-rows>
+        </div>
     </div>
+
     <div *ngIf='activeLink == navLinks[1]'>
-        <table-expandable-rows #tableExpandable [columns]='dimensionColumns' [data]='dimensions'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadDimensionDetail($event)'>
-        </table-expandable-rows>
+        <div class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='dimensionColumns' [data]='dimensions'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   (clickEvent)='onLoadConceptDetail($event)'>
+            </table-expandable-rows>
+        </div>
     </div>
     <div *ngIf='activeLink == navLinks[2]'>
-        <table-expandable-rows #tableExpandable [columns]='attributeColumns' [data]='attributes'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadAttributeDetail($event)'>
-        </table-expandable-rows>
+        <div class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='attributeColumns' [data]='attributes'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   (clickEvent)='onLoadConceptDetail($event)'>
+            </table-expandable-rows>
+        </div>
     </div>
 </div>
 <br />
