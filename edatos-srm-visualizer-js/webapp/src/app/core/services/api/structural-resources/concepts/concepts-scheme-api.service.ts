@@ -15,7 +15,7 @@ import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models
 })
 export class ConceptsSchemeApiService extends ApiSrmService {
 
-    private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27';
+    private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);

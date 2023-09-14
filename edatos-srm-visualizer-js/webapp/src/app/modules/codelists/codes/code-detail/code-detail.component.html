@@ -1,7 +1,7 @@
 <div class='general-buttons row'>
     <div class='col'>
-        <button (click)='onReturn()' class="text-icon-button">
-            <i class="fa-thin fa-left"></i>&nbsp;
+        <button (click)='onReturn()' class='text-icon-button'>
+            <i class='fa-thin fa-left'></i>&nbsp;
             <span>{{ 'back' | translate | uppercase }}</span>
         </button>
     </div>
@@ -9,7 +9,7 @@
 
 <div [formGroup]='detailForm' class='detail-info'>
     <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
-    <span id='id' class="info-id">{{ dataDetail.id }}</span>
+    <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
     <span id='name'>{{ dataDetail.name }}</span>
@@ -19,89 +19,82 @@
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
-        <div class="code">
+        <div class='code'>
             <code>{{ dataDetail.uri }}</code>
         </div>
-        <div class="element-link-actions">
-            <button type="button" (click)="openSelfLink(dataDetail.uri)">
-                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.uri)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
-            <button copyClipboard="{{dataDetail.uri}}" (click)="onCopyUriSuccess()">
-                <i class="fa-thin fa-copy"></i>
+            <button copyClipboard='{{dataDetail.uri}}' (click)='onCopyUriSuccess()'>
+                <i class='fa-thin fa-copy'></i>
             </button>
         </div>
-        <div class="copied-message" *ngIf="copiedUri">{{ 'copy' | translate }}</div>
+        <div class='copied-message' *ngIf='copiedUri'>{{ 'copy' | translate }}</div>
     </div>
 
     <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
-    <div id='urn'class='info-link background'>
-        <div class="code">
+    <div id='urn' class='info-link background'>
+        <div class='code'>
             <code>{{ dataDetail.urn }}</code>
         </div>
-        <div class="element-link-actions">
-            <button copyClipboard="{{dataDetail.urn}}" (click)="onCopyUrnSuccess()">
-                <i class="fa-thin fa-copy"></i>
+        <div class='element-link-actions'>
+            <button copyClipboard='{{dataDetail.urn}}' (click)='onCopyUrnSuccess()'>
+                <i class='fa-thin fa-copy'></i>
             </button>
         </div>
-        <div class="copied-message" *ngIf="copiedUrn">{{ 'copy' | translate }}</div>
+        <div class='copied-message' *ngIf='copiedUrn'>{{ 'copy' | translate }}</div>
     </div>
 
-    <div *ngIf="dataDetail.annotations">
+    <div *ngIf='dataDetail.annotations'>
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
         <span id='annotations'>{{ dataDetail.annotations }}</span>
     </div>
 
     <label for='codelist' class='title'>{{ 'codelists.codelist' | translate }}</label>
     <div class='info-link'>
-        <span class="info-agency">{{ dataDetail.codelist }}(v{{ dataDetail.version }})</span>
-        <div class="element-link-actions">
-            <button type="button" (click)="openSelfLink(dataDetail.codelist)">
-                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+        <span id='codelist' class='info-agency'>{{ dataDetail.codelist }}(v{{ dataDetail.version }})</span>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.codelist)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>
     </div>
 
     <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
     <div id='maintainer' class='info-link'>
-        <span class="info-agency">{{ dataDetail.maintainer }}</span>
-        <div class="element-link-actions">
-            <button type="button" (click)="openSelfLink(dataDetail.maintainer)">
-                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+        <span class='info-agency'>{{ dataDetail.maintainer }}</span>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.maintainer)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>
     </div>
 </div>
 
-<div class="subsection-tab detail-tab">
-    <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let link of navLinks">
-          <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" (click)="activeLink = link; onActiveItemChange(link)"
-            routerLinkActive="active">{{link.label}}
-          </a>
+<div class='subsection-tab detail-tab'>
+    <ul class='nav nav-tabs'>
+        <li class='nav-item' *ngFor='let link of navLinks'>
+            <a class='nav-link' [ngClass]="activeLink == link ? 'active' : ''"
+               (click)='activeLink = link; onActiveItemChange(link)'
+               routerLinkActive='active'>{{link.label}}
+            </a>
         </li>
     </ul>
 </div>
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-            <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-                <app-table-tree #tabletreenode [data]='otherCodes'
-                                (clickEvent)='onloadTreeNodeDetailData($event)'>
-                </app-table-tree>
-            </div>
+        <div class='search-results-table-detail'>
+            <app-table-tree #tabletreenode [data]='otherCodes' [loaded]='dataChildrenLoaded'
+                            (clickEvent)='onloadTreeNodeDetailData($event)'>
+            </app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
-        <div *ngIf='!dataChildrenLoaded'>
-            <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-        </div>
-        <div #searchResults class='search-results-table'>
+        <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='codeColumns' [data]='equivalentCodes'
-                                   [routerLinkDetail]='routerLinkDetail'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
                                    (clickEvent)='onLoadCodeDetail($event)'>
             </table-expandable-rows>
         </div>

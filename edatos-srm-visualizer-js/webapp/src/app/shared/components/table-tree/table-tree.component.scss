@@ -39,4 +39,43 @@
   padding: 0px 10px;
 }
 
+.error-td-container {
+  background: $color-rojo-25;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 3px;
+  width: $empty-td-container-width;
+  padding: 20px 30px;
+  span {
+    &.text-no-result {
+      font-weight: 600;
+      font-size: $size-16;
+      line-height: 22px;
+    }
+    &.text-retry {
+      font-weight: 300;
+      line-height: 19px;
+    }
+  }
+}
 
+.sipnner-td-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  ::ng-deep circle {
+    stroke: #009BD7; // --color-azul-100
+  }
+}
+
+.no-data-container{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}

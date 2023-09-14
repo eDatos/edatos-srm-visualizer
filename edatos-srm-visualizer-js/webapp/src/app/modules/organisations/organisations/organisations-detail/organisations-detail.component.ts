@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     OrganisationsApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
@@ -68,7 +67,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     }
 
 
-    onActiveItemChange(link: any) {
+    public onActiveItemChange(link: any) {
         this.activeLink = link;
     }
 

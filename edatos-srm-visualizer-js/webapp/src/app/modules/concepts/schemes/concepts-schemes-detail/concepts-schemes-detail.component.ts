@@ -14,6 +14,7 @@ import {
     ConceptsSchemeApiSdmxService
 } from 'src/app/core/services/api/sdmx/concept/concepts-scheme-api-sdmx.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -22,8 +23,8 @@ import { TreeNode } from 'src/app/shared/models/tree/tree-node';
     styleUrls: ['./concepts-schemes-detail.component.scss']
 })
 export class ConceptsSchemesDetailComponent extends BasicDetailComponent implements OnInit {
-    public navLinks: any[];
-    public activeLink: string;
+    public navLinks: MenuItem[];
+    public activeLink: MenuItem;
 
     public versions: any[] = [];
     public conceptsOfScheme: TreeNode[] = [];
@@ -55,7 +56,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
                 label: this.translateService.instant('concepts.parameters.schemeConcepts')
             }
         ];
-        this.activeLink = this.navLinks[0].label ? this.navLinks[0].label : '';
+
+        this.activeLink = this.navLinks[0];
 
         this.columns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
@@ -79,8 +81,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
             if (data[this.apiSrmService.apiChildrenDataPath]) {
                 const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
-                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((data) => {
-                    this.conceptsOfScheme = data;
+                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((concepts) => {
+                    this.conceptsOfScheme = concepts;
                     this.dataChildrenLoaded = true;
                 });
             }
@@ -92,6 +94,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         this.selectedVersion = event.value;
         this.router.navigate(['schemes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
+
     private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             this.selectedVersion = this.dataDetail.version;
@@ -113,5 +116,9 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         if (concept) {
             this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }
+    }
+
+    public onActiveItemChange(link: any) {
+        this.activeLink = link;
     }
 }

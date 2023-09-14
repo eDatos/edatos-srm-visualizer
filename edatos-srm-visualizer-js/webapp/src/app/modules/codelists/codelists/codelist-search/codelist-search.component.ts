@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/internal/Observable';
     styleUrls: ['./codelist-search.component.scss']
 })
 export class CodelistSearchComponent extends BasicSearchComponent implements OnInit {
-    showRecommendedCodelists = false;
+    public showRecommendedCodelists = false;
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
 
@@ -58,13 +58,14 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.loadInitialData();
     }
 
-    public onSearchWithIsRecommended() { //TODO: pending to implement in SRM API
+    public onSearchWithIsRecommended(event: any) {
+        //TODO: pending to implement in SRM API. For default show all codelists
+        this.showRecommendedCodelists = event.checked;
         if (this.showRecommendedCodelists) {
             this.apiService.isRecommended = !this.apiService.isRecommended;
             this.apiService.setApiRecommendedSearchUrl();
-            this.loadInitialData();
+            //this.loadInitialData(); // <-- pending to implement in SRM API. For default show all codelists
         }
-        this.showRecommendedCodelists = !this.showRecommendedCodelists;
     }
 
     public onLoadCodelistDetail(urn: string): void {

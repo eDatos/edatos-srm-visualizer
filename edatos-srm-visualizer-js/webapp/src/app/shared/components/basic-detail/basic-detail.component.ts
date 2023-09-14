@@ -33,8 +33,8 @@ export abstract class BasicDetailComponent implements OnInit {
     dataDetail: any | undefined;
 
     public expandedMenu: boolean = false;
-    dataChildrenLoaded: boolean = false;
-    dataChildren: TreeNode[] = [];
+    public dataChildrenLoaded: boolean = false;
+    public dataChildren: TreeNode[] = [];
 
     protected fileDownloadHelper: FileDonwloadHelper;
     constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
