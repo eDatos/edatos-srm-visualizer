@@ -25,7 +25,8 @@
                    [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
         </div>
         <div class='custom-control custom-switch col' *ngIf='marked'>
-            <p-inputSwitch id='recommendedCodelists' inputId='recommendedCodelists' (onChange)='onSearchWithIsRecommended()' />
+            <p-inputSwitch id='recommendedCodelists' inputId='recommendedCodelists'
+                           (onChange)='onSearchWithIsRecommended($event)' [disabled]='true' />
             <label for='recommendedCodelists'
                    [ngClass]="showRecommendedCodelists?'label-inputswitch-checked':''">{{ 'resourceParameters.isRecommended' | translate }}</label>
         </div>

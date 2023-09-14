@@ -99,8 +99,8 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-            <app-table-tree #tabletreenode [data]='dataChildren' (clickEvent)='onloadTreeNodeDetailData($event)'></app-table-tree>
+        <div class='search-results-table-detail'>
+            <app-table-tree #tabletreenode [data]='dataChildren' [loaded]='dataChildrenLoaded' (clickEvent)='onloadTreeNodeDetailData($event)'></app-table-tree>
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 export class CodelistsApiService extends ApiSrmService {
 
     public isRecommended: boolean = false;
-    private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27&fields=%2Bdescription';
+    private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27';
     private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
@@ -44,6 +44,7 @@ export class CodelistsApiService extends ApiSrmService {
         if (this.isLatestVersion) {
             this.apiRecommendedSearchUrl = this.apiRecommendedSearchUrl.concat('&LATEST%20EQ%20%27true%27')
         }
+        // TODO: this query dosent exists. Implements is pending por SRM external API
         this.apiRecommendedSearchUrl = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27';
     }
 

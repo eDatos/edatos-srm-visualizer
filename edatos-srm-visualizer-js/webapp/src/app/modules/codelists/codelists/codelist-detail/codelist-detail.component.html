@@ -1,16 +1,17 @@
-
 <div class='general-buttons row'>
     <div class='col'>
-        <button (click)='onReturn()' class="text-icon-button">
-            <i class="fa-thin fa-left"></i>&nbsp;
+        <button (click)='onReturn()' class='text-icon-button'>
+            <i class='fa-thin fa-left'></i>&nbsp;
             <span>{{ 'back' | translate | uppercase }}</span>
         </button>
     </div>
-    <div >
-        <p-dropdown #select [options]='versions' [filter]='true'  optionLabel="name" optionValue="value"
+    <div>
+        <p-dropdown #select [options]='versions' [filter]='true' optionLabel='name' optionValue='value'
                     filterBy='value' placeholder="{{ 'otherVersions' | translate | uppercase }}"
-                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down' (onChange)="onLoadDetailVersion($event)"
-                    (onShow)="handleOnPanelShow()" (onHide)="handleOnPanelHide()" filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=" ">
+                    class='p-dropdown-custom' dropdownIcon='fa-thin fa-chevron-down'
+                    (onChange)='onLoadDetailVersion($event)'
+                    (onShow)='handleOnPanelShow()' (onHide)='handleOnPanelHide()'
+                    filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=' '>
             <ng-template let-version pTemplate='item'>
                 <div>
                     <div>v{{ version.value }}</div>
@@ -19,17 +20,18 @@
         </p-dropdown>
     </div>
     <div>
-        <p-menu [model]="items" #menu [popup]="true" class="p-menu-custom" (onShow)="handleVisibilityMenu()" (onHide)="handleVisibilityMenu()"></p-menu>
-        <button (click)="menu.toggle($event)"  [ngClass]="expandedMenu ? 'menu-text-icon-button' : 'text-icon-button'">
+        <p-menu [model]='items' #menu [popup]='true' class='p-menu-custom' (onShow)='handleVisibilityMenu()'
+                (onHide)='handleVisibilityMenu()'></p-menu>
+        <button (click)='menu.toggle($event)' [ngClass]="expandedMenu ? 'menu-text-icon-button' : 'text-icon-button'">
             <span>{{ 'download.title' | translate | uppercase }}</span>&nbsp;
             <i [ngClass]="expandedMenu ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
         </button>
     </div>
 </div>
 
-<div [formGroup]='detailForm' class="detail-info">
+<div [formGroup]='detailForm' class='detail-info'>
     <label for='id' class='title'>{{ 'codelists.parameters.id' | translate }}</label>
-    <span class="info-id" id='id'>{{ dataDetail.id }}</span>
+    <span class='info-id' id='id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
     <span id='name'>{{ dataDetail.name }}</span>
@@ -45,77 +47,77 @@
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
-        <div class="code">
+        <div class='code'>
             <code>{{ dataDetail.uri }}</code>
         </div>
-        <div class="element-link-actions">
-            <button type="button" (click)="openSelfLink(dataDetail.uri)">
-                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.uri)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
-            <button copyClipboard="{{dataDetail.uri}}" (click)="onCopyUriSuccess()">
-                <i class="fa-thin fa-copy"></i>
+            <button copyClipboard='{{dataDetail.uri}}' (click)='onCopyUriSuccess()'>
+                <i class='fa-thin fa-copy'></i>
             </button>
         </div>
-        <div class="copied-message" *ngIf="copiedUri">{{ 'copy' | translate }}</div>
+        <div class='copied-message' *ngIf='copiedUri'>{{ 'copy' | translate }}</div>
     </div>
 
     <label for='urn' class='title'>{{ 'resourceParameters.urn' | translate }}</label>
     <div id='urn' class='info-link background'>
-        <div class="code">
+        <div class='code'>
             <code>{{ dataDetail.urn }}</code>
         </div>
-        <div class="element-link-actions">
-            <button copyClipboard="{{dataDetail.urn}}" (click)="onCopyUrnSuccess()">
-                <i class="fa-thin fa-copy"></i>
+        <div class='element-link-actions'>
+            <button copyClipboard='{{dataDetail.urn}}' (click)='onCopyUrnSuccess()'>
+                <i class='fa-thin fa-copy'></i>
             </button>
         </div>
-        <div class="copied-message" *ngIf="copiedUrn">{{ 'copy' | translate }}</div>
+        <div class='copied-message' *ngIf='copiedUrn'>{{ 'copy' | translate }}</div>
     </div>
 
     <label for='isRecommended' class='title'>{{ 'codelists.parameters.isRecommended' | translate }}</label>
     <span id='isRecommended'> {{ dataDetail.isRecommended }}</span>
 
-    <div *ngIf="dataDetail.annotations">
+    <div *ngIf='dataDetail.annotations'>
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
         <span id='annotations'>{{ dataDetail.annotations }}</span>
     </div>
 
     <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
     <div class='info-link'>
-        <span class="info-agency" id='maintainer'>{{ dataDetail.maintainer }}</span>
-        <div class="element-link-actions">
-            <button type="button" (click)="openSelfLink(dataDetail.maintainer)">
-                <i class="fa-thin fa-arrow-up-right-from-square"></i>
+        <span class='info-agency' id='maintainer'>{{ dataDetail.maintainer }}</span>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.maintainer)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>
     </div>
 </div>
 
-<div class="subsection-tab detail-tab">
-    <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let link of navLinks">
-          <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" (click)="activeLink = link; onActiveItemChange(link)"
-            routerLinkActive="active">{{link.label}}
-          </a>
+<div class='subsection-tab detail-tab'>
+    <ul class='nav nav-tabs'>
+        <li class='nav-item' *ngFor='let link of navLinks'>
+            <a class='nav-link' [ngClass]="activeLink == link ? 'active' : ''"
+               (click)='activeLink = link; onActiveItemChange(link)'
+               routerLinkActive='active'>{{link.label}}
+            </a>
         </li>
     </ul>
 </div>
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div class='search-results-table' [style.display]="dataChildrenLoaded ? 'block' : 'none'">
-            <app-table-tree #tabletreenode [data]='dataChildren'
+        <div class='search-results-table-detail'>
+            <app-table-tree #tabletreenode [data]='dataChildren' [loaded]='dataChildrenLoaded'
                             (clickEvent)='onloadTreeNodeDetailData($event)'></app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
-        <table-expandable-rows #tableExpandable [columns]='columns' [data]='dataChildrenTable'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadCodelistDetail($event)' >
-        </table-expandable-rows>
-    </div>
-    <div *ngIf='dataChildren === null'>
-        <span>{{ 'resultsNotFound' | translate }}</span>
+        <div #searchResults class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='columns' [data]='relationatedCodelist'
+                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   (clickEvent)='onLoadCodelistDetail($event)'>
+            </table-expandable-rows>
+        </div>
     </div>
 </div>
 
