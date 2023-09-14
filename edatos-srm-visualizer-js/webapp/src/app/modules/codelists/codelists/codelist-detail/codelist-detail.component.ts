@@ -80,11 +80,11 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         return this.apiSrmService.getDataDetailCodelistResourceFromSrm(data, this.translateService, false);
     }
 
-    public onLoadDetail(event: any) {
-        let resource = new CodelistResource(event);
+
+    onloadTreeNodeDetailData(urn: string) {
+        const resource = new CodelistResource(urn);
         this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
-
 
     onActiveItemChange(link: any) {
         this.activeLink = link;

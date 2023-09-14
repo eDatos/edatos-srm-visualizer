@@ -74,9 +74,10 @@ export class TableTreeComponent implements OnInit{
         });
     }
 
-    onClickResource(resource: string) {
-        this.clickEvent.emit(resource);
+    loadResource(resource: FlatTreeNode) {
+        this.clickEvent.emit(resource.urn);
     }
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
+
 }  

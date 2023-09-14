@@ -108,7 +108,7 @@
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
             <app-table-tree #tabletreenode [data]='dataChildren' [loaded]='dataChildrenLoaded'
-                            (clickEvent)='onLoadDetail($event)'></app-table-tree>
+                            (clickEvent)='onloadTreeNodeDetailData($event)'></app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>

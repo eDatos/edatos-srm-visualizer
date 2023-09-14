@@ -52,7 +52,14 @@
     </div>
 
     <label for='codelist' class='title'>{{ 'codelists.codelist' | translate }}</label>
-    <span id='codelist'>{{ dataDetail.codelist }}</span>
+    <div class='info-link'>
+        <span id='codelist' class='info-agency'>{{ dataDetail.codelist }}(v{{ dataDetail.version }})</span>
+        <div class='element-link-actions'>
+            <button type='button' (click)='openSelfLink(dataDetail.codelist)'>
+                <i class='fa-thin fa-arrow-up-right-from-square'></i>
+            </button>
+        </div>
+    </div>
 
     <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
     <div id='maintainer' class='info-link'>
@@ -80,7 +87,8 @@
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
             <app-table-tree #tabletreenode [data]='otherCodes' [loaded]='dataChildrenLoaded'
-                            (clickEvent)='onLoadDetail($event)'></app-table-tree>
+                            (clickEvent)='onloadTreeNodeDetailData($event)'>
+            </app-table-tree>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>

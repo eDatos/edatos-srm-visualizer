@@ -154,7 +154,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public onLoadDetailVersion(event: any) {
         this.versions = [];
         this.selectedVersion = event.value;
-        this.router.navigate(['dataStructure', this.dataDetail!.agency, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['codes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
     public onLoadConceptDetail(urn: string): void {

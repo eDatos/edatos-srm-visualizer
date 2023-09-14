@@ -16,30 +16,31 @@
       <span>
         <i class='fa-thin fa-hyphen'></i>
       </span>
-        </button>
-        <div class='node-detail-info'>
-            <span class='node-detail-info-id'>{{node.id}}</span>
-            &nbsp;{{node.name}}
-        </div>
+    </button>
+    <div class="node-detail-info">
+      <span class="node-detail-info-id">{{node.id}}</span>
+      &nbsp;{{node.name}}
+    </div>
 
-        <button type='button' class='text-icon-button hidden'>
-            <i class='fa-thin fa-eye'></i>&nbsp;
-            <span>{{ 'seeCode' | translate | uppercase }}</span>
-        </button>
-    </mat-tree-node>
+    <button type="button" class="text-icon-button hidden" (click)="loadResource(node)">
+      <i class="fa-thin fa-eye"></i>&nbsp;
+      <span>{{ 'seeCode' | translate | uppercase }}</span>
+    </button>
+  </mat-tree-node>
 
-    <mat-tree-node *matTreeNodeDef='let node;when: hasChild' matTreeNodePadding [matTreeNodePaddingIndent]='22'>
-        <button matTreeNodeToggle class='element-actions'
-                [attr.aria-label]="'Toggle ' + node.name">
-            <i [ngClass]="treeControl.isExpanded(node) ? 'fa-thin fa-chevron-down' : 'fa-thin fa-chevron-right'"></i>
-        </button>
-        <div class='node-detail-info'>
-            <span class='node-detail-info-id'>{{node.id}}</span>
-            &nbsp;{{node.name}}
-        </div>
-        <button type='button' class='text-icon-button hidden' (click)="onClickResource(node.urn)">
-            <i class='fa-thin fa-eye'></i>&nbsp;
-            <span>{{ 'seeCode' | translate | uppercase }}</span>
-        </button>
-    </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="22">
+      <button matTreeNodeToggle class="element-actions"
+              [attr.aria-label]="'Toggle ' + node.name">
+              <i [ngClass]="treeControl.isExpanded(node) ? 'fa-thin fa-chevron-down' : 'fa-thin fa-chevron-right'"></i> 
+      </button>
+      <div class="node-detail-info">
+        <span class="node-detail-info-id">{{node.id}}</span>
+        &nbsp;{{node.name}}
+      </div>
+      <button type="button" class="text-icon-button hidden" (click)="loadResource(node)">
+        <i class="fa-thin fa-eye"></i>&nbsp;
+        <span>{{ 'seeCode' | translate | uppercase }}</span>
+      </button>
+  </mat-tree-node>
 </mat-tree>

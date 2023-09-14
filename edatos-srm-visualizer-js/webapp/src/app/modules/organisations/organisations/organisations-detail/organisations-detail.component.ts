@@ -23,7 +23,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
-    public routerLinkDetail: string = '';
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
@@ -61,15 +61,15 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
         return this.apiSrmService.getDataDetailOrganisationResourceFromSrm(data);
     }
 
-
-    public onLoadDetail(event: any) {
-        const resource = new OrganisationResource(event);
-        this.routerLinkDetail = `/organisations/organisations/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`
+    onloadTreeNodeDetailData(urn: string) {
+        let resource = new OrganisationResource(urn);
+        this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
 
     public onActiveItemChange(link: any) {
         this.activeLink = link;
     }
+
 
 }

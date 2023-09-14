@@ -111,4 +111,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`
     }
 
+    public onloadTreeNodeDetailData(urn: string) {
+        let resource = new CodelistResource(urn);
+        this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
 }
