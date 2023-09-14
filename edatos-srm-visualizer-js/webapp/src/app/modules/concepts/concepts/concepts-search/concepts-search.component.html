@@ -39,7 +39,7 @@
          (scrolled)='onScrollDown($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail' [advancedSearch]='marked'
-                               (clickEvent)='onLoadConceptDetail($event)' [loaded]='dataChildrenLoaded'
+                               (clickEvent)='onLoadConceptDetail($event)'
                                (keyupEvent)='onAdvancedSearch($event)'>
         </table-expandable-rows>
     </div>
