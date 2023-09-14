@@ -102,6 +102,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
     loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+            this.selectedVersion = this.dataDetail.version;
             if (data) {
                 data.forEach((version: any) => {
                     this.versions.push({ value: version });

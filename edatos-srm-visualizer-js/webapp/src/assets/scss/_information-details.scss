@@ -87,10 +87,8 @@
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-    &.p-highlight {
-        background: $color-azul-10;
+    .p-highlight {
         font-weight: $font-weight-600;
-        color: $color-azul-oscuro-100;
     }
 }
 
@@ -179,7 +177,9 @@
         background-color: inherit;
         border: 0px;
     }
-    
+    .info-description {
+        max-width: $container-max-width-descriptions;
+    }
 }
 
 .info-link {
