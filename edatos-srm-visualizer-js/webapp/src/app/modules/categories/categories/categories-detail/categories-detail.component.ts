@@ -51,6 +51,11 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         });
     }
 
+    public onloadTreeNodeDetailData(urn: string) {
+        let resource = new CategoryResource(urn);
+        this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
     private loadDataDetailResource(data: any): Observable<CategoryResource> {
         return this.apiSrmService.getDataDetailCategoryResourceFromSrm(data);
     }

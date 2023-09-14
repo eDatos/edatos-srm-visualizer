@@ -85,5 +85,10 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.activeLink = link;
     }
 
+    public onloadTreeNodeDetailData(urn: string) {
+        let resource = new OrganisationResource(urn);
+        this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
 }
 
