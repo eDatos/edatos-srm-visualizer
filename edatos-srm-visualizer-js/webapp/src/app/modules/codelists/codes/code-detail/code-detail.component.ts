@@ -23,7 +23,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public activeLink: MenuItem;
 
     public otherCodes: TreeNode[] = [];
-    public equivalentCodes: TreeNode[] = []; //TODO: pending implementation - API srm external
+    public equivalentCodes: TreeNode[] = [];
 
     public codeColumns: any[];
     public routerLinkDetail: string = '';
@@ -72,6 +72,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
+        if (this.activeLink == this.navLinks[1]) {
+            this.loadEquivalentCodes();
+        }
     }
 
     private loadDataDetailResource(data: any): Observable<CodelistResource> {
@@ -88,6 +91,12 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
                 });
             }
         });
+    }
+
+    private loadEquivalentCodes(): void {
+        //TODO: pending implementation - API srm external
+        this.equivalentCodes = [];
+        this.dataChildrenLoaded = true;
     }
 
     public onLoadCodeDetail(urn: string): void {

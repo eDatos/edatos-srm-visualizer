@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
@@ -27,7 +26,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     public routerLinkDetail: string = '';
     public columns: any[];
-    public dataChildrenTable: TreeNode[] = [];
+    public relationatedCodelist: TreeNode[] = [];
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistsApiService,
                 protected override route: ActivatedRoute, private router: Router,
@@ -100,13 +99,13 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
-                        this.dataChildrenTable = codelist;
+                        this.relationatedCodelist = codelist;
                         this.dataChildrenLoaded = true;
                     });
                 }
             });
         } else {
-            this.dataChildrenTable = [];
+            this.relationatedCodelist = [];
             this.dataChildrenLoaded = true;
         }
     }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     OrganisationsApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-api.service';
@@ -24,6 +23,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
+    public routerLinkDetail: string = '';
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
                 protected override route: ActivatedRoute, private router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
@@ -62,13 +62,13 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     }
 
 
-    onLoadDetail(element: string) {
-        let resource = new Resource(element);
-        this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    public onLoadDetail(event: any) {
+        const resource = new OrganisationResource(event);
+        this.routerLinkDetail = `/organisations/organisations/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`
     }
 
 
-    onActiveItemChange(link: any) {
+    public onActiveItemChange(link: any) {
         this.activeLink = link;
     }
 
