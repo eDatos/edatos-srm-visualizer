@@ -147,8 +147,9 @@ export abstract class BasicSearchComponent {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
                 }
-                console.log(this.tableExpandable.dataLoaded)
-                this.tableExpandable.dataLoaded = true;
+                else if(this.searchConfig.resultSize == 0) {
+                    this.tableExpandable.dataLoaded = true;
+                }
             });
         }
     }

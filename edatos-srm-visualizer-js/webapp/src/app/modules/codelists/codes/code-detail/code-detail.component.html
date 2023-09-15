@@ -86,7 +86,7 @@
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
-            <app-table-tree #tabletreenode [data]='otherCodes' [loaded]='dataChildrenLoaded'
+            <app-table-tree #tabletreenode [data]='otherCodes'
                             (clickEvent)='onloadTreeNodeDetailData($event)'>
             </app-table-tree>
         </div>
