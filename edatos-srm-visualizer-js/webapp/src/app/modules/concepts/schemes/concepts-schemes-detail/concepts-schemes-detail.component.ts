@@ -106,13 +106,16 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         });
     }
 
+    public override onReturn() {
+        this.router.navigate(['schemes'], { relativeTo: this.route.parent });
+    }
+
     private loadDataDetailResource(data: any): Observable<ConceptResource> {
         return this.apiSrmService.getDataDetailConceptResourceFromSrm(data);
     }
 
     public onLoadConceptsDetail(urn: string): void {
         const concept = new ConceptResource(urn);
-
         if (concept) {
             this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }

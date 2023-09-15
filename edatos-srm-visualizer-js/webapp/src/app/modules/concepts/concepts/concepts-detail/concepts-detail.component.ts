@@ -113,6 +113,10 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         }
     }
 
+    public override onReturn() {
+        this.router.navigate(['concepts'], { relativeTo: this.route.parent });
+    }
+
     public onLoadCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
         if (codelist) {

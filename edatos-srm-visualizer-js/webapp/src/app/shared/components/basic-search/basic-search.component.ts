@@ -129,6 +129,9 @@ export abstract class BasicSearchComponent {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
                 }
+                else if(this.searchConfig.resultSize == 0) {
+                    this.tableExpandable.dataLoaded = true;
+                }
             });
         }
     }
@@ -144,6 +147,8 @@ export abstract class BasicSearchComponent {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
                 }
+                console.log(this.tableExpandable.dataLoaded)
+                this.tableExpandable.dataLoaded = true;
             });
         }
     }
@@ -155,6 +160,7 @@ export abstract class BasicSearchComponent {
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore
         this.searchResults.nativeElement.scrollTop = 0;
+        this.tableExpandable.dataLoaded = false;
     }
 
     private mapper<T>(obj: T) {
@@ -174,10 +180,10 @@ export abstract class BasicSearchComponent {
     }
 
     private loadDetailDataChildren() {
-        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
+        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));   
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
-            this.dataChildrenLoaded = true;
+            this.tableExpandable.dataLoaded = true;
         });
     }
 

@@ -80,6 +80,10 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         
       */
 
+    public override onReturn() {
+        this.router.navigate(['families'], { relativeTo: this.route.parent });
+    }
+
     public onLoadFamilyCodelistDetail(urn: string): void {
         /**TODO */
     }

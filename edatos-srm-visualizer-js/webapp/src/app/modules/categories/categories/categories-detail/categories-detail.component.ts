@@ -51,6 +51,9 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         });
     }
 
+    public override onReturn() {
+        this.router.navigate(['categories'], { relativeTo: this.route.parent });
+    }
     public onloadTreeNodeDetailData(urn: string) {
         let resource = new CategoryResource(urn);
         this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });

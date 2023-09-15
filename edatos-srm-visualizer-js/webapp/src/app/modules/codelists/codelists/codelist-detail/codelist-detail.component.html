@@ -114,7 +114,7 @@
     <div *ngIf='activeLink == navLinks[1]'>
         <div #searchResults class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='relationatedCodelist'
-                                   [routerLinkDetail]='routerLinkDetail' [loaded]='dataChildrenLoaded'
+                                   [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadCodelistDetail($event)'>
             </table-expandable-rows>
         </div>

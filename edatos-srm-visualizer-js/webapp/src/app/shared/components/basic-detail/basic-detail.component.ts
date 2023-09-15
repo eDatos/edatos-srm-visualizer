@@ -99,10 +99,6 @@ export abstract class BasicDetailComponent implements OnInit {
             }
         });
     }
-    
-    public onReturn() {
-        window.history.back();
-    }
 
     public parseDescriptionToHtml(): string {
         return this.detailForm.get('description')?.value || '';
@@ -140,5 +136,7 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     protected abstract loadDetailData(): void;
+
+    protected abstract onReturn(): void;
 
 }
