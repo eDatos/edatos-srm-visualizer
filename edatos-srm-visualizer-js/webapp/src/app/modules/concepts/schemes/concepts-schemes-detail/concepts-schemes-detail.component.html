@@ -13,7 +13,7 @@
                     (onShow)='handleOnPanelShow()' (onHide)='handleOnPanelHide()'
                     filterPlaceholder="{{ 'search' | translate | lowercase }}..." emptyFilterMessage=' '>
             <ng-template let-version pTemplate='item'>
-                <div>
+                <div [ngClass]="selectedVersion == version.value ? 'p-highlight' : ''">
                     <div>v{{ version.value }}</div>
                 </div>
             </ng-template>
@@ -40,7 +40,7 @@
     <span id='version'>{{ dataDetail.version }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
+    <div id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></div>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>

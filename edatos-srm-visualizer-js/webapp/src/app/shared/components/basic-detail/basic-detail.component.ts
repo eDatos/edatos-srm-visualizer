@@ -100,7 +100,7 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
-    public parseDesriptionToHtml(): string {
+    public parseDescriptionToHtml(): string {
         return this.detailForm.get('description')?.value || '';
     }
 
