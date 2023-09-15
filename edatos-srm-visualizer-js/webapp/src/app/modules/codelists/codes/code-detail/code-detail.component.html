@@ -15,7 +15,7 @@
     <span id='name'>{{ dataDetail.name }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div id='description' [innerHTML]='parseDesriptionToHtml()'></div>
+    <div id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></div>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>

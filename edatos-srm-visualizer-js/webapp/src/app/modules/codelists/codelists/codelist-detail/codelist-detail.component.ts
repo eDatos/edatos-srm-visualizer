@@ -112,6 +112,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     private loadAllVersionsFromResource() {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
+            this.selectedVersion = this.dataDetail.version;
             if (data) {
                 data.forEach((version: any) => {
                     this.versions.push({ value: version });

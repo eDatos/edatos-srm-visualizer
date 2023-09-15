@@ -104,7 +104,7 @@ export abstract class BasicDetailComponent implements OnInit {
         window.history.back();
     }
 
-    public parseDesriptionToHtml(): string {
+    public parseDescriptionToHtml(): string {
         return this.detailForm.get('description')?.value || '';
     }
 
