@@ -28,13 +28,6 @@ export class TableTreeComponent implements OnInit{
         }
     }
 
-    @Input()
-    set loaded(dataLoaded: boolean) {
-        if (dataLoaded) {
-            this.dataLoaded= dataLoaded;
-        }
-    }
-
     @Output() clickEvent = new EventEmitter<string>();
 
     treeControl = new FlatTreeControl<FlatTreeNode>(

@@ -95,7 +95,8 @@ export abstract class BasicDetailComponent implements OnInit {
                 this.tabletreenode.data = [];
                 this.dataChildren = children;
                 this.tabletreenode.treeControl.expandAll();
-                this.dataChildrenLoaded = true;
+                this.tabletreenode.dataLoaded = true;
+                console.log(this.dataChildren);
             }
         });
     }
