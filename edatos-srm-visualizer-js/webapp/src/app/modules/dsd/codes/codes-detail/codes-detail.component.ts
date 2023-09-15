@@ -164,4 +164,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         }
     }
 
+    public override onReturn() {
+        this.router.navigate(['codes'], { relativeTo: this.route.parent });
+    }
 }

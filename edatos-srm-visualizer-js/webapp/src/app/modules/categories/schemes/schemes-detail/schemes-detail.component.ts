@@ -87,6 +87,10 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         return this.apiSrmService.getDataDetailCategorySchemeResourceFromSrm(data);
     }
 
+    public override onReturn() {
+        this.router.navigate(['schemes'], { relativeTo: this.route.parent });
+    }
+
     private loadAllVersionsFromResource(): void {
         this.apiSrmService.getAllVersionsFromResource(this.dataDetail!).subscribe((data) => {
             if (data) {

@@ -71,5 +71,8 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
         this.activeLink = link;
     }
 
+    public override onReturn() {
+        this.router.navigate(['organisations'], { relativeTo: this.route.parent });
+    }
 
 }

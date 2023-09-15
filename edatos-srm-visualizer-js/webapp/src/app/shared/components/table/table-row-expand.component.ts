@@ -73,13 +73,6 @@ export class TableExpandableRows implements OnInit{
         });
     }
 
-    @Input()
-    set loaded(dataLoaded: boolean) {
-        if (dataLoaded) {
-            this.dataLoaded= dataLoaded;
-        }
-    }
-
     applyFilters(column: string, filterValue: any) {
         this.onKeyupResource(filterValue.value, column);
     }

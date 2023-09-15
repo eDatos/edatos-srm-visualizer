@@ -86,6 +86,10 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
+    public override onReturn() {
+        this.router.navigate(['codelists'], { relativeTo: this.route.parent });
+    }
+
     onActiveItemChange(link: any) {
         this.activeLink = link;
         if (this.activeLink == this.navLinks[1]) {

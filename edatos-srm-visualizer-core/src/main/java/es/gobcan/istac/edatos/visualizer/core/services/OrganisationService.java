@@ -2,6 +2,7 @@ package es.gobcan.istac.edatos.visualizer.core.services;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
@@ -11,6 +12,7 @@ import org.siemac.metamac.rest.structural_resources.v1_0.domain.Organisations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.gobcan.istac.edatos.visualizer.core.comparator.VersionDescendentComparator;
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.repository.OrganisationRepository;
@@ -59,10 +61,9 @@ public class OrganisationService {
         List<String> versions = new ArrayList<>();
         for (Resource resource : schemes.getOrganisationSchemes()) {
             Urn urnValues = new Urn(resource.getUrn());
-            if (!urn.contains(urnValues.getVersion())) {
-                versions.add(urnValues.getVersion());
-            }
+            versions.add(urnValues.getVersion());
         }
+        Collections.sort(versions, new VersionDescendentComparator());
         return versions;
     }
 }

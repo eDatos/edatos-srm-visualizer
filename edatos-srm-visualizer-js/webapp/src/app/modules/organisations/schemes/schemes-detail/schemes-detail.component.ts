@@ -90,5 +90,8 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
         this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
+    public override onReturn() {
+        this.router.navigate(['schemes'], { relativeTo: this.route.parent });
+    }
 }
 
