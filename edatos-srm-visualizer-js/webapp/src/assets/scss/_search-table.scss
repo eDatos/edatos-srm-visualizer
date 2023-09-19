@@ -18,15 +18,16 @@
     height: auto;
 }
 
-.search-results-table-detail, .detail-table {
-    .element-link {
-        padding-left: 30px !important;
+
+.detail-table .search-results-table-detail {
+    .element-link-attribution.short {
+        max-width: $container-2columns-max-width;
     }
 }
 
 
 .search-results-table::-webkit-scrollbar {
-    width: 10px;
+    width: $scroll-width-default;
 }
 
 .search-results-table::-webkit-scrollbar-thumb {
