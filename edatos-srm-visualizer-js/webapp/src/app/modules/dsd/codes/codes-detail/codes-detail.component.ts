@@ -38,10 +38,10 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public measures: TreeNode[] = [];
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
                 protected override apiSdmxService: DsdApiSdmxService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',

@@ -28,9 +28,9 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public routerLinkDetail: string = '';
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router);
 
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -129,5 +129,10 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         if (concept) {
             this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }
+    }
+
+    public openConceptSchemeLink(urn: string) {
+        const resource = new ConceptResource(urn);
+        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 }
