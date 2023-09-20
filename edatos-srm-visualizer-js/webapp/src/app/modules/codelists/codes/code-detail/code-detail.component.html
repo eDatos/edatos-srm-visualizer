@@ -53,9 +53,9 @@
 
     <label for='codelist' class='title'>{{ 'codelists.codelist' | translate }}</label>
     <div class='info-link'>
-        <span id='codelist' class='info-agency'>{{ dataDetail.codelist }}(v{{ dataDetail.version }})</span>
+        <span id='codelist' class='info-agency'>{{ dataDetail.resourceId }}(v{{ dataDetail.version }})</span>
         <div class='element-link-actions'>
-            <button type='button' (click)='openSelfLink(dataDetail.codelist)'>
+            <button type='button' (click)='openCodelistLink(dataDetail.urn)'>
                 <i class='fa-thin fa-arrow-up-right-from-square'></i>
             </button>
         </div>
