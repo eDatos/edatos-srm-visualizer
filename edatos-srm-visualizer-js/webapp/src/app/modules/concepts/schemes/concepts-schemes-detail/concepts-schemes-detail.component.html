@@ -100,10 +100,12 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
-                               [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadConceptsDetail($event)'>
-        </table-expandable-rows>
+        <div class='search-results-table-detail'>
+            <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
+                                   [routerLinkDetail]='routerLinkDetail'
+                                   (clickEvent)='onLoadConceptsDetail($event)'>
+            </table-expandable-rows>
+        </div>
     </div>
 </div>
 <br />
