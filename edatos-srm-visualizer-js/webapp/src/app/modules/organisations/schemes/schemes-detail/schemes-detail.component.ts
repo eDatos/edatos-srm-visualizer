@@ -25,9 +25,9 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
     public activeLink: MenuItem;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsSchemeApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router);
 
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -86,7 +86,7 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
     }
 
     public onloadTreeNodeDetailData(urn: string) {
-        let resource = new OrganisationResource(urn);
+        const resource = new OrganisationResource(urn);
         this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 

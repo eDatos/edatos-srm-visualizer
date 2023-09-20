@@ -25,10 +25,10 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     public activeLink: MenuItem;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
                 protected override apiSdmxService: OrganisationSchemeApiSdmxService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
 
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -62,7 +62,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
     }
 
     onloadTreeNodeDetailData(urn: string) {
-        let resource = new OrganisationResource(urn);
+        const resource = new OrganisationResource(urn);
         this.router.navigate(['organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
@@ -75,4 +75,8 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
         this.router.navigate(['organisations'], { relativeTo: this.route.parent });
     }
 
+    public openOrganisationSchemeLink(urn: string) {
+        const resource = new OrganisationResource(urn);
+        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
 }

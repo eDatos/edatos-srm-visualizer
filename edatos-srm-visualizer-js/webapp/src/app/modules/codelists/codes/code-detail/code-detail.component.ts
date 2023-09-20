@@ -29,9 +29,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public routerLinkDetail: string = '';
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistCodesApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router);
 
         this.detailForm = this.formBuilder.group({
             id: '',

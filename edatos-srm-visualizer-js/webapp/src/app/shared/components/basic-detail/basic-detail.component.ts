@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
@@ -10,6 +10,7 @@ import { Dropdown } from 'primeng/dropdown';
 import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service';
 import { FileDonwloadHelper } from 'src/app/core/services/helper/file-donwload-helper';
 import { TableExpandableRows } from '../table/table-row-expand.component';
+import { OrganisationResource } from '../../models/resources/organisation-resource.model';
 
 
 @Component({
@@ -38,7 +39,7 @@ export abstract class BasicDetailComponent implements OnInit {
 
     protected fileDownloadHelper: FileDonwloadHelper;
     constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
-                protected localeService: LocaleService, protected translateService: TranslateService,
+                protected localeService: LocaleService, protected translateService: TranslateService, protected router: Router,
                 protected apiSdmxService?: ApiSdmxService) {
         this.fileDownloadHelper = new FileDonwloadHelper(apiSdmxService, apiSrmService);
         this.items = [
@@ -96,7 +97,6 @@ export abstract class BasicDetailComponent implements OnInit {
                 this.dataChildren = children;
                 this.tabletreenode.treeControl.expandAll();
                 this.tabletreenode.dataLoaded = true;
-                console.log(this.dataChildren);
             }
         });
     }
@@ -135,6 +135,13 @@ export abstract class BasicDetailComponent implements OnInit {
             this.copiedUrn = false;
         }, 3000);
     }
+
+    public openMaintainerLink(agency: string) {
+        const urn = `urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).${agency}`;
+        const resource = new OrganisationResource(urn);
+        this.router.navigate(['organisations/organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail']);
+    }
+
 
     protected abstract loadDetailData(): void;
 

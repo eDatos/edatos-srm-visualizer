@@ -35,10 +35,10 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public selectedVersion: string = '';
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
                 protected override apiSdmxService: ConceptsSchemeApiSdmxService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService, apiSdmxService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',

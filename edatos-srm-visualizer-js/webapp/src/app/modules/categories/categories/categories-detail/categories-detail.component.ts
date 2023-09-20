@@ -20,9 +20,9 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
     public activeLink: MenuItem;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CategoriesApiService,
-                protected override route: ActivatedRoute, private router: Router,
+                protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService);
+        super(formBuilder, apiSrmService, route, localeService, translateService, router);
         this.detailForm = this.formBuilder.group({
             id: '',
             name: '',
@@ -55,7 +55,7 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
         this.router.navigate(['categories'], { relativeTo: this.route.parent });
     }
     public onloadTreeNodeDetailData(urn: string) {
-        let resource = new CategoryResource(urn);
+        const resource = new CategoryResource(urn);
         this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
