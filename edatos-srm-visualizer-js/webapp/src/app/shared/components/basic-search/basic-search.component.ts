@@ -83,6 +83,7 @@ export abstract class BasicSearchComponent {
 
     public onSearchWithAllVersions(): void {
         this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
+        this.tableExpandable.dataLoaded = false;
         this.apiService.setApiSearchUrl();
         this.loadInitialData();
     }
