@@ -11,6 +11,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 
 @Component({
     selector: 'app-code-detail',
@@ -110,14 +111,14 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.router.navigate(['codes'], { relativeTo: this.route.parent });
     }
 
-    public onLoadDetail(event: any) {
-        const resource = new CodelistResource(event);
-        this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`
-    }
-
     public onloadTreeNodeDetailData(urn: string) {
         let resource = new CodelistResource(urn);
         this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
+    public openCodelistLink(urn: string) {
+        const resource = new ConceptResource(urn);
+        this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
 }
