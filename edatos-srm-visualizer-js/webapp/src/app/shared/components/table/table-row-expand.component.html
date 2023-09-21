@@ -62,7 +62,7 @@
     </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef='columnsToDisplayWithExpand; sticky:true' class='element-header'></tr>
+    <tr mat-header-row *matHeaderRowDef='columnsToDisplayWithExpand; sticky:true' class='element-header' [ngClass]="isAdvancedSearch ? 'filter' : ''"></tr>
     <tr mat-row *matRowDef='let data; columns: columnsToDisplayWithExpand;'
         class='element-row'
         [class.expanded-row]='isRowExpanded(data)'

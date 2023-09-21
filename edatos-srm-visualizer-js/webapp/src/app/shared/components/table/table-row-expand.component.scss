@@ -14,6 +14,14 @@
       border-radius: 0px 5px 5px 0px;
     }
   }
+  &.filter {
+    th {
+      padding: $padding-10px;
+    }
+    div {
+      padding-top: $padding-10px;
+    }
+  }
 }
 
 .element-row {  //filas de la tabla
