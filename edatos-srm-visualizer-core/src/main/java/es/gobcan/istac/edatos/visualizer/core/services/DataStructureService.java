@@ -14,7 +14,9 @@ import es.gobcan.istac.edatos.visualizer.core.models.Urn;
 import es.gobcan.istac.edatos.visualizer.core.repository.DataStructureRepository;
 import lombok.extern.slf4j.Slf4j;
 
-@Service @Slf4j public class DataStructureService {
+@Service
+@Slf4j
+public class DataStructureService {
 
     private final DataStructureRepository dataStructureRepository;
 

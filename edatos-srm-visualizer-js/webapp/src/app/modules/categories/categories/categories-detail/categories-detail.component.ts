@@ -8,6 +8,7 @@ import { MenuItem } from 'primeng/api';
 import { CategoryResource } from 'src/app/shared/models/resources/category-resource.model';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
+import { ConceptResource } from '../../../../shared/models/resources/concept-resource.model';
 
 @Component({
     selector: 'app-categories-detail',
@@ -61,6 +62,11 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
 
     private loadDataDetailResource(data: any): Observable<CategoryResource> {
         return this.apiSrmService.getDataDetailCategoryResourceFromSrm(data);
+    }
+
+    public openCategorySchemeLink(urn: string) {
+        const resource = new ConceptResource(urn);
+        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
     onActiveItemChange(link: any) {
