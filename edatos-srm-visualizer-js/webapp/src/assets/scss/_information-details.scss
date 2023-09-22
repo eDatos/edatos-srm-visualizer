@@ -226,5 +226,15 @@
 }
 
 
-
+.p-dropdown-items-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
+    &::-webkit-scrollbar {
+        width: $scroll-width-default;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: $color-azul-oscuro-100;
+    }
+}
 
