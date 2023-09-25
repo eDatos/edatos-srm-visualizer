@@ -47,10 +47,10 @@ export class FileDonwloadHelper {
         let resourceSdmx = new Resource(resource.urn);
         this.apiSrmService?.getXLSFile(resourceSdmx).subscribe((response: any) => {
                 let blob:any = new Blob([response], { type: 'text/xls; charset=utf-8' });
-                saveAs(blob, resourceSdmx.id + '.xls');
+                saveAs(blob, resourceSdmx.id + '.xlsx');
             },
             (error: any) => {
-                console.error('Error downloading XLS file:', error);
+                console.error('Error downloading XLSX file:', error);
             }
         );
     }
