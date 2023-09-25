@@ -16,7 +16,7 @@
     "sdmx-xml": "Descarregar en format SDMX-XML",
     "json": "Descarregar en format JSON",
     "csv": "Descarregar en format CSV",
-    "xls": "Descarregar en format XLS"
+    "xlsx": "Descarregar en format XLSX"
   },
   "seeResource": "Veure aquest recurs",
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",

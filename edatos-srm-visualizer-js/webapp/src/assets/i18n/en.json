@@ -16,7 +16,7 @@
     "sdmx-xml": "Download in SDMX-XML format",
     "json": "Download in JSON format",
     "csv": "Download in CSV format",
-    "xls": "Download in XLS format"
+    "xlsx": "Download in XLSX format"
   },
   "seeResource": "See this resource",
   "noResourceResults": "No results found for those conditions",
