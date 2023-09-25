@@ -65,10 +65,10 @@ export abstract class BasicDetailComponent implements OnInit {
                 }
             },
             {
-                label: this.translateService.instant('download.xls'),
+                label: this.translateService.instant('download.xlsx'),
                 icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
-                    this.fileDownloadHelper.onDownloadXLS(this.dataDetail, 'xls');                }
+                    this.fileDownloadHelper.onDownloadXLS(this.dataDetail, 'xlsx');                }
             }
         ];
     }
