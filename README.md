@@ -20,12 +20,13 @@ En este apartado se especifican los requisitos necesarios, referidos al entorno,
 - Java. 1.8.x
 - PostgreSQL 12.2
 - Apache 2.4.29
+- Node 14.20.0
 
 #### Dependencias
 La aplicación requiere de determinados servicios para poder estar completamente operativa. Algunos de ellos son necesarios de manera directa y otros de manera indirecta:
 Los servicios necesarios de manera directa (son atacados directamente por la aplicación):
-- Base de datos common-metadata. Se utiliza para obtener todas las propiedades de conexión con la base de datos de la aplicación.
-- Resto de aplicaciones de la infraestructura de eDatos: metamac-notifications, metamac-statistical-operations, metamac-statistical-resources. metamac-common-metadata y metamac-srm.
+- Base de datos **common-metadata**. Se utiliza para obtener todas las propiedades de conexión con la base de datos de la aplicación.
+- Resto de aplicaciones de la infraestructura de eDatos: metamac-statistical-resources, metamac-common-metadata y metamac-srm.
 
 
 ### Componentes de la instalación
@@ -55,17 +56,9 @@ La aplicación no contiene roles o permisos
 - Pueden modificarse los ficheros relacionados con la configuración de logging en **edatos-srm-visualizer.war/WEB-INF/classes/logback.xml**.
 
 ### Paso 4. Configuración de Apache.
-- Configuración de Apache para la aplicación de gestión interna:
-
-> RewriteRule ^/aplicaciones/appsinternalistac/external-users-internal(.*) - [ENV=IGNORE_SET_COOKIE]
->
-> ...
->  
-> Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure env=!IGNORE_SET_COOKIE
-
 - Configuración de Apache para la aplicación externa:
 
-> RewriteRule ^/aplicaciones/appsistac/external-users(.*) - [ENV=IGNORE_SET_COOKIE]
+> RewriteRule ^/aplicaciones/appsistac/srm-visualizer(.*) - [ENV=IGNORE_SET_COOKIE]
 >
 > ...
 >  
@@ -96,40 +89,8 @@ La aplicación no contiene roles o permisos
    - Password de conexión a la base de datos.
 - `spring.jpa.show-sql`
    - Permite añadir al log las sentencias SQL.
-- `spring.mail.host`
-   - Host del servidor para el envío del mail.
-- `spring.mail.port`
-   - Puerto del servidor para el envío del mail.
-- `spring.mail.username`
-   - Nombre del usuario para el envío del mail.
-- `spring.mail.password`
-   - Contraseña del usuario especificado anteriormente.
-- `jhipster.mail.from`
-   - Cuenta desde la que se quiere especificar que se envían los e-mails.
-- `jhipster.mail.base-url`
-   - URL de acceso a la aplicación. Esta URL se usará para enviarla por correo a los nuevos usuarios que sean dados de alta en la aplicación.
-- `application.cas.endpoint`
-   - Endpoint donde se localiza el CAS.
-- `application.cas.service`
-   - URL absoluta del endpoint de la aplicación donde se va a validar el usuario tras la autenticación en el CAS ('login/cas'). Si la URL de la aplicación es http://miaplicacion.com, esta propiedad debe tomar el valor http://miaplicacion.com/login/cas.
-- `application.cas.login`
-   - URL a la que se debe acceder para realizar la acción de login. Sólo debe cumplimentarse en el caso se que su valor sea distinto a `application.cas.endopoint`+ '/login'.
-- `application.cas.logout`
-   - URL a la que se debe acceder para realizar la acción de logout. Sólo debe cumplimentarse en el caso se que su valor sea distinto a `application.cas.endopoint`+ '/logout'.
-- `application.cas.validate`
-   - URL a la que se debe acceder para realizar la acción de logout. Sólo debe cumplimentarse en el caso se que su valor sea distinto a `application.cas.endopoint`+ '/logout'.
 - `debug`
    - Permite aumentar el nivel de log a DEBUG.    
-- `application.ldap.url`
-   - URL del servidor LDAP. Ejemplo: ldap://ldap.miorganizacion.com
-- `application.ldap.username`
-   - Usuario que se usar para conectarse al servidor LDAP. Ejemplo: cn=username,dc=miorganizacion,dc=com
-- `application.ldap.password`: 
-   - Contraseña del usuario LDAP. 
-- `application.ldap.base`
-   - Ruta relativa dónde se realizarán las operaciones. Ejemplo ou=usuarios,dc=miorganizacion,dc=com
-- `application.ldap.searchUsersProperty`
-   - Propiedad de LDAP por la que se buscará el usuario mediante su _username_. Valores admitidos: sAMAccountName, cn, uid
 
 
 ## Anexo. Perfiles de compilación
