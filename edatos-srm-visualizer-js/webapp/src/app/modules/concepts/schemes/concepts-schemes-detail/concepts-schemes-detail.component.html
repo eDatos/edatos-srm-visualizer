@@ -78,12 +78,10 @@
 
     <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
     <div class='info-link'>
-        <span class='info-agency' id='maintainer'>{{ dataDetail.maintainer }}</span>
-        <div class='element-link-actions'>
-            <button type='button' (click)="openMaintainerLink(dataDetail.agency)">
-                <i class='fa-thin fa-arrow-up-right-from-square'></i>
-            </button>
-        </div>
+        <button type='button' (click)="openMaintainerLink(dataDetail.agency)">
+            <span class='info-agency'>{{ dataDetail.maintainer }}</span>&nbsp;
+            <i class='fa-thin fa-arrow-up-right-from-square'></i>
+        </button>
     </div>
 
 </div>
