@@ -21,12 +21,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class CodelistCodesApiService extends ApiSrmService {
 
     public apiOtherCodesUrl  = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
+    public apiEquivalentCodesUrl  = '/v1.0/codelists/~all/~all/~all/codes?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'code';
         this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}';
+        this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}?fields=%2BvariableElement%2C%20%2B%20description';
         this.apiChildrenUrl = '/api/codelists/{urn}/codes';
         this.apiChildrenTreeUrl = '/api/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
@@ -46,6 +47,12 @@ export class CodelistCodesApiService extends ApiSrmService {
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
             .replace('{id}', resource.id);
+        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
+    }
+
+    public loadEquivalentCodes(variableElementUrn: string): Observable<any> {
+        let api = this.apiEquivalentCodesUrl
+            .replace('{variableElementUrn}', variableElementUrn)
         return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 

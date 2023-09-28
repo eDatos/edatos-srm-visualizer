@@ -60,7 +60,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
         ];
-        
+
     }
 
     loadDetailData(): void {
@@ -97,15 +97,26 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     private loadEquivalentCodes(): void {
-        //TODO: pending implementation - API srm external
-        this.equivalentCodes = [];
-        this.dataChildrenLoaded = true;
+        if (this.dataDetail.isVariableElement) {
+            this.apiSrmService.loadEquivalentCodes(this.dataDetail.variableElementUrn).subscribe((data) => {
+                if (data[this.apiSrmService.apiSearchDataPath]) {
+                    const resources = data[this.apiSrmService.apiSearchDataPath];
+                    this.apiSrmService.findAllOtherCodesDetailsFromSrm(resources, true).subscribe((data) => {
+                        this.equivalentCodes = data;
+                        this.tableExpandable.dataLoaded = true;
+                    });
+                }
+            });
+        } else if (!this.dataDetail.isVariableElement) {
+            this.equivalentCodes = [];
+            this.tableExpandable.dataLoaded = true;
+        }
     }
 
     public onLoadCodeDetail(urn: string): void {
         this.dataDetail = new CodelistResource(urn);
         if (this.dataDetail) {
-            this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`
+            this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`;
         }
     }
 
