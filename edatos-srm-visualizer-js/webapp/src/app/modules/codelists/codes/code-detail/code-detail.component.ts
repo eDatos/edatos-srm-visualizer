@@ -73,7 +73,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
-        if (this.activeLink == this.navLinks[1]) {
+        if (this.activeLink == this.navLinks[0]) {
+            this.loadOtherCodes();
+        } else if (this.activeLink == this.navLinks[1]) {
             this.loadEquivalentCodes();
         }
     }
