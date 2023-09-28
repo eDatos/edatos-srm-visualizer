@@ -53,7 +53,7 @@ export abstract class BasicSearchComponent {
         urn: '',
         description: '',
         scheme: '',
-        maintainer: '',
+        maintainer: ''
     });
 
 
@@ -115,6 +115,7 @@ export abstract class BasicSearchComponent {
         let query = this.buildQueryHelper.buildQueryResultOffset(this.searchSimpleForm, this.searchForm);
         this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
+                this.dataSearch = data[this.apiService.apiSearchDataPath];
                 this.loadDetailDataChildren();
             }
         });
@@ -129,8 +130,7 @@ export abstract class BasicSearchComponent {
                 if (this.searchConfig.resultSize > 0) {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
-                }
-                else if(this.searchConfig.resultSize == 0) {
+                } else if (this.searchConfig.resultSize == 0) {
                     this.tableExpandable.dataLoaded = true;
                 }
             });
@@ -147,8 +147,7 @@ export abstract class BasicSearchComponent {
                 if (this.searchConfig.resultSize > 0) {
                     this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
-                }
-                else if(this.searchConfig.resultSize == 0) {
+                } else if (this.searchConfig.resultSize == 0) {
                     this.tableExpandable.dataLoaded = true;
                 }
             });
@@ -182,7 +181,7 @@ export abstract class BasicSearchComponent {
     }
 
     private loadDetailDataChildren() {
-        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));   
+        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
             this.tableExpandable.dataLoaded = true;
@@ -194,7 +193,7 @@ export abstract class BasicSearchComponent {
         this.getDataChildren(resources).subscribe((data) => {
             this.dataChildren = [...this.dataChildren, ...data];
             this.dataChildrenLoaded = true;
-            if(form?.controls['maintainer'].value){
+            if (form?.controls['maintainer'].value) {
                 this.dataChildren = this.dataChildren.filter((field: any) => {
                     return field.maintainer.toLowerCase().indexOf(form?.controls['maintainer'].value.toLowerCase()) !== -1;
                 });

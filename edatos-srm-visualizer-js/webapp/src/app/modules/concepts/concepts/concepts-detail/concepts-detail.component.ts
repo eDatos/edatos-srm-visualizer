@@ -57,7 +57,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.codelistColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
         this.conceptColumns = [
@@ -93,23 +93,26 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
                 const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
                 this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true).subscribe((data) => {
                     this.otherConcepts = data;
-                    this.dataChildrenLoaded = true;
+                    this.tableExpandable.dataLoaded = true;
                 });
             }
         });
     }
 
     private loadRecommendedCodelists(): void {
-        if (this.resource && this.resource.variable !== undefined) {
-            this.apiSrmService.getRecommendedCodelists(this.resource.variable?.urn).subscribe((data) => {
+        this.recommendedCodelists = [];
+        if (this.dataDetail.isVariable) {
+            this.apiSrmService.getRecommendedCodelists(this.dataDetail.urnVariable).subscribe((data) => {
                 if (data[this.apiSrmService.apiCodelistDataPath]) {
                     const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];
                     this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
                         this.recommendedCodelists = data;
-                        this.dataChildrenLoaded = true;
+                        this.tableExpandable.dataLoaded = true;
                     });
                 }
             });
+        } else if(!this.dataDetail.isVariable) {
+            this.tableExpandable.dataLoaded = true;
         }
     }
 

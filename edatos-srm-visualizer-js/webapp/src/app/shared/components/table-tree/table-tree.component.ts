@@ -1,8 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
-import { LocaleService } from 'src/app/core/services/locale.service';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { ErrorService } from '../../../core/services/error/error.service';
