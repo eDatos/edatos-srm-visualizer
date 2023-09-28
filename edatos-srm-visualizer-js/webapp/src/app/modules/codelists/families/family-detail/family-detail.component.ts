@@ -56,7 +56,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
-            this.dataChildrenLoaded = true;
+            this.tableExpandable.dataLoaded = true;
         });
     }
 
@@ -68,11 +68,6 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
      /*   this.apiService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
                 data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
-                    const resource = new CodelistResource(codelist.urn);
-                    resource.id = codelist.id;
-                    resource.name = this.localeService.getTextValue(codelist.name?.text);
-                    resource.agency = codelist.agency;
-                    this.familyCodelist.push(resource);
                 });
                 this.dataChildrenLoaded = true;
             }
