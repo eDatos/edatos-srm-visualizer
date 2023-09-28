@@ -9,6 +9,9 @@ export class CodelistResource extends Resource {
     codelist: string = '';
 
     variableUrn: string = '';
+    variableElementUrn: string = '';
+
+    isVariableElement: boolean = false;
 
     public static familyCodelistResource(resource: any, localeService: LocaleService): CodelistResource {
         const codelistResource = new CodelistResource(resource.urn);
@@ -39,6 +42,8 @@ export class CodelistResource extends Resource {
         const description = localeService.getTextValue(resource.description?.text);
         const annotations = localeService.getTextValue(resource.annotations?.text);
 
+        codelistResource.isVariableElement = !!resource.variableElement;
+
         codelistResource.lastUpdatedDate = resource.lifeCycle ? DateUtils.formatSimpleDate(resource.lifeCycle.lastUpdatedDate) : '';
         codelistResource.isRecommended = resource.isRecommended ? translateService.instant('yes') : translateService.instant('no');
         codelistResource.codelist = isCodes? codeCodelistScheme: codelistSceme;
@@ -48,6 +53,7 @@ export class CodelistResource extends Resource {
         codelistResource.variableUrn = resource.variable ? resource.variable.urn : '';
         codelistResource.uri = resource.selfLink?.href;
         codelistResource.maintainer = `${maintainer.id} - ${maintainerName}`;
+        codelistResource.variableElementUrn = resource.variableElement ? resource.variableElement.urn : '';
 
         return codelistResource;
     }
