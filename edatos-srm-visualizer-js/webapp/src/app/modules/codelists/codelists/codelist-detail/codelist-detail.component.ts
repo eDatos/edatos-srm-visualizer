@@ -92,7 +92,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     onActiveItemChange(link: any) {
         this.activeLink = link;
-        if (this.activeLink = this.navLinks[0]) {
+        if (this.activeLink == this.navLinks[0]) {
             this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
             this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
