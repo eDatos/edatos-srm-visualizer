@@ -72,7 +72,6 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
             this.loadRecommendedCodelists();
-            this.getOtherConcepts();
         });
     }
 
