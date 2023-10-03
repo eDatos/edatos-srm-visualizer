@@ -37,11 +37,4 @@ public class CategoriesResource {
         return treeNodes.isEmpty()? "" : JsonUtils.toJson(treeNodes);
     }
 
-    @GetMapping("/{urn}/categories")
-    public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-        if (!urn.isEmpty()) {
-            return JsonUtils.toJson(categoryService.loadChildren(urn, lang));
-        }
-        return "";
-    }
 }

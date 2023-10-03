@@ -3,11 +3,14 @@ package es.gobcan.istac.edatos.visualizer.core.services;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.CategorySchemes;
+import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,26 +35,28 @@ import lombok.extern.slf4j.Slf4j;
     public List<TreeNode> findCategoriesFromScheme(String urn, String lang) {
         List<TreeNode> result = new ArrayList<>();
         Categories categories = categoryRepository.findCategories(urn).orElse(new Categories());
+
+        Map<String, TreeNode> categoryToTreeNodeMap = new HashMap<>();
+
         categories.getCategories().forEach(category -> {
             TreeNode treeNode = new TreeNode(category.getUrn(), InternationalStringUtils.loadInternationalString(category.getName().getTexts(), lang));
-            treeNode.getChildren().addAll(loadChildren(category.getUrn(), lang));
-            result.add(treeNode);
+            categoryToTreeNodeMap.put(category.getUrn(), treeNode);
         });
-        return result;
-    }
 
-    public List<TreeNode> loadChildren(String urn, String lang) {
-        log.debug("Search soon {}", urn);
-        Categories categories = categoryRepository.findAllChildren(urn).orElse(new Categories());
-        List<TreeNode> categoriesChildren = new ArrayList<>();
-        if (categories.getTotal().compareTo(BigInteger.ZERO) > 0) {
-            for (ItemResource bodyCategory : categories.getCategories()) {
-                TreeNode treeNode = new TreeNode(bodyCategory.getUrn(), InternationalStringUtils.loadInternationalString(bodyCategory.getName().getTexts(), lang));
-                treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
-                categoriesChildren.add(treeNode);
+        categories.getCategories().forEach(category -> {
+            TreeNode treeNode = categoryToTreeNodeMap.get(category.getUrn());
+
+            if (category.getParent() != null) {
+                TreeNode parentTreeNode = categoryToTreeNodeMap.get(category.getParent());
+                if (parentTreeNode != null) {
+                    parentTreeNode.getChildren().add(treeNode);
+                }
+            } else {
+                result.add(treeNode);
             }
-        }
-        return categoriesChildren;
+        });
+
+        return result;
     }
 
     public List<String> loadAllCategorySchemeVersions(String urn) {
