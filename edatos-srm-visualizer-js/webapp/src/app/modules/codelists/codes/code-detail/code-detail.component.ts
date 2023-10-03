@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -16,7 +16,8 @@ import { ConceptResource } from 'src/app/shared/models/resources/concept-resourc
 @Component({
     selector: 'app-code-detail',
     templateUrl: './code-detail.component.html',
-    styleUrls: ['./code-detail.component.scss']
+    styleUrls: ['./code-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class CodeDetailComponent extends BasicDetailComponent implements OnInit {
 
@@ -31,7 +32,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistCodesApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                private cdr: ChangeDetectorRef) {
         super(formBuilder, apiSrmService, route, localeService, translateService, router);
 
         this.detailForm = this.formBuilder.group({
@@ -73,6 +75,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
+        this.cdr.detectChanges();
         if (this.activeLink == this.navLinks[0]) {
             this.loadOtherCodes();
         } else if (this.activeLink == this.navLinks[1]) {
@@ -103,7 +106,6 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllOtherCodesDetailsFromSrm(resources, true).subscribe((data) => {
                         this.equivalentCodes = data;
-                        this.tableExpandable.dataLoaded = true;
                     });
                 }
             });

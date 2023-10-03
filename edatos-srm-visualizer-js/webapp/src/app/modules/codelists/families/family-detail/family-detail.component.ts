@@ -64,16 +64,13 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         return this.apiSrmService.getDataDetailFamilyCodelistResourceFromSrm(data);
     }
 
-        // TODO - pending development modification in SRM project
-     /*   this.apiService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
-            if (data[this.apiService.apiSearchDataPath]) {
-                data[this.apiService.apiSearchDataPath].forEach((codelist: any) => {
-                });
-                this.dataChildrenLoaded = true;
-            }
-        });
-        
-      */
+    // TODO - pending development modification in SRM project
+    /*   this.apiService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
+           if (data[this.apiService.apiSearchDataPath]) {
+               this.dataChildrenLoaded = true;
+           }
+           });
+     */
 
     public override onReturn() {
         this.router.navigate(['families'], { relativeTo: this.route.parent });

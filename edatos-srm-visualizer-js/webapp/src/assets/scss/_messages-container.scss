@@ -1,0 +1,35 @@
+/*messages*/
+.empty-td-container, .error-td-container {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 3px;
+  width: $empty-td-container-width;
+  padding: 20px 30px;
+  span {
+    &.text-no-result {
+      font-weight: 600;
+      font-size: $size-16;
+      line-height: 22px;
+    }
+    &.text-retry {
+      font-weight: 300;
+      line-height: 19px;
+    }
+  }
+}
+
+.error-td-container {
+  background: $color-rojo-25;
+}
+
+.empty-td-container {
+  background: $color-amarillo-25;
+}
+
+.no-data-container{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
