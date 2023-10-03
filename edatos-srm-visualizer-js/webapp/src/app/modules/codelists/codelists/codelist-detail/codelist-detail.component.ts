@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CodelistsApiService } from 'src/app/core/services/api/structural-resources/codelist/codelists-api.service';
@@ -15,7 +15,8 @@ import { Observable } from 'rxjs/internal/Observable';
 @Component({
     selector: 'app-codelist-detail',
     templateUrl: './codelist-detail.component.html',
-    styleUrls: ['./codelist-detail.component.scss']
+    styleUrls: ['./codelist-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class CodelistDetailComponent extends BasicDetailComponent implements OnInit {
     public versions: any[] = [];
@@ -31,7 +32,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistsApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
-                protected override apiSdmxService: CodelistApiSdmxService) {
+                protected override apiSdmxService: CodelistApiSdmxService, private cdr: ChangeDetectorRef) {
         super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
 
         this.detailForm = this.formBuilder.group({
@@ -67,7 +68,6 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     protected loadDetailData(): void {
-        this.activeLink = this.navLinks[0];
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
@@ -92,6 +92,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     onActiveItemChange(link: any) {
         this.activeLink = link;
+        this.cdr.detectChanges();
         if (this.activeLink == this.navLinks[0]) {
             this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
@@ -100,19 +101,19 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     private loadRelatedCodelistDetails(variableUrn: string) {
-        if (this.dataDetail.variableUrn !== '') {
+        if (this.dataDetail.variableUrn == '') {
             this.apiSrmService.getRelatedCodelist(variableUrn).subscribe((data) => {
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
                         this.relationatedCodelist = codelist;
-                        this.dataChildrenLoaded = true;
+                       this.tableExpandable.dataLoaded = true;
                     });
                 }
             });
         } else {
             this.relationatedCodelist = [];
-            this.dataChildrenLoaded = true;
+            this.tableExpandable.dataLoaded = true;
         }
     }
 

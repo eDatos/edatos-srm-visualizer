@@ -92,10 +92,12 @@ export abstract class BasicDetailComponent implements OnInit {
 
     public loadChildrenTreeData() {
         this.apiSrmService.getChildrenTree(this.dataDetail!).subscribe((children) => {
-            if (children) {
+            if (children.length > 0) {
                 this.tabletreenode.data = [];
                 this.dataChildren = children;
                 this.tabletreenode.treeControl.expandAll();
+                this.tabletreenode.dataLoaded = true;
+            } else if (children.length === 0) {
                 this.tabletreenode.dataLoaded = true;
             }
         });
