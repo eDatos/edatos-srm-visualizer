@@ -7,9 +7,15 @@
         <span class='text-no-result '>{{ 'apiError' | translate }}</span>
         <span class='text-retry'>{{ 'retryError' | translate }}</span>
     </div>
+
+    <div class='empty-td-container' *ngIf="showSpinner()">
+        <span class='text-no-result' >{{ 'noResourceResults' | translate }}</span>
+        <span class='text-retry'>{{ 'retrySearch' | translate }}</span>
+    </div>
 </div>
 
-<mat-tree *ngIf='dataLoaded' [dataSource]='dataSource' [treeControl]='treeControl' class='mat-elevation-z8'>
+
+<mat-tree *ngIf='dataLoaded && dataSource.data.length > 0' [dataSource]='dataSource' [treeControl]='treeControl' class='mat-elevation-z8'>
     <mat-tree-node *matTreeNodeDef='let node' matTreeNodePadding [matTreeNodePaddingIndent]='22'>
         <!-- use a disabled button to provide padding for tree leaf -->
         <button matTreeNodeToggle class='element-actions' disabled>

@@ -90,26 +90,8 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if (this.searchSimpleForm.value.filter) {
-            this.searchSimpleForm.reset({ 
-                filter: '', 
-                selectedFields: this.searchSimpleForm.value.selectedFields, 
-                showAllVersions:this.searchSimpleForm.value.showAllVersions 
-            });
-            this.defaultParametersSearch();
-            this.loadInitialData();
-        } else if (Object.values(this.searchAdvancedForm.value).filter(v => v !== '').length > 0) {
-            this.searchAdvancedForm.reset({
-                id: '',
-                name: '',
-                urn: '',
-                description: '',
-                scheme: '',
-                maintainer: ''
-            });
-            this.defaultParametersSearch();
-            this.loadInitialData();
-        }
+        this.defaultParametersSearch();
+        this.loadInitialData();
         if (!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }

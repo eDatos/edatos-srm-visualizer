@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { ErrorService } from '../../../core/services/error/error.service';
+import { ErrorService } from 'src/app/core/services/error/error.service';
 
 
 @Component({
@@ -70,5 +70,11 @@ export class TableTreeComponent implements OnInit{
     }
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
+
+    public showSpinner(): boolean {
+        return !this.apiError && this.dataLoaded && this.dataSource.data.length === 0;
+    }
+
+
 
 }  
