@@ -40,12 +40,12 @@ export abstract class BasicSearchComponent {
 
     public fields: Column[] = [];
 
-    public searchSimpleForm = this.formBuilder.group({
+    initialForm = new FormBuilder().group({
         filter: ['', Validators.required],
         selectedFields: [this.selectedDefault],
         showAllVersions: [false]
     });
-
+    public searchSimpleForm = this.initialForm;
     public searchForm: FormGroup = new FormGroup({});
     public searchAdvancedForm = this.formBuilder.group({
         id: '',
@@ -90,23 +90,12 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if (this.searchSimpleForm.value.filter) {
-            this.searchSimpleForm.reset({ 
-                filter: '', 
-                selectedFields: this.searchSimpleForm.value.selectedFields, 
-                showAllVersions:this.searchSimpleForm.value.showAllVersions 
-            });
+        if (!this.isEmptyForm(this.searchSimpleForm.value)) {
+            this.resetForm(this.searchSimpleForm, this.initialForm);
             this.defaultParametersSearch();
             this.loadInitialData();
-        } else if (Object.values(this.searchAdvancedForm.value).filter(v => v !== '').length > 0) {
-            this.searchAdvancedForm.reset({
-                id: '',
-                name: '',
-                urn: '',
-                description: '',
-                scheme: '',
-                maintainer: ''
-            });
+        } else if (!this.isEmptyForm(this.searchAdvancedForm.value)) {
+            this.resetForm(this.searchAdvancedForm);
             this.defaultParametersSearch();
             this.loadInitialData();
         }
@@ -196,6 +185,7 @@ export abstract class BasicSearchComponent {
             return { name: field.name, value: field.value, enabled: field.enabled };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
+        this.initialForm.value.selectedFields = this.selectedFields;
     }
 
     private loadDetailDataChildren() {
@@ -217,6 +207,14 @@ export abstract class BasicSearchComponent {
                 });
             }
         });
+    }
+
+    private resetForm(form: FormGroup, value?: FormGroup) {
+        value ? form.reset(value.value) : form.reset(); 
+    }
+
+    private isEmptyForm(formValues: any) {
+        return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => v !== '' && v !== null).length == 0; 
     }
 
     protected abstract getDataChildren(resources: Resource[]): Observable<TreeNode[]>;
