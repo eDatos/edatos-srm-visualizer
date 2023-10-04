@@ -8,6 +8,8 @@ public interface MetadataConfiguracionService extends ConfigurationService {
     public String getConfiguracionFooter();
 
     public String getConfigurationHeader();
+    
+    public String getAppStyleFaviconUrl();
 
     public String getStructuralResourcesApi();
 
