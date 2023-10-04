@@ -38,13 +38,4 @@ public class CodelistsResource{
         List<TreeNode> treeNodes = codelistService.findCodelistFromScheme(urn, lang);
         return treeNodes.isEmpty()? "" : JsonUtils.toJson(treeNodes);
     }
-
-    @GetMapping("/{urn}/codes")
-    public String getChildren(@PathVariable("urn") String urn, @RequestParam(value = "lang", defaultValue = "es") String lang) {
-        if (!urn.isEmpty()) {
-            return JsonUtils.toJson(codelistService.loadChildren(urn, lang));
-        }
-        return "";
-    }
-
 }

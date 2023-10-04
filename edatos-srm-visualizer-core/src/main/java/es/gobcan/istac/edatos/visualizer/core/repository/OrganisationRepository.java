@@ -9,8 +9,6 @@ public interface OrganisationRepository {
 
     Optional<Organisations> findOrganisations(String urn);
 
-    Optional<Organisations> findAllChildren(String urn);
-
     Optional<OrganisationSchemes> findAllVersions(String urn);
 
 }

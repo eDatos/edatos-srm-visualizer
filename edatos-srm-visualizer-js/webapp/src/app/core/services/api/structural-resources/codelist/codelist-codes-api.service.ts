@@ -29,7 +29,7 @@ export class CodelistCodesApiService extends ApiSrmService {
         this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}?fields=%2BvariableElement%2C%20%2B%20description';
         this.apiChildrenUrl = '/api/codelists/{urn}/codes';
-        this.apiChildrenTreeUrl = '/api/codelists/{urn}/codes';
+        this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
         this.apiSchemeUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}'
     }
@@ -39,15 +39,6 @@ export class CodelistCodesApiService extends ApiSrmService {
              this.apiSearchUrl = this.apiSearchUrl.concat('?query=CODELIST_LATEST%20EQ%20%27true%27')
         }
         this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/';
-    }
-
-    public loadOtherCodes(resource: CodelistResource): Observable<any> {
-        let api = this.apiOtherCodesUrl
-            .replace('{agencyID}', resource.agency)
-            .replace('{resourceID}', resource.resourceId)
-            .replace('{version}', resource.version)
-            .replace('{id}', resource.id);
-        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 
     public loadEquivalentCodes(variableElementUrn: string): Observable<any> {

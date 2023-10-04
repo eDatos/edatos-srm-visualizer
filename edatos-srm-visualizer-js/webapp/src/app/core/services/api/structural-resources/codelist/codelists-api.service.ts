@@ -26,7 +26,7 @@ export class CodelistsApiService extends ApiSrmService {
         this.apiSearchUrl = '/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
         this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
         this.apiDetailForFileUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
-        this.apiChildrenUrl = '/api/codelists/{urn}/codes';
+        this.apiChildrenUrl = '/api/codelists/codelists/{urn}/codes';
         this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
         this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
@@ -44,7 +44,7 @@ export class CodelistsApiService extends ApiSrmService {
         if (this.isLatestVersion) {
             this.apiRecommendedSearchUrl = this.apiRecommendedSearchUrl.concat('&LATEST%20EQ%20%27true%27')
         }
-        // TODO: this query dosent exists. Implements is pending por SRM external API
+        // TODO: EDATOS-4259 : this query dosent exists. Implements is pending por SRM external API
         this.apiRecommendedSearchUrl = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27';
     }
 

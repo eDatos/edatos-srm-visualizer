@@ -1,14 +1,14 @@
 package es.gobcan.istac.edatos.visualizer.core.services;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,26 +31,28 @@ import lombok.extern.slf4j.Slf4j;
     public List<TreeNode> findCodelistFromScheme(String urn, String lang) {
         List<TreeNode> result = new ArrayList<>();
         Codes codes = codeListRepository.findCodelist(urn).orElse(new Codes());
+
+        Map<String, TreeNode> codeToTreeNodeMap = new HashMap<>();
+
         codes.getCodes().forEach(code -> {
             TreeNode treeNode = new TreeNode(code.getUrn(), InternationalStringUtils.loadInternationalString(code.getName().getTexts(), lang));
-            treeNode.getChildren().addAll(loadChildren(code.getUrn(), lang));
-            result.add(treeNode);
+            codeToTreeNodeMap.put(code.getUrn(), treeNode);
         });
-        return result;
-    }
 
-    public List<TreeNode> loadChildren(String urn, String lang) {
-        log.debug("Search soon {}", urn);
-        Codes codes = codeListRepository.findAllChildren(urn).orElse(new Codes());
-        List<TreeNode> categoriesChildren = new ArrayList<>();
-        if (codes.getTotal().compareTo(BigInteger.ZERO) > 0) {
-            for (ItemResource code : codes.getCodes()) {
-                TreeNode treeNode = new TreeNode(code.getUrn(), InternationalStringUtils.loadInternationalString(code.getName().getTexts(), lang));
-                treeNode.getChildren().addAll(loadChildren(treeNode.getUrn(), lang));
-                categoriesChildren.add(treeNode);
+        codes.getCodes().forEach(code -> {
+            TreeNode treeNode = codeToTreeNodeMap.get(code.getUrn());
+
+            if (code.getParent() != null) {
+                TreeNode parentTreeNode = codeToTreeNodeMap.get(code.getParent());
+                if (parentTreeNode != null) {
+                    parentTreeNode.getChildren().add(treeNode);
+                }
+            } else {
+                result.add(treeNode);
             }
-        }
-        return categoriesChildren;
+        });
+
+        return result;
     }
 
     public List<String> loadAllCodelistVersions(String urn) {
