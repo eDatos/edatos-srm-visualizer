@@ -81,6 +81,7 @@ export abstract class BasicSearchComponent {
         });
     }
 
+
     public onSearchWithAllVersions(): void {
         this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
         this.tableExpandable.dataLoaded = false;
@@ -90,18 +91,28 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
-        if (!this.isEmptyForm(this.searchSimpleForm.value)) {
-            this.resetForm(this.searchSimpleForm, this.initialForm);
-            this.defaultParametersSearch();
-            this.loadInitialData();
-        } else if (!this.isEmptyForm(this.searchAdvancedForm.value)) {
-            this.resetForm(this.searchAdvancedForm);
-            this.defaultParametersSearch();
-            this.loadInitialData();
+        const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
+        const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+        if (!emptySearchSimpleForm) {
+            this.resetSearchSimpleForm();
+        } else if (!emptySearchAdvancedForm) {
+            this.resetSearchAdvancedForm();
         }
         if (!this.marked && !this.apiService.isLatestVersion) {
             this.onSearchWithAllVersions();
         }
+    }
+
+    public resetSearchAdvancedForm() {
+        this.resetForm(this.searchAdvancedForm);
+        this.defaultParametersSearch();
+        this.loadInitialData();
+    }
+
+    public resetSearchSimpleForm() {
+        this.resetForm(this.searchAdvancedForm);
+        this.defaultParametersSearch();
+        this.loadInitialData();
     }
 
     public onSelectFields(event: any) {
@@ -161,7 +172,7 @@ export abstract class BasicSearchComponent {
         }
     }
 
-    private defaultParametersSearch(): void {
+    public defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
         this.dataSearch = [];
@@ -196,24 +207,11 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    private loadDetailDataChildrenWithQuery(form?: FormGroup) {
-        const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
-        this.getDataChildren(resources).subscribe((data) => {
-            this.dataChildren = [...this.dataChildren, ...data];
-            this.dataChildrenLoaded = true;
-            if (form?.controls['maintainer'].value) {
-                this.dataChildren = this.dataChildren.filter((field: any) => {
-                    return field.maintainer.toLowerCase().indexOf(form?.controls['maintainer'].value.toLowerCase()) !== -1;
-                });
-            }
-        });
-    }
-
-    private resetForm(form: FormGroup, value?: FormGroup) {
+    public resetForm(form: FormGroup, value?: FormGroup) {
         value ? form.reset(value.value) : form.reset(); 
     }
 
-    private isEmptyForm(formValues: any) {
+    public isEmptyForm(formValues: any) {
         return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => v !== '' && v !== null).length == 0; 
     }
 

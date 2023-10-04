@@ -34,19 +34,13 @@ export class CodelistsApiService extends ApiSrmService {
     }
 
     public setApiSearchUrl(): void {
-        if (this.isLatestVersion) {
-             this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
-        }
-         this.apiSearchUrl = '/v1.0/codelists/';
+        const latestQuery = this.isLatestVersion ? '?query=LATEST%20EQ%20%27true%27' : '';
+        const recommendedQuery = this.isRecommended ? 'IS_RECOMMENDED%20EQ%20%27true%27' : '';
+        const latestRecommendedQuery = this.isLatestVersion && this.isRecommended ? ' AND ' : '';
+        const notLatestRecommendedQuery =  !this.isLatestVersion && this.isRecommended ? '?query=' : '';
+        this.apiSearchUrl = `/v1.0/codelists/${latestQuery}${latestRecommendedQuery}${notLatestRecommendedQuery}${recommendedQuery}`;
     }
 
-    public setApiRecommendedSearchUrl(): void {
-        if (this.isLatestVersion) {
-            this.apiRecommendedSearchUrl = this.apiRecommendedSearchUrl.concat('&LATEST%20EQ%20%27true%27')
-        }
-        // TODO: EDATOS-4259 : this query dosent exists. Implements is pending por SRM external API
-        this.apiRecommendedSearchUrl = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27';
-    }
 
     public getRelatedCodelist(variableUrn: string): Observable<any> {
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
