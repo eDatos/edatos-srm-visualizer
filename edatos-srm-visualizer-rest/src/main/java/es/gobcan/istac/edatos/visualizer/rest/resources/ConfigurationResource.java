@@ -40,7 +40,7 @@ public class ConfigurationResource {
     }
 
     @GetMapping("/language-cookie")
-    public String getLnaguageCookie() {
+    public String getLanguageCookie() {
         return metadataConfigurationService.getLanguageCookie();
     }
 
