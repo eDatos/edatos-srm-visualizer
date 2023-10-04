@@ -6,10 +6,11 @@ import {
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-families-api.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem, TreeNode } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 
 @Component({
     selector: 'app-family-detail',
@@ -24,6 +25,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
     public familyCodelist: TreeNode[] = [];
     public columns: any[];
     public routerLinkDetail: string = '';
+
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CodelistFamiliesApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -48,7 +50,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         this.columns = [
             { name: this.translateService.instant('codelists.parameters.code'), value: 'id' },
             { name: this.translateService.instant('codelists.parameters.parentCode'), value: 'name' },
-            { name: this.translateService.instant('codelists.parameters.agency'), value: 'agency' }
+            { name: this.translateService.instant('codelists.parameters.agency'), value: 'maintainer' }
         ];
     }
 
@@ -56,7 +58,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
-            this.tableExpandable.dataLoaded = true;
+            this.loadFamilyCodelist()
         });
     }
 
@@ -64,24 +66,27 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         return this.apiSrmService.getDataDetailFamilyCodelistResourceFromSrm(data);
     }
 
-    // TODO - pending development modification in SRM project
-    /*   this.apiService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
-           if (data[this.apiService.apiSearchDataPath]) {
-               this.dataChildrenLoaded = true;
-           }
-           });
-     */
+    private loadFamilyCodelist(): void {
+        this.apiSrmService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
+            if (data[this.apiSrmService.apiCodelistDataPath]) {
+                const resources = data[this.apiSrmService.apiCodelistDataPath];
+                this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
+                    this.familyCodelist = codelist;
+                    this.tableExpandable.dataLoaded = true;
+                });
+            }
+        });
+    }
 
     public override onReturn() {
         this.router.navigate(['families'], { relativeTo: this.route.parent });
     }
 
     public onLoadFamilyCodelistDetail(urn: string): void {
-        /**TODO */
-    }
-
-    public copyUrn(urn: string): void {
-        //TODO
+        this.dataDetail = new CodelistResource(urn);
+        if (this.dataDetail) {
+            this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' + this.dataDetail.version + '/detail';
+        }
     }
 
 }

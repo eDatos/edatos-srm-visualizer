@@ -10,8 +10,6 @@ import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
 public interface CodelistRepository {
 
     Optional<Codes> findCodelist(String urn);
-    Optional<Codes> findAllChildren(String urn);
-
     Optional<Codelists> findAllVersions(String urn);
 
 }

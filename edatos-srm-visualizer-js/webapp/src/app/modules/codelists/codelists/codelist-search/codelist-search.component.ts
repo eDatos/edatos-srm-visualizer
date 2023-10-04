@@ -59,7 +59,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     public onSearchWithIsRecommended(event: any) {
-        //TODO: pending to implement in SRM API. For default show all codelists
+        // TODO: EDATOS-4259 : this query dosent exists. Implements is pending por SRM external API
         this.showRecommendedCodelists = event.checked;
         if (this.showRecommendedCodelists) {
             this.apiService.isRecommended = !this.apiService.isRecommended;

@@ -24,7 +24,6 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
-    public otherCodes: TreeNode[] = [];
     public equivalentCodes: TreeNode[] = [];
 
     public codeColumns: any[];
@@ -69,7 +68,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
-            this.loadOtherCodes();
+            this.loadChildrenTreeData();
         });
     }
 
@@ -77,7 +76,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.activeLink = event;
         this.cdr.detectChanges();
         if (this.activeLink == this.navLinks[0]) {
-            this.loadOtherCodes();
+            this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
             this.loadEquivalentCodes();
         }
@@ -85,18 +84,6 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     private loadDataDetailResource(data: any): Observable<CodelistResource> {
         return this.apiSrmService.getDataDetailCodelistResourceFromSrm(data, this.translateService, true);
-    }
-
-    private loadOtherCodes(): void {
-        this.apiSrmService.loadOtherCodes(this.dataDetail).subscribe((data) => {
-            if (data[this.apiSrmService.apiSearchDataPath]) {
-                const resources = data[this.apiSrmService.apiSearchDataPath];
-                this.apiSrmService.findAllOtherCodesDetailsFromSrm(resources, true).subscribe((data) => {
-                    this.otherCodes = data;
-                    this.tabletreenode.dataLoaded = true;
-                });
-            }
-        });
     }
 
     private loadEquivalentCodes(): void {

@@ -6,7 +6,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { MenuItem } from 'primeng/api'
+import { MenuItem } from 'primeng/api';
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
@@ -107,7 +107,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
                         this.relationatedCodelist = codelist;
-                       this.tableExpandable.dataLoaded = true;
+                        this.tableExpandable.dataLoaded = true;
                     });
                 }
             });
