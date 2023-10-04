@@ -17,6 +17,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class CodelistSearchComponent extends BasicSearchComponent implements OnInit {
     public showRecommendedCodelists = false;
+
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
 
@@ -41,11 +42,15 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.fields = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false },
+            {
+                name: this.translateService.instant('resourceParameters.description'),
+                value: 'description',
+                enabled: false
+            },
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true }
         ];
 
-        this.selectedDefault = this.fields.filter(opt=>opt.enabled);
+        this.selectedDefault = this.fields.filter(opt => opt.enabled);
         this.searchSimpleForm = this.formBuilder.group({
             filter: '',
             selectedFields: [this.selectedDefault],
@@ -58,13 +63,30 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.loadInitialData();
     }
 
-    public onSearchWithIsRecommended(event: any) {
-        // TODO: EDATOS-4259 : this query dosent exists. Implements is pending por SRM external API
-        this.showRecommendedCodelists = event.checked;
-        if (this.showRecommendedCodelists) {
-            this.apiService.isRecommended = !this.apiService.isRecommended;
-            this.apiService.setApiRecommendedSearchUrl();
-            //this.loadInitialData(); // <-- pending to implement in SRM API. For default show all codelists
+    public onSearchWithIsRecommended() {
+        this.apiService.isRecommended = !this.marked ? false : !this.apiService.isRecommended;
+        this.tableExpandable.dataLoaded = false;
+        this.apiService.setApiSearchUrl();
+        this.loadInitialData();
+    }
+
+    public override toggleVisibility(event: any) {
+        this.marked = event.checked;
+        const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
+        const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+        if (!emptySearchSimpleForm) {
+            this.resetSearchSimpleForm();
+        } else if (!emptySearchAdvancedForm) {
+            this.resetSearchAdvancedForm();
+        }
+
+        if (!this.marked) {
+            if (!this.apiService.isLatestVersion) {
+                this.onSearchWithAllVersions();
+            }
+            if (this.apiService.isRecommended) {
+                this.onSearchWithIsRecommended();
+            }
         }
     }
 
