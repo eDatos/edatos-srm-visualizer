@@ -110,7 +110,7 @@ export abstract class BasicSearchComponent {
     }
 
     public resetSearchSimpleForm() {
-        this.resetForm(this.searchAdvancedForm);
+        this.resetForm(this.searchSimpleForm, this.initialForm);
         this.defaultParametersSearch();
         this.loadInitialData();
     }
