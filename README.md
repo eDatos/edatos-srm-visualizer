@@ -55,21 +55,8 @@ La aplicación no contiene roles o permisos
 ### Paso 3. Configuración de logging.
 - Pueden modificarse los ficheros relacionados con la configuración de logging en **edatos-srm-visualizer.war/WEB-INF/classes/logback.xml**.
 
-### Paso 4. Configuración de Apache.
-- Configuración de Apache para la aplicación externa:
 
-> RewriteRule ^/aplicaciones/appsistac/srm-visualizer(.*) - [ENV=IGNORE_SET_COOKIE]
->
-> ...
->  
-> Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure env=!IGNORE_SET_COOKIE
->
-> ...
->  
-> Header set Access-Control-Allow-Headers "Content-Type,x-requested-with,X-XSRF-TOKEN" env=SET_ACCESS_CONTROL_ALLOW_HEADERS
- 
-
-### Paso 5. Arrancar la aplicación.
+### Paso 4. Arrancar la aplicación.
 
 
 ----------
