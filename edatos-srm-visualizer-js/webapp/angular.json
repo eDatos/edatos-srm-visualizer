@@ -35,9 +35,6 @@
               "src/styles.scss",
               "src/theme.scss",
               "src/assets/scss/styles.scss"
-            ],
-            "scripts": [
-              "src/assets/authentication.js"
             ]
           },
           "configurations": {
