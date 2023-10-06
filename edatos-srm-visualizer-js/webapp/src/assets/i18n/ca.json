@@ -1,0 +1,130 @@
+{
+  "title": "Visualitzador",
+  "searchEngine": "Cercador",
+  "search": "Cercar",
+  "clear": "Netejar",
+  "showDetails": "Mostrar detalls",
+  "details": "Detalls",
+  "resultsNotFound": "No s'han trobat resultats.",
+  "yes": "Si",
+  "no": "No",
+  "otherVersions": "Altres versions",
+  "back": "Tornar al llistat",
+  "copy": "Copiat",
+  "download": {
+    "title": "Descarregar",
+    "sdmx-xml": "Descarregar en format SDMX-XML",
+    "json": "Descarregar en format JSON",
+    "csv": "Descarregar en format CSV",
+    "xlsx": "Descarregar en format XLSX"
+  },
+  "seeResource": "Veure aquest recurs",
+  "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
+  "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
+  "apiError": "No s'ha pogut obtenir resultats",
+  "retryError": "Pot ser que el servidor no estigui disponible. Si us plau, intenta-ho de nou més tard.",
+  "elements": "Elements",
+  "resourceParameters": {
+    "id": "ID",
+    "identifier": "Identificador",
+    "name": "Nom",
+    "urn": "URN",
+    "description": "Descripció",
+    "scheme": "Esquema",
+    "version": "Versió",
+    "comments": "Comentaris",
+    "maintainer": "Mantenidor",
+    "codelist": "Classificació",
+    "generalSearch": "Cercador general",
+    "advancedSearch": "Cerca avançada",
+    "showAllVersions": "Mostrar totes les versions",
+    "isRecommended": "Mostrar només les clasificacions recomanades",
+    "displayedFields": "Camps a mostrar",
+    "selfLink": "Accés via API",
+    "concept": "Concepte",
+    "type": "Tipus"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptes",
+    "conceptSchemesDetails" : "Detalls de l'esquema de conceptes",
+    "concepts": "Conceptes",
+    "conceptDetails" : "Detalls del concepte",
+    "othersConcepts": "Altres conceptes de l'esquema",
+    "recommendedCodelists": "Classificacions recomanades",
+    "parameters": {
+      "agency": "Agència mantenidora",
+      "schemeConcepts": "Conceptes de l'esquema"
+    }
+  },
+  "codelists": {
+    "codelistFamilies": "Famílies de classificacions",
+    "codelistFamiliesDetails": "Detalls de les famílies de classificacions",
+    "familyCodelist": "Classificacions de la família",
+    "codelist": "Classificació",
+    "codelists": "Classificacions",
+    "codelistsDetails": "Detalls de les classificacions",
+    "codes": "Codis",
+    "otherCodes": "Altres codis de la classificació",
+    "equivalentCodes": "Codis equivalents",
+    "codesDetails": "Detalls dels codis",
+    "relatedCodelist": "Classificacions relacionades",
+    "parameters": {
+      "id": "Identificador de la classificació",
+      "idCode": "Identificador del codi",
+      "code": "Codi",
+      "parentCode": "Codis pare",
+      "agency": "Agència mantenidora",
+      "publicationDate": "Data de publicació",
+      "lastUpdatedDate": "Data d'última modificació",
+      "isRecommended": "¿És recomanada?"
+    }
+  },
+  "dsd": {
+    "definitionDataStructures" : "Estructures de Dades (DSD)",
+    "dsd": "DSD",
+    "dsdDetails": "Detalls dels DSD",
+    "datastructures": "Codis",
+    "dimensions": "Dimensions",
+    "attribute": "Atributs",
+    "mainMeasure": "Mesura principal",
+    "parameters": {
+      "relatedTo": "Relacionat amb",
+      "assigned": "Assignat"
+    },
+    "attributeRelationship": {
+      "group": "Grup de dimensions",
+      "primaryMeasure": "Mesura principal",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensió de mesura",
+      "dimension": "Dimensió",
+      "timeDimension": "Dimensió de temps",
+      "spatial": "Dimensió espaial"
+    }
+  },
+  "organisations": {
+    "organisationsSchemes": "Esquema d'organitzacions",
+    "organisationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
+    "organisations": "Organitzacions",
+    "organisationsDetails": "Detalls de les organitzacions",
+    "otherOrganisationsOfScheme": "Altres organitzacions de l'esquema",
+    "organisationsOfScheme": "Organitzacions de l'esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de l'organització",
+      "publicationDate": "Data de publicació"
+    }
+  },
+  "category": {
+    "categorySchemes": "Esquema de temes",
+    "categorySchemesDetails": "Detalls de l'esquema de temes",
+    "categories": "Temes",
+    "otherCategoriesScheme": "Altres temes de l'esquema",
+    "categoriesDetails": "Detalls dels temes",
+    "parameters": {
+      "publicationDate": "Data de publicació",
+      "idCategory": "Identificador del tema"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div [formGroup]='searchSimpleForm'>
+    <div class='general-search row'>
+        <div *ngIf='!marked'>
+            <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
+        </div>
+        <div class='col' *ngIf='!marked'>
+            <input type='text' class='form-control' formControlName='filter' id='filter'
+                   placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
+        </div>
+        <div *ngIf='marked'>
+            <p-multiSelect #multiSelect [options]='fields' formControlName='selectedFields'
+                           defaultLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
+                           optionLabel='name' [filter]='false' [showToggleAll]='false' [virtualScroll]='true'
+                           [virtualScrollItemSize]='1' [showHeader]='false' class='multiselect-custom-search'
+                           [maxSelectedLabels]='0'
+                           selectedItemsLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
+                           dropdownIcon='fa-thin fa-chevron-down'
+                           (onChange)='onSelectFields($event)'
+                           (onPanelShow)='handleOnPanelShow()' (onPanelHide)='handleOnPanelHide()'>
+            </p-multiSelect>
+        </div>
+        <div class='custom-control custom-switch col' *ngIf='marked'>
+            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions()' />
+            <label for='allVersions'
+                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+        </div>
+        <div class='custom-control custom-switch'>
+            <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
+                           (onChange)='toggleVisibility($event)'></p-inputSwitch>
+            <label for='advancedSearch'
+                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
+        </div>
+    </div>
+</div>
+
+<div class='search-results-container'>
+    <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
+         [fromRoot]='true'
+         (scrolled)='onScrollDown($event)'>
+        <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
+                               [routerLinkDetail]='routerLinkDetail' [advancedSearch]='marked'
+                               (clickEvent)='onLoadConceptDetail($event)'
+                               (keyupEvent)='onAdvancedSearch($event)'>
+        </table-expandable-rows>
+    </div>
+</div>
+<br />

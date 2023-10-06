@@ -1,0 +1,18 @@
+security:
+  basic:
+    enabled: false
+
+spring:
+  application:
+    name: edatos_srm_visualizer
+  profiles:
+    active: @spring.profiles.active@
+  banner:
+    location: classpath:banner.txt
+  main:
+    web-application-type: servlet
+info:
+  project:
+    version: #project.version#
+
+

@@ -1,0 +1,185 @@
+.general-search {
+    height: 60px;
+    align-items: center;
+    padding: 0px $padding-20px;
+    .title {
+        font-weight: $font-weight-600;
+    }
+}
+
+.general-search.row {
+    margin: 0px;
+    &.end {
+        justify-content: flex-end;
+    }
+}
+
+.search-results-container {
+    padding: 0px $padding-20px;
+}
+
+
+//primeng multiselect
+.multiselect-custom-search .p-multiselect {
+    height: 30px;
+    /* Azul Oscuro/100 */
+    border: 1px solid $color-azul-oscuro-100;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.multiselect-custom-search {
+    .p-component {
+        font-size: 14px;
+    }
+    .p-multiselect-label.p-placeholder {
+        color: $color-azul-oscuro-100;
+        font-weight: 300;
+        padding: 5px 10px;
+    }
+    
+    .p-multiselect .p-multiselect-trigger {
+        color: $color-azul-oscuro-100;
+        width: 1.25rem;
+        justify-content: flex-start;
+    }
+    
+    .p-multiselect.p-component.p-multiselect-open, .p-multiselect-panel {
+        background-color: $color-azul-oscuro-100;
+        width: 187px;
+        .p-multiselect-label.p-placeholder, .p-multiselect-trigger {
+            color: $color-negro-0;
+            font-weight: $font-weight-600;
+        } 
+        .p-multiselect-item {
+            color: $color-negro-0;
+            font-weight: $font-weight-300;
+        }
+    }
+    .p-multiselect.p-component {
+        &.p-multiselect-open {
+            border: none;
+            border-radius: 5px 5px 0px 0px;
+        }
+        &.p-focus {
+            box-shadow: none;
+            border-color: $color-azul-oscuro-100;
+        }
+        &:not(.p-disabled):hover {
+            border-color: $color-azul-oscuro-100;
+        }
+    }
+    .p-multiselect-panel {
+        border-radius: 0px 0px 5px 5px;
+        height: 114px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        .p-multiselect-item .p-checkbox {
+            margin-right: 0px;
+            display:inline;
+        }
+    }
+}
+
+//primeng multiselect checkbox
+.p-multiselect .p-checkbox .p-checkbox-box {
+    border: none;
+    background: none;
+    color: $color-negro-0;
+    @include fa-icon-thin($fa-var-square);
+    &.p-highlight {
+        @include fa-icon-solid($fa-var-square-check);
+    }
+}
+.p-icon {
+    display: none;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    &.p-highlight {
+        background: $color-azul-oscuro-100;
+        font-weight: $font-weight-600 !important;
+    }
+    &:focus {
+        box-shadow: none; //se elimina en options el sombreado alrededor de cada elementeo
+    }
+    &:hover {
+        background: $color-azul-oscuro-100;
+    }
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: none;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
+    color: $color-negro-0;
+    background: none;
+}
+
+
+.custom-switch  {
+    color: $color-azul-oscuro-100;
+    font-weight: $font-weight-300;
+    gap: 16px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    label {
+        margin-bottom: 0;
+    }
+    &.first {
+        padding-left: 0px;
+    }
+}
+
+
+//primeng inputswitch
+.custom-switch 
+    .p-inputswitch,
+.custom-switch 
+    .p-inputswitch:hover,
+.custom-switch
+    .p-inputswitch.p-inputswitch-checked,
+.custom-switch 
+    .p-inputswitch.p-inputswitch-checked:hover {
+        display: flex;
+        .p-inputswitch-slider {
+            background: none;
+        }
+}
+
+.custom-switch .p-inputswitch {
+    font-size: 20px;
+    width: 1.25rem ;
+    &.p-focus .p-inputswitch-slider {
+       box-shadow: none;
+    }
+    &.p-inputswitch-checked .p-inputswitch-slider::before {
+        transform: none;
+    }
+}
+
+.custom-switch .p-inputswitch-slider {
+    @include fa-icon-thin($fa-var-toggle-off);
+}
+ 
+.custom-switch .p-inputswitch-checked .p-inputswitch-slider {
+    @include fa-icon-solid($fa-var-toggle-on);
+    font-family: FontAwesome !important;
+}
+//primeng inputswitch
+
+.label-inputswitch-checked {
+    font-weight: $font-weight-600;
+}
+
+
+.mat-mdc-card {
+    position: inherit;
+}
+
+
+
+
+
+
+

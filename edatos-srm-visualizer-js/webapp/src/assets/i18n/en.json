@@ -1,0 +1,130 @@
+{
+  "title": "Visualizer",
+  "searchEngine": "Search Engine",
+  "search": "Search",
+  "clear": "Clear",
+  "showDetails": "Show details",
+  "details": "Details",
+  "resultsNotFound": "No results found.",
+  "yes": "Yes",
+  "no": "No",
+  "otherVersions": "Other versions",
+  "back": "Back to list",
+  "copy": "Copy",
+  "download": {
+    "title": "Download",
+    "sdmx-xml": "Download in SDMX-XML format",
+    "json": "Download in JSON format",
+    "csv": "Download in CSV format",
+    "xlsx": "Download in XLSX format"
+  },
+  "seeResource": "See this resource",
+  "noResourceResults": "No results found for those conditions",
+  "retrySearch": "Please, change the search parameters and try again.",
+  "apiError": "Can not obtain a results.",
+  "retryError": "Could be a temporary error. Please, try again later.",
+  "elements": "Elements",
+  "resourceParameters": {
+    "id": "ID",
+    "identifier": "Identifier",
+    "name": "Name",
+    "urn": "URN",
+    "description": "Description",
+    "scheme": "Scheme",
+    "version": "Version",
+    "comments": "Comments",
+    "maintainer": "Maintainer",
+    "codelist": "Codelist",
+    "generalSearch": "General search",
+    "advancedSearch": "Advanced search",
+    "showAllVersions": "Show all versions",
+    "isRecommended": "Show only recommended codelist",
+    "displayedFields": "Fields to display",
+    "selfLink": "Access via API",
+    "concept": "Concept",
+    "type": "Type"
+  },
+  "concepts": {
+    "conceptSchemes": "Concept scheme",
+    "conceptSchemesDetails": "Concept scheme details",
+    "concepts": "Concepts",
+    "conceptDetails": "Concept details",
+    "othersConcepts": "Other concepts from scheme",
+    "recommendedCodelists": "Recommended codelists",
+    "parameters": {
+      "agency": "Agency",
+      "schemeConcepts": "Concepts of scheme"
+    }
+  },
+  "codelists": {
+    "codelistFamilies": "Codelist families",
+    "codelistFamiliesDetails": "Codelist families details",
+    "familyCodelist": "Family codelist",
+    "codelist": "Codelist",
+    "codelists": "Codelists",
+    "codelistsDetails": "Codelists details",
+    "codes": "Codes",
+    "equivalentCodes": "Equal codes",
+    "otherCodes": "Other codelist codes",
+    "codesDetails": "Codes details",
+    "relatedCodelist": "Related classifications",
+    "parameters": {
+      "id": "Codelist identifier",
+      "idCode": "Code identifier",
+      "code": "Code",
+      "parentCode": "Parent code",
+      "agency": "Making Agency",
+      "publicationDate": "Date of publication",
+      "lastUpdatedDate": "Date last modified",
+      "isRecommended": "Is it recommended?"
+    }
+  },
+  "dsd": {
+    "definitionDataStructures": "Data Structures (DSD)",
+    "dsd": "DSD",
+    "dsdDetails": "DSD details",
+    "datastructures": "Codes",
+    "dimensions": "Dimensions",
+    "attribute": "Attribute",
+    "mainMeasure": "Main measure",
+    "parameters": {
+      "relatedTo": "Related to",
+      "assigned": "Assigned"
+    },
+    "attributeRelationship": {
+      "group": "Dimensions group",
+      "primaryMeasure": "Primary measure",
+      "dimensions": "Dimensions",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Measure dimension",
+      "dimension": "Dimension",
+      "timeDimension": "Time dimension",
+      "spatial": "Spatial dimension"
+    }
+  },
+  "organisations": {
+    "organisationsSchemes": "Organisations schemes",
+    "organisationsSchemesDetails": "Organisations schemes details",
+    "organisations": "Organisartions",
+    "organisationsDetails": "Organisations details",
+    "otherOrganisationsOfScheme": "Other organisations of scheme",
+    "organisationsOfScheme": "Organisations of scheme",
+    "parameters": {
+      "idOrganisation": "Organisation identifier",
+      "publicationDate": "Date of publication"
+    }
+  },
+  "category": {
+    "categorySchemes": "Category scheme",
+    "categorySchemesDetails": "Category scheme details",
+    "categories": "Categories",
+    "otherCategoriesScheme": "Other categories schemes",
+    "categoriesDetails": "Categories details",
+    "parameters": {
+      "publicationDate": "Date of publication",
+      "idCategory": "Category identifier"
+    }
+  }
+}

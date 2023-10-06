@@ -1,0 +1,11 @@
+<div class="subsection-tab" *ngIf="navLinks.length > 1">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let link of navLinks">
+            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" 
+               routerLinkActive="active" [routerLink]="link.routerLink">
+                <span>{{link.label}}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<router-outlet></router-outlet>

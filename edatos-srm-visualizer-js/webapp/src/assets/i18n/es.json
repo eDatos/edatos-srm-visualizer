@@ -1,0 +1,130 @@
+{
+  "title": "Visualizador",
+  "searchEngine": "Buscador",
+  "search": "Buscar",
+  "clear": "Limpiar",
+  "showDetails": "Mostrar detalles",
+  "details": "Detalles",
+  "resultsNotFound": "No se han encontrado resultados.",
+  "yes": "Sí",
+  "no": "No",
+  "otherVersions": "Otras versiones",
+  "back": "Volver al listado",
+  "copy": "Copiado",
+  "download": {
+    "title": "Descargar",
+    "sdmx-xml": "Descargar en formato SDMX-XML",
+    "json": "Descargar en formato JSON",
+    "csv": "Descargar en formato CSV",
+    "xlsx": "Descargar en formato XLSX"
+  },
+  "seeResource": "Ver este recurso",
+  "noResourceResults": "No se ha encontrado ningún resultado para esas condiciones",
+  "retrySearch": "Por favor, cambia los parámetros de búsqueda e inténtalo de nuevo.",
+  "apiError": "No se pueden obtener resultados",
+  "retryError": "Puede ser un problema temporal del servidor. Por favor, inténtalo de nuevo en unos minutos.",
+  "elements": "Elementos",
+  "resourceParameters": {
+    "id": "ID",
+    "identifier": "Identificador",
+    "name": "Nombre",
+    "urn": "URN",
+    "description": "Descripción",
+    "scheme": "Esquema",
+    "version": "Versión",
+    "comments": "Anotaciones",
+    "maintainer": "Mantenedor",
+    "codelist": "Clasificación",
+    "generalSearch": "Buscador general",
+    "advancedSearch": "Búsqueda avanzada",
+    "showAllVersions": "Mostrar todas las versiones",
+    "isRecommended": "Mostrar sólo las clasificaciones recomendadas",
+    "displayedFields": "Campos a mostrar",
+    "selfLink": "Acceso vía API",
+    "concept": "Concepto",
+    "type": "Tipo"
+  },
+  "concepts": {
+    "conceptSchemes": "Esquema de conceptos",
+    "conceptSchemesDetails": "Detalles del esquema de conceptos",
+    "concepts": "Conceptos",
+    "conceptDetails": "Detalles del concepto",
+    "othersConcepts": "Otros conceptos del esquema",
+    "recommendedCodelists": "Clasificaciones recomendadas",
+    "parameters": {
+      "agency": "Agencia mantenedora",
+      "schemeConcepts": "Conceptos del esquema"
+    }
+  },
+  "codelists": {
+    "codelistFamilies": "Familias de clasificaciones",
+    "codelistFamiliesDetails": "Detalles de la familia de clasificaciones",
+    "familyCodelist": "Clasificaciones de la familia",
+    "codelist": "Clasificación",
+    "codelists": "Clasificaciones",
+    "codelistsDetails": "Detalles de la clasificación",
+    "codes": "Códigos",
+    "otherCodes": "Otros códigos de clasificación",
+    "equivalentCodes": "Códigos equivalentes",
+    "codesDetails": "Detalles del código",
+    "relatedCodelist": "Clasificaciones relacionadas",
+    "parameters": {
+      "id": "Identificador de la clasificación",
+      "idCode": "Identificador del código",
+      "code": "Código",
+      "parentCode": "Códigos padre",
+      "agency": "Agencia mantenedora",
+      "publicationDate": "Fecha de publicación",
+      "lastUpdatedDate": "Fecha de última modificación",
+      "isRecommended": "¿Es recomendada?"
+    }
+  },
+  "dsd": {
+    "definitionDataStructures": "Estructuras de Datos (DSD)",
+    "dsd": "DSD",
+    "dsdDetails": "Detalles del DSD",
+    "datastructures": "Códigos",
+    "dimensions": "Dimensiones",
+    "attribute": "Atributos",
+    "mainMeasure": "Medida principal",
+    "parameters": {
+      "relatedTo": "Relacionado con",
+      "assigned": "Asignado"
+    },
+    "attributeRelationship": {
+      "group": "Grupo de dimensiones",
+      "primaryMeasure": "Medida principal",
+      "dimensions": "Dimensiones",
+      "none": "Datasets"
+    },
+    "typeDimension": {
+      "measureDimension": "Dimensión de medida",
+      "dimension": "Dimensión",
+      "timeDimension": "Dimensión de tiempo",
+      "spatial": "Dimensión espacial"
+    }
+  },
+  "organisations": {
+    "organisationsSchemes": "Esquema de organizaciones",
+    "organisationsSchemesDetails": "Detalles del esquema de organizaciones",
+    "organisations": "Organizaciones",
+    "organisationsDetails": "Detalles de la organización",
+    "otherOrganisationsOfScheme": "Otras organizaciones del esquema",
+    "organisationsOfScheme": "Organizaciones del esquema",
+    "parameters": {
+      "idOrganisation": "Identificador de la organización",
+      "publicationDate": "Fecha de publicación"
+    }
+  },
+  "category": {
+    "categorySchemes": "Esquema de temas",
+    "categorySchemesDetails": "Detalles del esquema de temas",
+    "categories": "Temas",
+    "otherCategoriesScheme": "Otros temas del esquema",
+    "categoriesDetails": "Detalles del tema",
+    "parameters": {
+      "publicationDate": "Fecha de publicación",
+      "idCategory": "Identificador del tema"
+    }
+  }
+}

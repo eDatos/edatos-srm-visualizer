@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col fw-lighter">
+        Resultados: {{paginationSize}}
+    </div>
+    <div *ngIf="pages.length > 0" class=" col btn-toolbar justify-content-end mt-2" role="toolbar"
+        aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group" aria-label="First group">
+            <button type="button" class="btn btn-labeled btn-info"
+            (click)="onPreviusPage()">
+                <i class="fa fa-arrow-left"></i></button>
+            <button *ngFor="let page of pages" type="button"  
+            (click)="onChangePage(page)"
+             [class.active]="page === currentPage"   class="btn">{{page}}
+            </button>
+            <button type="button" class="btn btn-labeled btn-info"
+            (click)="onNextPage()">
+                <i class="fa fa-arrow-right"></i></button>
+        </div>
+    </div>
+</div>

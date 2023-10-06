@@ -1,0 +1,36 @@
+.search-results-table, .search-results-table-detail {
+    height: 500px;
+    min-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
+    table {
+        box-shadow: none;
+        th, td {
+            letter-spacing: normal;
+            font-family: $font-family-sans-serif;
+        }
+    }
+}
+
+
+.search-results-table-detail {
+    height: auto;
+}
+
+
+.detail-table .search-results-table-detail {
+    .element-link-attribution.short {
+        max-width: $container-2columns-max-width;
+    }
+}
+
+
+.search-results-table::-webkit-scrollbar {
+    width: $scroll-width-default;
+}
+
+.search-results-table::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $color-azul-oscuro-100;
+}

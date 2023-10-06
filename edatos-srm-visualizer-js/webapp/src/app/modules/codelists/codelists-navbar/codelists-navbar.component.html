@@ -1,0 +1,20 @@
+<div class='subsection-tab'>
+    <ul class='nav nav-tabs'>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['families']" routerLinkActive='active'>
+                <span>{{ 'codelists.codelistFamilies' | translate }}</span>
+            </a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codelists']" routerLinkActive='active'>
+                <span>{{ 'codelists.codelists' | translate }}</span>
+            </a>
+        </li>
+        <li class='nav-item'>
+            <a class='nav-link' [routerLink]="['codes']" routerLinkActive='active'>
+                <span>{{ 'codelists.codes' | translate }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<router-outlet></router-outlet>
