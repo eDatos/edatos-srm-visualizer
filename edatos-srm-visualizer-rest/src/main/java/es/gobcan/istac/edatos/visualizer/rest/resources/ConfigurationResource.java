@@ -1,5 +1,6 @@
 package es.gobcan.istac.edatos.visualizer.rest.resources;
 
+import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,9 @@ public class ConfigurationResource {
     @Autowired
     private MetadataConfiguracionService metadataConfigurationService;
 
+    @Autowired
+    private ConfigurationService         configurationService;
+
     @GetMapping("/footer-url")
     public String getFooterUrl() {
         return metadataConfigurationService.getConfiguracionFooter();
@@ -26,7 +30,7 @@ public class ConfigurationResource {
 
     @GetMapping("/favicon-url")
     public String getFaviconUrl() {
-        return metadataConfigurationService.getAppStyleFaviconUrl();
+        return configurationService.retrieveAppStyleFaviconUrl();
     }
 
     @GetMapping("/structural-resource-api")

@@ -17,11 +17,6 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
     }
 
     @Override
-    public String getAppStyleFaviconUrl() {
-        return retrieveAppStyleFaviconUrl();
-    }
-
-    @Override
     public String getStructuralResourcesApi() {
         return retrieveSrmExternalApiUrlBase();
     }
