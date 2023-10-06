@@ -14,7 +14,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<metamac-srm-rest-internal-api.version>2.6.1-SNAPSHOT</metamac-srm-rest-internal-api.version>
 		<start-class>es.gobcan.istac.edatos.visualizer.Application</start-class>
 	</properties>
 	<dependencies>
