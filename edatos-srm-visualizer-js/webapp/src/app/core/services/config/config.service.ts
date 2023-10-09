@@ -14,6 +14,7 @@ export class ConfigService {
     private urlApiBackConfiguration: string = '';
     private urlFooter: string = '';
     private urlHeader: string = '';
+    private urlFavicon: string = '';
     private urlStructuralResourcesApi: string = '';
     private languageCookie: string = '';
 
@@ -83,6 +84,18 @@ export class ConfigService {
         return this.httpClient.get(this.urlApiBackConfiguration.concat('header-url'), { responseType: 'text' }).pipe(
             map((result) => {
                 this.urlHeader = result;
+                return result;
+            })
+        );
+    }
+
+    public getFaviconUrl(): Observable<string> {
+        if (this.urlFavicon) {
+            return of(this.urlFavicon);
+        }
+        return this.httpClient.get(this.urlApiBackConfiguration.concat('favicon-url'), { responseType: 'text' }).pipe(
+            map((result) => {
+                this.urlFavicon = result;
                 return result;
             })
         );
