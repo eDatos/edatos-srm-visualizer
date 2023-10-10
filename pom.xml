@@ -11,7 +11,7 @@
 
     <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
     <artifactId>edatos-srm-visualizer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>eDatos SRM Visualizer</name>
@@ -49,6 +49,7 @@
         <java.version>1.8</java.version>
         <postgresql.version>9.4.1212</postgresql.version>
         <assertj.version>3.6.2</assertj.version>
+        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 
         <metamac-srm-rest-external-api.version>2.8.0</metamac-srm-rest-external-api.version>
         <edatos-core-common.version>1.2.0</edatos-core-common.version>
