@@ -22,7 +22,6 @@ export class ConfigService {
 
     constructor(@Inject(DOCUMENT) private document: Document, private httpClient: HttpClient, private locationStrategy: LocationStrategy) {
         this.urlApiBackConfiguration = this.getDomainInternal() + '/api/configuration/';
-        console.log('this.urlApiBackConfiguration: ', this.urlApiBackConfiguration)
     }
 
     public getDomainInternal(): string {
