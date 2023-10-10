@@ -1,6 +1,6 @@
 .search-results-table, .search-results-table-detail {
-    height: 500px;
-    min-height: 300px;
+    height: calc(100vh - 2*$height-nav - $height-general-search - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
+    min-height: 350px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
