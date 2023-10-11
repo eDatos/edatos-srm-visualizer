@@ -25,22 +25,24 @@ export class ConfigService {
     }
 
     public getDomainInternal(): string {
-        let myWindow = window as any;
+        const myWindow = window as any;
+        const baseHref = this.locationStrategy.getBaseHref();
+        const protocol = myWindow.location.protocol;
+        const hostname = myWindow.location.hostname;
+        const port = myWindow.location.port;
 
-        let domain = myWindow.location.hostname + ':' + myWindow.location.port;
-        if (this.locationStrategy.getBaseHref().length > 1) {
-            let href = this.locationStrategy.getBaseHref().split('/');
+        let domain = hostname + ':' + port;
 
-            if (href && href.length > 1) {
-                domain = domain.concat('/' + href[1]).replace(/\/\//g, '/');
-            } else {
-                domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
-            }
+        if (baseHref) {
+            const trimmedBaseHref = baseHref.startsWith('/') ? baseHref.substring(1) : baseHref;
+            domain = domain + '/' + trimmedBaseHref.replace(/\/\//g, '/');
         }
+
         if (domain.endsWith('/')) {
             domain = domain.slice(0, -1);
         }
-        return myWindow.location.protocol + '//' + domain;
+
+        return protocol + '//' + domain;
     }
 
     public getApiStructuralResources(): Observable<string> {
