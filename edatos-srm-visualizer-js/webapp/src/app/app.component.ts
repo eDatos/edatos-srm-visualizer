@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ApiSrmService } from './core/services/api/structural-resources/api-srm.service';
 import { ConfigService} from './core/services/config/config.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -10,10 +12,12 @@ import { ConfigService} from './core/services/config/config.service';
 export class AppComponent {
     public favIcon: any;
 
-    public constructor(private apiService: ApiSrmService, private configService: ConfigService, @Inject(DOCUMENT) private document: Document) {
+    public constructor(private apiService: ApiSrmService, private configService: ConfigService, 
+                       @Inject(DOCUMENT) private document: Document, protected translateService: TranslateService) {
         
         apiService.loadConfiguration();
-        this.favIcon= document.querySelector('#appFavicon');
+        translateService.get('title').subscribe((translation) => document.title = translation);
+        this.favIcon = document.querySelector('#appFavicon');
         configService.getFaviconUrl().subscribe(url => {
             if (this.favIcon) {
                 this.favIcon.href = url;
