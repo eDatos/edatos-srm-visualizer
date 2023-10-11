@@ -84,6 +84,7 @@ export abstract class BasicSearchComponent {
 
     public onSearchWithAllVersions(): void {
         this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
+        this.showAllVersions = !this.apiService.isLatestVersion;
         this.tableExpandable.dataLoaded = false;
         this.apiService.setApiSearchUrl();
         this.loadInitialData();
@@ -91,6 +92,7 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.marked = event.checked;
+        this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
         if (!emptySearchSimpleForm) {
