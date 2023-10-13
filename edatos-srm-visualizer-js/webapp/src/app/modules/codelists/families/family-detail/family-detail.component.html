@@ -58,7 +58,7 @@
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" 
+            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''"  routerLink={{link.label}}
                routerLinkActive="active">{{link.label}}
             </a>
         </li>
