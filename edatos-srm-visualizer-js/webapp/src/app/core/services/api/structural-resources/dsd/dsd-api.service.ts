@@ -7,6 +7,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
     providedIn: 'root',
@@ -20,16 +21,15 @@ export class DsdApiService extends ApiSrmService {
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'dataStructure';
-        this.apiSearchUrl = '/v1.0/datastructures/?query=LATEST%20EQ%20%27true%27';
-        this.apiDetailUrl = '/v1.0/datastructures/{agencyID}/{resourceID}/{version}';
-        this.apiAllVersionsFromResourceUrl = '/api/datastructures/{urn}/all-versions';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/datastructures/?query=LATEST%20EQ%20%27true%27';
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.DSD_API_URL}`;//'/v1.0/datastructures/{agencyID}/{resourceID}/{version}';
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.DSD_ALL_VERSIONS_API_URL}`;//'/api/datastructures/{urn}/all-versions';
     }
 
     public setApiSearchUrl(): void {
-        if (this.isLatestVersion) {
-            this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
-        }
-        this.apiSearchUrl = '/v1.0/datastructures/';
+        const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${latestQuery}`;
+
     }
 
     public getDataDetailDsdResourceFromSrm(dataDetail: any): Observable<DsdResource> {

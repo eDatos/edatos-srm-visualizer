@@ -11,6 +11,7 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 import { TranslateService } from '@ngx-translate/core';
 import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
     providedIn: 'root'
@@ -19,26 +20,25 @@ export class CodelistsApiService extends ApiSrmService {
 
     public isRecommended: boolean = false;
     private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27';
-    private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
+    //private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelist';
-        this.apiSearchUrl = '/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}';
-        this.apiDetailForFileUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
-        this.apiChildrenUrl = '/api/codelists/codelists/{urn}/codes';
-        this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}';
+        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;//'/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
-        this.apiAllVersionsFromResourceUrl = '/api/codelists/{urn}/all-versions';
-        this.apiSchemeUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}'
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CODELISTS_ALL_VERSIONS_API_URL}`;//'/api/codelists/{urn}/all-versions';
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}'
     }
 
     public setApiSearchUrl(): void {
-        const latestQuery = this.isLatestVersion ? '?query=LATEST%20EQ%20%27true%27' : '';
-        const recommendedQuery = this.isRecommended ? 'IS_RECOMMENDED%20EQ%20%27true%27' : '';
+        const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
+        const recommendedQuery = this.isRecommended ? ApiSrmUrlConstants.CODELIST_IS_RECOMMENDED_QUERY : '';
         const latestRecommendedQuery = this.isLatestVersion && this.isRecommended ? ' AND ' : '';
         const notLatestRecommendedQuery =  !this.isLatestVersion && this.isRecommended ? '?query=' : '';
-        this.apiSearchUrl = `/v1.0/codelists/${latestQuery}${latestRecommendedQuery}${notLatestRecommendedQuery}${recommendedQuery}`;
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${latestQuery}${latestRecommendedQuery}${notLatestRecommendedQuery}${recommendedQuery}`;
     }
 
 
