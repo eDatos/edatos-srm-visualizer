@@ -31,7 +31,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc($container-2columns-max-width/2 - $padding-10px);
+    max-width: calc($container-2columns-max-width/2 - $padding-10px - $scroll-width-default);
   }
   td {
     padding: $padding-10px;
@@ -68,6 +68,9 @@ tr.detail-row {
   height: 0;
   .element-td {
     padding: 0;
+    &.hidden {
+      border-bottom-width: 0px;
+    }
   }
 }
 

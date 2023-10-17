@@ -39,8 +39,7 @@
     
     .p-dropdown.p-component.p-dropdown-open {
         background-color: $color-azul-oscuro-100;
-        width: 169px;
-        border: 2px solid $color-azul-oscuro-100;
+        border: none;
         border-radius: 5px 5px 0px 0px;
         
         .p-dropdown-label.p-placeholder, .p-dropdown-trigger-icon {
