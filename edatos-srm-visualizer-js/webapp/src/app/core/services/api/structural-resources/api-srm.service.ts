@@ -22,7 +22,6 @@ export abstract class ApiSrmService extends ApiService {
     public apiSearchUrl: string = '';
 
     public apiChildrenTreeUrl: string = '';
-    public apiChildrenUrl: string = '';
     public apiChildrenDataPath: string = '';
 
     public isLatestVersion: boolean = true;

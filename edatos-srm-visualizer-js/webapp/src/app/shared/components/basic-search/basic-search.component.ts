@@ -22,12 +22,13 @@ export abstract class BasicSearchComponent {
     @ViewChild('tableExpandable') tableExpandable!: TableExpandableRows;
     @ViewChild('searchResults') searchResults: ElementRef | undefined;
     @ViewChild('multiSelect', { static: false }) multiSelect!: MultiSelect;
-    advancedSearch = false;
-    showAllVersions = false;
-    selectedDefault: Column[] = [];
+
+    public advancedSearch = false;
+    public showAllVersions = false;
+    public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
-    filter = '';
-    marked = false;
+    public filter = '';
+    public marked = false;
 
     public searchConfig: SearchConfig = {
         resultLimit: 25,
@@ -37,7 +38,6 @@ export abstract class BasicSearchComponent {
     };
 
     public dataSearch: any[] = [];
-
     public fields: Column[] = [];
 
     initialForm = new FormBuilder().group({
@@ -56,22 +56,22 @@ export abstract class BasicSearchComponent {
         maintainer: ''
     });
 
-
     public detailForm: any;
-
     public dataDetail: Resource | undefined;
-    public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];
-
     public routerLinkDetail: string = '';
 
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
-    protected constructor(protected apiService: ApiSrmService, protected formBuilder: FormBuilder,
-                          protected translateService: TranslateService, protected localeService: LocaleService) {
-    }
+    protected constructor(
+        protected apiService: ApiSrmService,
+        protected formBuilder: FormBuilder,
+        protected translateService: TranslateService,
+        protected localeService: LocaleService
+    ) {}
 
     public loadInitialData() {
+        this.isLatestVersion();
         this.dataChildren = [];
         this.columnsToDisplay();
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
@@ -81,13 +81,15 @@ export abstract class BasicSearchComponent {
         });
     }
 
-
     public onSearchWithAllVersions(): void {
+        this.tableExpandable.dataLoaded = false;
+        this.loadInitialData();
+    }
+
+    private isLatestVersion(){
         this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
         this.showAllVersions = !this.apiService.isLatestVersion;
-        this.tableExpandable.dataLoaded = false;
         this.apiService.setApiSearchUrl();
-        this.loadInitialData();
     }
 
     public toggleVisibility(event: any) {

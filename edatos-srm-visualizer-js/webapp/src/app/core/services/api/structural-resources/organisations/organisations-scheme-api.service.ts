@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,17 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
   constructor( httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
     super(httpClient, config, localeService);
     this.apiSearchDataPath = 'organisationScheme';
-    this.apiSearchUrl = '/v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27';
-    this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
-    this.apiDetailForFileUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations';
-    this.apiChildrenUrl = '/api/organisations/{urn}/organisations';
-    this.apiChildrenTreeUrl = '/api/organisations/{urn}/organisations';
+    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${ApiSrmUrlConstants.LATEST_QUERY}`; ///v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27
+    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATION_SCHEME_API_URL}` ///v1.0/organisationschemes/{agencyID}/{resourceID}/{version}
+    this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATIONS_BY_ORGANISATION_SCHEME_API_URL}`///v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations;
+    this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.ORGANISATIONS_API_URL}`; ///api/organisations/{urn}/organisations
 
-    this.apiAllVersionsFromResourceUrl = '/api/organisations/{urn}/all-versions';
+    this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.ORGANISATION_ALL_VERSIONS_API_URL}`;
   }
 
   public setApiSearchUrl(): void {
-    if (this.isLatestVersion) {
-      this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27')
-    }
-    this.apiSearchUrl = '/v1.0/organisationschemes/';
+      const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
+      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${latestQuery}`;
   }
 
   public getDataDetailOrganisationSchemeResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {
