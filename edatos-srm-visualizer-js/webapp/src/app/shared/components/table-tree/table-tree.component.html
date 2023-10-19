@@ -15,7 +15,7 @@
 </div>
 
 
-<mat-tree *ngIf='dataLoaded && dataSource.data.length > 0' [dataSource]='dataSource' [treeControl]='treeControl' class='mat-elevation-z8'>
+<mat-tree *ngIf='dataLoaded && dataSource.data.length > 0' [dataSource]='dataSource' [treeControl]='treeControl'>
     <mat-tree-node *matTreeNodeDef='let node' matTreeNodePadding [matTreeNodePaddingIndent]='22'>
         <!-- use a disabled button to provide padding for tree leaf -->
         <button matTreeNodeToggle class='element-actions' disabled>

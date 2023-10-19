@@ -42,7 +42,8 @@
     "displayedFields": "Camps a mostrar",
     "selfLink": "Accés via API",
     "concept": "Concepte",
-    "type": "Tipus"
+    "type": "Tipus",
+    "agency": "Agència mantenidora"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -52,7 +53,6 @@
     "othersConcepts": "Altres conceptes de l'esquema",
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
-      "agency": "Agència mantenidora",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },

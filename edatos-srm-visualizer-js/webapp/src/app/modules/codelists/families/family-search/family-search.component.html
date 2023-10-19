@@ -1,17 +1,11 @@
 <div [formGroup]='searchSimpleForm'>
-    <div class='general-search row end'>
+    <div class='general-search row'>
         <div *ngIf='!marked'>
             <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
         </div>
-        <div class='col' *ngIf='!marked'>
+        <div class='col large' *ngIf='!marked'>
             <input type='text' class='form-control' formControlName='filter' id='filter'
                    placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
-        </div>
-        <div class='custom-control custom-switch'>
-            <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
-                           (onChange)='toggleVisibility($event)'></p-inputSwitch>
-            <label for='advancedSearch'
-                   [ngClass]="marked?'label-inputswitch-checked':''">{{ 'resourceParameters.advancedSearch' | translate }}</label>
         </div>
     </div>
 </div>

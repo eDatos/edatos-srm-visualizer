@@ -91,7 +91,7 @@ export abstract class BasicDetailComponent implements OnInit {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 window.scrollTo(0, 0);
-                if (this.tableExpandable.expandedElements.length > 0) {
+                if (this.tableExpandable?.expandedElements.length > 0) {
                     this.tableExpandable.expandedElements = [];
                 }
             }

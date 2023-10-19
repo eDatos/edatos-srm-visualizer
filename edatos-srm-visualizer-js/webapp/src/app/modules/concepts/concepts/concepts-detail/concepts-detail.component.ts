@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
@@ -14,7 +14,8 @@ import { Observable } from 'rxjs/internal/Observable';
 @Component({
     selector: 'app-concept-detail',
     templateUrl: './concepts-detail.component.html',
-    styleUrls: ['./concepts-detail.component.scss']
+    styleUrls: ['./concepts-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class ConceptsDetailComponent extends BasicDetailComponent implements OnInit {
     public navLinks: MenuItem[];
@@ -29,7 +30,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                private cdr: ChangeDetectorRef) {
         super(formBuilder, apiSrmService, route, localeService, translateService, router);
 
         this.detailForm = this.formBuilder.group({
@@ -77,6 +79,10 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
 
     public onActiveItemChange(event: any) {
         this.activeLink = event;
+        this.cdr.detectChanges();
+        if (this.activeLink == this.navLinks[0]) {
+            this.loadRecommendedCodelists();
+        }
         if (this.activeLink == this.navLinks[1]) {
             this.getOtherConcepts();
         }
@@ -122,7 +128,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public onLoadCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
         if (codelist) {
-            this.routerLinkDetail = `/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+            this.routerLinkDetail = `/codelists/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
         }
     }
 
