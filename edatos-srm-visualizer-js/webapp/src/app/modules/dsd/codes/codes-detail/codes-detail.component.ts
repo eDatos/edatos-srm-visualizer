@@ -86,6 +86,23 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
             { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'assigmentStatus' },
             { name: this.translateService.instant('dsd.parameters.assigned'), value: 'attributeRelationship' }
         ];
+
+        this.items = [
+            {
+                label: this.translateService.instant('download.sdmx-xml'),
+                icon: 'fa-thin fa-code',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
+                }
+            },
+            {
+                label: this.translateService.instant('download.json'),
+                icon: 'fa-thin fa-brackets-curly',
+                command: () => {
+                    this.fileDownloadHelper.onDownloadJson(this.dataDetail, 'json');
+                }
+            }
+        ];
     }
 
     protected loadDetailData(): void {
