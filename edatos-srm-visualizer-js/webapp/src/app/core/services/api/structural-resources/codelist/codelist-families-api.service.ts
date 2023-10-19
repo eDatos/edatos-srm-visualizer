@@ -14,6 +14,7 @@ import {
     treeNodeWithMaintainer,
     treeNodeWithMaintainerAndScheme
 } from '../../../../../shared/models/tree/tree-node';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 
 @Injectable({
@@ -21,13 +22,13 @@ import {
 })
 export class CodelistFamiliesApiService extends ApiSrmService {
 
-    public apiFamilyCodelistUrl: string = '/v1.0/codelists/?query=CODELIST_FAMILY_URN%20EQ%20%27{codelistFamilyUrn}%27';
+    public apiFamilyCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELISTS_BY_CODELIST_FAMILY_URN_API_URL}`;//'/v1.0/codelists/?query=CODELIST_FAMILY_URN%20EQ%20%27{codelistFamilyUrn}%27';
     public apiCodelistDataPath = 'codelist';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelistFamily';
-        this.apiSearchUrl = '/v1.0/codelistfamilies/';
-        this.apiDetailUrl = '/v1.0/codelistfamilies/{id}/';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODELISTS_FAMILIES_API_URL}`;//'/v1.0/codelistfamilies/';
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_FAMILY_API_URL}`;//'/v1.0/codelistfamilies/{id}/';
     }
 
     public setApiSearchUrl(): void {}

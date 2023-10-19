@@ -13,6 +13,7 @@ import {
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 
 @Injectable({
@@ -20,25 +21,21 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CodelistCodesApiService extends ApiSrmService {
 
-    public apiOtherCodesUrl  = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
-    public apiEquivalentCodesUrl  = '/v1.0/codelists/~all/~all/~all/codes?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
+    public apiEquivalentCodesUrl  = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.VARIABLE_ELEMENT_URN_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'code';
-        this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}?fields=%2BvariableElement%2C%20%2B%20description';
-        this.apiChildrenUrl = '/api/codelists/{urn}/codes';
-        this.apiChildrenTreeUrl = '/api/codelists/codelists/{urn}/codes';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.CODELIST_LATEST_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes/?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODE_BY_CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}?fields=%2BvariableElement%2C%20%2B%20description';
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;//'/api/codelists/codelists/{urn}/codes';
         this.apiChildrenDataPath = '';
-        this.apiSchemeUrl = '/v1.0/codelists/{agencyID}/{resourceID}/{version}'
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}'
     }
 
     public setApiSearchUrl(): void {
-        if (this.isLatestVersion) {
-             this.apiSearchUrl = this.apiSearchUrl.concat('?query=CODELIST_LATEST%20EQ%20%27true%27')
-        }
-        this.apiSearchUrl = '/v1.0/codelists/~all/~all/~latest/codes/';
+        const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.CODELIST_LATEST_QUERY : '';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${latestQuery}`;
     }
 
     public loadEquivalentCodes(variableElementUrn: string): Observable<any> {
