@@ -10,6 +10,9 @@
 .subsection-tab.detail-tab .nav {
     background-color: $color-azul-10;
     margin-top: 20px;
+    .nav-link {
+        cursor: pointer;
+    }
 }
 
 .section-tab .nav, .subsection-tab .nav {

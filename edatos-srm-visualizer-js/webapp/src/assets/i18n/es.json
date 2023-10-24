@@ -1,5 +1,5 @@
 {
-  "title": "Visualizador",
+  "title": "Banco de activos semánticos",
   "searchEngine": "Buscador",
   "search": "Buscar",
   "clear": "Limpiar",
@@ -42,7 +42,8 @@
     "displayedFields": "Campos a mostrar",
     "selfLink": "Acceso vía API",
     "concept": "Concepto",
-    "type": "Tipo"
+    "type": "Tipo",
+    "agency": "Agencia mantenedora"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
@@ -52,7 +53,6 @@
     "othersConcepts": "Otros conceptos del esquema",
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
-      "agency": "Agencia mantenedora",
       "schemeConcepts": "Conceptos del esquema"
     }
   },

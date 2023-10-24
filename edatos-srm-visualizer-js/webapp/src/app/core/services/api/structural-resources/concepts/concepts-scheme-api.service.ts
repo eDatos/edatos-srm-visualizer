@@ -9,32 +9,30 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConceptsSchemeApiService extends ApiSrmService {
 
-    private apiConceptsOfSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
+    private apiConceptsOfSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}?fields=%2Bdescription`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'conceptScheme';
-        this.apiSearchUrl = '/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
-        this.apiDetailUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
-        this.apiDetailForFileUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
-        this.apiChildrenUrl = '/v2.1/conceptscheme/{agencyID}/{resourceID}/{version}';
-        this.apiChildrenTreeUrl = '/api/concepts/schemes/{urn}/concepts';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}conceptschemes/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/conceptschemes/?query=LATEST%20EQ%20%27true%27';
+        this.apiDetailUrl =  '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/';
+        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CONCEPTS_API_URL}`;//'/api/concepts/schemes/{urn}/concepts';
         this.apiChildrenDataPath = 'concept';
-        this.apiAllVersionsFromResourceUrl = '/api/concepts/{urn}/all-versions';
-        this.apiSchemeUrl = '/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}';
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CONCEPTS_ALL_VERSIONS_API_URL}`;//'/api/concepts/{urn}/all-versions';
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_SCHEME_API_URL}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}';
     }
 
     public setApiSearchUrl(): void {
-        if (this.isLatestVersion) {
-            this.apiSearchUrl = this.apiSearchUrl.concat('?query=LATEST%20EQ%20%27true%27');
-        }
-        this.apiSearchUrl = '/v1.0/conceptschemes/';
+        const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}conceptschemes/${latestQuery}`;
     }
 
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {

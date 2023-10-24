@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
@@ -87,6 +87,14 @@ export abstract class BasicDetailComponent implements OnInit {
                 uri: '',
             };
             this.loadDetailData();
+        });
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                window.scrollTo(0, 0);
+                if (this.tableExpandable?.expandedElements.length > 0) {
+                    this.tableExpandable.expandedElements = [];
+                }
+            }
         });
     }
 

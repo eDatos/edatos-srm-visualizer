@@ -14,6 +14,7 @@ export class ConfigService {
     private urlApiBackConfiguration: string = '';
     private urlFooter: string = '';
     private urlHeader: string = '';
+    private urlFavicon: string = '';
     private urlStructuralResourcesApi: string = '';
     private languageCookie: string = '';
 
@@ -24,22 +25,24 @@ export class ConfigService {
     }
 
     public getDomainInternal(): string {
-        let myWindow = window as any;
+        const myWindow = window as any;
+        const baseHref = this.locationStrategy.getBaseHref();
+        const protocol = myWindow.location.protocol;
+        const hostname = myWindow.location.hostname;
+        const port = myWindow.location.port;
 
-        let domain = myWindow.location.hostname + ':' + myWindow.location.port;
-        if (this.locationStrategy.getBaseHref().length > 1) {
-            let href = this.locationStrategy.getBaseHref().split('/');
+        let domain = hostname + ':' + port;
 
-            if (href && href.length > 1) {
-                domain = domain.concat('/' + href[1]).replace(/\/\//g, '/');
-            } else {
-                domain = domain.concat('/' + this.locationStrategy.getBaseHref()).replace(/\/\//g, '/');
-            }
+        if (baseHref) {
+            const trimmedBaseHref = baseHref.startsWith('/') ? baseHref.substring(1) : baseHref;
+            domain = domain + '/' + trimmedBaseHref.replace(/\/\//g, '/');
         }
+
         if (domain.endsWith('/')) {
             domain = domain.slice(0, -1);
         }
-        return myWindow.location.protocol + '//' + domain;
+
+        return protocol + '//' + domain;
     }
 
     public getApiStructuralResources(): Observable<string> {
@@ -83,6 +86,18 @@ export class ConfigService {
         return this.httpClient.get(this.urlApiBackConfiguration.concat('header-url'), { responseType: 'text' }).pipe(
             map((result) => {
                 this.urlHeader = result;
+                return result;
+            })
+        );
+    }
+
+    public getFaviconUrl(): Observable<string> {
+        if (this.urlFavicon) {
+            return of(this.urlFavicon);
+        }
+        return this.httpClient.get(this.urlApiBackConfiguration.concat('favicon-url'), { responseType: 'text' }).pipe(
+            map((result) => {
+                this.urlFavicon = result;
                 return result;
             })
         );

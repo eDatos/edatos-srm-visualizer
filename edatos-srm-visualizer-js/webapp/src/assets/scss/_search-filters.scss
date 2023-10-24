@@ -1,5 +1,5 @@
 .general-search {
-    height: 60px;
+    height: $height-general-search;
     align-items: center;
     padding: 0px $padding-20px;
     .title {
@@ -11,6 +11,9 @@
     margin: 0px;
     &.end {
         justify-content: flex-end;
+    }
+    .large {
+        padding-right: 0px;
     }
 }
 

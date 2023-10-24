@@ -101,7 +101,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     private loadRelatedCodelistDetails(variableUrn: string) {
-        if (this.dataDetail.variableUrn == '') {
+        if (this.dataDetail.variableUrn != '') {
             this.apiSrmService.getRelatedCodelist(variableUrn).subscribe((data) => {
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];

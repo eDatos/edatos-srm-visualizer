@@ -1,5 +1,5 @@
 {
-  "title": "Visualizer",
+  "title": "Bank of semantic assets",
   "searchEngine": "Search Engine",
   "search": "Search",
   "clear": "Clear",
@@ -42,7 +42,8 @@
     "displayedFields": "Fields to display",
     "selfLink": "Access via API",
     "concept": "Concept",
-    "type": "Type"
+    "type": "Type",
+    "agency": "Maintenance agency"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
@@ -52,7 +53,6 @@
     "othersConcepts": "Other concepts from scheme",
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
-      "agency": "Agency",
       "schemeConcepts": "Concepts of scheme"
     }
   },

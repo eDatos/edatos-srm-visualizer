@@ -76,7 +76,7 @@
         <span id='annotations'>{{ dataDetail.annotations }}</span>
     </div>
 
-    <label for='maintainer' class='title'>{{ 'codelists.parameters.agency' | translate }}</label>
+    <label for='maintainer' class='title'>{{ 'resourceParameters.agency' | translate }}</label>
     <div class='info-link'>
         <button type='button' (click)="openMaintainerLink(dataDetail.agency)">
             <span class='info-agency'>{{ dataDetail.maintainer }}</span>&nbsp;
@@ -89,7 +89,8 @@
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let link of navLinks">
-            <a class="nav-link" [ngClass]="activeLink.label  == link.label ? 'active' : ''" (click)="activeLink.label = link.label; onActiveItemChange(link)"
+            <a class="nav-link" [ngClass]="activeLink.label  == link.label ? 'active' : ''" 
+                (click)="activeLink.label = link.label; onActiveItemChange(link)"
                routerLinkActive="active">{{link.label}}
             </a>
         </li>

@@ -31,7 +31,7 @@
     </ng-container>
 
     <ng-container matColumnDef='expandedDetail'>
-        <td mat-cell class='element-td' *matCellDef='let data' [attr.colspan]='columnsToDisplayWithExpand.length'>
+        <td mat-cell class='element-td' *matCellDef='let data' [attr.colspan]='columnsToDisplayWithExpand.length' [ngClass]="!isRowExpanded(data) ? 'hidden' : ''">
             <div class='element-detail' [ngClass]="!data.description ? 'large' : ''"
                  [@detailExpand]="isRowExpanded(data) ? 'expanded' : 'collapsed'">
                 <div class='element-description' *ngIf="data.description">

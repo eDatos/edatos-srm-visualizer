@@ -7,28 +7,26 @@ import { Observable } from 'rxjs/internal/Observable';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
+import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class OrganisationsApiService extends ApiSrmService{
-   constructor( httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
-    super(httpClient, config, localeService);
-    this.apiSearchDataPath = 'organisation';
-    this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations/?query=ORGANISATION_SCHEME_LATEST%20EQ%20%27true%27';
-    this.apiDetailUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations/{id}';
-    this.apiChildrenUrl = '/api/organisations/{urn}/organisations';
-    this.apiChildrenTreeUrl = '/api/organisations/{urn}/organisations';
-    this.apiChildrenDataPath = '';
-    this.apiSchemeUrl = '/v1.0/organisationschemes/{agencyID}/{resourceID}/{version}';
-  }
-
-  public setApiSearchUrl(): void {
-    if (this.isLatestVersion) {
-      this.apiSearchUrl = this.apiSearchUrl.concat('?query=ORGANISATION_SCHEME_LATEST%20EQ%20%27true%27')
+export class OrganisationsApiService extends ApiSrmService {
+    constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
+        super(httpClient, config, localeService);
+        this.apiSearchDataPath = 'organisation';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_ORGANISATIONS_SCHEMES_API_URL}${ApiSrmUrlConstants.ORGANISATION_SCHEME_LATEST_QUERY}`; //'/v1.0/organisationschemes/~all/~all/~latest/organisations/?query=ORGANISATION_SCHEME_LATEST%20EQ%20%27true%27';
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATION_BY_ORGANISATION_SCHEME_API_URL}`;//v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations/{id}'
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.ORGANISATIONS_API_URL}`; //api/organisations/{urn}/organisations';
+        this.apiChildrenDataPath = '';
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATION_SCHEME_API_URL}`; ///v1.0/organisationschemes/{agencyID}/{resourceID}/{version}
     }
-    this.apiSearchUrl = '/v1.0/organisationschemes/~all/~all/~latest/organisations/';
-  }
+
+    public setApiSearchUrl(): void {
+        const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.ORGANISATION_SCHEME_LATEST_QUERY : '';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_ORGANISATIONS_SCHEMES_API_URL}${latestQuery}`;
+    }
 
     public getDataDetailOrganisationResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
