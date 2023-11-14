@@ -28,7 +28,8 @@ export abstract class BasicSearchComponent {
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
     public filter = '';
-    public marked = false;
+    public markedSearchAdvanced = false;
+    public markedViewAllVersions = false;
 
     public searchConfig: SearchConfig = {
         resultLimit: 25,
@@ -81,29 +82,28 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onSearchWithAllVersions(): void {
+    public onSearchWithAllVersions(event: any): void {
+        this.markedViewAllVersions = !this.markedSearchAdvanced ? false : event.checked;
         this.tableExpandable.dataLoaded = false;
         this.loadInitialData();
     }
 
     private isLatestVersion(){
-        this.apiService.isLatestVersion = !this.marked ? true : !this.apiService.isLatestVersion;
+        this.apiService.isLatestVersion = !this.markedSearchAdvanced ? true : !this.markedViewAllVersions;
         this.showAllVersions = !this.apiService.isLatestVersion;
         this.apiService.setApiSearchUrl();
     }
 
     public toggleVisibility(event: any) {
-        this.marked = event.checked;
+        this.markedSearchAdvanced = event.checked;
         this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+
         if (!emptySearchSimpleForm) {
             this.resetSearchSimpleForm();
         } else if (!emptySearchAdvancedForm) {
             this.resetSearchAdvancedForm();
-        }
-        if (!this.marked && !this.apiService.isLatestVersion) {
-            this.onSearchWithAllVersions();
         }
     }
 

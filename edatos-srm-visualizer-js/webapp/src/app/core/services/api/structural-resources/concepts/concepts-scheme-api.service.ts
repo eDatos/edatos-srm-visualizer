@@ -36,7 +36,6 @@ export class ConceptsSchemeApiService extends ApiSrmService {
     }
 
     public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {
-
         const api = this.apiConceptsOfSchemeUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
@@ -81,6 +80,4 @@ export class ConceptsSchemeApiService extends ApiSrmService {
                 }
             ));
     }
-
-
 }

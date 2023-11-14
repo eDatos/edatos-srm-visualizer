@@ -20,7 +20,7 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class ConceptsApiService extends ApiSrmService {
 
-    public apiOtherConceptsUrl =  `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}${ApiSrmUrlConstants.CONCEPT_SCHEME_LATEST_QUERY}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
+    public apiOtherConceptsUrl =  `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}${ApiSrmUrlConstants.OTHER_CONCEPT_SCHEME_LATEST}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
     public apiRecommendedCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.VARIABLE_URN_QUERY}`;//'/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27AND%20LATEST%20EQ%20%27true%27&fields=%2Bdescription';
     public apiCodelistDataPath = 'codelist';
 

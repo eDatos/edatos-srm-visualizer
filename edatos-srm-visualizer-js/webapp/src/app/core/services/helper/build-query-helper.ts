@@ -25,26 +25,30 @@ export class BuildQueryHelper {
     }
 
     public buildQueryUrl(url: string, query: string, isLatestVersion: boolean, api?: string) {
+        const queryPlaceholder = '{query}';
         if (!url?.includes(BuildQueryHelper.withQuery)) {
             return url.concat(BuildQueryHelper.withQuery.concat(encodeURIComponent(query)));
         } else {
-            return url.concat(encodeURIComponent(isLatestVersion ? this.buildUrlLatestOfQuery(url, query) :this.buildUrlOfQuery(url, query)));
+            const buildUrlQuery = isLatestVersion ? this.buildUrlLatestOfQuery(url, query) :this.buildUrlOfQuery(url, query);
+            url = url.includes(queryPlaceholder)? url.replace('{query}',encodeURIComponent(buildUrlQuery)) :
+                url.concat(encodeURIComponent(buildUrlQuery));
+            return url;
         }
     }
 
     public buildUrlOfQuery(url: string, query: string): string {
-        let beginParamUrl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
+        const beginParamUrl = url.includes('?') ? ' AND ' : BuildQueryHelper.withQuery;
         return beginParamUrl.concat(query);
     }
 
     public buildUrlLatestOfQuery(url: string, query: string): string {
-        let beginParamurl = url.includes('?') ? ' AND (' : BuildQueryHelper.withQuery;
-        return beginParamurl.concat(query).concat(')');
+        const beginParamUrl = url.includes('?') ? ' AND (' : BuildQueryHelper.withQuery;
+        return beginParamUrl.concat(query).concat(')');
     }
 
     public getResultLimit(url: string, searchConfig: SearchConfig): string {
-        let beginParamurl = url.includes('?') ? '&' : '?';
-        return beginParamurl + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
+        const beginParamUrl = url.includes('?') ? '&' : '?';
+        return beginParamUrl + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
     }
 
     public buildQueryResultOffset(searchSimpleForm: FormGroup, searchForm: FormGroup) : string {

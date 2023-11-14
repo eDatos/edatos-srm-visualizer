@@ -1,9 +1,9 @@
 <div [formGroup]='searchSimpleForm'>
     <div class='general-search row'>
-        <div *ngIf='!marked'>
+        <div *ngIf='!markedSearchAdvanced'>
             <label for='filter' class='title'>{{ 'resourceParameters.generalSearch' | translate }}</label>
         </div>
-        <div class='col large' *ngIf='!marked'>
+        <div class='col large' *ngIf='!markedSearchAdvanced'>
             <input type='text' class='form-control' formControlName='filter' id='filter'
                    placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)='onSearch()'>
         </div>
@@ -16,7 +16,7 @@
          (scrolled)='onScrollDown($event)'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadFamilyCodelistDetail($event)' [advancedSearch]='marked'
+                               (clickEvent)='onLoadFamilyCodelistDetail($event)' [advancedSearch]='markedSearchAdvanced'
                                (keyupEvent)='onAdvancedSearch($event)'>
         </table-expandable-rows>
     </div>
