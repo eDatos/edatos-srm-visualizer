@@ -42,7 +42,8 @@ export class ApiSrmUrlConstants {
     public static CONCEPT_BY_CONCEPTS_SCHEME_API_URL = 'conceptschemes/{agencyID}/{resourceID}/{version}/concepts/{id}';
     public static CONCEPTS_BY_CONCEPT_SCHEME_API_URL = 'conceptschemes/{agencyID}/{resourceID}/{version}/concepts';
     public static CONCEPT_SCHEME_API_URL = 'conceptschemes/{agencyID}/{resourceID}/{version}';
-    public static CONCEPT_SCHEME_LATEST_QUERY = '?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
+    public static CONCEPT_SCHEME_LATEST_QUERY = '?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27{query}&fields=%2Bdescription';
+    public static OTHER_CONCEPT_SCHEME_LATEST = '?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
     public static CONCEPTS_API_URL = '/api/concepts/schemes/{urn}/concepts';
     public static CONCEPTS_ALL_VERSIONS_API_URL = '/api/concepts/{urn}/all-versions';
 

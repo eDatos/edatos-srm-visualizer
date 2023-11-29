@@ -17,6 +17,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class CodelistSearchComponent extends BasicSearchComponent implements OnInit {
     public showRecommendedCodelists = false;
+    public markedViewRecommended = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiService: CodelistsApiService,
                 protected override translateService: TranslateService, protected override localeService: LocaleService) {
@@ -63,32 +64,12 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.loadInitialData();
     }
 
-    public onSearchWithIsRecommended() {
-        this.apiService.isRecommended = !this.marked ? false : !this.apiService.isRecommended;
+    public onSearchWithIsRecommended(event: any) {
+        this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
         this.showRecommendedCodelists = this.apiService.isRecommended;
         this.tableExpandable.dataLoaded = false;
         this.apiService.setApiSearchUrl();
         this.loadInitialData();
-    }
-
-    public override toggleVisibility(event: any) {
-        this.marked = event.checked;
-        const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
-        const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
-        if (!emptySearchSimpleForm) {
-            this.resetSearchSimpleForm();
-        } else if (!emptySearchAdvancedForm) {
-            this.resetSearchAdvancedForm();
-        }
-
-        if (!this.marked) {
-            if (!this.apiService.isLatestVersion) {
-                this.onSearchWithAllVersions();
-            }
-            if (this.apiService.isRecommended) {
-                this.onSearchWithIsRecommended();
-            }
-        }
     }
 
     public onLoadCodelistDetail(urn: string): void {

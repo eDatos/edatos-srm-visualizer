@@ -140,11 +140,13 @@ export abstract class ApiSrmService extends ApiService {
         if (searchConfig) {
             return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
         }
+
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
     /* Data */
     private getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
+        url = url.replace('{query}','');
         if (query) {
             url = url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query));
             return this.httpClient.get<any>(url);
