@@ -53,6 +53,8 @@
     "othersConcepts": "Altres conceptes de l'esquema",
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
+      "idConcept": "Identificador del concepte",
+      "idScheme": "Identificador de l'esquema",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },
@@ -88,6 +90,7 @@
     "attribute": "Atributs",
     "mainMeasure": "Mesura principal",
     "parameters": {
+      "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionat amb",
       "assigned": "Assignat"
     },
@@ -113,6 +116,7 @@
     "organisationsOfScheme": "Organitzacions de l'esquema",
     "parameters": {
       "idOrganisation": "Identificador de l'organització",
+      "idScheme": "Identificador l'esquema",
       "publicationDate": "Data de publicació"
     }
   },
@@ -123,8 +127,9 @@
     "otherCategoriesScheme": "Altres temes de l'esquema",
     "categoriesDetails": "Detalls dels temes",
     "parameters": {
-      "publicationDate": "Data de publicació",
-      "idCategory": "Identificador del tema"
+      "idCategory": "Identificador del tema",
+      "idScheme": "Identificador de l'esquema de temes",
+      "publicationDate": "Data de publicació"
     }
   }
 }
