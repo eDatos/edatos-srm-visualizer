@@ -12,6 +12,7 @@ export interface TreeNode {
     typeDimension?: string;
     assigmentStatus?: string;
     attributeRelationship?: string;
+    localRepresentation?: string;
     count?: number;
     children?: TreeNode[];
     version?: string;

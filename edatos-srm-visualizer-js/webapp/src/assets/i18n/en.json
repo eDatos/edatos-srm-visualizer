@@ -69,11 +69,12 @@
     "codesDetails": "Codes details",
     "relatedCodelist": "Related classifications",
     "parameters": {
-      "id": "Codelist identifier",
+      "idCodelist": "Codelist identifier",
       "idCode": "Code identifier",
-      "code": "Code",
-      "parentCode": "Parent code",
-      "agency": "Making Agency",
+      "idFamily": "Family identifier",
+      "id": "Identifier",
+      "name": "Name",
+      "maintainer": "Maintainer",
       "publicationDate": "Date of publication",
       "lastUpdatedDate": "Date last modified",
       "isRecommended": "Is it recommended?"
@@ -89,7 +90,8 @@
     "mainMeasure": "Main measure",
     "parameters": {
       "relatedTo": "Related to",
-      "assigned": "Assigned"
+      "assignment": "Assignment",
+      "representation": "Representation"
     },
     "attributeRelationship": {
       "group": "Dimensions group",
@@ -102,6 +104,15 @@
       "dimension": "Dimension",
       "timeDimension": "Time dimension",
       "spatial": "Spatial dimension"
+    },
+    "assignmentStatus": {
+      "conditional": "Conditional",
+      "mandatory": "Mandatory"
+    },
+    "attributeType": {
+      "measure": "Measure",
+      "time": "Time",
+      "spatial": "Spatial"
     }
   },
   "organisations": {

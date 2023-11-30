@@ -62,7 +62,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         this.columns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
     }
@@ -135,9 +135,9 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     }
 
     public onLoadCodelistDetail(urn: string): void {
-        this.dataDetail = new CodelistResource(urn);
-        if (this.dataDetail) {
-            this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' + this.dataDetail.version + '/detail';
+        const codelist = new CodelistResource(urn);
+        if (codelist) {
+            this.routerLinkDetail = '/codelists/codelists/' + codelist.agency + '/' + codelist.resourceId + '/' + codelist.version + '/detail';
         }
     }
 }
