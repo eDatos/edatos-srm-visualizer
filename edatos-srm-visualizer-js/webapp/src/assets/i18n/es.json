@@ -53,6 +53,8 @@
     "othersConcepts": "Otros conceptos del esquema",
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
+      "idConcept": "Identificador del concepto",
+      "idScheme": "Identificador del esquema",
       "schemeConcepts": "Conceptos del esquema"
     }
   },
@@ -89,6 +91,7 @@
     "attribute": "Atributos",
     "mainMeasure": "Medida principal",
     "parameters": {
+      "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionado con",
       "assignment": "Asignación",
       "representation": "Representación"
@@ -124,6 +127,7 @@
     "organisationsOfScheme": "Organizaciones del esquema",
     "parameters": {
       "idOrganisation": "Identificador de la organización",
+      "idScheme": "Identificador del esquema",
       "publicationDate": "Fecha de publicación"
     }
   },
@@ -134,8 +138,9 @@
     "otherCategoriesScheme": "Otros temas del esquema",
     "categoriesDetails": "Detalles del tema",
     "parameters": {
-      "publicationDate": "Fecha de publicación",
-      "idCategory": "Identificador del tema"
+      "idCategory": "Identificador del tema",
+      "idScheme": "Identificador del esquema de temas",
+      "publicationDate": "Fecha de publicación"
     }
   }
 }
