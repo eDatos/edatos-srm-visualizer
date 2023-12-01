@@ -53,6 +53,8 @@
     "othersConcepts": "Other concepts from scheme",
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
+      "idConcept": "Concept identifier",
+      "idScheme": "Scheme identifier",
       "schemeConcepts": "Concepts of scheme"
     }
   },
@@ -88,6 +90,7 @@
     "attribute": "Attribute",
     "mainMeasure": "Main measure",
     "parameters": {
+      "idDsd": "DSD identifier",
       "relatedTo": "Related to",
       "assigned": "Assigned"
     },
@@ -113,6 +116,7 @@
     "organisationsOfScheme": "Organisations of scheme",
     "parameters": {
       "idOrganisation": "Organisation identifier",
+      "idScheme": "Scheme identifier",
       "publicationDate": "Date of publication"
     }
   },
@@ -123,8 +127,9 @@
     "otherCategoriesScheme": "Other categories schemes",
     "categoriesDetails": "Categories details",
     "parameters": {
-      "publicationDate": "Date of publication",
-      "idCategory": "Category identifier"
+      "idCategory": "Category identifier",
+      "idScheme": "Category scheme identifier",
+      "publicationDate": "Date of publication"
     }
   }
 }
