@@ -103,9 +103,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     public onLoadCodeDetail(urn: string): void {
-        this.dataDetail = new CodelistResource(urn);
-        if (this.dataDetail) {
-            this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`;
+        const codelist = new CodelistResource(urn);
+        if (codelist) {
+            this.routerLinkDetail = `/codelists/codes/${codelist.agency}/${codelist.resourceId}/${codelist.id}/${codelist.version}/detail`;
         }
     }
 

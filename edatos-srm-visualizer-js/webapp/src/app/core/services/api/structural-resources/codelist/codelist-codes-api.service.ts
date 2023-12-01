@@ -21,7 +21,7 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class CodelistCodesApiService extends ApiSrmService {
 
-    public apiEquivalentCodesUrl  = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.VARIABLE_ELEMENT_URN_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
+    public apiEquivalentCodesUrl  = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.VARIABLE_ELEMENT_URN_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes?query=CODELIST_LATEST%20EQ%20'true'%20AND%20VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);

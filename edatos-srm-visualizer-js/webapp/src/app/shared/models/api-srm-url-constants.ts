@@ -33,7 +33,7 @@ export class ApiSrmUrlConstants {
     public static CODELIST_API_URL = 'codelists/{agencyID}/{resourceID}/{version}';
     public static CODELIST_LATEST_QUERY = '?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
     public static VARIABLE_URN_QUERY = '?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27AND%20LATEST%20EQ%20%27true%27&fields=%2Bdescription';
-    public static VARIABLE_ELEMENT_URN_QUERY = '?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
+    public static VARIABLE_ELEMENT_URN_QUERY = '?query=VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27AND%20CODELIST_LATEST%20EQ%20%27true%27&fields=%2BvariableElement%2C%20%2B%20description';
     public static CODELISTS_API_URL = '/api/codelists/codelists/{urn}/codes';
     public static CODELISTS_ALL_VERSIONS_API_URL = '/api/codelists/{urn}/all-versions';
 

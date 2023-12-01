@@ -19,7 +19,7 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 export class CodelistsApiService extends ApiSrmService {
 
     public isRecommended: boolean = false;
-    private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27';
+    private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27%20AND%20LATEST%20EQ%20%27true%27';
     //private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);

@@ -71,11 +71,12 @@
     "codesDetails": "Detalls dels codis",
     "relatedCodelist": "Classificacions relacionades",
     "parameters": {
-      "id": "Identificador de la classificació",
+      "idCodelist": "Identificador de la classificació",
       "idCode": "Identificador del codi",
-      "code": "Codi",
-      "parentCode": "Codis pare",
-      "agency": "Agència mantenidora",
+      "idFamily": "Identificador de la família",
+      "id": "Identificador",
+      "name": "Nom",
+      "maintainer": "Mantenidor",
       "publicationDate": "Data de publicació",
       "lastUpdatedDate": "Data d'última modificació",
       "isRecommended": "¿És recomanada?"
@@ -92,7 +93,8 @@
     "parameters": {
       "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionat amb",
-      "assigned": "Assignat"
+      "assignment": "Assignació",
+      "representation": "Representació"
     },
     "attributeRelationship": {
       "group": "Grup de dimensions",
@@ -105,6 +107,15 @@
       "dimension": "Dimensió",
       "timeDimension": "Dimensió de temps",
       "spatial": "Dimensió espaial"
+    },
+    "assignmentStatus": {
+      "conditional": "Condicional",
+      "mandatory": "Obligatori"
+    },
+    "attributeType": {
+      "measure": "Mesura",
+      "time": "Temps",
+      "spatial": "Espacial"
     }
   },
   "organisations": {

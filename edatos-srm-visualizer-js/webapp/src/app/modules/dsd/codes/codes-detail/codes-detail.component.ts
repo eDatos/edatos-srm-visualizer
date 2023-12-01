@@ -77,14 +77,16 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.dimensionColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
-            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' }
+            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
+            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation' }
+            
         ];
         this.attributeColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
-            { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'assigmentStatus' },
-            { name: this.translateService.instant('dsd.parameters.assigned'), value: 'attributeRelationship' }
+            { name: this.translateService.instant('dsd.parameters.assignment'), value: 'assigmentStatus' },
+            { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'attributeRelationship' }
         ];
 
         this.items = [
@@ -178,7 +180,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public onLoadConceptDetail(urn: string): void {
         const concept = new CodelistResource(urn);
         if (concept) {
-            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`
+            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
         }
     }
 

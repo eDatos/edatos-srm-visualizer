@@ -48,9 +48,9 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         this.activeLink = this.navLinks[0];
 
         this.columns = [
-            { name: this.translateService.instant('codelists.parameters.code'), value: 'id' },
-            { name: this.translateService.instant('codelists.parameters.parentCode'), value: 'name' },
-            { name: this.translateService.instant('codelists.parameters.agency'), value: 'maintainer' }
+            { name: this.translateService.instant('codelists.parameters.id'), value: 'id' },
+            { name: this.translateService.instant('codelists.parameters.name'), value: 'name' },
+            { name: this.translateService.instant('codelists.parameters.maintainer'), value: 'maintainer' }
         ];
     }
 
@@ -83,9 +83,9 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
     }
 
     public onLoadFamilyCodelistDetail(urn: string): void {
-        this.dataDetail = new CodelistResource(urn);
-        if (this.dataDetail) {
-            this.routerLinkDetail = '/codelists/codelists/' + this.dataDetail.agency + '/' + this.dataDetail.resourceId + '/' + this.dataDetail.version + '/detail';
+        const codelist = new CodelistResource(urn);
+        if (codelist) {
+            this.routerLinkDetail = '/codelists/codelists/' + codelist.agency + '/' + codelist.resourceId + '/' + codelist.version + '/detail';
         }
     }
 

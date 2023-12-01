@@ -22,7 +22,7 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class CodelistFamiliesApiService extends ApiSrmService {
 
-    public apiFamilyCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELISTS_BY_CODELIST_FAMILY_URN_API_URL}`;//'/v1.0/codelists/?query=CODELIST_FAMILY_URN%20EQ%20%27{codelistFamilyUrn}%27';
+    public apiFamilyCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELISTS_BY_CODELIST_FAMILY_URN_API_URL} AND LATEST EQ 'true'`;//'/v1.0/codelists/?query=CODELIST_FAMILY_URN%20EQ%20%27{codelistFamilyUrn}%27';
     public apiCodelistDataPath = 'codelist';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);

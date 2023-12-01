@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class CodelistResource extends Resource {
     lastUpdatedDate: string = '';
+    publicationDate: string = '';
     isRecommended: string = '';
     codelist: string = '';
 
@@ -33,7 +34,6 @@ export class CodelistResource extends Resource {
     public static codelistResource(resource: any, maintainer: any, localeService: LocaleService,
                                    translateService: TranslateService, isCodes: boolean, codelistScheme?: any): CodelistResource {
         const codelistResource = new CodelistResource(resource.urn);
-
         const maintainerName = localeService.getTextValue(maintainer.name.text);
         const codelist = codelistScheme? localeService.getTextValue(codelistScheme.name.text) : '';
         const codelistSceme = `${resource.id}(v${resource.version})`;
@@ -45,6 +45,7 @@ export class CodelistResource extends Resource {
         codelistResource.isVariableElement = !!resource.variableElement;
 
         codelistResource.lastUpdatedDate = resource.lifeCycle ? DateUtils.formatSimpleDate(resource.lifeCycle.lastUpdatedDate) : '';
+        codelistResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         codelistResource.isRecommended = resource.isRecommended ? translateService.instant('yes') : translateService.instant('no');
         codelistResource.codelist = isCodes? codeCodelistScheme: codelistSceme;
         codelistResource.description = description;

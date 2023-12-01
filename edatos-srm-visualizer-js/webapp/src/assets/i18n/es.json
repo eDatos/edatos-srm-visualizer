@@ -71,11 +71,12 @@
     "codesDetails": "Detalles del código",
     "relatedCodelist": "Clasificaciones relacionadas",
     "parameters": {
-      "id": "Identificador de la clasificación",
+      "idCodelist": "Identificador de la clasificación",
       "idCode": "Identificador del código",
-      "code": "Código",
-      "parentCode": "Códigos padre",
-      "agency": "Agencia mantenedora",
+      "idFamily": "Identificador de la familia",
+      "id": "Identificador",
+      "name": "Nombre",
+      "maintainer": "Mantenedor",
       "publicationDate": "Fecha de publicación",
       "lastUpdatedDate": "Fecha de última modificación",
       "isRecommended": "¿Es recomendada?"
@@ -92,7 +93,8 @@
     "parameters": {
       "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionado con",
-      "assigned": "Asignado"
+      "assignment": "Asignación",
+      "representation": "Representación"
     },
     "attributeRelationship": {
       "group": "Grupo de dimensiones",
@@ -105,6 +107,15 @@
       "dimension": "Dimensión",
       "timeDimension": "Dimensión de tiempo",
       "spatial": "Dimensión espacial"
+    },
+    "assignmentStatus": {
+      "conditional": "Condicional",
+      "mandatory": "Obligatorio"
+    },
+    "attributeType": {
+      "measure": "Medida",
+      "time": "Tiempo",
+      "spatial": "Espacial"
     }
   },
   "organisations": {
