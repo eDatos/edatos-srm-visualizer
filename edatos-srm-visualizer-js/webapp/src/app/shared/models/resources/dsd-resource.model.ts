@@ -39,7 +39,7 @@ export class DsdResource extends Resource {
     public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
-        dsdResource.typeDimension = getTypeDimension(dimension.type, translateService);
+        dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial? dimension.isSpatial : false, translateService);
         dsdResource.localRepresentation = this.getLocalRepresentation(dimension.localRepresentation);
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
@@ -109,15 +109,16 @@ class DsdTypeDimensionResourceType {
         return this.value;
     }
 }
-export function getTypeDimension(dimensionType: any, translateService: TranslateService): string {
+export function getTypeDimension(dimensionType: any, isSpatial: boolean, translateService: TranslateService): string {
     if (dimensionType === DsdTypeDimensionResourceType.MEASURE_DIMENSION.getValue()) {
         return translateService.instant('dsd.typeDimension.measureDimension');
     } else if (dimensionType === DsdTypeDimensionResourceType.DIMENSION.getValue()) {
+        if (isSpatial) {
+            return translateService.instant('dsd.typeDimension.spatial');
+        }
         return translateService.instant('dsd.typeDimension.dimension');
     } else if (dimensionType === DsdTypeDimensionResourceType.TIME_DIMENSION.getValue()) {
         return translateService.instant('dsd.typeDimension.timeDimension')
-    } else if (dimensionType === DsdTypeDimensionResourceType.SPATIAL.getValue()) {
-        return translateService.instant('dsd.typeDimension.spatial')
     } else {
         return dimensionType;
     }
