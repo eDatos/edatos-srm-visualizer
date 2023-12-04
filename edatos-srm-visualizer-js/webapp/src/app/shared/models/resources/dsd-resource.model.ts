@@ -134,12 +134,13 @@ class DsdAssignmentStatusResourceType {
     }
 }
 export function getAssignmentStatus(assignmentStatus: any, translateService: TranslateService): string {
-    if (assignmentStatus === DsdAssignmentStatusResourceType.CONDITIONAL.getValue()) {
-        return translateService.instant('dsd.assignmentStatus.conditional');
-    } else if (assignmentStatus === DsdAssignmentStatusResourceType.MANDATORY.getValue()) {
-        return translateService.instant('dsd.assignmentStatus.mandatory');
-    } else {
-        return assignmentStatus;
+    switch (assignmentStatus) {
+        case DsdAssignmentStatusResourceType.CONDITIONAL.getValue():
+            return translateService.instant('dsd.assignmentStatus.conditional');
+        case DsdAssignmentStatusResourceType.MANDATORY.getValue():
+           return translateService.instant('dsd.assignmentStatus.mandatory');
+        default:
+            return String (assignmentStatus);
     }
 }
 
