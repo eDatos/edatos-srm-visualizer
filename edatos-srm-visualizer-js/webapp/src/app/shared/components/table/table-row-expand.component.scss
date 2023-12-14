@@ -109,6 +109,9 @@ tr.detail-row {
 
 .element-label {
   font-weight: $font-weight-600;
+  &.title {
+    font-size: $size-16;
+  }
 }
 
 .element-description-attribution {
@@ -145,6 +148,13 @@ tr.detail-row {
   code {
     font-size: $size-12;
     flex-grow: 1;
+  }
+}
+
+.element-description, .element-link {
+  &.flex-column {
+    display: flex;
+    flex-direction: column
   }
 }
 

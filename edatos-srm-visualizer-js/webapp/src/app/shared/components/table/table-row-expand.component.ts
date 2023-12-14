@@ -153,7 +153,7 @@ export class TableExpandableRows implements OnInit{
         }
     }
 
-    private onClickResource(resource: string) {
+    public onClickResource(resource: string) {
         this.clickEvent.emit(resource);
     }
 

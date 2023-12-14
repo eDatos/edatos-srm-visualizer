@@ -5,7 +5,7 @@
                 <input class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
             </div>
         </th>
-        <td mat-cell *matCellDef='let data'> {{data[column.value]}} </td>
+        <td mat-cell *matCellDef='let data'> {{data[column.value].id ? data[column.value].id : data[column.value]}} </td>
         <td mat-cell class='empty-td' *matNoDataRow [attr.colspan]='columnsToDisplayWithExpand.length'>
             <div *ngIf='!dataLoaded'>
                 <mat-spinner class='sipnner-td-container' mode='indeterminate'></mat-spinner>
@@ -32,15 +32,16 @@
 
     <ng-container matColumnDef='expandedDetail'>
         <td mat-cell class='element-td' *matCellDef='let data' [attr.colspan]='columnsToDisplayWithExpand.length' [ngClass]="!isRowExpanded(data) ? 'hidden' : ''">
-            <div class='element-detail' [ngClass]="!data.description ? 'large' : ''"
+            <div class='element-detail' [ngClass]="!data.description && !data.localRepresentation?.id ? 'large' : ''"
                  [@detailExpand]="isRowExpanded(data) ? 'expanded' : 'collapsed'">
                 <div class='element-description' *ngIf="data.description">
                     <label class='element-label'>{{ 'resourceParameters.description' | translate }}</label>
                     <p class='element-description-attribution' [innerHTML]='data.description'></p>
                 </div>
-                <div class='element-link'>
+                <div class='element-link' [ngClass]="data.localRepresentation ? 'flex-column' : ''">
+                    <label *ngIf="!data.description && data.localRepresentation?.id" class='element-label title'>{{ data.id }}</label>
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
-                    <div class='element-link-attribution' [ngClass]="!data.description ? '' : 'short'">
+                    <div class='element-link-attribution' [ngClass]="!data.description && !data.localRepresentation?.id ? '' : 'short'">
                         <code>{{data.selfLink}}</code>
                         <button type='button' class='element-link-actions' (click)="openSelfLink(data.selfLink)">
                             <i class='fa-thin fa-arrow-up-right-from-square'></i>
@@ -52,6 +53,26 @@
                     </div>
                     <div class='element-detail-button end'>
                         <button type='button' class='text-icon-button' [routerLink]='[routerLink]'>
+                            <i class='fa-thin fa-eye'></i>&nbsp;
+                            <span>{{ 'seeResource' | translate | uppercase }}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class='element-description flex-column' *ngIf="data.localRepresentation?.id">
+                    <label class='element-label title'>{{ data.localRepresentation.id }}</label>
+                    <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
+                    <div class='element-link-attribution' [ngClass]="!data.description && !data.localRepresentation ? '' : 'short'">
+                        <code>{{data.localRepresentation.selfLink}}</code>
+                        <button type='button' class='element-link-actions' (click)="openSelfLink(data.localRepresentation.selfLink)">
+                            <i class='fa-thin fa-arrow-up-right-from-square'></i>
+                        </button>
+                        <button class='element-link-actions' ngxClipboard copyClipboard="{{data.localRepresentation.selfLink}}" (click)="onCopySuccess()">
+                            <i class='fa-thin fa-copy'></i>
+                        </button>
+                        <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
+                    </div>
+                    <div class='element-detail-button end'>
+                        <button type='button' class='text-icon-button' (click)='onClickResource(data.localRepresentation)'>
                             <i class='fa-thin fa-eye'></i>&nbsp;
                             <span>{{ 'seeResource' | translate | uppercase }}</span>
                         </button>
