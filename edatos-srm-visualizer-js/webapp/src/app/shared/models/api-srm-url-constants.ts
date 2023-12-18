@@ -2,6 +2,7 @@ export class ApiSrmUrlConstants {
 
     public static API_SRM_VERSION = '/v1.0/';
     public static LATEST_QUERY = '?query=LATEST%20EQ%20%27true%27';
+    public static AND_LATEST_QUERY = ` AND LATEST EQ 'true'`;
 
 
     public static ALL_ORGANISATIONS_SCHEMES_API_URL = 'organisationschemes/~all/~all/~latest/organisations/';

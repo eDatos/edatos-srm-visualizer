@@ -11,7 +11,7 @@ export class DsdResource extends Resource {
 
     assigmentStatus: string = '';
     attributeRelationship: string = '';
-    localRepresentation: string = '';
+    localRepresentation = {};
 
     public static dsdResource(resource: any, maintainer: any, localeService: LocaleService): DsdResource {
         const dsdResource = new DsdResource(resource.urn);
@@ -40,7 +40,7 @@ export class DsdResource extends Resource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
         dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial? dimension.isSpatial : false, translateService);
-        dsdResource.localRepresentation = this.getLocalRepresentation(dimension.localRepresentation);
+        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation);
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
@@ -65,10 +65,20 @@ export class DsdResource extends Resource {
         return dsdResource;
     }
 
-    public static getLocalRepresentation(localRepresentation: any): string {
-        return localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist.id : 
-            localRepresentation.enumerationConceptScheme ? localRepresentation.enumerationConceptScheme.id : '';
-        
+    public static getRepresentation(localRepresentation: any) {
+        let representation;
+        if (localRepresentation.enumerationCodelist) {
+            representation = { id : localRepresentation.enumerationCodelist.id,
+                            urn: localRepresentation.enumerationCodelist.urn, kind: localRepresentation.enumerationCodelist.kind, 
+                            selfLink: localRepresentation.enumerationCodelist.selfLink.href }
+        } else if (localRepresentation.enumerationConceptScheme) {
+            representation = { id : localRepresentation.enumerationConceptScheme.id,
+                            urn: localRepresentation.enumerationConceptScheme.urn, kind: localRepresentation.enumerationConceptScheme.kind, 
+                            selfLink: localRepresentation.enumerationConceptScheme.selfLink.href }
+        } else {
+            representation = '';
+        }
+        return representation;
     }
 }
 
@@ -134,12 +144,13 @@ class DsdAssignmentStatusResourceType {
     }
 }
 export function getAssignmentStatus(assignmentStatus: any, translateService: TranslateService): string {
-    if (assignmentStatus === DsdAssignmentStatusResourceType.CONDITIONAL.getValue()) {
-        return translateService.instant('dsd.assignmentStatus.conditional');
-    } else if (assignmentStatus === DsdAssignmentStatusResourceType.MANDATORY.getValue()) {
-        return translateService.instant('dsd.assignmentStatus.mandatory');
-    } else {
-        return assignmentStatus;
+    switch (assignmentStatus) {
+        case DsdAssignmentStatusResourceType.CONDITIONAL.getValue():
+            return translateService.instant('dsd.assignmentStatus.conditional');
+        case DsdAssignmentStatusResourceType.MANDATORY.getValue():
+           return translateService.instant('dsd.assignmentStatus.mandatory');
+        default:
+            return String (assignmentStatus);
     }
 }
 
