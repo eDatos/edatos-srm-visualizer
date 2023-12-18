@@ -196,7 +196,12 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         } else {
             const concept = new CodelistResource(object);
             if (concept) {
-                this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+                const rootPath = '/concepts/concepts';
+                if(!this.tableExpandable.navigate) {
+                    this.routerLinkDetail = `${rootPath}/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+                } else  {
+                    this.router.navigate([rootPath, concept.agency, concept.resourceId, concept.id, concept.version, 'detail']);
+                }
             }
         }
     }
