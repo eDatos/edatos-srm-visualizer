@@ -196,7 +196,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         } else {
             const concept = new CodelistResource(object);
             if (concept) {
-                let rootPath = '/concepts/concepts';
+                const rootPath = '/concepts/concepts';
                 if(!this.tableExpandable.navigate) {
                     this.routerLinkDetail = `${rootPath}/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
                 } else  {
