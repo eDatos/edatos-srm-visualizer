@@ -52,7 +52,7 @@
                         <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
                     </div>
                     <div class='element-detail-button end'>
-                        <button type='button' class='text-icon-button' [routerLink]='[routerLink]'>
+                        <button type='button' class='text-icon-button' [routerLink]='[routerLink]' (click)='onClickResource(data.urn, true)'>
                             <i class='fa-thin fa-eye'></i>&nbsp;
                             <span>{{ 'seeResource' | translate | uppercase }}</span>
                         </button>
