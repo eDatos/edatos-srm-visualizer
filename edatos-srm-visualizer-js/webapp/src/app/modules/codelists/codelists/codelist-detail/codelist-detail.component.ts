@@ -137,7 +137,11 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
     public onLoadCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
         if (codelist) {
-            this.routerLinkDetail = '/codelists/codelists/' + codelist.agency + '/' + codelist.resourceId + '/' + codelist.version + '/detail';
+            if (!this.tableExpandable.navigate) {
+                this.routerLinkDetail = `/codelists/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+            } else {
+                this.router.navigate(['codelists', codelist.agency, codelist.resourceId, codelist.version, 'detail'], { relativeTo: this.route.parent });
+            }
         }
     }
 }

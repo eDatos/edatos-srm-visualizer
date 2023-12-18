@@ -128,14 +128,23 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public onLoadCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
         if (codelist) {
-            this.routerLinkDetail = `/codelists/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+            const rootPath = '/codelists/codelists';
+            if (!this.tableExpandable.navigate) {
+                this.routerLinkDetail = `${rootPath}/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+            } else {
+                this.router.navigate([rootPath, codelist.agency, codelist.resourceId, codelist.version, 'detail']);
+            }
         }
     }
 
     public onLoadConceptsDetail(urn: string): void {
         const concept = new ConceptResource(urn);
         if (concept) {
-            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+            if (!this.tableExpandable.navigate) {
+                this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+            } else {
+                this.router.navigate(['concepts', concept.agency, concept.resourceId, concept.id, concept.version, 'detail'], { relativeTo: this.route.parent });
+            }
         }
     }
 
