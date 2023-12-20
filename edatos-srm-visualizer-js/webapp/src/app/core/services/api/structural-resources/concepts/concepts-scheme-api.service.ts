@@ -66,16 +66,15 @@ export class ConceptsSchemeApiService extends ApiSrmService {
     }
 
     public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
+        const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
 
         return forkJoin(
             {
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 scheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({ maintainer, scheme }) => {
+            map(({ scheme }) => {
                     return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));

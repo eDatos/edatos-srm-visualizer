@@ -10,7 +10,7 @@ import {
     treeNodeWithMaintainer,
     treeNodeWithMaintainerAndScheme
 } from 'src/app/shared/models/tree/tree-node';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
@@ -76,15 +76,14 @@ export class ConceptsApiService extends ApiSrmService {
     }
 
     public getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
+        const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
         return forkJoin(
             {
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 scheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({ maintainer, scheme }) => {
+            map(({ scheme }) => {
                     return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));
@@ -101,11 +100,7 @@ export class ConceptsApiService extends ApiSrmService {
     }
 
     private getDetailRecommendedCodelistsFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
-        return this.httpClient.get<any>(urlMaintainer).pipe(
-            map((maintainer) => {
-                return treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService);
-                }
-            ));
+        const maintainer = new Resource(resource.urn).agency;
+        return of(treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService));
     }
 }

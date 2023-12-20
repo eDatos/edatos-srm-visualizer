@@ -8,7 +8,8 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     TreeNode,
-    treeNodeWithMaintainerAndCodelistScheme
+    treeNodeWithMaintainerAndCodelistScheme,
+    treeNodeWithMaintainerAndCodelist
 } from 'src/app/shared/models/tree/tree-node';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
@@ -68,28 +69,16 @@ export class CodelistCodesApiService extends ApiSrmService {
     }
     public getDetailWithMaintainerAndCodelistFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
         const urlCodelist = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(resource));
+        const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 codelist: this.httpClient.get<any>(urlCodelist)
             }
         ).pipe(
-            map(({data, maintainer, codelist}) => {
-                    const maintainerName = this.localeService.getTextValue(maintainer.name.text);
-
-                    const treeNode: TreeNode = {
-                        name: this.localeService.getTextValue(data.name.text),
-                        id: data.id,
-                        urn: data.urn,
-                        description: this.localeService.getTextValue(data.description?.text),
-                        selfLink: data.selfLink.href,
-                        maintainer: `${maintainer.id} - ${maintainerName}`,
-                        scheme: isLatestVersion ? `${codelist.id} / ${maintainer.id} - ${maintainerName}` : `${codelist.id}(${codelist.version}) / ${maintainer.id} - ${maintainerName}`
-                    };
-                    return treeNode;
+            map(({data, codelist}) => {
+                    return treeNodeWithMaintainerAndCodelist(maintainer, codelist, data, isLatestVersion, this.localeService);
                 }
             ));
     }
@@ -100,15 +89,14 @@ export class CodelistCodesApiService extends ApiSrmService {
         );
     }
     public getDetailOtherCodesWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
+        const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
         return forkJoin(
             {
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 codelistScheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({ maintainer, codelistScheme }) => {
+            map(({ codelistScheme }) => {
                     return treeNodeWithMaintainerAndCodelistScheme(maintainer, codelistScheme, resource, isLatestVersion, this.localeService);
                 }
             ));

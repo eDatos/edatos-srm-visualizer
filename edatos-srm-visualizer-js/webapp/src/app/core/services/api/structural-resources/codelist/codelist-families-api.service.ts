@@ -5,7 +5,7 @@ import { ApiSrmService } from 'src/app/core/services/api/structural-resources/ap
 import { Observable } from 'rxjs/internal/Observable';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TranslateService } from '@ngx-translate/core';
 import { Resource } from '../../../../../shared/models/resources/resource.model';
@@ -57,16 +57,7 @@ export class CodelistFamiliesApiService extends ApiSrmService {
     }
 
     public getDataDetailCodelistResourceFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
-
-        return forkJoin(
-            {
-                maintainer: this.httpClient.get<any>(urlMaintainer)
-            }
-        ).pipe(
-            map(({ maintainer }) => {
-                    return treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService);
-                }
-            ));
+        const maintainer = new Resource(resource.urn).agency;
+        return of(treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService));
     }
 }

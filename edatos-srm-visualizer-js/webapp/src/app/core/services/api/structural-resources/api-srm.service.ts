@@ -70,14 +70,13 @@ export abstract class ApiSrmService extends ApiService {
     }
     public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean ,form?: FormGroup): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
+        const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer),
             }
         ).pipe(
-            map(({data, maintainer}) => {
+            map(({data}) => {
                     return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService);
                 }
             ));
@@ -91,16 +90,15 @@ export abstract class ApiSrmService extends ApiService {
 
     public getDetailWithMaintainerAndSchemeFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(resource));
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(resource));
+        const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 scheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({data, maintainer, scheme}) => {
+            map(({data, scheme}) => {
                     return treeNodeWithMaintainerAndScheme(maintainer, scheme, data, isLatestVersion, this.localeService);
                 }
             ));
