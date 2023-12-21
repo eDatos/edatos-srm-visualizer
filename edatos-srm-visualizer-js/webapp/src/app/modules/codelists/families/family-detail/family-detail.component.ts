@@ -84,12 +84,10 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
 
     public onLoadFamilyCodelistDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
-        if (codelist) {
-            if (!this.tableExpandable.navigate) {
-                this.routerLinkDetail = `/codelists/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
-            } else {
-                this.router.navigate(['codelists', codelist.agency, codelist.resourceId, codelist.version, 'detail'], { relativeTo: this.route.parent });
-            }
+        if (codelist && !this.tableExpandable.navigate) {
+            this.routerLinkDetail = `/codelists/codelists/${codelist.agency}/${codelist.resourceId}/${codelist.version}/detail`;
+        } else if (codelist) {
+            this.router.navigate(['codelists', codelist.agency, codelist.resourceId, codelist.version, 'detail'], { relativeTo: this.route.parent });
         }
     }
 
