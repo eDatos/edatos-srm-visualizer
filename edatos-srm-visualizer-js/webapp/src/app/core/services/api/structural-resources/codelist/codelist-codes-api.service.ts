@@ -22,16 +22,16 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class CodelistCodesApiService extends ApiSrmService {
 
-    public apiEquivalentCodesUrl  = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.VARIABLE_ELEMENT_URN_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes?query=CODELIST_LATEST%20EQ%20'true'%20AND%20VARIABLE_ELEMENT_URN%20EQ%20%27{variableElementUrn}%27&fields=%2BvariableElement%2C%20%2B%20description';
+    public apiEquivalentCodesUrl  = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.VARIABLE_ELEMENT_URN_QUERY}`;
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'code';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.CODELIST_LATEST_QUERY}`;//'/v1.0/codelists/~all/~all/~all/codes/?query=CODELIST_LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODE_BY_CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes/{id}?fields=%2BvariableElement%2C%20%2B%20description';
-        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;//'/api/codelists/codelists/{urn}/codes';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${ApiSrmUrlConstants.CODELIST_LATEST_QUERY}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODE_BY_CODELIST_API_URL}`;
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;
         this.apiChildrenDataPath = '';
-        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}'
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
     }
 
     public setApiSearchUrl(): void {

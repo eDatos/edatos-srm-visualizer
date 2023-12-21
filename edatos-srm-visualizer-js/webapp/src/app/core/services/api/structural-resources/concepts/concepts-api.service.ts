@@ -20,17 +20,17 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class ConceptsApiService extends ApiSrmService {
 
-    public apiOtherConceptsUrl =  `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}${ApiSrmUrlConstants.OTHER_CONCEPT_SCHEME_LATEST}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27&fields=%2Bdescription';
-    public apiRecommendedCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.VARIABLE_URN_QUERY}`;//'/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27AND%20LATEST%20EQ%20%27true%27&fields=%2Bdescription';
+    public apiOtherConceptsUrl =  `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL}${ApiSrmUrlConstants.OTHER_CONCEPT_SCHEME_LATEST}`;
+    public apiRecommendedCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.VARIABLE_URN_QUERY}`;
     public apiCodelistDataPath = 'codelist';
 
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'concept';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CONCEPTS_SCHEMES_API_URL}${ApiSrmUrlConstants.CONCEPT_SCHEME_LATEST_QUERY}`;//'/v1.0/conceptschemes/~all/~all/~all/concepts/?query=CONCEPT_SCHEME_LATEST%20EQ%20%27true%27';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_BY_CONCEPTS_SCHEME_API_URL}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}/concepts/{id}';
-        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CONCEPTS_API_URL}`;//'/api/concepts/{urn}/concepts';
-        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_SCHEME_API_URL}`;//'/v1.0/conceptschemes/{agencyID}/{resourceID}/{version}';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CONCEPTS_SCHEMES_API_URL}${ApiSrmUrlConstants.CONCEPT_SCHEME_LATEST_QUERY}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_BY_CONCEPTS_SCHEME_API_URL}`;
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CONCEPTS_API_URL}`;
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_SCHEME_API_URL}`;
         this.apiChildrenDataPath = '';
     }
 

@@ -24,13 +24,12 @@ export class CodelistsApiService extends ApiSrmService {
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelist';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}';
-        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
-        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;//'/api/codelists/codelists/{urn}/codes';
-        this.apiChildrenDataPath = '';
-        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CODELISTS_ALL_VERSIONS_API_URL}`;//'/api/codelists/{urn}/all-versions';
-        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}'
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.LATEST_QUERY}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
+        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL}`;
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CODELISTS_ALL_VERSIONS_API_URL}`;
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
     }
 
     public setApiSearchUrl(): void {
