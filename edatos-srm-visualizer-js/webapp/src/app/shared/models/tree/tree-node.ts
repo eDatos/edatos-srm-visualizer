@@ -1,4 +1,5 @@
 import { LocaleService } from 'src/app/core/services/locale.service';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 export interface TreeNode {
     name: string;
@@ -66,21 +67,8 @@ export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersi
     return treeNode;
 }
 
-export function treeNodeWithMaintainerAndCodelistScheme(maintainer: any, codelistScheme: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
-
-    const treeNode: TreeNode = {
-        name: localeService.getTextValue(data.name.text),
-        id: data.id,
-        urn: data.urn,
-        description: localeService.getTextValue(data.description?.text),
-        selfLink: data.selfLink.href,
-        maintainer: maintainer,
-        scheme: isLatestVersion ? `${codelistScheme.id} / ${maintainer}`: `${codelistScheme.id}(${codelistScheme.version}) / ${maintainer}`
-    };
-    return treeNode;
-}
-
-export function treeNodeWithMaintainerAndCodelist(maintainer: any, codelist: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
+export function treeNodeWithMaintainerAndCodelist(codelist: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
+    const maintainer = new Resource(data.urn).agency;
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),

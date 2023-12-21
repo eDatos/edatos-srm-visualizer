@@ -8,7 +8,6 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import {
     TreeNode,
-    treeNodeWithMaintainerAndCodelistScheme,
     treeNodeWithMaintainerAndCodelist
 } from 'src/app/shared/models/tree/tree-node';
 import { forkJoin } from 'rxjs';
@@ -70,7 +69,6 @@ export class CodelistCodesApiService extends ApiSrmService {
     public getDetailWithMaintainerAndCodelistFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         const urlCodelist = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(resource));
-        const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
@@ -78,7 +76,7 @@ export class CodelistCodesApiService extends ApiSrmService {
             }
         ).pipe(
             map(({data, codelist}) => {
-                    return treeNodeWithMaintainerAndCodelist(maintainer, codelist, data, isLatestVersion, this.localeService);
+                    return treeNodeWithMaintainerAndCodelist(codelist, data, isLatestVersion, this.localeService);
                 }
             ));
     }
@@ -89,7 +87,6 @@ export class CodelistCodesApiService extends ApiSrmService {
         );
     }
     public getDetailOtherCodesWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
         return forkJoin(
             {
@@ -97,7 +94,7 @@ export class CodelistCodesApiService extends ApiSrmService {
             }
         ).pipe(
             map(({ codelistScheme }) => {
-                    return treeNodeWithMaintainerAndCodelistScheme(maintainer, codelistScheme, resource, isLatestVersion, this.localeService);
+                    return treeNodeWithMaintainerAndCodelist(codelistScheme, resource, isLatestVersion, this.localeService);
                 }
             ));
     }
