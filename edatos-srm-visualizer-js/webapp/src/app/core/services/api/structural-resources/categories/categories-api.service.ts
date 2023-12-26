@@ -17,11 +17,11 @@ export class CategoriesApiService extends ApiSrmService{
  constructor( httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
     super(httpClient, config, localeService);
     this.apiSearchDataPath = 'category';
-    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CATEGORY_SCHEMES_API_URL}${ApiSrmUrlConstants.CATEGORY_SCHEME_LATEST_QUERY}`;//'/v1.0/categoryschemes/~all/~all/~all/categories?query=CATEGORY_SCHEME_LATEST%20EQ%20%27true%27';
-    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_BY_CATEGORY_SCHEME_API_URL}`;//'/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}/categories/{id}';
-    this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CATEGORIES_API_URL}`;//'/api/categories/schemes/{urn}/categories';
+    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CATEGORY_SCHEMES_API_URL}${ApiSrmUrlConstants.CATEGORY_SCHEME_LATEST_QUERY}`;
+    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_BY_CATEGORY_SCHEME_API_URL}`;
+    this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CATEGORIES_API_URL}`;
     this.apiChildrenDataPath = '';
-    this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_SCHEME_API_URL}`;//'/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
+    this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_SCHEME_API_URL}`;
   }
 
   public setApiSearchUrl(): void {

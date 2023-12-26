@@ -51,7 +51,7 @@
         <assertj.version>3.6.2</assertj.version>
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 
-        <metamac-srm-rest-external-api.version>2.8.0</metamac-srm-rest-external-api.version>
+        <metamac-srm-rest-external-api.version>3.0.0</metamac-srm-rest-external-api.version>
         <edatos-core-common.version>1.2.0</edatos-core-common.version>
 
     </properties>

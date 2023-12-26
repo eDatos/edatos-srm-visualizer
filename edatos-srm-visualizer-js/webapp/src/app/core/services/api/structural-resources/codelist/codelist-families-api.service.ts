@@ -5,14 +5,12 @@ import { ApiSrmService } from 'src/app/core/services/api/structural-resources/ap
 import { Observable } from 'rxjs/internal/Observable';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { TranslateService } from '@ngx-translate/core';
 import { Resource } from '../../../../../shared/models/resources/resource.model';
 import {
     TreeNode,
-    treeNodeWithMaintainer,
-    treeNodeWithMaintainerAndScheme
+    treeNodeWithMaintainer
 } from '../../../../../shared/models/tree/tree-node';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
@@ -22,13 +20,13 @@ import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-con
 })
 export class CodelistFamiliesApiService extends ApiSrmService {
 
-    public apiFamilyCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELISTS_BY_CODELIST_FAMILY_URN_API_URL}${ApiSrmUrlConstants.AND_LATEST_QUERY}`;//'/v1.0/codelists/?query=CODELIST_FAMILY_URN%20EQ%20%27{codelistFamilyUrn}%27';
+    public apiFamilyCodelistUrl: string = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELISTS_BY_CODELIST_FAMILY_URN_API_URL}${ApiSrmUrlConstants.AND_LATEST_QUERY}`;
     public apiCodelistDataPath = 'codelist';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelistFamily';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODELISTS_FAMILIES_API_URL}`;//'/v1.0/codelistfamilies/';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_FAMILY_API_URL}`;//'/v1.0/codelistfamilies/{id}/';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODELISTS_FAMILIES_API_URL}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_FAMILY_API_URL}`;
     }
 
     public setApiSearchUrl(): void {}
@@ -57,16 +55,7 @@ export class CodelistFamiliesApiService extends ApiSrmService {
     }
 
     public getDataDetailCodelistResourceFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
-
-        return forkJoin(
-            {
-                maintainer: this.httpClient.get<any>(urlMaintainer)
-            }
-        ).pipe(
-            map(({ maintainer }) => {
-                    return treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService);
-                }
-            ));
+        const maintainer = new Resource(resource.urn).agency;
+        return of(treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService));
     }
 }

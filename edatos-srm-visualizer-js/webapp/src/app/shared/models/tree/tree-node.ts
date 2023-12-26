@@ -1,4 +1,5 @@
 import { LocaleService } from 'src/app/core/services/locale.service';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 export interface TreeNode {
     name: string;
@@ -38,7 +39,6 @@ export function treeNode(data: any, isLatestVersion: boolean, localeService: Loc
 }
 
 export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
-    const maintainerName = localeService.getTextValue(maintainer.name.text);
     const schemeName = localeService.getTextValue(scheme.name.text);
 
     const treeNode: TreeNode = {
@@ -47,14 +47,13 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
         urn: data.urn,
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
-        maintainer: `${maintainer.id} - ${maintainerName}`,
+        maintainer: maintainer,
         scheme: isLatestVersion ? `${scheme.id} - ${schemeName}` : `${scheme.id}(${scheme.version}) - ${schemeName}`
     };
     return treeNode;
 }
 
 export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
-    const maintainerName = localeService.getTextValue(maintainer.name.text);
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
@@ -62,14 +61,14 @@ export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersi
         urn: data.urn,
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
-        maintainer: `${maintainer.id} - ${maintainerName}`,
+        maintainer: maintainer,
         scheme: ''
     };
     return treeNode;
 }
 
-export function treeNodeWithMaintainerAndCodelistScheme(maintainer: any, codelistScheme: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
-    const maintainerName = localeService.getTextValue(maintainer.name.text);
+export function treeNodeWithMaintainerAndCodelist(codelist: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
+    const maintainer = new Resource(data.urn).agency;
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
@@ -77,8 +76,8 @@ export function treeNodeWithMaintainerAndCodelistScheme(maintainer: any, codelis
         urn: data.urn,
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
-        maintainer: `${maintainer.id} - ${maintainerName}`,
-        scheme: isLatestVersion ? `${codelistScheme.id} / ${maintainer.id} - ${maintainerName}`: `${codelistScheme.id}(${codelistScheme.version}) / ${maintainer.id} - ${maintainerName}`
+        maintainer: maintainer,
+        scheme: isLatestVersion ? `${codelist.id} / ${maintainer}` : `${codelist.id}(${codelist.version}) / ${maintainer}`
     };
     return treeNode;
 }

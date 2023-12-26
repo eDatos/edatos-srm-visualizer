@@ -62,11 +62,11 @@
                     <label class='element-label title'>{{ data.localRepresentation.id }}</label>
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
                     <div class='element-link-attribution' [ngClass]="!data.description && !data.localRepresentation ? '' : 'short'">
-                        <code>{{data.localRepresentation.selfLink}}</code>
-                        <button type='button' class='element-link-actions' (click)="openSelfLink(data.localRepresentation.selfLink)">
+                        <code>{{data.localRepresentation.selfLink.href}}</code>
+                        <button type='button' class='element-link-actions' (click)="openSelfLink(data.localRepresentation.selfLink.href)">
                             <i class='fa-thin fa-arrow-up-right-from-square'></i>
                         </button>
-                        <button class='element-link-actions' ngxClipboard copyClipboard="{{data.localRepresentation.selfLink}}" (click)="onCopySuccess()">
+                        <button class='element-link-actions' ngxClipboard copyClipboard="{{data.localRepresentation.selfLink.href}}" (click)="onCopySuccess()">
                             <i class='fa-thin fa-copy'></i>
                         </button>
                         <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>

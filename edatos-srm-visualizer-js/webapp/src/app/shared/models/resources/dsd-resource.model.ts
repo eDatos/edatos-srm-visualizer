@@ -66,19 +66,8 @@ export class DsdResource extends Resource {
     }
 
     public static getRepresentation(localRepresentation: any) {
-        let representation;
-        if (localRepresentation.enumerationCodelist) {
-            representation = { id : localRepresentation.enumerationCodelist.id,
-                            urn: localRepresentation.enumerationCodelist.urn, kind: localRepresentation.enumerationCodelist.kind, 
-                            selfLink: localRepresentation.enumerationCodelist.selfLink.href }
-        } else if (localRepresentation.enumerationConceptScheme) {
-            representation = { id : localRepresentation.enumerationConceptScheme.id,
-                            urn: localRepresentation.enumerationConceptScheme.urn, kind: localRepresentation.enumerationConceptScheme.kind, 
-                            selfLink: localRepresentation.enumerationConceptScheme.selfLink.href }
-        } else {
-            representation = '';
-        }
-        return representation;
+        const representationType = localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist : localRepresentation.enumerationConceptScheme;
+        return representationType ? representationType : '';
     }
 }
 
