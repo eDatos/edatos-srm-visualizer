@@ -53,7 +53,7 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
     return treeNode;
 }
 
-export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
+export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService, scheme?: any) {
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
@@ -62,7 +62,7 @@ export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersi
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: maintainer,
-        scheme: ''
+        scheme: scheme ? scheme : ''
     };
     return treeNode;
 }

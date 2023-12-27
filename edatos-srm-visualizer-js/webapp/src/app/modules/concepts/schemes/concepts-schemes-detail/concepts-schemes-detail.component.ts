@@ -33,6 +33,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public routerLinkDetail: string = '';
 
     public selectedVersion: string = '';
+    public scheme: string = ''
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -78,10 +79,13 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     }
 
     private loadConceptsOfScheme(): void {
+        const schemeName = this.dataDetail.name;
+        this.scheme = `${this.dataDetail.id} - ${schemeName}`;
+    
         this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
             if (data[this.apiSrmService.apiChildrenDataPath]) {
                 const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
-                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((concepts) => {
+                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true, this.scheme).subscribe((concepts) => {
                     this.conceptsOfScheme = concepts;
                     this.dataChildrenLoaded = true;
                 });

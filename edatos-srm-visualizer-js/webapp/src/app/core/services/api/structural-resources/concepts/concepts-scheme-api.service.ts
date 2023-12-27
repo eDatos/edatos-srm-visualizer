@@ -5,10 +5,10 @@ import { ApiSrmService } from 'src/app/core/services/api/structural-resources/ap
 import { Observable } from 'rxjs/internal/Observable';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
-import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
+import { TreeNode, treeNodeWithMaintainer, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 
 @Injectable({
@@ -59,22 +59,27 @@ export class ConceptsSchemeApiService extends ApiSrmService {
             ));
     }
 
-    public findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+    public findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources: Resource[], isLatestVersion: boolean, scheme: any): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource, isLatestVersion))
+            resources.map(resource => this.getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource, isLatestVersion, scheme))
         );
     }
 
-    public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
+   
+
+    public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean, scheme?: any): Observable<TreeNode> {
         const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
 
-        return forkJoin(
+        return scheme ? 
+            of(treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService, scheme))
+            :
+            forkJoin(
             {
                 scheme: this.httpClient.get<any>(urlScheme)
             }
-        ).pipe(
-            map(({ scheme }) => {
+            ).pipe(
+                map(({ scheme }) => {
                     return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));
