@@ -69,24 +69,16 @@ export class ConceptsApiService extends ApiSrmService {
         return this.getData(ApiSrmService.apiStructuralResource.concat(api));
     }
 
-    public findAllOtherConceptsDetailsFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+    public findAllOtherConceptsDetailsFromSrm(resources: Resource[], isLatestVersion: boolean, scheme: any): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource, isLatestVersion))
+            resources.map(resource => this.getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource, isLatestVersion, scheme))
         );
     }
 
-    public getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
+    public getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean, scheme: any): Observable<TreeNode> {
         const maintainer = new Resource(resource.urn).agency;
-        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
-        return forkJoin(
-            {
-                scheme: this.httpClient.get<any>(urlScheme)
-            }
-        ).pipe(
-            map(({ scheme }) => {
-                    return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
-                }
-            ));
+
+        return of(treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService))
     }
 
     public getRecommendedCodelists(variableUrn: string): Observable<any> {

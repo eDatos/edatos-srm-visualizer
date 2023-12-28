@@ -47,14 +47,16 @@ export class ConceptsSchemeApiService extends ApiSrmService {
     public getDataDetailConceptResourceFromSrm(dataDetail: any): Observable<ConceptResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
         const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(dataDetail));
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer)
+                maintainer: this.httpClient.get<any>(urlMaintainer),
+                scheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({ data, maintainer }) => {
-                    return ConceptResource.conceptResource(data, maintainer, this.localeService);
+            map(({ data, maintainer, scheme }) => {
+                    return ConceptResource.conceptResource(data, maintainer, this.localeService, scheme);
                 }
             ));
     }
@@ -67,21 +69,9 @@ export class ConceptsSchemeApiService extends ApiSrmService {
 
    
 
-    public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean, scheme?: any): Observable<TreeNode> {
+    public getDetailConceptsOfSchemeWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean, scheme: any): Observable<TreeNode> {
         const maintainer = new Resource(resource.urn).agency;
-        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
 
-        return scheme ? 
-            of(treeNodeWithMaintainer(maintainer, resource, isLatestVersion, this.localeService, scheme))
-            :
-            forkJoin(
-            {
-                scheme: this.httpClient.get<any>(urlScheme)
-            }
-            ).pipe(
-                map(({ scheme }) => {
-                    return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
-                }
-            ));
+        return of(treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService));
     }
 }

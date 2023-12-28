@@ -96,7 +96,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.apiSrmService.getOtherConcepts(this.dataDetail).subscribe((concept) => {
             if (concept[this.apiSrmService.apiSearchDataPath]) {
                 const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
-                this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true).subscribe((data) => {
+                this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((data) => {
                     this.otherConcepts = data;
                     this.tableExpandable.dataLoaded = true;
                 });
