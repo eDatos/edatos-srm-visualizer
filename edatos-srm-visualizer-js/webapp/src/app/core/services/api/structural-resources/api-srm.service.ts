@@ -143,7 +143,7 @@ export abstract class ApiSrmService extends ApiService {
     }
 
     /* Data */
-    private getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
+    public getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
         url = url.replace('{query}','');
         if (query) {
             url = url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query));

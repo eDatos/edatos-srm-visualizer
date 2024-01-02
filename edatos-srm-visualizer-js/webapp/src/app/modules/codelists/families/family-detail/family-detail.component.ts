@@ -54,12 +54,16 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         ];
     }
 
-    loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadFamilyCodelist()
-        });
+    loadDetailData(loadAll: boolean): void {
+        if (loadAll) {
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+                this.loadFamilyCodelist();
+            });
+        } else {
+            this.loadFamilyCodelist();
+        }
     }
 
     private loadDataDetailResource(data: any): Observable<CodelistResource> {
@@ -67,13 +71,16 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
     }
 
     private loadFamilyCodelist(): void {
-        this.apiSrmService.loadFamilyCodelist(this.dataDetail.urn).subscribe((data) => {
-            if (data[this.apiSrmService.apiCodelistDataPath]) {
+        this.apiSrmService.loadFamilyCodelist(this.dataDetail.urn, this.searchConfig).subscribe((data) => {
+            this.searchConfig.resultSize = data['total'];
+            if (data[this.apiSrmService.apiCodelistDataPath] && this.searchConfig.resultSize > 0) {
                 const resources = data[this.apiSrmService.apiCodelistDataPath];
                 this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
-                    this.familyCodelist = codelist;
+                    this.familyCodelist = [...this.familyCodelist, ...codelist];
                     this.tableExpandable.dataLoaded = true;
-                });
+                }); 
+            } else {
+                this.tableExpandable.dataLoaded = true;
             }
         });
     }

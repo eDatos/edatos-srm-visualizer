@@ -15,14 +15,11 @@
 
 
 .search-results-table-detail {
-    height: auto;
+    height: calc(100vh - 3*$height-nav - 500px - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
 }
 
-
-.detail-table .search-results-table-detail {
-    .element-link-attribution.short {
-        max-width: $container-2columns-max-width;
-    }
+.search-results-tree-detail {
+    min-height: 350px;
 }
 
 

@@ -64,7 +64,8 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div #searchResults class='search-results-table-detail'>
+        <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
+             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='familyCodelist'
                                (clickEvent)='onLoadFamilyCodelistDetail($event)' >
             </table-expandable-rows>

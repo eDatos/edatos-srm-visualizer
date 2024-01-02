@@ -10,6 +10,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { TreeNode, treeNodeWithMaintainer, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 @Injectable({
     providedIn: 'root'
@@ -35,13 +36,13 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}conceptschemes/${latestQuery}`;
     }
 
-    public loadConceptsOfScheme(resource: ConceptResource): Observable<any> {
+    public loadConceptsOfScheme(resource: ConceptResource, searchConfig: SearchConfig): Observable<any> {
         const api = this.apiConceptsOfSchemeUrl
             .replace('{agencyID}', resource.agency)
             .replace('{resourceID}', resource.resourceId)
             .replace('{version}', resource.version)
             .replace('{id}', resource.id);
-        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(api), searchConfig);
     }
 
     public getDataDetailConceptResourceFromSrm(dataDetail: any): Observable<ConceptResource> {

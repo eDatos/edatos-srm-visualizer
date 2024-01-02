@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 @Injectable({
     providedIn: 'root'
@@ -41,8 +42,8 @@ export class CodelistsApiService extends ApiSrmService {
     }
 
 
-    public getRelatedCodelist(variableUrn: string): Observable<any> {
-        return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
+    public getRelatedCodelist(variableUrn: string, searchConfig: SearchConfig): Observable<any> {
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)), searchConfig);
     }
 
     public getDataDetailCodelistResourceFromSrm(dataDetail: any, translateService: TranslateService, isDetail: boolean): Observable<CodelistResource> {
