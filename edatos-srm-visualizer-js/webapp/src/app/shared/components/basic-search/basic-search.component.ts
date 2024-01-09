@@ -84,8 +84,9 @@ export abstract class BasicSearchComponent {
 
     public onSearchWithAllVersions(event: any): void {
         this.markedViewAllVersions = !this.markedSearchAdvanced ? false : event.checked;
-        this.tableExpandable.dataLoaded = false;
-        this.loadInitialData();
+        this.defaultParametersSearch();
+        this.isLatestVersion();
+        this.getAdvancedSearch();
     }
 
     private isLatestVersion(){
@@ -134,7 +135,7 @@ export abstract class BasicSearchComponent {
 
     public onScrollDown($event: IInfiniteScrollEvent) {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        let query = this.buildQueryHelper.buildQueryResultOffset(this.searchSimpleForm, this.searchForm);
+        let query = this.buildQueryHelper.buildQueryResultOffset(this.markedSearchAdvanced ? this.searchAdvancedForm : this.searchSimpleForm, this.searchForm, this.apiService.isLatestVersion, this.markedSearchAdvanced);
         this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
                 this.dataSearch = data[this.apiService.apiSearchDataPath];
@@ -164,21 +165,26 @@ export abstract class BasicSearchComponent {
         // @ts-ignore
         this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (this.searchForm.valid) {
-            this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
-                this.searchConfig.resultSize = data['total'];
-                if (this.searchConfig.resultSize > 0) {
-                    this.dataSearch = data[this.apiService.apiSearchDataPath];
-                    this.loadDetailDataChildren();
-                } else if (this.searchConfig.resultSize == 0) {
-                    this.tableExpandable.dataLoaded = true;
-                }
-            });
+            this.getAdvancedSearch();
         }
+    }
+
+    public getAdvancedSearch() {
+        this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
+            this.searchConfig.resultSize = data['total'];
+            if (this.searchConfig.resultSize > 0) {
+                this.dataSearch = data[this.apiService.apiSearchDataPath];
+                this.loadDetailDataChildren();
+            } else if (this.searchConfig.resultSize == 0) {
+                this.tableExpandable.dataLoaded = true;
+            }
+        });
     }
 
     public defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
+        this.searchConfig.resultSize = 0;
         this.dataSearch = [];
         this.dataChildren = new Array<TreeNode>();
         // @ts-ignore

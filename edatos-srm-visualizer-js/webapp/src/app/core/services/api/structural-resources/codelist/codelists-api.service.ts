@@ -19,7 +19,6 @@ import { SearchConfig } from 'src/app/shared/models/search-config';
 })
 export class CodelistsApiService extends ApiSrmService {
 
-    public isRecommended: boolean = false;
     private apiRelatedCodelistUrl: string = `/v1.0/codelists/?query=VARIABLE_URN EQ '{variableUrn}'${ApiSrmUrlConstants.AND_LATEST_QUERY}`;
     //private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {

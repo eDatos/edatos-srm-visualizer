@@ -25,6 +25,7 @@ export abstract class ApiSrmService extends ApiService {
     public apiChildrenDataPath: string = '';
 
     public isLatestVersion: boolean = true;
+    public isRecommended: boolean = false;
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     public getJSONFile(resource: Resource): Observable<any> {
@@ -126,11 +127,17 @@ export abstract class ApiSrmService extends ApiService {
     /* Search */
     public getSearchFromForms(searchConfig: SearchConfig, form?: FormGroup): Observable<any> {
         let query = this.buildQueryHelper.buildQueryFromForm(form);
+        if (searchConfig) {
+            return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
+        } 
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
     public getAdvancedSearchFromForms(searchConfig: SearchConfig, form: FormGroup): Observable<any> {
         let query = this.buildQueryHelper.buildAdvanceQueryFromForm(this.isLatestVersion, form);
+        if (searchConfig) {
+            return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), searchConfig, query);
+        }
         return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiSearchUrl), query);
     }
 
@@ -144,11 +151,10 @@ export abstract class ApiSrmService extends ApiService {
 
     /* Data */
     public getDataWithOffset(url: string, searchConfig: SearchConfig, query?: string): Observable<any> {
-        url = url.replace('{query}','');
         if (query) {
-            url = url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)).concat('&query=' + encodeURIComponent(query));
-            return this.httpClient.get<any>(url);
+            url = this.buildQueryHelper.buildQueryUrl(url, query, this.isLatestVersion);
         }
+        url = url.replace('{query}','');
         return this.httpClient.get<any>(url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)));
     }
 
