@@ -105,16 +105,6 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public getDetailManteinerFromSrm(agency: string): Observable<any> {
-        let api = this.apiManteinerUrl
-            .replace('{organisationID}', agency);
-        return this.getDataFromSrm(api);
-    }
-
-    public getDetailSchemeFromSrm(resource: Resource): Observable<any> {
-        return this.getDataFromSrm(this.getApiSchemeUrl(resource));
-    }
-
     public getAllVersionsFromResource(reesource: Resource): Observable<any> {
         return this.getData(ApiSrmService.apiInternalDomain.concat(this.getApiAllVersionsFromResourceUrl(reesource)));
     }
