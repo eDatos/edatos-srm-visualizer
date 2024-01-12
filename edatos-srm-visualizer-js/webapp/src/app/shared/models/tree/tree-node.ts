@@ -39,7 +39,7 @@ export function treeNode(data: any, isLatestVersion: boolean, localeService: Loc
 }
 
 export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
-    const schemeName = localeService.getTextValue(scheme.name.text);
+    const schemeName = scheme.name?.text ? localeService.getTextValue(scheme.name.text) : scheme.name;
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
@@ -53,7 +53,7 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
     return treeNode;
 }
 
-export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService) {
+export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService, scheme?: any) {
 
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
@@ -62,7 +62,7 @@ export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersi
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: maintainer,
-        scheme: ''
+        scheme: scheme ? scheme : ''
     };
     return treeNode;
 }

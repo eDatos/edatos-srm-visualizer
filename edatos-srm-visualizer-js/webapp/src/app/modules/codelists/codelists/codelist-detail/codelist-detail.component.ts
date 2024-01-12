@@ -10,6 +10,7 @@ import { MenuItem } from 'primeng/api';
 import { CodelistApiSdmxService } from 'src/app/core/services/api/sdmx/codelist/codelist-api-sdmx.service';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
+import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 
 
 @Component({
@@ -96,17 +97,20 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         if (this.activeLink == this.navLinks[0]) {
             this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
+            this.defaultParametersSearch();
+            this.relationatedCodelist = new Array<TreeNode>();
             this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
         }
     }
 
     private loadRelatedCodelistDetails(variableUrn: string) {
         if (this.dataDetail.variableUrn != '') {
-            this.apiSrmService.getRelatedCodelist(variableUrn).subscribe((data) => {
+            this.apiSrmService.getRelatedCodelist(variableUrn, this.searchConfig).subscribe((data) => {
+                this.searchConfig.resultSize = data['total'];
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
-                        this.relationatedCodelist = codelist;
+                        this.relationatedCodelist = [...this.relationatedCodelist, ...codelist];
                         this.tableExpandable.dataLoaded = true;
                     });
                 }
@@ -141,5 +145,10 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         } else if (codelist) {
             this.router.navigate(['codelists', codelist.agency, codelist.resourceId, codelist.version, 'detail'], { relativeTo: this.route.parent });
         }
+    }
+
+    public override onScrollDown($event: IInfiniteScrollEvent): void {
+        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
+        this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
     }
 }

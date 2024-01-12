@@ -61,15 +61,16 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     ngOnInit(): void {
+        this.apiService.isRecommended = false;
         this.loadInitialData();
     }
 
     public onSearchWithIsRecommended(event: any) {
         this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
         this.showRecommendedCodelists = this.apiService.isRecommended;
-        this.tableExpandable.dataLoaded = false;
         this.apiService.setApiSearchUrl();
-        this.loadInitialData();
+        this.defaultParametersSearch();
+        this.getAdvancedSearch();
     }
 
     public onLoadCodelistDetail(urn: string): void {

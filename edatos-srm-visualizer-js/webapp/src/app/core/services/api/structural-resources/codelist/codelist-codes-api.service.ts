@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 
 @Injectable({
@@ -38,10 +39,10 @@ export class CodelistCodesApiService extends ApiSrmService {
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${latestQuery}`;
     }
 
-    public loadEquivalentCodes(variableElementUrn: string): Observable<any> {
+    public loadEquivalentCodes(variableElementUrn: string, searchConfig: SearchConfig): Observable<any> {
         let api = this.apiEquivalentCodesUrl
             .replace('{variableElementUrn}', variableElementUrn)
-        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(api), searchConfig);
     }
 
     public getDataDetailCodelistResourceFromSrm(dataDetail: any, translateService: TranslateService, isCodes: boolean): Observable<CodelistResource> {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ApiSrmService } from 'src/app/core/services/api/structural-resources/api-srm.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 import { TableTreeComponent } from 'src/app/shared/components/table-tree/table-tree.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from 'primeng/dropdown';
@@ -11,6 +12,7 @@ import { ApiSdmxService } from 'src/app/core/services/api/sdmx/api-sdmx.service'
 import { FileDonwloadHelper } from 'src/app/core/services/helper/file-donwload-helper';
 import { TableExpandableRows } from '../table/table-row-expand.component';
 import { OrganisationResource } from '../../models/resources/organisation-resource.model';
+import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 
 
 @Component({
@@ -36,6 +38,13 @@ export abstract class BasicDetailComponent implements OnInit {
     public expandedMenu: boolean = false;
     public dataChildrenLoaded: boolean = false;
     public dataChildren: TreeNode[] = [];
+
+    public searchConfig: SearchConfig = {
+        resultLimit: 25,
+        resultOffset: 0,
+        resultSize: 0,
+        currentPage: 0
+    };
 
     protected fileDownloadHelper: FileDonwloadHelper;
     constructor(protected formBuilder: FormBuilder, protected apiSrmService: ApiSrmService, protected route: ActivatedRoute,
@@ -86,7 +95,7 @@ export abstract class BasicDetailComponent implements OnInit {
                 annotations: '',
                 uri: '',
             };
-            this.loadDetailData();
+            this.loadDetailData(true);
         });
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -152,8 +161,18 @@ export abstract class BasicDetailComponent implements OnInit {
         this.router.navigate(['organisations/organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail']);
     }
 
+    public onScrollDown($event: IInfiniteScrollEvent) {
+        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
+        
+        this.loadDetailData(false);
+    }
 
-    protected abstract loadDetailData(): void;
+    protected defaultParametersSearch(): void {
+        this.searchConfig.currentPage = 0;
+        this.searchConfig.resultOffset = 0;
+    }
+
+    protected abstract loadDetailData(loadAll?: boolean): void;
 
     protected abstract onReturn(): void;
 

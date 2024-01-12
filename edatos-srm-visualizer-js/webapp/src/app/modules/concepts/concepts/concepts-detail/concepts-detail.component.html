@@ -54,7 +54,7 @@
     <label for='conceptScheme' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
     <div class='info-link'>
         <button type='button' (click)="openConceptSchemeLink(dataDetail.urn)">
-            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme }}</span>&nbsp;
+            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme?.id  }} ({{ dataDetail.conceptScheme?.name }})</span>&nbsp;
             <i class='fa-thin fa-arrow-up-right-from-square'></i>
         </button>
     </div>
@@ -81,14 +81,16 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div #searchResults class='search-results-table-detail'>
+        <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
+             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
                                    (clickEvent)='onLoadCodelistDetail($event)'>
             </table-expandable-rows>
         </div>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
-        <div #searchResults class='search-results-table-detail'>
+        <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
+             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
                                    (clickEvent)='onLoadConceptsDetail($event)'>
             </table-expandable-rows>

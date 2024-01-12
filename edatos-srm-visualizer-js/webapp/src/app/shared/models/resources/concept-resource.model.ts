@@ -2,7 +2,8 @@ import { Resource } from "./resource.model";
 import { LocaleService } from 'src/app/core/services/locale.service';
 
 export class ConceptResource extends Resource {
-    conceptScheme: string = '';
+    conceptScheme = {};
+   
     urnVariable: string = '';
     idVariable: string = '';
 
@@ -19,7 +20,7 @@ export class ConceptResource extends Resource {
 
         conceptResource.isVariable = !!resource.variable;
 
-        conceptResource.conceptScheme = scheme?`${scheme?.id}(${schemeName})` : '';
+        conceptResource.conceptScheme = scheme? { id: scheme?.id, name: schemeName } : {id: "", name: ""};
         conceptResource.description = description;
         conceptResource.name = name;
         conceptResource.annotations = annotations;

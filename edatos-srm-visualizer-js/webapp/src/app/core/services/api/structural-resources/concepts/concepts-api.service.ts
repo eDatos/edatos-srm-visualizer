@@ -14,6 +14,7 @@ import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 @Injectable({
     providedIn: 'root'
@@ -64,33 +65,25 @@ export class ConceptsApiService extends ApiSrmService {
             ));
     }
 
-    public getOtherConcepts(resource: Resource): Observable<any> {
+    public getOtherConcepts(resource: Resource, searchConfig: SearchConfig): Observable<any> {
         const api = this.getApiOtherConceptsUrl(resource);
-        return this.getData(ApiSrmService.apiStructuralResource.concat(api));
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(api), searchConfig);
     }
 
-    public findAllOtherConceptsDetailsFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
+    public findAllOtherConceptsDetailsFromSrm(resources: Resource[], isLatestVersion: boolean, scheme: any): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource, isLatestVersion))
+            resources.map(resource => this.getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource, isLatestVersion, scheme))
         );
     }
 
-    public getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
+    public getDetailOtherConceptsWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean, scheme: any): Observable<TreeNode> {
         const maintainer = new Resource(resource.urn).agency;
-        const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
-        return forkJoin(
-            {
-                scheme: this.httpClient.get<any>(urlScheme)
-            }
-        ).pipe(
-            map(({ scheme }) => {
-                    return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
-                }
-            ));
+
+        return of(treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService))
     }
 
-    public getRecommendedCodelists(variableUrn: string): Observable<any> {
-        return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRecommendedCodelistUrl.replace('{variableUrn}', variableUrn)));
+    public getRecommendedCodelists(variableUrn: string, searchConfig: SearchConfig): Observable<any> {
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiRecommendedCodelistUrl.replace('{variableUrn}', variableUrn)), searchConfig);
     }
 
     public findAllRecommendedCodelistsDetailsFromSrm(resources: any[], isLatestVersion: boolean): Observable<TreeNode[]> {

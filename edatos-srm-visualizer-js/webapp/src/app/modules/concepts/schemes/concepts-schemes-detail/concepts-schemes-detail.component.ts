@@ -33,6 +33,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public routerLinkDetail: string = '';
 
     public selectedVersion: string = '';
+    public scheme: string = ''
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -67,22 +68,28 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     }
 
-    loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadAllVersionsFromResource();
+    loadDetailData(loadAll: boolean): void {
+        if (loadAll) { 
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+                this.loadAllVersionsFromResource();
+                this.loadConceptsOfScheme();
+            });
+        } else {
             this.loadConceptsOfScheme();
-        });
-
+        }
     }
 
     private loadConceptsOfScheme(): void {
-        this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
+        const schemeName = this.dataDetail.name;
+        this.scheme = `${this.dataDetail.id} - ${schemeName}`;
+    
+        this.apiSrmService.loadConceptsOfScheme(this.dataDetail, this.searchConfig).subscribe((data) => {
             if (data[this.apiSrmService.apiChildrenDataPath]) {
                 const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
-                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((concepts) => {
-                    this.conceptsOfScheme = concepts;
+                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((concepts) => {
+                    this.conceptsOfScheme = [...this.conceptsOfScheme, ...concepts];
                     this.dataChildrenLoaded = true;
                 });
             }

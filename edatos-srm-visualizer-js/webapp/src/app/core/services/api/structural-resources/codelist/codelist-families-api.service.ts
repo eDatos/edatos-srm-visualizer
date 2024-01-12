@@ -13,6 +13,7 @@ import {
     treeNodeWithMaintainer
 } from '../../../../../shared/models/tree/tree-node';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 
 @Injectable({
@@ -31,8 +32,8 @@ export class CodelistFamiliesApiService extends ApiSrmService {
 
     public setApiSearchUrl(): void {}
 
-    public loadFamilyCodelist(codelistFamilyUrn: string): Observable<any> {
-        return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiFamilyCodelistUrl.replace('{codelistFamilyUrn}', codelistFamilyUrn)));
+    public loadFamilyCodelist(codelistFamilyUrn: string, searchConfig: SearchConfig): Observable<any> {
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiFamilyCodelistUrl.replace('{codelistFamilyUrn}', codelistFamilyUrn)), searchConfig);
     }
 
     public getDataDetailFamilyCodelistResourceFromSrm(dataDetail: any): Observable<CodelistResource> {
