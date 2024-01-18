@@ -14,20 +14,16 @@
 }
 
 
-.search-results-table-detail {
-    height: calc(100vh - 3*$height-nav - 500px - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
-}
-
 .search-results-tree-detail {
     min-height: 350px;
 }
 
 
-.search-results-table::-webkit-scrollbar {
+.search-results-table::-webkit-scrollbar, .search-results-table-detail::-webkit-scrollbar {
     width: $scroll-width-default;
 }
 
-.search-results-table::-webkit-scrollbar-thumb {
+.search-results-table::-webkit-scrollbar-thumb, .search-results-table-detail::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: $color-azul-oscuro-100;
 }
