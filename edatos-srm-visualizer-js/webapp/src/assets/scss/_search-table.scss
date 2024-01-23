@@ -14,6 +14,10 @@
 }
 
 
+.search-results-table-detail {
+    height: calc(100vh - 3*$height-nav - 210px - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
+}
+
 .search-results-tree-detail {
     min-height: 350px;
 }
