@@ -172,7 +172,6 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.activeLink = event;
         this.cdr.detectChanges();
         if (this.activeLink == this.navLinks[2]) {
-            //un DSD puede no contener atributos
             if (this.attributes.length == 0) {
                 this.tableExpandable.dataLoaded = true;
             }
