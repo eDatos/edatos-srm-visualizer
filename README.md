@@ -44,8 +44,6 @@ La aplicación no contiene roles o permisos
 
 ### Paso 1. Configuración del entorno
 - Configuración del servidor de aplicaciones según los requisitos del entorno ya especificados.
-- Configuración de la base de datos. 
-    1. Se debe ejecutar los sql que están en la carpeta etc/db/common-metadata/postgresql/01-create
 
 ### Paso 2. Despliegue en servidor de aplicaciones.
 - Ubicar el archivo *.war compilado con el perfil adecuado en el servidor de aplicaciones. Se pueden obtener más detalles en el [Anexo de perfiles de compilación](#anexo-perfiles-de-compilaci%C3%B3n).
