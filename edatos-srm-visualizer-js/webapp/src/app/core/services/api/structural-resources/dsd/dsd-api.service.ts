@@ -21,9 +21,9 @@ export class DsdApiService extends ApiSrmService {
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'dataStructure';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/datastructures/?query=LATEST%20EQ%20%27true%27';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.DSD_API_URL}`;//'/v1.0/datastructures/{agencyID}/{resourceID}/{version}';
-        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.DSD_ALL_VERSIONS_API_URL}`;//'/api/datastructures/{urn}/all-versions';
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${ApiSrmUrlConstants.LATEST_QUERY}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.DSD_API_URL}`;
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.DSD_ALL_VERSIONS_API_URL}`;
     }
 
     public setApiSearchUrl(): void {

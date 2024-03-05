@@ -33,6 +33,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     public routerLinkDetail: string = '';
 
     public selectedVersion: string = '';
+    public scheme: string = ''
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsSchemeApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -62,27 +63,33 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
         this.columns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
         ];
 
     }
 
-    loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadAllVersionsFromResource();
+    loadDetailData(loadAll: boolean): void {
+        if (loadAll) { 
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+                this.loadAllVersionsFromResource();
+                this.loadConceptsOfScheme();
+            });
+        } else {
             this.loadConceptsOfScheme();
-        });
-
+        }
     }
 
     private loadConceptsOfScheme(): void {
-        this.apiSrmService.loadConceptsOfScheme(this.dataDetail).subscribe((data) => {
+        const schemeName = this.dataDetail.name;
+        this.scheme = `${this.dataDetail.id} - ${schemeName}`;
+    
+        this.apiSrmService.loadConceptsOfScheme(this.dataDetail, this.searchConfig).subscribe((data) => {
             if (data[this.apiSrmService.apiChildrenDataPath]) {
                 const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
-                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true).subscribe((concepts) => {
-                    this.conceptsOfScheme = concepts;
+                this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((concepts) => {
+                    this.conceptsOfScheme = [...this.conceptsOfScheme, ...concepts];
                     this.dataChildrenLoaded = true;
                 });
             }
@@ -116,8 +123,10 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     public onLoadConceptsDetail(urn: string): void {
         const concept = new ConceptResource(urn);
-        if (concept) {
+        if (concept && !this.tableExpandable.navigate) {
             this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+        } else if (concept) {
+            this.router.navigate(['concepts', concept.agency, concept.resourceId, concept.id, concept.version, 'detail'], { relativeTo: this.route.parent });
         }
     }
 

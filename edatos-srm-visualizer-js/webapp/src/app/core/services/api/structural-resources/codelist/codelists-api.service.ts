@@ -12,25 +12,24 @@ import { TranslateService } from '@ngx-translate/core';
 import { TreeNode, treeNodeWithMaintainerAndScheme } from 'src/app/shared/models/tree/tree-node';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
+import { SearchConfig } from 'src/app/shared/models/search-config';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CodelistsApiService extends ApiSrmService {
 
-    public isRecommended: boolean = false;
-    private apiRelatedCodelistUrl: string = '/v1.0/codelists/?query=VARIABLE_URN%20EQ%20%27{variableUrn}%27';
+    private apiRelatedCodelistUrl: string = `/v1.0/codelists/?query=VARIABLE_URN EQ '{variableUrn}'${ApiSrmUrlConstants.AND_LATEST_QUERY}`;
     //private apiRecommendedSearchUrl: string = '/v1.0/codelists/?query=IS_RECOMMENDED%20EQ%20%27true%27&LATEST%20EQ%20%27true%27';
     constructor(httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
         super(httpClient, config, localeService);
         this.apiSearchDataPath = 'codelist';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/codelists/?query=LATEST%20EQ%20%27TRUE%27';
-        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}';
-        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}/codes';
-        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;//'/api/codelists/codelists/{urn}/codes';
-        this.apiChildrenDataPath = '';
-        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CODELISTS_ALL_VERSIONS_API_URL}`;//'/api/codelists/{urn}/all-versions';
-        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;//'/v1.0/codelists/{agencyID}/{resourceID}/{version}'
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${ApiSrmUrlConstants.LATEST_QUERY}`;
+        this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
+        this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL}`;
+        this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.CODELISTS_API_URL}`;
+        this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CODELISTS_ALL_VERSIONS_API_URL}`;
+        this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
     }
 
     public setApiSearchUrl(): void {
@@ -42,8 +41,8 @@ export class CodelistsApiService extends ApiSrmService {
     }
 
 
-    public getRelatedCodelist(variableUrn: string): Observable<any> {
-        return this.getData(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)));
+    public getRelatedCodelist(variableUrn: string, searchConfig: SearchConfig): Observable<any> {
+        return this.getDataWithOffset(ApiSrmService.apiStructuralResource.concat(this.apiRelatedCodelistUrl.replace('{variableUrn}', variableUrn)), searchConfig);
     }
 
     public getDataDetailCodelistResourceFromSrm(dataDetail: any, translateService: TranslateService, isDetail: boolean): Observable<CodelistResource> {
@@ -68,16 +67,15 @@ export class CodelistsApiService extends ApiSrmService {
     }
 
     public getDetailRelatedCodelistWithMaintainerAndSchemeFromSrm(resource: any, isLatestVersion: boolean): Observable<TreeNode> {
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(new Resource(resource.urn)));
+        const maintainer = new Resource(resource.urn).agency;
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(new Resource(resource.urn)));
 
         return forkJoin(
             {
-                maintainer: this.httpClient.get<any>(urlMaintainer),
                 scheme: this.httpClient.get<any>(urlScheme)
             }
         ).pipe(
-            map(({ maintainer, scheme }) => {
+            map(({ scheme }) => {
                     return treeNodeWithMaintainerAndScheme(maintainer, scheme, resource, isLatestVersion, this.localeService);
                 }
             ));

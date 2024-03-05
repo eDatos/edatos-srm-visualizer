@@ -13,6 +13,7 @@ import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/bas
 import { Observable } from 'rxjs/internal/Observable';
 import { DsdApiSdmxService } from 'src/app/core/services/api/sdmx/dsd/dsd-api-sdmx.service';
 import { CodelistResource } from '../../../../shared/models/resources/codelist-resource.model';
+import { Resource } from 'src/app/shared/models/resources/resource.model';
 
 
 @Component({
@@ -77,14 +78,16 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.dimensionColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
-            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' }
+            { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
+            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation' }
+            
         ];
         this.attributeColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
-            { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'assigmentStatus' },
-            { name: this.translateService.instant('dsd.parameters.assigned'), value: 'attributeRelationship' }
+            { name: this.translateService.instant('dsd.parameters.assignment'), value: 'assigmentStatus' },
+            { name: this.translateService.instant('dsd.parameters.relatedTo'), value: 'attributeRelationship' }
         ];
 
         this.items = [
@@ -175,10 +178,29 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.router.navigate(['codes', this.dataDetail!.agency, this.dataDetail!.resourceId, this.selectedVersion, 'detail'], { relativeTo: this.route.parent });
     }
 
-    public onLoadConceptDetail(urn: string): void {
-        const concept = new CodelistResource(urn);
-        if (concept) {
-            this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`
+    public onLoadConceptDetail(object: any): void {
+        if (object.id) {
+            const resource = new Resource(object.urn);
+            let structuralResourceKind = '';
+            object.kind?.indexOf("#") !== -1 ? structuralResourceKind = object.kind?.slice(object.kind.indexOf("#") + 1) : '';
+            if (structuralResourceKind) {
+                switch (structuralResourceKind) {
+                    case "codelist":
+                        this.router.navigate(['codelists/codelists', resource.agency, resource.resourceId, resource.version, 'detail']);
+                        break;
+                    case "conceptScheme":
+                        this.router.navigate(['concepts/schemes', resource.agency, resource.resourceId, resource.version, 'detail']);
+                        break;
+                }
+            }
+        } else {
+            const rootPath = '/concepts/concepts';
+            const concept = new CodelistResource(object);
+            if (concept && !this.tableExpandable.navigate) {
+                this.routerLinkDetail = `${rootPath}/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
+            } else if (concept) {
+                this.router.navigate([rootPath, concept.agency, concept.resourceId, concept.id, concept.version, 'detail']);
+            }
         }
     }
 

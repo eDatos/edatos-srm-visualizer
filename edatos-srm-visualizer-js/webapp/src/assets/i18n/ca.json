@@ -22,7 +22,7 @@
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
   "apiError": "No s'ha pogut obtenir resultats",
-  "retryError": "Pot ser que el servidor no estigui disponible. Si us plau, intenta-ho de nou més tard.",
+  "retryError": "Pot ser que el servidor no estigui disponible. Per favor, intenta-ho de nou més tard.",
   "elements": "Elements",
   "resourceParameters": {
     "id": "ID",
@@ -32,7 +32,7 @@
     "description": "Descripció",
     "scheme": "Esquema",
     "version": "Versió",
-    "comments": "Comentaris",
+    "comments": "Anotacions",
     "maintainer": "Mantenidor",
     "codelist": "Classificació",
     "generalSearch": "Cercador general",
@@ -53,12 +53,14 @@
     "othersConcepts": "Altres conceptes de l'esquema",
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
+      "idConcept": "Identificador del concepte",
+      "idScheme": "Identificador de l'esquema",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },
   "codelists": {
     "codelistFamilies": "Famílies de classificacions",
-    "codelistFamiliesDetails": "Detalls de les famílies de classificacions",
+    "codelistFamiliesDetails": "Detalls de la família de classificacions",
     "familyCodelist": "Classificacions de la família",
     "codelist": "Classificació",
     "codelists": "Classificacions",
@@ -66,17 +68,18 @@
     "codes": "Codis",
     "otherCodes": "Altres codis de la classificació",
     "equivalentCodes": "Codis equivalents",
-    "codesDetails": "Detalls dels codis",
+    "codesDetails": "Detalls del codi",
     "relatedCodelist": "Classificacions relacionades",
     "parameters": {
-      "id": "Identificador de la classificació",
+      "idCodelist": "Identificador de la classificació",
       "idCode": "Identificador del codi",
-      "code": "Codi",
-      "parentCode": "Codis pare",
-      "agency": "Agència mantenidora",
+      "idFamily": "Identificador de la família",
+      "id": "Identificador",
+      "name": "Nom",
+      "maintainer": "Mantenidor",
       "publicationDate": "Data de publicació",
-      "lastUpdatedDate": "Data d'última modificació",
-      "isRecommended": "¿És recomanada?"
+      "lastUpdatedDate": "Data de darrera modificació",
+      "isRecommended": "És recomanada?"
     }
   },
   "dsd": {
@@ -88,8 +91,10 @@
     "attribute": "Atributs",
     "mainMeasure": "Mesura principal",
     "parameters": {
+      "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionat amb",
-      "assigned": "Assignat"
+      "assignment": "Assignació",
+      "representation": "Representació"
     },
     "attributeRelationship": {
       "group": "Grup de dimensions",
@@ -101,18 +106,28 @@
       "measureDimension": "Dimensió de mesura",
       "dimension": "Dimensió",
       "timeDimension": "Dimensió de temps",
-      "spatial": "Dimensió espaial"
+      "spatial": "Dimensió espacial"
+    },
+    "assignmentStatus": {
+      "conditional": "Condicional",
+      "mandatory": "Obligatori"
+    },
+    "attributeType": {
+      "measure": "Mesura",
+      "time": "Temps",
+      "spatial": "Espacial"
     }
   },
   "organisations": {
     "organisationsSchemes": "Esquema d'organitzacions",
     "organisationsSchemesDetails": "Detalls de l'esquema d'organitzacions",
     "organisations": "Organitzacions",
-    "organisationsDetails": "Detalls de les organitzacions",
+    "organisationsDetails": "Detalls de la organització",
     "otherOrganisationsOfScheme": "Altres organitzacions de l'esquema",
     "organisationsOfScheme": "Organitzacions de l'esquema",
     "parameters": {
       "idOrganisation": "Identificador de l'organització",
+      "idScheme": "Identificador de l'esquema",
       "publicationDate": "Data de publicació"
     }
   },
@@ -121,10 +136,11 @@
     "categorySchemesDetails": "Detalls de l'esquema de temes",
     "categories": "Temes",
     "otherCategoriesScheme": "Altres temes de l'esquema",
-    "categoriesDetails": "Detalls dels temes",
+    "categoriesDetails": "Detalls del tema",
     "parameters": {
-      "publicationDate": "Data de publicació",
-      "idCategory": "Identificador del tema"
+      "idCategory": "Identificador del tema",
+      "idScheme": "Identificador de l'esquema de temes",
+      "publicationDate": "Data de publicació"
     }
   }
 }

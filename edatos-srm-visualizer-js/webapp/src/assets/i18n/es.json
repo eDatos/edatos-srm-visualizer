@@ -53,6 +53,8 @@
     "othersConcepts": "Otros conceptos del esquema",
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
+      "idConcept": "Identificador del concepto",
+      "idScheme": "Identificador del esquema",
       "schemeConcepts": "Conceptos del esquema"
     }
   },
@@ -69,11 +71,12 @@
     "codesDetails": "Detalles del código",
     "relatedCodelist": "Clasificaciones relacionadas",
     "parameters": {
-      "id": "Identificador de la clasificación",
+      "idCodelist": "Identificador de la clasificación",
       "idCode": "Identificador del código",
-      "code": "Código",
-      "parentCode": "Códigos padre",
-      "agency": "Agencia mantenedora",
+      "idFamily": "Identificador de la familia",
+      "id": "Identificador",
+      "name": "Nombre",
+      "maintainer": "Mantenedor",
       "publicationDate": "Fecha de publicación",
       "lastUpdatedDate": "Fecha de última modificación",
       "isRecommended": "¿Es recomendada?"
@@ -88,8 +91,10 @@
     "attribute": "Atributos",
     "mainMeasure": "Medida principal",
     "parameters": {
+      "idDsd": "Identificador del DSD",
       "relatedTo": "Relacionado con",
-      "assigned": "Asignado"
+      "assignment": "Asignación",
+      "representation": "Representación"
     },
     "attributeRelationship": {
       "group": "Grupo de dimensiones",
@@ -102,6 +107,15 @@
       "dimension": "Dimensión",
       "timeDimension": "Dimensión de tiempo",
       "spatial": "Dimensión espacial"
+    },
+    "assignmentStatus": {
+      "conditional": "Condicional",
+      "mandatory": "Obligatorio"
+    },
+    "attributeType": {
+      "measure": "Medida",
+      "time": "Tiempo",
+      "spatial": "Espacial"
     }
   },
   "organisations": {
@@ -113,6 +127,7 @@
     "organisationsOfScheme": "Organizaciones del esquema",
     "parameters": {
       "idOrganisation": "Identificador de la organización",
+      "idScheme": "Identificador del esquema",
       "publicationDate": "Fecha de publicación"
     }
   },
@@ -123,8 +138,9 @@
     "otherCategoriesScheme": "Otros temas del esquema",
     "categoriesDetails": "Detalles del tema",
     "parameters": {
-      "publicationDate": "Fecha de publicación",
-      "idCategory": "Identificador del tema"
+      "idCategory": "Identificador del tema",
+      "idScheme": "Identificador del esquema de temas",
+      "publicationDate": "Fecha de publicación"
     }
   }
 }

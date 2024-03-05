@@ -51,7 +51,10 @@ export class BuildQueryHelper {
         return beginParamUrl + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
     }
 
-    public buildQueryResultOffset(searchSimpleForm: FormGroup, searchForm: FormGroup) : string {
-        return searchSimpleForm.value.filter ? this.buildQueryFromForm(searchForm) : '';
+    public buildQueryResultOffset(searchSimpleForm: FormGroup, searchForm: FormGroup, isLatestVersion: boolean, isAdvancedSearch?: boolean, ) : string {
+        if (!isAdvancedSearch) {
+            return searchSimpleForm.value.filter ? this.buildQueryFromForm(searchForm) : '';
+        }
+        return this.buildAdvanceQueryFromForm(isLatestVersion, searchSimpleForm);
     }
 }

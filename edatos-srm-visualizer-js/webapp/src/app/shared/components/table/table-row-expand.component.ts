@@ -29,6 +29,8 @@ export class TableExpandableRows implements OnInit{
 
     public isAdvancedSearch: boolean = false;
 
+    public navigate: boolean = false;
+
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
     }), 'expand'];
@@ -52,7 +54,8 @@ export class TableExpandableRows implements OnInit{
             concept: node.concept,
             typeDimension: node.typeDimension,
             assigmentStatus: node.assigmentStatus,
-            attributeRelationship: node.attributeRelationship
+            attributeRelationship: node.attributeRelationship,
+            localRepresentation: node.localRepresentation
         };
     };
 
@@ -152,7 +155,8 @@ export class TableExpandableRows implements OnInit{
         }
     }
 
-    private onClickResource(resource: string) {
+    public onClickResource(resource: string, navigate?: boolean) {
+        this.navigate = navigate ? navigate : false;
         this.clickEvent.emit(resource);
     }
 

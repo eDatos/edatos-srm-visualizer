@@ -12,6 +12,7 @@ import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/bas
 import { Observable } from 'rxjs/internal/Observable';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
+import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-code-detail',
@@ -78,6 +79,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         if (this.activeLink == this.navLinks[0]) {
             this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
+            this.defaultParametersSearch();
+            this.equivalentCodes = new Array<TreeNode>();
             this.loadEquivalentCodes();
         }
     }
@@ -88,11 +91,12 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     private loadEquivalentCodes(): void {
         if (this.dataDetail.isVariableElement) {
-            this.apiSrmService.loadEquivalentCodes(this.dataDetail.variableElementUrn).subscribe((data) => {
+            this.apiSrmService.loadEquivalentCodes(this.dataDetail.variableElementUrn, this.searchConfig).subscribe((data) => {
+                this.searchConfig.resultSize = data['total'];
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllOtherCodesDetailsFromSrm(resources, true).subscribe((data) => {
-                        this.equivalentCodes = data;
+                        this.equivalentCodes = [...this.equivalentCodes, ...data];
                     });
                 }
             });
@@ -103,9 +107,11 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     public onLoadCodeDetail(urn: string): void {
-        this.dataDetail = new CodelistResource(urn);
-        if (this.dataDetail) {
-            this.routerLinkDetail = `/codelists/codes/${this.dataDetail.agency}/${this.dataDetail.resourceId}/${this.dataDetail.id}/${this.dataDetail.version}/detail`;
+        const codelist = new CodelistResource(urn);
+        if (codelist && !this.tableExpandable.navigate) {
+            this.routerLinkDetail = `/codelists/codes/${codelist.agency}/${codelist.resourceId}/${codelist.id}/${codelist.version}/detail`;
+        } else if (codelist) {
+            this.router.navigate(['codes', codelist.agency, codelist.resourceId, codelist.id, codelist.version, 'detail'], { relativeTo: this.route.parent });
         }
     }
 
@@ -121,6 +127,11 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     public openCodelistLink(urn: string) {
         const resource = new ConceptResource(urn);
         this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
+    }
+
+    public override onScrollDown($event: IInfiniteScrollEvent): void {
+        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
+        this.loadEquivalentCodes();
     }
 
 }

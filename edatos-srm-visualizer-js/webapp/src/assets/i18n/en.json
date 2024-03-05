@@ -53,6 +53,8 @@
     "othersConcepts": "Other concepts from scheme",
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
+      "idConcept": "Concept identifier",
+      "idScheme": "Scheme identifier",
       "schemeConcepts": "Concepts of scheme"
     }
   },
@@ -69,11 +71,12 @@
     "codesDetails": "Codes details",
     "relatedCodelist": "Related classifications",
     "parameters": {
-      "id": "Codelist identifier",
+      "idCodelist": "Codelist identifier",
       "idCode": "Code identifier",
-      "code": "Code",
-      "parentCode": "Parent code",
-      "agency": "Making Agency",
+      "idFamily": "Family identifier",
+      "id": "Identifier",
+      "name": "Name",
+      "maintainer": "Maintainer",
       "publicationDate": "Date of publication",
       "lastUpdatedDate": "Date last modified",
       "isRecommended": "Is it recommended?"
@@ -88,8 +91,10 @@
     "attribute": "Attribute",
     "mainMeasure": "Main measure",
     "parameters": {
+      "idDsd": "DSD identifier",
       "relatedTo": "Related to",
-      "assigned": "Assigned"
+      "assignment": "Assignment",
+      "representation": "Representation"
     },
     "attributeRelationship": {
       "group": "Dimensions group",
@@ -102,6 +107,15 @@
       "dimension": "Dimension",
       "timeDimension": "Time dimension",
       "spatial": "Spatial dimension"
+    },
+    "assignmentStatus": {
+      "conditional": "Conditional",
+      "mandatory": "Mandatory"
+    },
+    "attributeType": {
+      "measure": "Measure",
+      "time": "Time",
+      "spatial": "Spatial"
     }
   },
   "organisations": {
@@ -113,6 +127,7 @@
     "organisationsOfScheme": "Organisations of scheme",
     "parameters": {
       "idOrganisation": "Organisation identifier",
+      "idScheme": "Scheme identifier",
       "publicationDate": "Date of publication"
     }
   },
@@ -123,8 +138,9 @@
     "otherCategoriesScheme": "Other categories schemes",
     "categoriesDetails": "Categories details",
     "parameters": {
-      "publicationDate": "Date of publication",
-      "idCategory": "Category identifier"
+      "idCategory": "Category identifier",
+      "idScheme": "Category scheme identifier",
+      "publicationDate": "Date of publication"
     }
   }
 }

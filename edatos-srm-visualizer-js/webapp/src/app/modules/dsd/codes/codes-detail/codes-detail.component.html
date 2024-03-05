@@ -30,7 +30,7 @@
 </div>
 
 <div [formGroup]='detailForm' class='detail-info'>
-    <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
+    <label for='id' class='title'>{{ 'dsd.parameters.idDsd' | translate }}</label>
     <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
@@ -103,7 +103,6 @@
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='measureColumns' [data]='measures'
-                                   [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadConceptDetail($event)'>
             </table-expandable-rows>
         </div>
@@ -112,15 +111,14 @@
     <div *ngIf='activeLink == navLinks[1]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='dimensionColumns' [data]='dimensions'
-                                   [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadConceptDetail($event)'>
             </table-expandable-rows>
         </div>
     </div>
+    
     <div *ngIf='activeLink == navLinks[2]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='attributeColumns' [data]='attributes'
-                                   [routerLinkDetail]='routerLinkDetail'
                                    (clickEvent)='onLoadConceptDetail($event)'>
             </table-expandable-rows>
         </div>

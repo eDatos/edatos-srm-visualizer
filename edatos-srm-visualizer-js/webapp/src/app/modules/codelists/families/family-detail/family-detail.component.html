@@ -16,14 +16,11 @@
 </div>
 
 <div [formGroup]='detailForm' class='detail-info'>
-    <label for='id' class='title'>{{ 'codelists.parameters.idCode' | translate }}</label>
+    <label for='id' class='title'>{{ 'codelists.parameters.idFamily' | translate }}</label>
     <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
     <span id='name'>{{ dataDetail.name }}</span>
-
-    <label for='lastUpdatedDate' class='title'>{{ 'codelists.parameters.lastUpdatedDate' | translate }}</label>
-    <span id='lastUpdatedDate'>{{ dataDetail.lastUpdatedDate }}</span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
@@ -67,9 +64,9 @@
 
 <div class='container detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
-        <div #searchResults class='search-results-table-detail'>
+        <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
+             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='familyCodelist'
-                               [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadFamilyCodelistDetail($event)' >
             </table-expandable-rows>
         </div>

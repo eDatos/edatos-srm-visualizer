@@ -17,10 +17,10 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
   constructor( httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
     super(httpClient, config, localeService);
     this.apiSearchDataPath = 'organisationScheme';
-    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${ApiSrmUrlConstants.LATEST_QUERY}`; ///v1.0/organisationschemes/?query=LATEST%20EQ%20%27true%27
-    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATION_SCHEME_API_URL}` ///v1.0/organisationschemes/{agencyID}/{resourceID}/{version}
-    this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATIONS_BY_ORGANISATION_SCHEME_API_URL}`///v1.0/organisationschemes/{agencyID}/{resourceID}/{version}/organisations;
-    this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.ORGANISATIONS_API_URL}`; ///api/organisations/{urn}/organisations
+    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${ApiSrmUrlConstants.LATEST_QUERY}`;
+    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATION_SCHEME_API_URL}`;
+    this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ORGANISATIONS_BY_ORGANISATION_SCHEME_API_URL}`;
+    this.apiChildrenTreeUrl = `${ApiSrmUrlConstants.ORGANISATIONS_API_URL}`;
 
     this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.ORGANISATION_ALL_VERSIONS_API_URL}`;
   }

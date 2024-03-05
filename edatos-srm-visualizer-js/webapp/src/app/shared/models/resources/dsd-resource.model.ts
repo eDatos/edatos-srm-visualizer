@@ -11,6 +11,7 @@ export class DsdResource extends Resource {
 
     assigmentStatus: string = '';
     attributeRelationship: string = '';
+    localRepresentation = {};
 
     public static dsdResource(resource: any, maintainer: any, localeService: LocaleService): DsdResource {
         const dsdResource = new DsdResource(resource.urn);
@@ -38,12 +39,13 @@ export class DsdResource extends Resource {
     public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
-        dsdResource.typeDimension = getTypeDimension(dimension.type, translateService);
+        dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial? dimension.isSpatial : false, translateService);
+        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation);
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
         dsdResource.urn = dimension.conceptIdentity?.urn;
-        dsdResource.selfLink = dimension.conceptIdentity?.selfLink.href;
+        dsdResource.selfLink = dimension.conceptIdentity?.selfLink.href; 
 
         return dsdResource;
     }
@@ -51,8 +53,8 @@ export class DsdResource extends Resource {
     public static dsdAttributeResource(attribute: any, translateService: TranslateService): DsdResource {
         const dsdResource = new DsdResource(attribute.urn);
         dsdResource.id = attribute.id;
-        dsdResource.assigmentStatus = attribute.assignmentStatus;
-        dsdResource.typeDimension = getTypeDimension(attribute.type, translateService);
+        dsdResource.assigmentStatus = getAssignmentStatus(attribute.assignmentStatus, translateService);
+        dsdResource.typeDimension = getAttributeType(attribute.type, translateService);
 
         const concept = new Resource(attribute.conceptIdentity?.urn);
         dsdResource.concept = attribute.conceptIdentity?.id + ' (' + concept.resourceId + ')';
@@ -61,6 +63,11 @@ export class DsdResource extends Resource {
         dsdResource.selfLink = attribute.conceptIdentity?.selfLink.href;
 
         return dsdResource;
+    }
+
+    public static getRepresentation(localRepresentation: any) {
+        const representationType = localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist : localRepresentation.enumerationConceptScheme;
+        return representationType ? representationType : '';
     }
 }
 
@@ -101,17 +108,60 @@ class DsdTypeDimensionResourceType {
         return this.value;
     }
 }
-export function getTypeDimension(dimensionType: any, translateService: TranslateService): string {
+export function getTypeDimension(dimensionType: any, isSpatial: boolean, translateService: TranslateService): string {
     if (dimensionType === DsdTypeDimensionResourceType.MEASURE_DIMENSION.getValue()) {
         return translateService.instant('dsd.typeDimension.measureDimension');
     } else if (dimensionType === DsdTypeDimensionResourceType.DIMENSION.getValue()) {
+        if (isSpatial) {
+            return translateService.instant('dsd.typeDimension.spatial');
+        }
         return translateService.instant('dsd.typeDimension.dimension');
     } else if (dimensionType === DsdTypeDimensionResourceType.TIME_DIMENSION.getValue()) {
         return translateService.instant('dsd.typeDimension.timeDimension')
-    } else if (dimensionType === DsdTypeDimensionResourceType.TIME_DIMENSION.getValue()) {
-        return translateService.instant('dsd.typeDimension.spatial')
     } else {
         return dimensionType;
     }
+}
+
+class DsdAssignmentStatusResourceType {
+    static readonly CONDITIONAL = new DsdAssignmentStatusResourceType('CONDITIONAL');
+    static readonly MANDATORY = new DsdAssignmentStatusResourceType('MANDATORY');
+
+    private constructor(private value: string) {}
+    getValue(): string {
+        return this.value;
+    }
+}
+export function getAssignmentStatus(assignmentStatus: any, translateService: TranslateService): string {
+    switch (assignmentStatus) {
+        case DsdAssignmentStatusResourceType.CONDITIONAL.getValue():
+            return translateService.instant('dsd.assignmentStatus.conditional');
+        case DsdAssignmentStatusResourceType.MANDATORY.getValue():
+           return translateService.instant('dsd.assignmentStatus.mandatory');
+        default:
+            return String (assignmentStatus);
+    }
+}
+
+class DsdAttributeTypeResourceType {
+    static readonly MEASURE = new DsdAttributeTypeResourceType('MEASURE');
+    static readonly TIME = new DsdAttributeTypeResourceType('TIME');
+    static readonly SPATIAL = new DsdAttributeTypeResourceType('SPATIAL');
+
+    private constructor(private value: string) {}
+    getValue(): string {
+        return this.value;
+    }
+}
+export function getAttributeType(attributeType: any, translateService: TranslateService): string {
+    if (attributeType === DsdAttributeTypeResourceType.MEASURE.getValue()) {
+        return translateService.instant('dsd.attributeType.measure');
+    } else if (attributeType === DsdAttributeTypeResourceType.TIME.getValue()) {
+        return translateService.instant('dsd.attributeType.time');
+    } else if (attributeType === DsdAttributeTypeResourceType.SPATIAL.getValue()) {
+        return translateService.instant('dsd.attributeType.spatial')
+    } 
+    return '';
+    
 }
 

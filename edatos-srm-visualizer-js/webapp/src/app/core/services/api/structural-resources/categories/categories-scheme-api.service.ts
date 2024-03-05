@@ -17,12 +17,12 @@ export class CategoriesSchemeApiService extends ApiSrmService {
  constructor( httpClient: HttpClient, config: ConfigService, localeService: LocaleService) {
     super(httpClient, config, localeService);
     this.apiSearchDataPath = 'categoryScheme';
-    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}categoryschemes/${ApiSrmUrlConstants.LATEST_QUERY}`;//'/v1.0/categoryschemes/?query=LATEST%20EQ%20%27true%27';
-    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_SCHEME_API_URL}`;//'/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}';
-    this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORIES_BY_CATEGORY_SCHEME_API_URL}`;//'/v1.0/categoryschemes/{agencyID}/{resourceID}/{version}/categories';
-    this.apiChildrenTreeUrl =  `${ApiSrmUrlConstants.CATEGORIES_API_URL}`;//'/api/categories/schemes/{urn}/categories';
+    this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}categoryschemes/${ApiSrmUrlConstants.LATEST_QUERY}`;
+    this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORY_SCHEME_API_URL}`;
+    this.apiDetailForFileUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CATEGORIES_BY_CATEGORY_SCHEME_API_URL}`;
+    this.apiChildrenTreeUrl =  `${ApiSrmUrlConstants.CATEGORIES_API_URL}`;
     this.apiChildrenDataPath = '';
-    this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CATEGORIES_ALL_VERSIONS_API_URL}`;//'/api/categories/{urn}/all-versions';
+    this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CATEGORIES_ALL_VERSIONS_API_URL}`;
   }
 
   public setApiSearchUrl(): void {
