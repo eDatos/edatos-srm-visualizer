@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DsdApiService } from 'src/app/core/services/api/structural-resources/dsd/dsd-api.service';
@@ -19,7 +19,8 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 @Component({
     selector: 'app-codes-detail',
     templateUrl: './codes-detail.component.html',
-    styleUrls: ['./codes-detail.component.scss']
+    styleUrls: ['./codes-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class CodesDetailComponent extends BasicDetailComponent implements OnInit {
 
@@ -41,7 +42,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
-                protected override apiSdmxService: DsdApiSdmxService) {
+                protected override apiSdmxService: DsdApiSdmxService, private cdr: ChangeDetectorRef) {
         super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
         this.detailForm = this.formBuilder.group({
             id: '',
@@ -139,7 +140,6 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 this.getMeasures(dataStructureComponents);
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
-                this.dataChildrenLoaded = true;
             }
         });
     }
@@ -170,6 +170,12 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
     onActiveItemChange(event: any) {
         this.activeLink = event;
+        this.cdr.detectChanges();
+        if (this.activeLink == this.navLinks[2]) {
+            if (this.attributes.length == 0) {
+                this.tableExpandable.dataLoaded = true;
+            }
+        }
     }
 
     public onLoadDetailVersion(event: any) {

@@ -19,11 +19,17 @@ export class LocaleService {
 
     public getTextValue(texts: LocalisedString []) {
         if (texts) {
-            let localeText: LocalisedString [] = texts.filter((element: LocalisedString) => {
-                return element.lang === this.lang;
+            const localeText: LocalisedString = texts.reduce((result, currentValue) => {
+                if(currentValue.lang === this.lang) {
+                    result = currentValue;
+                } else if (currentValue.lang === DEFAULT_LANG && result.lang !== this.lang) {
+                    result =  currentValue;
+                }
+                return result;
             });
-            if (localeText && localeText[0] && localeText[0].value) {
-                return localeText[0].value;
+
+            if (localeText && localeText.value) {
+                return localeText.value;
             }
         }
         return '';
