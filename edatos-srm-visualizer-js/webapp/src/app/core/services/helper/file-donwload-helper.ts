@@ -19,7 +19,7 @@ export class FileDonwloadHelper {
         });
     }
 
-    public onDownloadJson(resource: any, format: string) {
+    public onDownloadJson(resource: any) {
         let resourceSdmx = new Resource(resource.urn);
         this.apiSrmService?.getJSONFile(resourceSdmx).subscribe((response: any) => {
                 let blob:any = new Blob([response], { type: 'text/json; charset=utf-8' });
@@ -31,7 +31,7 @@ export class FileDonwloadHelper {
         );
     }
 
-    public onDownloadCsv(resource: any, format: string) {
+    public onDownloadCsv(resource: any) {
         let resourceSdmx = new Resource(resource.urn);
         this.apiSrmService?.getCSVFile(resourceSdmx).subscribe((response: any) => {
                 let blob:any = new Blob([response], { type: 'text/csv; charset=utf-8' });
@@ -43,10 +43,10 @@ export class FileDonwloadHelper {
         );
     }
 
-    public onDownloadXLS(resource: any, format: string) {
+    public onDownloadXLSX(resource: any) {
         let resourceSdmx = new Resource(resource.urn);
-        this.apiSrmService?.getXLSFile(resourceSdmx).subscribe((response: any) => {
-                let blob:any = new Blob([response], { type: 'text/xls; charset=utf-8' });
+        this.apiSrmService?.getXLSXFile(resourceSdmx).subscribe((response: any) => {
+                let blob:any = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8' });
                 saveAs(blob, resourceSdmx.id + '.xlsx');
             },
             (error: any) => {
