@@ -37,8 +37,8 @@ export abstract class ApiSrmService extends ApiService {
         return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv'), { responseType: 'blob' });
     }
 
-    public getXLSFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xls'), { responseType: 'blob' });
+    public getXLSXFile(resource: Resource): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx'), { responseType: 'blob' });
     }
 
     /* Detail */
