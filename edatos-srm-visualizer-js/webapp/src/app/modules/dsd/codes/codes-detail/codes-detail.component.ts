@@ -103,7 +103,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 label: this.translateService.instant('download.json'),
                 icon: 'fa-thin fa-brackets-curly',
                 command: () => {
-                    this.fileDownloadHelper.onDownloadJson(this.dataDetail, 'json');
+                    this.fileDownloadHelper.onDownloadJson(this.dataDetail);
                 }
             }
         ];
