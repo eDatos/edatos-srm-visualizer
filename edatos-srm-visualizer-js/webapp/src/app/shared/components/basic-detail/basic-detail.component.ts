@@ -63,21 +63,22 @@ export abstract class BasicDetailComponent implements OnInit {
                 label: this.translateService.instant('download.json'),
                 icon: 'fa-thin fa-brackets-curly',
                 command: () => {
-                    this.fileDownloadHelper.onDownloadJson(this.dataDetail, 'json');
+                    this.fileDownloadHelper.onDownloadJson(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.csv'),
                 icon: 'fa-thin fa-semicolon',
                 command: () => {
-                    this.fileDownloadHelper.onDownloadCsv(this.dataDetail, 'csv');
+                    this.fileDownloadHelper.onDownloadCsv(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.xlsx'),
                 icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
-                    this.fileDownloadHelper.onDownloadXLS(this.dataDetail, 'xlsx');                }
+                    this.fileDownloadHelper.onDownloadXLSX(this.dataDetail);                
+                }
             }
         ];
     }
