@@ -61,6 +61,12 @@ h6 {
     text-transform: uppercase;
 }
 
+app-root {
+    min-height: 100%;
+    display: block;
+    position: relative;
+}
+
 
   /* Sección */
 @import "./vendor/fontawesome.scss";
