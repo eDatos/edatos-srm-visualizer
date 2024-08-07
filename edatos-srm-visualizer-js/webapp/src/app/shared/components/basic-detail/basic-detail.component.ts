@@ -43,7 +43,9 @@ export abstract class BasicDetailComponent implements OnInit {
         resultLimit: 25,
         resultOffset: 0,
         resultSize: 0,
-        currentPage: 0
+        currentPage: 0,
+        orderColumn: "",
+        sortOrder: ""
     };
 
     protected fileDownloadHelper: FileDonwloadHelper;
