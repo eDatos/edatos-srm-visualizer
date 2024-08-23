@@ -33,7 +33,7 @@ export class ComplementosService {
     }
 
     private headerParamUrlFromLang(): string {
-        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang();
+        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL';
     }
 
     private footerParamUrlFromLang(): string {
