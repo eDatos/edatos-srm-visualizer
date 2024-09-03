@@ -40,8 +40,8 @@ export class FamilySearchComponent extends BasicSearchComponent implements OnIni
         });
 
         this.fields = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true },
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: false },
         ];
 
         this.selectedDefault = this.fields.map(field => field);
