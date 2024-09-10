@@ -45,5 +45,10 @@ module.exports = {
             },
         }),
         new StringReplacePlugin(),
+		new webpack.DefinePlugin({
+			'process.env': {
+				'VERSION': `'${utils.parseVersion()}'`
+			}
+		})
     ],
 };
