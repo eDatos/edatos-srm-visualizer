@@ -27,6 +27,8 @@ export abstract class BasicSearchComponent {
     public showAllVersions = false;
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
+    public maintainers: string[] = [];
+    public filteredAgency: string = '';
     public filter = '';
     public markedSearchAdvanced = false;
     public markedViewAllVersions = false;
@@ -93,7 +95,7 @@ export abstract class BasicSearchComponent {
     private isLatestVersion(){
         this.apiService.isLatestVersion = !this.markedSearchAdvanced ? true : !this.markedViewAllVersions;
         this.showAllVersions = !this.apiService.isLatestVersion;
-        this.apiService.setApiSearchUrl();
+        this.apiService.setApiSearchUrl(this.filteredAgency);
     }
 
     public toggleVisibility(event: any) {
@@ -101,23 +103,38 @@ export abstract class BasicSearchComponent {
         this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+        const emptyFilteredAgency = this.filteredAgency !== '' ? false : true;
+
+        if (this.markedSearchAdvanced) {
+            this.getMaintainers();
+        }
 
         if (!emptySearchSimpleForm) {
             this.resetSearchSimpleForm();
-        } else if (!emptySearchAdvancedForm) {
-            this.resetSearchAdvancedForm();
+        } else if (!emptySearchAdvancedForm || !emptyFilteredAgency) {
+            this.resetSearchAdvancedForm(!emptyFilteredAgency);
         }
     }
 
-    public resetSearchAdvancedForm() {
+    private resetSearchAdvancedForm(resetFilteredAgency: boolean) {
         this.resetForm(this.searchAdvancedForm);
-        this.defaultParametersSearch();
-        this.resetSortColumn();
-        this.loadInitialData();
+        if (resetFilteredAgency) {
+            this.resetFilteredAgency();
+        }
+        this.resetSearch();
     }
 
-    public resetSearchSimpleForm() {
+    private resetSearchSimpleForm() {
         this.resetForm(this.searchSimpleForm, this.initialForm);
+        this.resetSearch();
+    }
+
+    private resetFilteredAgency() {
+        this.apiService.setApiSearchUrl();
+        this.filteredAgency = '';
+    }
+
+    private resetSearch() {
         this.defaultParametersSearch();
         this.resetSortColumn();
         this.loadInitialData();
@@ -126,6 +143,12 @@ export abstract class BasicSearchComponent {
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
+    }
+
+    public onFilterByAgency(event: any) {
+        this.apiService.setApiSearchUrl(event);
+        this.filteredAgency = event;
+        this.getAdvancedSearch();
     }
 
     public handleOnPanelShow() {
@@ -206,10 +229,26 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable };
+            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
+    }
+
+
+
+    public getMaintainers () {
+        let filteredColumns = this.selectedFields.filter(column => column.showFilteredValues);
+        if (filteredColumns.length > 0 && this.maintainers.length == 0) {
+            this.apiService.getAllMaintainers().subscribe((data) => {
+                if (data) {
+                    data.agency?.forEach((maintainer: any) => {
+                        this.maintainers.push(maintainer.id);
+                    });
+                }
+            });
+            this.tableExpandable.options = this.maintainers;
+        }
     }
 
     private resetSortColumn() {

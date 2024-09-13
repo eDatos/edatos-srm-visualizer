@@ -57,6 +57,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableExpandableRows } from './components/table/table-row-expand.component';
 import { RouterLink } from '@angular/router';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
@@ -83,6 +84,7 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         TranslateModule,
         MultiSelectModule,
         InputSwitchModule,
+        AutoCompleteModule,
         ClipboardModule,
         RouterLink,
         FormsModule
@@ -145,7 +147,8 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         TranslateModule,
         VersionPipe,
         MultiSelectModule,
-        InputSwitchModule
+        InputSwitchModule,
+        AutoCompleteModule
     ],
     providers: [CookieService]
 })

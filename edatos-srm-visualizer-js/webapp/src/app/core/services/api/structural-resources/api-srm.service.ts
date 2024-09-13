@@ -41,6 +41,10 @@ export abstract class ApiSrmService extends ApiService {
         return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx'), { responseType: 'blob' });
     }
 
+    public getAllMaintainers(): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl()));
+    }
+
     /* Detail */
     public getDetailFromSrm(resource: Resource): Observable<any> {
         return this.getDataFromSrm(this.getApiDetailUrl(resource));
@@ -105,8 +109,8 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public getAllVersionsFromResource(reesource: Resource): Observable<any> {
-        return this.getData(ApiSrmService.apiInternalDomain.concat(this.getApiAllVersionsFromResourceUrl(reesource)));
+    public getAllVersionsFromResource(resource: Resource): Observable<any> {
+        return this.getData(ApiSrmService.apiInternalDomain.concat(this.getApiAllVersionsFromResourceUrl(resource)));
     }
 
     /* Children */
@@ -162,5 +166,5 @@ export abstract class ApiSrmService extends ApiService {
         return this.httpClient.get<any>(url);
     }
 
-    abstract setApiSearchUrl(): void;
+    abstract setApiSearchUrl(agencyId?: string): void;
 }

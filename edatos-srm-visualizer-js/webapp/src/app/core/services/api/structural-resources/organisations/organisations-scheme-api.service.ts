@@ -25,9 +25,10 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
     this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.ORGANISATION_ALL_VERSIONS_API_URL}`;
   }
 
-  public setApiSearchUrl(): void {
+  public setApiSearchUrl(agencyId?: string): void {
       const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${latestQuery}`;
+      const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${apiAgencyDataPath}${latestQuery}`;
   }
 
   public getDataDetailOrganisationSchemeResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {

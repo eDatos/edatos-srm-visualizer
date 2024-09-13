@@ -25,9 +25,10 @@ export class CategoriesSchemeApiService extends ApiSrmService {
     this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.CATEGORIES_ALL_VERSIONS_API_URL}`;
   }
 
-  public setApiSearchUrl(): void {
+  public setApiSearchUrl(agencyId?: string): void {
       const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}categoryschemes/${latestQuery}`;
+      const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}categoryschemes/${apiAgencyDataPath}${latestQuery}`;
   }
 
     public getDataDetailCategorySchemeResourceFromSrm(dataDetail: any): Observable<CategoryResource> {

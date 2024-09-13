@@ -22,6 +22,8 @@ import { ErrorService } from '../../../core/services/error/error.service';
 })
 export class TableExpandableRows implements OnInit {
     public columnsToDisplay: Column[] = [];
+    public filteredAgencies: string[] = [];
+    public options: string[] = [];
     public routerLink: string | undefined;
     public columnToSort: SortConfig = {
         columnName: "",
@@ -85,6 +87,28 @@ export class TableExpandableRows implements OnInit {
         this.onKeyupResource(filterValue.value, column);
     }
 
+    selectAgency(value: any) {
+        this.onSelectAgency(value);
+    }
+
+    clearAgency(filterValue: any) {
+        this.onSelectAgency(filterValue.value);
+    }
+
+    filterAgency(event: any) {
+        let filtered: any[] = [];
+        let query = event.query;
+
+        for (let i = 0; i < this.options.length; i++) {
+            let agency = this.options[i];
+            if (agency.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(agency);
+            }
+        }
+
+        this.filteredAgencies = filtered;
+    }
+
     @Input()
     set data(dataNodes: TreeNode[]) {
         if (dataNodes) {
@@ -121,6 +145,8 @@ export class TableExpandableRows implements OnInit {
     @Output() keyupEvent = new EventEmitter<{ filterValue: string, column: string }>();
 
     @Output() sortColumnEvent =  new EventEmitter<{ sortOrder: string, column: string }>();
+    
+    @Output() selectEvent =  new EventEmitter<string>();
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
@@ -198,6 +224,10 @@ export class TableExpandableRows implements OnInit {
 
     public onClickSortColumn(order: string, column: string) {
         this.sortColumnEvent.emit({ sortOrder: order, column: column });
+    }
+
+    public onSelectAgency(agencyId: string) {
+        this.selectEvent.emit(agencyId);
     }
 }
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { SearchFormValues } from 'src/app/shared/models/search-values/search-form-values';
-import { FormControl } from '@angular/forms';
 
 @Injectable()
 export class SimpleSearchFilter {
@@ -35,9 +34,6 @@ export class SimpleSearchFilter {
         if (values.id.value) {
             version = isLatestVersion ? '' : ` OR URN ILIKE '%${values.id.value}%' `;
             criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'` + version);
-        }
-        if (values.maintainer.value) {
-            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.maintainer.value}%'`);
         }
         if (values.name.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name.value}%'`);

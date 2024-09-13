@@ -41,10 +41,10 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         });
 
         this.fields = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: false },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false }
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: false, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true }
         ];
 
         this.selectedDefault = this.fields.filter(opt => opt.enabled);
@@ -64,7 +64,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     public onSearchWithIsRecommended(event: any) {
         this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
         this.showRecommendedCodelists = this.apiService.isRecommended;
-        this.apiService.setApiSearchUrl();
+        this.apiService.setApiSearchUrl(this.filteredAgency);
         this.getAdvancedSearch();
     }
 

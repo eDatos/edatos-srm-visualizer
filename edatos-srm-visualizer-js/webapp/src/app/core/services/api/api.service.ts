@@ -14,6 +14,7 @@ export class ApiService {
     public static apiSdmx: string = '';
 
     public apiManteinerUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies/{organisationID}';
+    public apiMaintainersUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies';
 
     public apiSDMXUrl: string = '';
     public apiDetailForFileUrl: string = '';
@@ -78,6 +79,10 @@ export class ApiService {
 
     public getApiAllVersionsFromResourceUrl(resource: Resource) {
         return this.apiAllVersionsFromResourceUrl.replace('{urn}', resource.urn)
+    }
+
+    public getApiMaintainersUrl() {
+        return this.apiMaintainersUrl;
     }
 
 }
