@@ -22,6 +22,7 @@ import { ErrorService } from '../../../core/services/error/error.service';
 export class TableExpandableRows implements OnInit{
     public columnsToDisplay: Column[] = [];
     public routerLink: string | undefined;
+    public representationRouterLink: string | undefined;
 
     public copied: boolean = false;
     public apiError: boolean = false;
@@ -91,6 +92,12 @@ export class TableExpandableRows implements OnInit{
     set routerLinkDetail(data: string) {
         if (data) {
             this.routerLink = data;
+        }
+    }
+
+    @Input() set routerLinkLocalRepresentation(data: string) {
+        if (data) {
+            this.representationRouterLink = data;
         }
     }
 

@@ -108,10 +108,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public onLoadCodeDetail(urn: string): void {
         const codelist = new CodelistResource(urn);
-        if (codelist && !this.tableExpandable.navigate) {
+        if (codelist) {
             this.routerLinkDetail = `/codelists/codes/${codelist.agency}/${codelist.resourceId}/${codelist.id}/${codelist.version}/detail`;
-        } else if (codelist) {
-            this.router.navigate(['codes', codelist.agency, codelist.resourceId, codelist.id, codelist.version, 'detail'], { relativeTo: this.route.parent });
         }
     }
 

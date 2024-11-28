@@ -67,7 +67,7 @@
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
              [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='familyCodelist'
-                               (clickEvent)='onLoadFamilyCodelistDetail($event)' >
+                               (clickEvent)='onLoadFamilyCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>
