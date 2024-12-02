@@ -2,8 +2,8 @@
 .general-buttons {
     height: 60px;
     align-items: center;
-    padding: 0px 20px;
-    gap: 10px;
+    padding: 0 $spacing-l;
+    gap: $spacing-s;
     &.row {
         margin: 0px;
         .row-large {
@@ -26,7 +26,7 @@
     .p-dropdown-label.p-placeholder {
         color: $color-azul-oscuro-100;
         font-weight: 300;
-        padding: 5px 10px;
+        padding: $spacing-xs $spacing-s;
         font-size: $size-14;
     }
     
@@ -63,7 +63,7 @@
         background-color: $color-azul-10;
         
         .p-dropdown-header {
-            padding: 3px;
+            padding: $spacing-2xs;
             background-color: $color-azul-10;
             border-bottom: none;
            .p-dropdown-filter.p-inputtext {
@@ -78,11 +78,11 @@
            }
         }
         .p-dropdown-items {
-            padding: 3px;
+            padding: $spacing-2xs;
         }
         .p-dropdown-item  {
             font-size: $size-12;
-            padding: 3px;
+            padding: $spacing-2xs;
             font-weight: $font-weight-300;
             line-height: 24px;
             color: $color-azul-oscuro-100;
@@ -110,7 +110,7 @@
     .p-menu.p-menu-overlay {
         background: $color-azul-oscuro-100;
         left:unset !important;
-        padding: 5px;
+        padding: $spacing-xs;
         
     }
     .p-menu {
@@ -120,10 +120,10 @@
             border-radius: 0px 5px 5px 5px;
         }
         .p-menu-list, .p-menuitem {
-            padding: 3px;
+            padding: $spacing-2xs;
         }
         .p-menuitem-link  {
-            padding: 3px;
+            padding: $spacing-2xs;
             .p-menuitem-icon {
                 display: flex;
                 justify-content: center;
@@ -152,10 +152,10 @@
 }
 
 .detail-info {
-    padding: 0px 20px;
+    padding: 0 $spacing-l;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: $spacing-s;
     label {
         font-weight: $font-weight-600;
         line-height: 25px;
@@ -188,13 +188,13 @@
 .info-link {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: $spacing-xs;
     align-items: center;
     color: #231F20;
     &.background {
         background: $color-azul-10;
         height: 40px;
-        padding: $padding-10px;
+        padding: $spacing-s;
         border-radius: 5px;
     }
     .code {
@@ -209,7 +209,7 @@
 .element-link-actions {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: $spacing-xs;
     button {
         width: 1.25rem;
     }
@@ -225,7 +225,7 @@
 }
 
 .detail-table {
-    padding: 20px;
+    padding: $spacing-l;
     table {
         box-shadow: none;
     }

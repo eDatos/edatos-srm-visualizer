@@ -9,7 +9,7 @@
 
 .subsection-tab.detail-tab .nav {
     background-color: $color-azul-10;
-    margin-top: 20px;
+    margin-top: $spacing-l;
     .nav-link {
         cursor: pointer;
     }
@@ -20,11 +20,11 @@
 }
 
 .section-tab .nav.nav-pills {
-    padding: 13px 20px;
+    padding: 13px $spacing-l;
 }
 
 .subsection-tab .nav.nav-tabs {
-    padding: 9px 20px;
+    padding: 9px $spacing-l;
 }
 
 .section-tab .nav.nav-pills, .subsection-tab .nav.nav-tabs {
