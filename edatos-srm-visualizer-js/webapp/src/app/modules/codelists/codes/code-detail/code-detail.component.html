@@ -83,7 +83,7 @@
     <div *ngIf='activeLink == navLinks[0]'>
         <div #searchResults class='search-results-tree-detail'>
             <app-table-tree #tabletreenode [data]='dataChildren'
-                            (clickEvent)='onloadTreeNodeDetailData($event)'>
+                            (mouseoverEvent)='onloadTreeNodeDetailData($event)' [routerLinkDetail]="routerLinkDetail">
             </app-table-tree>
         </div>
     </div>

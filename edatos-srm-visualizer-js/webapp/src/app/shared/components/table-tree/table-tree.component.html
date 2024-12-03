@@ -28,10 +28,10 @@
       &nbsp;{{node.name}}
     </div>
 
-    <button type="button" class="text-icon-button hidden" (click)="loadResource(node)">
-      <i class="fa-thin fa-eye"></i>&nbsp;
+    <a class="text-icon-button hidden" [routerLink]="[routerLink]" (mouseover)="loadResource(node)">
+      <i class='fa-thin fa-eye'></i>&nbsp;
       <span>{{ 'seeResource' | translate | uppercase }}</span>
-    </button>
+    </a>
   </mat-tree-node>
 
   <!-- This is the tree node template for expandable nodes -->
@@ -44,9 +44,9 @@
         <span class="node-detail-info-id">{{node.id}}</span>
         &nbsp;{{node.name}}
       </div>
-      <button type="button" class="text-icon-button hidden" (click)="loadResource(node)">
-        <i class="fa-thin fa-eye"></i>&nbsp;
+      <a class="text-icon-button hidden" [routerLink]="[routerLink]" (mouseover)="loadResource(node)">
+        <i class='fa-thin fa-eye'></i>&nbsp;
         <span>{{ 'seeResource' | translate | uppercase }}</span>
-      </button>
+      </a>
   </mat-tree-node>
 </mat-tree>

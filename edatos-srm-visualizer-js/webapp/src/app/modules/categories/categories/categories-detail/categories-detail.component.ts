@@ -20,6 +20,8 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
     public navLinks: MenuItem[];
     public activeLink: MenuItem;
 
+    public routerLinkDetail: string = '';
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: CategoriesApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService) {
@@ -57,7 +59,7 @@ export class CategoriesDetailComponent extends BasicDetailComponent implements O
     }
     public onloadTreeNodeDetailData(urn: string) {
         const resource = new CategoryResource(urn);
-        this.router.navigate(['categories', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.routerLinkDetail = `/categories/categories/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`;
     }
 
     private loadDataDetailResource(data: any): Observable<CategoryResource> {

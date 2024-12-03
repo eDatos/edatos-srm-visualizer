@@ -84,7 +84,7 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     onloadTreeNodeDetailData(urn: string) {
         const resource = new CodelistResource(urn);
-        this.router.navigate(['codes', resource.agency, resource.resourceId, resource.id, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.routerLinkDetail = this.routerLinkDetail = `/codelists/codes/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`;
     }
 
     public override onReturn() {
