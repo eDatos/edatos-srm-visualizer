@@ -63,7 +63,7 @@
         background-color: $color-azul-10;
         
         .p-dropdown-header {
-            padding: $spacing-2xs;
+            padding: $spacing-xxs;
             background-color: $color-azul-10;
             border-bottom: none;
            .p-dropdown-filter.p-inputtext {
@@ -78,11 +78,11 @@
            }
         }
         .p-dropdown-items {
-            padding: $spacing-2xs;
+            padding: $spacing-xxs;
         }
         .p-dropdown-item  {
             font-size: $size-12;
-            padding: $spacing-2xs;
+            padding: $spacing-xxs;
             font-weight: $font-weight-300;
             line-height: 24px;
             color: $color-azul-oscuro-100;
@@ -120,10 +120,10 @@
             border-radius: 0px 5px 5px 5px;
         }
         .p-menu-list, .p-menuitem {
-            padding: $spacing-2xs;
+            padding: $spacing-xxs;
         }
         .p-menuitem-link  {
-            padding: $spacing-2xs;
+            padding: $spacing-xxs;
             .p-menuitem-icon {
                 display: flex;
                 justify-content: center;
