@@ -30,8 +30,6 @@ export class TableExpandableRows implements OnInit{
 
     public isAdvancedSearch: boolean = false;
 
-    public navigate: boolean = false;
-
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
     }), 'expand'];
@@ -162,8 +160,7 @@ export class TableExpandableRows implements OnInit{
         }
     }
 
-    public onClickResource(resource: string, navigate?: boolean) {
-        this.navigate = navigate ? navigate : false;
+    public onClickResource(resource: string) {
         this.clickEvent.emit(resource);
     }
 
