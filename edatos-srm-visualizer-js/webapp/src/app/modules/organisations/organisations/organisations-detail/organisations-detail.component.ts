@@ -65,7 +65,7 @@ export class OrganisationsDetailComponent extends BasicDetailComponent implement
 
     onloadTreeNodeDetailData(urn: string) {
         const resource = new OrganisationResource(urn);
-        this.routerLinkDetail = `/organisations//organisations/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`;
+        this.routerLinkDetail = `/organisations/organisations/${resource.agency}/${resource.resourceId}/${resource.id}/${resource.version}/detail`;
     }
 
 
