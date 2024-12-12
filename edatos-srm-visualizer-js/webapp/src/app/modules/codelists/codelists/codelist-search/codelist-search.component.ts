@@ -48,7 +48,8 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
                 value: 'description',
                 enabled: false
             },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true }
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true },
+            { name: this.translateService.instant('resourceParameters.recommended'), value: 'recommended', enabled: true }
         ];
 
         this.selectedDefault = this.fields.filter(opt => opt.enabled);
@@ -84,6 +85,6 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
+        return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion, this.translateService);
     }
 }

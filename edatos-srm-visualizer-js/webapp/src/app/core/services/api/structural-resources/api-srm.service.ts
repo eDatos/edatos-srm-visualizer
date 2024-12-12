@@ -6,6 +6,7 @@ import { SearchConfig } from 'src/app/shared/models/search-config';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
 import { map } from 'rxjs/internal/operators/map';
+import { TranslateService } from '@ngx-translate/core';
 import {
     treeNode,
     TreeNode,
@@ -64,12 +65,12 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, form?: FormGroup): Observable<TreeNode[]> {
+    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, translateService?: TranslateService): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion, form))
+            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion, translateService))
         );
     }
-    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean ,form?: FormGroup): Observable<TreeNode> {
+    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean, translateService?: TranslateService): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
@@ -78,7 +79,7 @@ export abstract class ApiSrmService extends ApiService {
             }
         ).pipe(
             map(({data}) => {
-                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService);
+                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService, translateService);
                 }
             ));
     }

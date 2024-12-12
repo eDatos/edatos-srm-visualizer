@@ -55,7 +55,8 @@ export class TableTreeComponent implements OnInit{
             typeDimension: node.typeDimension,
             assigmentStatus: node.assigmentStatus,
             attributeRelationship: node.attributeRelationship,
-            localRepresentation: node.localRepresentation
+            localRepresentation: node.localRepresentation,
+            recommended: node.recommended
         };
     };
 
