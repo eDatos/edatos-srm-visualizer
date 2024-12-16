@@ -1,4 +1,4 @@
-const MergeJsonWebpackPlugin = require('merge-jsons-webpack-plugin');
+const webpack = require('webpack');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
 const path = require('path');
 const fs = require('fs');
@@ -14,12 +14,12 @@ function geti18nLanguages(i18nPathRelativeToSrc) {
     return fs.readdirSync(i18nPath, 'utf8');
 }
 
-const availableLanguages = geti18nLanguages('i18n');
+const availableLanguages = geti18nLanguages('assets/i18n');
 
 const DATAS = {
     VERSION: `'${utils.parseVersion()}'`,
     DEBUG_INFO_ENABLED: options.env === 'development',
-    AVAILABLE_LANGUAGES: JSON.stringify(availableLanguages),
+	AVAILABLE_LANGUAGES: JSON.stringify(availableLanguages),
 };
 
 module.exports = {
@@ -27,23 +27,25 @@ module.exports = {
         rules: [
             {
                 test: /app.constants.ts$/,
-                loader: StringReplacePlugin.replace({
-                    replacements: [
-                        {
-                            pattern: /\/\* @toreplace (\w*?) \*\//gi,
-                            replacement: (match, p1, offset, string) => `_${p1} = ${DATAS[p1]};`,
-                        },
-                    ],
-                }),
+				use: [{
+					loader: StringReplacePlugin.replace({
+						replacements: [
+							{
+								pattern: /\/\* @toreplace (\w*?) \*\//gi,
+								replacement: (match, p1, offset, string) => `_${p1} = ${DATAS[p1]};`,
+							},
+						],
+					}),
+				}]
             },
         ],
     },
     plugins: [
-        new MergeJsonWebpackPlugin({
-            output: {
-                groupBy: availableLanguages.map((lang) => ({ pattern: `./src/i18n/${lang}/*.json`, fileName: `./i18n/${lang}.json` })),
-            },
-        }),
         new StringReplacePlugin(),
+		new webpack.DefinePlugin({
+			'process.env': {
+				APP_VERSION: `'${utils.parseVersion()}'`
+			}
+		})
     ],
 };
