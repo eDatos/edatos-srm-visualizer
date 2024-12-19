@@ -57,6 +57,10 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
 }
 
 export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService, translateService?: TranslateService) {
+    let recommended = '';
+    if (data.isRecommended !== 'undefined) {
+       recommended = data.isRecommended ? translateService.instant('yes') : translateService.instant('no');
+    }
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
         id: isLatestVersion ? data.id : `${data.id}(${data.version})`,
@@ -65,7 +69,7 @@ export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersi
         selfLink: data.selfLink.href,
         maintainer: maintainer,
         scheme: '',
-        recommended: data.isRecommended !== undefined && data.isRecommended ? translateService?.instant('yes') : data.isRecommended !== undefined && !data.isRecommended ? translateService?.instant('no') : ''
+        recommended: recommended
     };
     return treeNode;
 }
