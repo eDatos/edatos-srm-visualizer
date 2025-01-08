@@ -30,16 +30,16 @@ export abstract class ApiSrmService extends ApiService {
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     public getJSONFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.json').concat(ApiSrmUrlConstants.FIELDS_DESCRIPTION),
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.json').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`),
             { responseType: 'blob' });
     }
 
     public getCSVFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv').concat(ApiSrmUrlConstants.FIELDS_DESCRIPTION), { responseType: 'blob' });
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { responseType: 'blob' });
     }
 
     public getXLSXFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx').concat(ApiSrmUrlConstants.FIELDS_DESCRIPTION), { responseType: 'blob' });
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { responseType: 'blob' });
     }
 
     /* Detail */
