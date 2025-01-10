@@ -6,13 +6,6 @@
             <span>{{ 'back' | translate | uppercase }}</span>
         </button>
     </div>
-    <div>
-        <p-menu [model]="items" #menu [popup]="true" class="p-menu-custom" (onShow)="handleVisibilityMenu()" (onHide)="handleVisibilityMenu()"></p-menu>
-        <button (click)="menu.toggle($event)"  [ngClass]="expandedMenu ? 'menu-text-icon-button' : 'text-icon-button'">
-            <span>{{ 'download.title' | translate | uppercase }}</span>&nbsp;
-            <i [ngClass]="expandedMenu ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
-        </button>
-    </div>
 </div>
 
 <div [formGroup]='detailForm' class='detail-info'>
