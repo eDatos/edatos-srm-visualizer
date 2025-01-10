@@ -23,6 +23,7 @@ export class DsdApiService extends ApiSrmService {
         this.apiSearchDataPath = 'dataStructure';
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${ApiSrmUrlConstants.LATEST_QUERY}`;
         this.apiDetailUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.DSD_API_URL}`;
+        this.apiDetailForFileUrl = this.apiDetailUrl;
         this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.DSD_ALL_VERSIONS_API_URL}`;
     }
 
