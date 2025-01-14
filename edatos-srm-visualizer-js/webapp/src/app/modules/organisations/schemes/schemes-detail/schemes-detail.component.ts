@@ -5,6 +5,7 @@ import { LocaleService } from 'src/app/core/services/locale.service';
 import {
     OrganisationsSchemeApiService
 } from 'src/app/core/services/api/structural-resources/organisations/organisations-scheme-api.service';
+import { OrganisationSchemeApiSdmxService } from 'src/app/core/services/api/sdmx/organisation/organisation-scheme-api-sdmx.service';
 import { MenuItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganisationResource } from 'src/app/shared/models/resources/organisation-resource.model';
@@ -28,8 +29,9 @@ export class SchemesDetailComponent extends BasicDetailComponent implements OnIn
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: OrganisationsSchemeApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
-                protected override localeService: LocaleService, protected override translateService: TranslateService) {
-        super(formBuilder, apiSrmService, route, localeService, translateService, router);
+                protected override localeService: LocaleService, protected override translateService: TranslateService,
+                protected override apiSdmxService: OrganisationSchemeApiSdmxService, ) {
+        super(formBuilder, apiSrmService, route, localeService, translateService, router, apiSdmxService);
 
         this.detailForm = this.formBuilder.group({
             id: '',
