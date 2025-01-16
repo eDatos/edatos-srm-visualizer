@@ -43,7 +43,7 @@ export class OrganisationsSearchComponent extends BasicSearchComponent implement
 
         this.fields = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: false, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme', enabled: true, sortable: false, showFilteredValues: false }
         ];
 
