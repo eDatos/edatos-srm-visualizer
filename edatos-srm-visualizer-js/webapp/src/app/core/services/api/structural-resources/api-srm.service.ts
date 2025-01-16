@@ -68,7 +68,7 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, ): Observable<TreeNode[]> {
+    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
         return forkJoin(
             resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion))
         );
