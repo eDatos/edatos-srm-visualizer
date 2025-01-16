@@ -35,7 +35,9 @@ export abstract class BasicSearchComponent {
         resultLimit: 25,
         resultOffset: 0,
         resultSize: 0,
-        currentPage: 0
+        currentPage: 0,
+        orderColumn: "",
+        sortOrder: ""
     };
 
     public dataSearch: any[] = [];
@@ -84,7 +86,6 @@ export abstract class BasicSearchComponent {
 
     public onSearchWithAllVersions(event: any): void {
         this.markedViewAllVersions = !this.markedSearchAdvanced ? false : event.checked;
-        this.defaultParametersSearch();
         this.isLatestVersion();
         this.getAdvancedSearch();
     }
@@ -111,12 +112,14 @@ export abstract class BasicSearchComponent {
     public resetSearchAdvancedForm() {
         this.resetForm(this.searchAdvancedForm);
         this.defaultParametersSearch();
+        this.resetSortColumn();
         this.loadInitialData();
     }
 
     public resetSearchSimpleForm() {
         this.resetForm(this.searchSimpleForm, this.initialForm);
         this.defaultParametersSearch();
+        this.resetSortColumn();
         this.loadInitialData();
     }
 
@@ -161,7 +164,6 @@ export abstract class BasicSearchComponent {
     }
 
     public onAdvancedSearch(event: any): void {
-        this.defaultParametersSearch();
         // @ts-ignore
         this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (this.searchForm.valid) {
@@ -170,6 +172,7 @@ export abstract class BasicSearchComponent {
     }
 
     public getAdvancedSearch() {
+        this.defaultParametersSearch();
         this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
             this.searchConfig.resultSize = data['total'];
             if (this.searchConfig.resultSize > 0) {
@@ -203,10 +206,16 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled };
+            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
+    }
+
+    private resetSortColumn() {
+        this.searchConfig.orderColumn = "";
+        this.searchConfig.sortOrder = "";
+        this.tableExpandable.columnToSort.columnName = "";
     }
 
     private loadDetailDataChildren() {
@@ -223,6 +232,12 @@ export abstract class BasicSearchComponent {
 
     public isEmptyForm(formValues: any) {
         return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => v !== '' && v !== null).length == 0; 
+    }
+
+    public onSortColumn(event: any): void {
+        this.searchConfig.orderColumn = event.column;
+        this.searchConfig.sortOrder = event.sortOrder;
+        this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
     }
 
     protected abstract getDataChildren(resources: Resource[]): Observable<TreeNode[]>;

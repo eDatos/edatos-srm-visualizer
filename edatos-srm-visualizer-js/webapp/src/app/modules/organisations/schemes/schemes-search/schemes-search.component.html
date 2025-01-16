@@ -30,7 +30,7 @@
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadOrganisationSchemeDetail($event)' [advancedSearch]='markedSearchAdvanced'
-                               (keyupEvent)='onAdvancedSearch($event)'>
+                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)">
         </table-expandable-rows>
     </div>
 </div>

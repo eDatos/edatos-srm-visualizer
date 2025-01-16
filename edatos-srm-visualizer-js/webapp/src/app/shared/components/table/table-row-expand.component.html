@@ -1,6 +1,13 @@
 <table mat-table [dataSource]='dataSource' multiTemplateDataRows class='mat-elevation-z6'>
     <ng-container matColumnDef='{{column.name}}' *ngFor='let column of columnsToDisplay'>
-        <th mat-header-cell *matHeaderCellDef sticky> {{column.name}}
+        <th mat-header-cell *matHeaderCellDef sticky>
+            <div>
+                <button *ngIf="isSortableColumn(column.value)" class='element-actions'
+                        (click)='toggleSortOrder(column.value)'>
+                    <i [ngClass]="getSortOrderColumn(column.value)"></i>
+                </button>
+                {{column.name}}
+            </div>
             <div *ngIf='isAdvancedSearch'>
                 <input class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
             </div>

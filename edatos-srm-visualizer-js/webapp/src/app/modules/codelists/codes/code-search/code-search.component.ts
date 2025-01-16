@@ -39,10 +39,10 @@ export class CodeSearchComponent extends BasicSearchComponent implements OnInit 
         });
 
         this.fields = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false },
-            { name: this.translateService.instant('resourceParameters.codelist'), value: 'scheme', enabled: true }
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false },
+            { name: this.translateService.instant('resourceParameters.codelist'), value: 'scheme', enabled: true, sortable: false }
         ];
 
         this.selectedDefault = this.fields.filter(opt=>opt.enabled);

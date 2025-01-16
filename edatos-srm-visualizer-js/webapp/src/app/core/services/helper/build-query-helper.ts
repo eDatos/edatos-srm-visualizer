@@ -47,8 +47,10 @@ export class BuildQueryHelper {
     }
 
     public getResultLimit(url: string, searchConfig: SearchConfig): string {
-        const beginParamUrl = url.includes('?') ? '&' : '?';
-        return beginParamUrl + 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
+        let beginParamUrl = url.includes('?') ? '&' : '?';
+        beginParamUrl += 'limit=' + searchConfig.resultLimit + '&offset=' + searchConfig.resultOffset;
+        beginParamUrl += searchConfig.orderColumn ? '&orderBy=' + searchConfig.orderColumn + ' ' + searchConfig.sortOrder : '';
+        return beginParamUrl;
     }
 
     public buildQueryResultOffset(searchSimpleForm: FormGroup, searchForm: FormGroup, isLatestVersion: boolean, isAdvancedSearch?: boolean, ) : string {
