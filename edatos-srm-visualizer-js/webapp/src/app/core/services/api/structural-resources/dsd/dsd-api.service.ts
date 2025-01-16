@@ -36,7 +36,7 @@ export class DsdApiService extends ApiSrmService {
 
     public getDataDetailDsdResourceFromSrm(dataDetail: any): Observable<DsdResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),

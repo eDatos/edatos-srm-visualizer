@@ -13,8 +13,8 @@ export class ApiService {
     public static apiInternalDomain: string = '';
     public static apiSdmx: string = '';
 
-    public apiManteinerUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies/{organisationID}';
-    public apiMaintainersUrl: string = '/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies';
+    public apiMaintainersUrl: string = `/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies`;
+    public apiMaintainerUrl: string = `${this.apiMaintainersUrl}/{organisationID}`;
 
     public apiSDMXUrl: string = '';
     public apiDetailForFileUrl: string = '';
@@ -69,11 +69,11 @@ export class ApiService {
             .replace('{version}', resource.version)
     }
 
-    public getApiManteinerUrl(resource: Resource, form?: FormGroup ) {
+    public getApiMaintainerUrl(resource: Resource, form?: FormGroup ) {
         if (form) {
-            return this.apiManteinerUrl.replace('{organisationID}', '');
+            return this.apiMaintainerUrl.replace('{organisationID}', '');
         }
-        return this.apiManteinerUrl
+        return this.apiMaintainerUrl
             .replace('{organisationID}', resource.agency);
     }
 

@@ -33,7 +33,7 @@ export class CategoriesSchemeApiService extends ApiSrmService {
 
     public getDataDetailCategorySchemeResourceFromSrm(dataDetail: any): Observable<CategoryResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),
