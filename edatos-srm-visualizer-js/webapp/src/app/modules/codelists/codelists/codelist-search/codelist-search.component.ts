@@ -85,6 +85,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
-        return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion, this.translateService);
+        this.apiService.translateService = this.translateService;
+        return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

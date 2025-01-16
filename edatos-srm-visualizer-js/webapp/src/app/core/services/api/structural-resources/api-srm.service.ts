@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { forkJoin, Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
@@ -28,6 +28,8 @@ export abstract class ApiSrmService extends ApiService {
 
     public isLatestVersion: boolean = true;
     public isRecommended: boolean = false;
+    public translateService = Inject(TranslateService);
+    
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     public getJSONFile(resource: Resource): Observable<any> {
@@ -66,12 +68,12 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, translateService?: TranslateService): Observable<TreeNode[]> {
+    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, ): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion, translateService))
+            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion))
         );
     }
-    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean, translateService?: TranslateService): Observable<TreeNode> {
+    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
@@ -80,7 +82,7 @@ export abstract class ApiSrmService extends ApiService {
             }
         ).pipe(
             map(({data}) => {
-                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService, translateService);
+                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService, this.translateService);
                 }
             ));
     }

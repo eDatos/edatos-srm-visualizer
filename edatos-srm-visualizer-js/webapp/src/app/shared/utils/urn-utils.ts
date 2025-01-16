@@ -18,4 +18,14 @@ export class UrnUtils {
             this.id = splitText[0];
         }
     }
+
+    static getResourceTypeFromUrn(urn: string): string {
+        let urnLeftSide = urn.split('=')[0];
+        if (urnLeftSide.length > 1) {
+            return urnLeftSide.lastIndexOf('.') !== -1 ? urnLeftSide.slice(urnLeftSide.lastIndexOf('.') + 1).toLowerCase() : "";
+        } else {
+            return urnLeftSide;
+        }
+    }
+
 }

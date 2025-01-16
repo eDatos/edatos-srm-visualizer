@@ -1,6 +1,7 @@
 import { LocaleService } from 'src/app/core/services/locale.service';
-import { TranslateService } from '@ngx-translate/core';;
+import { TranslateService } from '@ngx-translate/core';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import { UrnUtils } from '../../utils/urn-utils';
 
 export interface TreeNode {
     name: string;
@@ -58,9 +59,10 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
 
 export function treeNodeWithMaintainer(maintainer: any, data: any, isLatestVersion: boolean, localeService: LocaleService, translateService?: TranslateService) {
     let recommended = '';
-    if (data.isRecommended !== 'undefined) {
-       recommended = data.isRecommended ? translateService.instant('yes') : translateService.instant('no');
+    if (UrnUtils.getResourceTypeFromUrn(data.urn) === 'codelist' && data.isRecommended !== 'undefined') {
+       recommended = data.isRecommended ? translateService?.instant('yes') : translateService?.instant('no');
     }
+
     const treeNode: TreeNode = {
         name: localeService.getTextValue(data.name.text),
         id: isLatestVersion ? data.id : `${data.id}(${data.version})`,
