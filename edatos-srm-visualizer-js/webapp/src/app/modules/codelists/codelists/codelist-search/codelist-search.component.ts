@@ -44,6 +44,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false },
             { name: this.translateService.instant('resourceParameters.recommended'), value: 'recommended', enabled: true, sortable: false }
         ];
 
