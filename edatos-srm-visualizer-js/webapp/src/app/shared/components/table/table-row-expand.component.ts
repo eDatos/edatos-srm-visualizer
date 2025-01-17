@@ -169,6 +169,9 @@ export class TableExpandableRows implements OnInit {
         } else {
             this.expandRow(data);
             this.onClickResource(data.urn);
+            if (data.localRepresentation?.id) {
+                this.onClickResource(data.localRepresentation);
+            }
         }
     }
 
