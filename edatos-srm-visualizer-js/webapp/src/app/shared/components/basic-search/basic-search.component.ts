@@ -76,6 +76,7 @@ export abstract class BasicSearchComponent {
 
     public loadInitialData() {
         this.isLatestVersion();
+        this.resetFilteredAgency();
         this.dataChildren = [];
         this.columnsToDisplay();
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
@@ -111,15 +112,12 @@ export abstract class BasicSearchComponent {
         if (!emptySearchSimpleForm) {
             this.resetSearchSimpleForm();
         } else if (!emptySearchAdvancedForm || !emptyFilteredAgency) {
-            this.resetSearchAdvancedForm(!emptyFilteredAgency);
+            this.resetSearchAdvancedForm();
         }
     }
 
-    private resetSearchAdvancedForm(resetFilteredAgency: boolean) {
+    private resetSearchAdvancedForm() {
         this.resetForm(this.searchAdvancedForm);
-        if (resetFilteredAgency) {
-            this.resetFilteredAgency();
-        }
         this.resetSearch();
     }
 
