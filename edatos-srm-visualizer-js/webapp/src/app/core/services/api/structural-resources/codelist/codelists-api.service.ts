@@ -32,12 +32,12 @@ export class CodelistsApiService extends ApiSrmService {
         this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CODELIST_API_URL}`;
     }
 
-    public setApiSearchUrl(agencyId?: string): void {
+    public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
         const recommendedQuery = this.isRecommended ? ApiSrmUrlConstants.CODELIST_IS_RECOMMENDED_QUERY : '';
         const latestRecommendedQuery = this.isLatestVersion && this.isRecommended ? ' AND ' : '';
         const notLatestRecommendedQuery =  !this.isLatestVersion && this.isRecommended ? '?query=' : '';
-        const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+        const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}codelists/${apiAgencyDataPath}${latestQuery}${latestRecommendedQuery}${notLatestRecommendedQuery}${recommendedQuery}`;
     }
 

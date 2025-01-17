@@ -31,9 +31,9 @@ export class ConceptsSchemeApiService extends ApiSrmService {
         this.apiSchemeUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.CONCEPT_SCHEME_API_URL}`;
     }
 
-    public setApiSearchUrl(agencyId?: string): void {
+    public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-        const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+        const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}conceptschemes/${apiAgencyDataPath}${latestQuery}`;
     }
 

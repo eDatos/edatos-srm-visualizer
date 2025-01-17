@@ -28,7 +28,6 @@ export abstract class BasicSearchComponent {
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
     public maintainers: string[] = [];
-    public filteredAgency: string = '';
     public filter = '';
     public markedSearchAdvanced = false;
     public markedViewAllVersions = false;
@@ -95,7 +94,7 @@ export abstract class BasicSearchComponent {
     private isLatestVersion(){
         this.apiService.isLatestVersion = !this.markedSearchAdvanced ? true : !this.markedViewAllVersions;
         this.showAllVersions = !this.apiService.isLatestVersion;
-        this.apiService.setApiSearchUrl(this.filteredAgency);
+        this.apiService.setApiSearchUrl();
     }
 
     public toggleVisibility(event: any) {
@@ -103,7 +102,7 @@ export abstract class BasicSearchComponent {
         this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
-        const emptyFilteredAgency = this.filteredAgency !== '' ? false : true;
+        const emptyFilteredAgency = this.apiService.agencyId !== '' ? false : true;
 
         if (this.markedSearchAdvanced) {
             this.getMaintainers();
@@ -130,8 +129,8 @@ export abstract class BasicSearchComponent {
     }
 
     private resetFilteredAgency() {
+        this.apiService.agencyId = '';
         this.apiService.setApiSearchUrl();
-        this.filteredAgency = '';
     }
 
     private resetSearch() {
@@ -146,8 +145,8 @@ export abstract class BasicSearchComponent {
     }
 
     public onFilterByAgency(event: any) {
-        this.apiService.setApiSearchUrl(event);
-        this.filteredAgency = event;
+        this.apiService.agencyId = event;
+        this.apiService.setApiSearchUrl();
         this.getAdvancedSearch();
     }
 

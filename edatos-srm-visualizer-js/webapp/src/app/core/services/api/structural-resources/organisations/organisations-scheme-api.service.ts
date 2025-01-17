@@ -25,9 +25,9 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
     this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.ORGANISATION_ALL_VERSIONS_API_URL}`;
   }
 
-  public setApiSearchUrl(agencyId?: string): void {
+  public setApiSearchUrl(): void {
       const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-      const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+      const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
       this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${apiAgencyDataPath}${latestQuery}`;
   }
 

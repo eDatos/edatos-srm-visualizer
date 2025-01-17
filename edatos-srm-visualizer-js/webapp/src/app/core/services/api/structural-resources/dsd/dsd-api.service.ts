@@ -27,9 +27,9 @@ export class DsdApiService extends ApiSrmService {
         this.apiAllVersionsFromResourceUrl = `${ApiSrmUrlConstants.DSD_ALL_VERSIONS_API_URL}`;
     }
 
-    public setApiSearchUrl(agencyId?: string): void {
+    public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-        const apiAgencyDataPath = agencyId ? `${agencyId}/` : '';
+        const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
         this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${apiAgencyDataPath}${latestQuery}`;
 
     }

@@ -27,6 +27,7 @@ export abstract class ApiSrmService extends ApiService {
 
     public isLatestVersion: boolean = true;
     public isRecommended: boolean = false;
+    public agencyId: string = '';
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     public getJSONFile(resource: Resource): Observable<any> {
@@ -167,5 +168,5 @@ export abstract class ApiSrmService extends ApiService {
         return this.httpClient.get<any>(url);
     }
 
-    abstract setApiSearchUrl(agencyId?: string): void;
+    abstract setApiSearchUrl(): void;
 }
