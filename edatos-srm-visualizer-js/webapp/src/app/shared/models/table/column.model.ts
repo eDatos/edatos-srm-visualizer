@@ -2,6 +2,7 @@ export interface Column {
     name: string;
     value: string;
     enabled: boolean;
+    sortable: boolean;
 }
 
 export function sortColumns(selectedFields: Column[], defaultFields: Column[]): Column[] {

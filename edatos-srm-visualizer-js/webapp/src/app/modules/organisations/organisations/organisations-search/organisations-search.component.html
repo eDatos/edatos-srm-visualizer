@@ -25,7 +25,7 @@
                                [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadOrganisationDetail($event)'
                                [advancedSearch]='markedSearchAdvanced'
-                               (keyupEvent)='onAdvancedSearch($event)'>
+                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)">
         </table-expandable-rows>
     </div>
 </div>

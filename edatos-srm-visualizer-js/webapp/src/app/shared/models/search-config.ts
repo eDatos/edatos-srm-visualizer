@@ -3,4 +3,6 @@ export interface SearchConfig {
     resultOffset: number;
     resultSize: number;
     currentPage: number;
+    orderColumn: string;
+    sortOrder: string;
 }
