@@ -44,7 +44,7 @@ export abstract class ApiSrmService extends ApiService {
     }
 
     public getAllMaintainers(): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl()));
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl().concat(`?orderBy=id ASC`)));
     }
 
     /* Detail */
