@@ -1,6 +1,6 @@
 import { ComplementosService } from 'src/app/core/services/html/complementos.service';
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { reinsertScripts } from 'src/app/shared/utils/html-utils';
+import { Component, OnInit } from '@angular/core';
+import { appendContextualFragment } from 'src/app/shared/utils/html-utils';
 
 @Component({
     selector: 'app-header',
@@ -9,20 +9,15 @@ import { reinsertScripts } from 'src/app/shared/utils/html-utils';
 })
 export class HeaderComponent implements OnInit {
 
-    public navbar: string = '';
-
-    constructor(private complementosService: ComplementosService, private elementRef: ElementRef) {}
+    constructor(private complementosService: ComplementosService) {
+    }
 
     ngOnInit(): void {
         this.complementosService.getHeader().subscribe(html => {
-            this.navbar = html.toString();
-            setTimeout(() => {
-                reinsertScripts(this.elementRef);
-            });
-
+            const headerHtml = html.toString();
+            appendContextualFragment(headerHtml, "header");
         });
     }
-
 }
 
 
