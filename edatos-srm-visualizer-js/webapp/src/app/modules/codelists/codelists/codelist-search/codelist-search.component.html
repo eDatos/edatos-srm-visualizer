@@ -46,7 +46,8 @@
         <table-expandable-rows #tableExpandable [columns]='selectedFields'
                                [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadCodelistDetail($event)' [advancedSearch]='markedSearchAdvanced'
-                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)">
+                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)"
+                               (selectEvent)="onFilterByAgency($event)">
         </table-expandable-rows>
     </div>
 </div>

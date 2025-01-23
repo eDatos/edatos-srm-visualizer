@@ -29,13 +29,14 @@ export class DsdApiService extends ApiSrmService {
 
     public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${latestQuery}`;
+        const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}datastructures/${apiAgencyDataPath}${latestQuery}`;
 
     }
 
     public getDataDetailDsdResourceFromSrm(dataDetail: any): Observable<DsdResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         return forkJoin(
             {
                 data: this.httpClient.get<any>(url),

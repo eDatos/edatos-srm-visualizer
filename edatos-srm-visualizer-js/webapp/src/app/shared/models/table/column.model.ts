@@ -3,6 +3,7 @@ export interface Column {
     value: string;
     enabled: boolean;
     sortable: boolean;
+    showFilteredValues: boolean;
 }
 
 export function sortColumns(selectedFields: Column[], defaultFields: Column[]): Column[] {
