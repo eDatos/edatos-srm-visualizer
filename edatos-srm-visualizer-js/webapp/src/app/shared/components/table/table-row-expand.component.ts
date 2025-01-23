@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlatTreeNode } from 'src/app/shared/models/tree/flat-tree-node';
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { Column } from 'src/app/shared/models/table/column.model';
@@ -33,6 +34,15 @@ export class TableExpandableRows implements OnInit {
     public copied: boolean = false;
     public apiError: boolean = false;
     public dataLoaded: boolean = false;
+
+    public searchAdvancedForm: FormGroup = new FormBuilder().group({
+        id: '',
+        name: '',
+        urn: '',
+        description: '',
+        scheme: '',
+        maintainer: ''
+    });
 
     public isAdvancedSearch: boolean = false;
 
