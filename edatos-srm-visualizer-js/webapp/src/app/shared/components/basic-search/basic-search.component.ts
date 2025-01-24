@@ -274,7 +274,7 @@ export abstract class BasicSearchComponent {
     }
 
     public isEmptyForm(formValues: any) {
-        return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => v !== '' && v !== null && v !== undefined).length == 0; 
+        return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => !!v).length == 0; 
     }
 
     public onSortColumn(event: any): void {
