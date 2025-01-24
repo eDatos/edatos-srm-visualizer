@@ -28,6 +28,7 @@ export abstract class ApiSrmService extends ApiService {
 
     public isLatestVersion: boolean = true;
     public isRecommended: boolean = false;
+    public agencyId: string = '';
     public translateService = Inject(TranslateService);
     
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
@@ -43,6 +44,10 @@ export abstract class ApiSrmService extends ApiService {
 
     public getXLSXFile(resource: Resource): Observable<any> {
         return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { responseType: 'blob' });
+    }
+
+    public getAllMaintainers(): Observable<any> {
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl().concat(`?orderBy=id ASC`)));
     }
 
     /* Detail */
@@ -109,8 +114,8 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public getAllVersionsFromResource(reesource: Resource): Observable<any> {
-        return this.getData(ApiSrmService.apiInternalDomain.concat(this.getApiAllVersionsFromResourceUrl(reesource)));
+    public getAllVersionsFromResource(resource: Resource): Observable<any> {
+        return this.getData(ApiSrmService.apiInternalDomain.concat(this.getApiAllVersionsFromResourceUrl(resource)));
     }
 
     /* Children */

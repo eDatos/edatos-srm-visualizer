@@ -30,7 +30,7 @@ export class OrganisationsApiService extends ApiSrmService {
 
     public getDataDetailOrganisationResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(dataDetail));
         return forkJoin(
             {

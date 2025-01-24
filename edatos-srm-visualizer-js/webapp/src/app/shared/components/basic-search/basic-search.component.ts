@@ -27,6 +27,7 @@ export abstract class BasicSearchComponent {
     public showAllVersions = false;
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
+    public maintainers: string[] = [];
     public filter = '';
     public markedSearchAdvanced = false;
     public markedViewAllVersions = false;
@@ -75,6 +76,7 @@ export abstract class BasicSearchComponent {
 
     public loadInitialData() {
         this.isLatestVersion();
+        this.resetFilteredAgency();
         this.dataChildren = [];
         this.columnsToDisplay();
         this.apiService.getSearch(this.searchConfig).subscribe((data) => {
@@ -101,23 +103,35 @@ export abstract class BasicSearchComponent {
         this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+        const emptyFilteredAgency = this.apiService.agencyId !== '' ? false : true;
+
+        if (this.markedSearchAdvanced) {
+            this.getMaintainers();
+        }
 
         if (!emptySearchSimpleForm) {
             this.resetSearchSimpleForm();
-        } else if (!emptySearchAdvancedForm) {
+        } else if (!emptySearchAdvancedForm || !emptyFilteredAgency) {
             this.resetSearchAdvancedForm();
         }
     }
 
-    public resetSearchAdvancedForm() {
+    private resetSearchAdvancedForm() {
         this.resetForm(this.searchAdvancedForm);
-        this.defaultParametersSearch();
-        this.resetSortColumn();
-        this.loadInitialData();
+        this.resetSearch();
     }
 
-    public resetSearchSimpleForm() {
+    private resetSearchSimpleForm() {
         this.resetForm(this.searchSimpleForm, this.initialForm);
+        this.resetSearch();
+    }
+
+    private resetFilteredAgency() {
+        this.apiService.agencyId = '';
+        this.apiService.setApiSearchUrl();
+    }
+
+    private resetSearch() {
         this.defaultParametersSearch();
         this.resetSortColumn();
         this.loadInitialData();
@@ -126,6 +140,12 @@ export abstract class BasicSearchComponent {
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
+    }
+
+    public onFilterByAgency(event: any) {
+        this.apiService.agencyId = event;
+        this.apiService.setApiSearchUrl();
+        this.getAdvancedSearch();
     }
 
     public handleOnPanelShow() {
@@ -206,10 +226,26 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable };
+            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
+    }
+
+
+
+    public getMaintainers () {
+        let filteredColumns = this.selectedFields.filter(column => column.showFilteredValues);
+        if (filteredColumns.length > 0 && this.maintainers.length == 0) {
+            this.apiService.getAllMaintainers().subscribe((data) => {
+                if (data) {
+                    data.agency?.forEach((maintainer: any) => {
+                        this.maintainers.push(maintainer.id);
+                    });
+                }
+            });
+            this.tableExpandable.options = this.maintainers;
+        }
     }
 
     private resetSortColumn() {

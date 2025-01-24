@@ -9,7 +9,11 @@
                 {{column.name}}
             </div>
             <div *ngIf='isAdvancedSearch'>
-                <input class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
+                <input *ngIf="!column.showFilteredValues" class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
+                <p-autoComplete *ngIf="column.showFilteredValues" class="p-autocomplete-custom" placeholder="{{ 'search' | translate | lowercase }}..." [dropdown]="true" 
+                                [suggestions]="filteredAgencies" (completeMethod)="filterAgency($event)" (onSelect)="selectAgency($event)" (onClear)="clearAgency($event.target)"
+                                dropdownIcon='fa-thin fa-chevron-down'>
+                </p-autoComplete>
             </div>
         </th>
         <td mat-cell *matCellDef='let data'> {{data[column.value].id ? data[column.value].id : data[column.value]}} </td>

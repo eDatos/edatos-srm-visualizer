@@ -47,7 +47,7 @@ export class CodelistCodesApiService extends ApiSrmService {
 
     public getDataDetailCodelistResourceFromSrm(dataDetail: any, translateService: TranslateService, isCodes: boolean): Observable<CodelistResource> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+        const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(dataDetail));
         return forkJoin(
             {

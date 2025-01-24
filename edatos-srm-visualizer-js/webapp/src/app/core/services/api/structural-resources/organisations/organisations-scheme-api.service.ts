@@ -27,12 +27,13 @@ export class OrganisationsSchemeApiService extends ApiSrmService {
 
   public setApiSearchUrl(): void {
       const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.LATEST_QUERY : '';
-      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${latestQuery}`;
+      const apiAgencyDataPath = this.agencyId !== '' ? `${this.agencyId}/` : this.agencyId;
+      this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}organisationschemes/${apiAgencyDataPath}${latestQuery}`;
   }
 
   public getDataDetailOrganisationSchemeResourceFromSrm(dataDetail: any): Observable<OrganisationResource> {
     const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
-    const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiManteinerUrl(dataDetail));
+    const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
     return forkJoin(
         {
           data: this.httpClient.get<any>(url),
