@@ -8,6 +8,7 @@
     background: $color-negro-5;
     border: none;
     z-index: 0 !important;
+    overflow: unset;
     &:first-child {
       border-radius: 5px 0px 0px 5px;
     }
