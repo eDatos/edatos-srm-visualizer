@@ -22,8 +22,11 @@ import { ErrorService } from '../../../core/services/error/error.service';
 })
 export class TableExpandableRows implements OnInit {
     public columnsToDisplay: Column[] = [];
-    public filteredAgencies: string[] = [];
-    public options: string[] = [];
+    public filteredValues: any[] = [];
+    public options: any = {
+        'maintainer': [],
+        'recommended': []
+    };
     public routerLink: string | undefined;
     public representationRouterLink: string | undefined;
     public columnToSort: SortConfig = {
@@ -36,6 +39,7 @@ export class TableExpandableRows implements OnInit {
     public dataLoaded: boolean = false;
 
     public isAdvancedSearch: boolean = false;
+    public showRecommendedFilter: boolean = true;
 
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
@@ -87,26 +91,32 @@ export class TableExpandableRows implements OnInit {
         this.onKeyupResource(filterValue.value, column);
     }
 
-    selectAgency(value: any) {
-        this.onSelectAgency(value);
+    selectValue(column: string, value: any) {
+        this.onSelectValue(value, column);
     }
 
-    clearAgency(filterValue: any) {
-        this.onSelectAgency(filterValue.value);
+    clearValue(column: string, filterValue: any) {
+        this.onSelectValue(filterValue.value, column);
     }
 
-    filterAgency(event: any) {
+    filterValue(column: string, event: any) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.options.length; i++) {
-            let agency = this.options[i];
-            if (agency.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(agency);
+        for (let i = 0; i < this.options[column].length; i++) {
+            let value = this.options[column][i];
+            if (column === 'maintainer') {
+                if (value.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                    filtered.push(value);
+                }
+            } else {
+                if (value.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                    filtered.push(value.name);
+                } 
             }
-        }
 
-        this.filteredAgencies = filtered;
+        }
+        this.filteredValues = filtered;
     }
 
     @Input()
@@ -152,7 +162,7 @@ export class TableExpandableRows implements OnInit {
 
     @Output() sortColumnEvent =  new EventEmitter<{ sortOrder: string, column: string }>();
     
-    @Output() selectEvent =  new EventEmitter<string>();
+    @Output() selectEvent =  new EventEmitter<{ filterValue: any, column: string }>();
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
@@ -234,9 +244,10 @@ export class TableExpandableRows implements OnInit {
         this.sortColumnEvent.emit({ sortOrder: order, column: column });
     }
 
-    public onSelectAgency(agencyId: string) {
-        this.selectEvent.emit(agencyId);
+    public onSelectValue(value: any, column: string) {
+        this.selectEvent.emit({ filterValue: value, column: column });
     }
+
 }
 
 

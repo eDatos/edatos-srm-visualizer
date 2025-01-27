@@ -28,6 +28,7 @@ export abstract class BasicSearchComponent {
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
     public maintainers: string[] = [];
+    public recommendedValues: any[] = [];
     public filter = '';
     public markedSearchAdvanced = false;
     public markedViewAllVersions = false;
@@ -57,7 +58,8 @@ export abstract class BasicSearchComponent {
         urn: '',
         description: '',
         scheme: '',
-        maintainer: ''
+        maintainer: '',
+        recommended: ''
     });
 
     public detailForm: any;
@@ -107,6 +109,7 @@ export abstract class BasicSearchComponent {
 
         if (this.markedSearchAdvanced) {
             this.getMaintainers();
+            this.getRecommendedValues();
         }
 
         if (!emptySearchSimpleForm) {
@@ -142,9 +145,14 @@ export abstract class BasicSearchComponent {
         this.columnsToDisplay();
     }
 
-    public onFilterByAgency(event: any) {
-        this.apiService.agencyId = event;
-        this.apiService.setApiSearchUrl();
+    public onFilterByValue(event: any) {
+        if (event.column === 'maintainer') {
+            this.apiService.agencyId = event.filterValue;
+            this.apiService.setApiSearchUrl();
+        } else {
+            // @ts-ignore
+            this.searchAdvancedForm.controls[event.column].setValue(this.recommendedValues.find(item => item.name === event.filterValue) ? this.recommendedValues.find(item => item.name ===event.filterValue).value : "");
+        }
         this.getAdvancedSearch();
     }
 
@@ -244,8 +252,16 @@ export abstract class BasicSearchComponent {
                     });
                 }
             });
-            this.tableExpandable.options = this.maintainers;
+            this.tableExpandable.options['maintainer'] = this.maintainers;
         }
+    }
+
+    private getRecommendedValues () {
+        this.recommendedValues = [
+            { name: this.translateService.instant('yes'), value: true },
+            { name: this.translateService.instant('no'), value: false },
+        ];
+        this.tableExpandable.options['recommended'] = this.recommendedValues;
     }
 
     private resetSortColumn() {
@@ -274,6 +290,12 @@ export abstract class BasicSearchComponent {
         this.searchConfig.orderColumn = event.column;
         this.searchConfig.sortOrder = event.sortOrder;
         this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
+    }
+    
+    public resetDropdown() {
+        if (!this.tableExpandable.showRecommendedFilter) {
+            this.searchAdvancedForm.controls['recommended'].setValue("");
+        }
     }
 
     protected abstract getDataChildren(resources: Resource[]): Observable<TreeNode[]>;

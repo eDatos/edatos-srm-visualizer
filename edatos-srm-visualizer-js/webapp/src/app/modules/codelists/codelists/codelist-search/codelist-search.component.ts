@@ -45,7 +45,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true },
-            { name: this.translateService.instant('resourceParameters.recommended'), value: 'recommended', enabled: true, sortable: false, showFilteredValues: false }
+            { name: this.translateService.instant('resourceParameters.recommended'), value: 'recommended', enabled: true, sortable: false, showFilteredValues: true }
         ];
 
         this.selectedDefault = this.fields.filter(opt => opt.enabled);
@@ -65,6 +65,8 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     public onSearchWithIsRecommended(event: any) {
         this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
         this.showRecommendedCodelists = this.apiService.isRecommended;
+        this.tableExpandable.showRecommendedFilter = !this.showRecommendedCodelists;
+        this.resetDropdown();
         this.apiService.setApiSearchUrl();
         this.getAdvancedSearch();
     }

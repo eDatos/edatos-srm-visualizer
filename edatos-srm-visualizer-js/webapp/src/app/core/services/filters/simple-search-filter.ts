@@ -33,7 +33,10 @@ export class SimpleSearchFilter {
         let version: string = '';
         if (values.id.value) {
             version = isLatestVersion ? '' : ` OR URN ILIKE '%${values.id.value}%' `;
-            criterias = criterias.concat(`ID ILIKE '%${values.id.value}%'` + version);
+            criterias = criterias.concat(`(ID ILIKE '%${values.id.value}%' ${version})`);
+        }
+        if (values.recommended.value !== null && values.recommended.value !== '') {
+            criterias = this.concatAndIsNotEmpty(criterias).concat(values.recommended.value ? `IS_RECOMMENDED EQ 'true'`: `IS_RECOMMENDED EQ 'false'` );
         }
         if (values.name.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name.value}%'`);
