@@ -1,5 +1,6 @@
 <table mat-table [dataSource]='dataSource' multiTemplateDataRows class='mat-elevation-z6'>
     <ng-container matColumnDef='{{column.name}}' *ngFor='let column of columnsToDisplay'>
+        <form [formGroup]="searchAdvancedForm" >
         <th mat-header-cell *matHeaderCellDef sticky>
             <div>
                 <button *ngIf="isSortableColumn(column.value)" class='element-actions'
@@ -9,13 +10,14 @@
                 {{column.name}}
             </div>
             <div *ngIf='isAdvancedSearch'>
-                <input *ngIf="!column.showFilteredValues" class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
-                <p-autoComplete *ngIf="column.showFilteredValues" class="p-autocomplete-custom" placeholder="{{ 'search' | translate | lowercase }}..." [dropdown]="true" 
+                <input *ngIf="!column.showFilteredValues" formControlName="{{column.value}}" class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
+                <p-autoComplete *ngIf="column.showFilteredValues" formControlName="{{column.value}}" class="p-autocomplete-custom" placeholder="{{ 'search' | translate | lowercase }}..." [dropdown]="true" 
                                 [suggestions]="filteredAgencies" (completeMethod)="filterAgency($event)" (onSelect)="selectAgency($event)" (onClear)="clearAgency($event.target)"
                                 dropdownIcon='fa-thin fa-chevron-down'>
                 </p-autoComplete>
             </div>
         </th>
+        </form>
         <td mat-cell *matCellDef='let data'> {{data[column.value].id ? data[column.value].id : data[column.value]}} </td>
         <td mat-cell class='empty-td' *matNoDataRow [attr.colspan]='columnsToDisplayWithExpand.length'>
             <div *ngIf='!dataLoaded'>
