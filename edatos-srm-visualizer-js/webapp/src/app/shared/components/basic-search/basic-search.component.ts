@@ -104,7 +104,7 @@ export abstract class BasicSearchComponent {
         this.markedSearchAdvanced = event.checked;
         this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
-        const emptySearchAdvancedForm = this.isEmptyForm(this.searchAdvancedForm.value);
+        const emptySearchAdvancedForm = this.isEmptyForm(this.tableExpandable.searchAdvancedForm.value);
         const emptyFilteredAgency = this.apiService.agencyId !== '' ? false : true;
 
         if (this.markedSearchAdvanced) {
@@ -120,7 +120,7 @@ export abstract class BasicSearchComponent {
     }
 
     private resetSearchAdvancedForm() {
-        this.resetForm(this.searchAdvancedForm);
+        this.tableExpandable.searchAdvancedForm.reset();
         this.resetSearch();
     }
 
@@ -140,13 +140,28 @@ export abstract class BasicSearchComponent {
         this.loadInitialData();
     }
 
+
+    private resetSearchAdvancedFormByColumn(column: string) {
+        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.value[column] !== '';
+        const emptyFilteredAgency = column === "maintainer";
+        if (emptyFilteredAgency && emptyFilterAdvancedForm) {
+            this.onFilterByAgency("");
+        } else if (emptyFilterAdvancedForm) {
+            this.tableExpandable.applyFilters(column, "");
+        }
+    }
+
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
+        if (!event.itemValue.enabled) {
+            this.resetSearchAdvancedFormByColumn(event.itemValue.value);
+        }
     }
 
     public onFilterByValue(event: any) {
         if (event.column === 'maintainer') {
+        this.tableExpandable.searchAdvancedForm.controls['maintainer'].setValue(event);
             this.apiService.agencyId = event.filterValue;
             this.apiService.setApiSearchUrl();
         } else {
@@ -166,7 +181,7 @@ export abstract class BasicSearchComponent {
 
     public onScrollDown($event: IInfiniteScrollEvent) {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        let query = this.buildQueryHelper.buildQueryResultOffset(this.markedSearchAdvanced ? this.searchAdvancedForm : this.searchSimpleForm, this.searchForm, this.apiService.isLatestVersion, this.markedSearchAdvanced);
+        let query = this.buildQueryHelper.buildQueryResultOffset(this.markedSearchAdvanced ? this.tableExpandable.searchAdvancedForm : this.searchSimpleForm, this.searchForm, this.apiService.isLatestVersion, this.markedSearchAdvanced);
         this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
             if (data[this.apiService.apiSearchDataPath]) {
                 this.dataSearch = data[this.apiService.apiSearchDataPath];
@@ -193,7 +208,7 @@ export abstract class BasicSearchComponent {
 
     public onAdvancedSearch(event: any): void {
         // @ts-ignore
-        this.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
+        this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (this.searchForm.valid) {
             this.getAdvancedSearch();
         }
@@ -201,7 +216,7 @@ export abstract class BasicSearchComponent {
 
     public getAdvancedSearch() {
         this.defaultParametersSearch();
-        this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.searchAdvancedForm).subscribe((data) => {
+        this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.tableExpandable.searchAdvancedForm).subscribe((data) => {
             this.searchConfig.resultSize = data['total'];
             if (this.searchConfig.resultSize > 0) {
                 this.dataSearch = data[this.apiService.apiSearchDataPath];
@@ -283,7 +298,7 @@ export abstract class BasicSearchComponent {
     }
 
     public isEmptyForm(formValues: any) {
-        return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => v !== '' && v !== null).length == 0; 
+        return Object.keys(formValues).filter(k => k!=='showAllVersions' && k!== 'selectedFields').map(key => formValues[key]).filter(v => !!v).length == 0; 
     }
 
     public onSortColumn(event: any): void {
