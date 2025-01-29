@@ -45,7 +45,8 @@ export class TableExpandableRows implements OnInit {
         urn: '',
         description: '',
         scheme: '',
-        maintainer: ''
+        maintainer: '',
+        recommended: ''
     });
 
     public isAdvancedSearch: boolean = false;
@@ -115,16 +116,9 @@ export class TableExpandableRows implements OnInit {
 
         for (let i = 0; i < this.options[column].length; i++) {
             let value = this.options[column][i];
-            if (column === 'maintainer') {
-                if (value.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                    filtered.push(value);
-                }
-            } else {
-                if (value.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                    filtered.push(value.name);
-                } 
+            if (value.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(value);
             }
-
         }
         this.filteredValues = filtered;
     }

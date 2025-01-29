@@ -27,7 +27,7 @@ export abstract class BasicSearchComponent {
     public showAllVersions = false;
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
-    public maintainers: string[] = [];
+    public maintainers: any[] = [];
     public recommendedValues: any[] = [];
     public filter = '';
     public markedSearchAdvanced = false;
@@ -52,15 +52,6 @@ export abstract class BasicSearchComponent {
     });
     public searchSimpleForm = this.initialForm;
     public searchForm: FormGroup = new FormGroup({});
-    public searchAdvancedForm = this.formBuilder.group({
-        id: '',
-        name: '',
-        urn: '',
-        description: '',
-        scheme: '',
-        maintainer: '',
-        recommended: ''
-    });
 
     public detailForm: any;
     public dataDetail: Resource | undefined;
@@ -141,11 +132,10 @@ export abstract class BasicSearchComponent {
     }
 
 
-    private resetSearchAdvancedFormByColumn(column: string) {
-        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.value[column] !== '';
-        const emptyFilteredAgency = column === "maintainer";
-        if (emptyFilteredAgency && emptyFilterAdvancedForm) {
-            this.onFilterByAgency("");
+    private resetSearchAdvancedFormByColumn(column: string, isFilteredValue: boolean) {
+        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.controls[column].value !== '';
+        if (isFilteredValue && emptyFilterAdvancedForm) {
+            this.onFilterByValue({column: column, filterValue: ""});
         } else if (emptyFilterAdvancedForm) {
             this.tableExpandable.applyFilters(column, "");
         }
@@ -154,19 +144,17 @@ export abstract class BasicSearchComponent {
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
+        this.resetAutocomplete();
         if (!event.itemValue.enabled) {
-            this.resetSearchAdvancedFormByColumn(event.itemValue.value);
+            this.resetSearchAdvancedFormByColumn(event.itemValue.value, event.itemValue.showFilteredValues);
         }
     }
 
     public onFilterByValue(event: any) {
+        this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (event.column === 'maintainer') {
-        this.tableExpandable.searchAdvancedForm.controls['maintainer'].setValue(event);
-            this.apiService.agencyId = event.filterValue;
+            this.apiService.agencyId = event.filterValue ? event.filterValue.name : event.filterValue;
             this.apiService.setApiSearchUrl();
-        } else {
-            // @ts-ignore
-            this.searchAdvancedForm.controls[event.column].setValue(this.recommendedValues.find(item => item.name === event.filterValue) ? this.recommendedValues.find(item => item.name ===event.filterValue).value : "");
         }
         this.getAdvancedSearch();
     }
@@ -263,7 +251,7 @@ export abstract class BasicSearchComponent {
             this.apiService.getAllMaintainers().subscribe((data) => {
                 if (data) {
                     data.agency?.forEach((maintainer: any) => {
-                        this.maintainers.push(maintainer.id);
+                        this.maintainers.push({name: maintainer.id});
                     });
                 }
             });
@@ -307,9 +295,12 @@ export abstract class BasicSearchComponent {
         this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
     }
     
-    public resetDropdown() {
+    public resetAutocomplete() {
         if (!this.tableExpandable.showRecommendedFilter) {
-            this.searchAdvancedForm.controls['recommended'].setValue("");
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue("");
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].disable();
+        } else {
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].enable();
         }
     }
 

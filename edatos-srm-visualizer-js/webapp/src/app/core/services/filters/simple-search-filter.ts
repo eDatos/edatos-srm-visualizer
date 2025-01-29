@@ -36,7 +36,7 @@ export class SimpleSearchFilter {
             criterias = criterias.concat(`(ID ILIKE '%${values.id.value}%' ${version})`);
         }
         if (values.recommended.value !== null && values.recommended.value !== '') {
-            criterias = this.concatAndIsNotEmpty(criterias).concat(values.recommended.value ? `IS_RECOMMENDED EQ 'true'`: `IS_RECOMMENDED EQ 'false'` );
+            criterias = this.concatAndIsNotEmpty(criterias).concat(values.recommended.value.value ? `IS_RECOMMENDED EQ 'true'`: `IS_RECOMMENDED EQ 'false'` );
         }
         if (values.name.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`NAME ILIKE '%${values.name.value}%'`);
