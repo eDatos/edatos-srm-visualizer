@@ -153,7 +153,7 @@ export abstract class BasicSearchComponent {
     public onFilterByValue(event: any) {
         this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (event.column === 'maintainer') {
-            this.apiService.agencyId = event.filterValue ? event.filterValue.name : event.filterValue;
+            this.apiService.agencyId = event.filterValue ? event.filterValue.value : event.filterValue;
             this.apiService.setApiSearchUrl();
         }
         this.getAdvancedSearch();
@@ -251,7 +251,7 @@ export abstract class BasicSearchComponent {
             this.apiService.getAllMaintainers().subscribe((data) => {
                 if (data) {
                     data.agency?.forEach((maintainer: any) => {
-                        this.maintainers.push({name: maintainer.id});
+                        this.maintainers.push({ name: maintainer.id, value: maintainer.id });
                     });
                 }
             });
@@ -261,8 +261,8 @@ export abstract class BasicSearchComponent {
 
     private getRecommendedValues () {
         this.recommendedValues = [
-            { name: this.translateService.instant('yes'), value: true },
-            { name: this.translateService.instant('no'), value: false },
+            { name: this.translateService.instant('yes'), boolean: true },
+            { name: this.translateService.instant('no'), boolean: false },
         ];
         this.tableExpandable.options['recommended'] = this.recommendedValues;
     }
