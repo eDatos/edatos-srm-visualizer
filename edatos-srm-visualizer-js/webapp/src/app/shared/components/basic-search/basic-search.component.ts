@@ -153,7 +153,7 @@ export abstract class BasicSearchComponent {
     public onFilterByValue(event: any) {
         this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (event.column === 'maintainer') {
-            this.apiService.agencyId = event.filterValue != null ? event.filterValue.code : "";
+            this.apiService.agencyId = event.filterValue !== null ? event.filterValue.code : "";
             this.apiService.setApiSearchUrl();
         }
         this.getAdvancedSearch();
