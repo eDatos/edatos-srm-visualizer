@@ -12,7 +12,7 @@
             <div *ngIf='isAdvancedSearch'>
                 <input *ngIf="!column.showFilteredValues" formControlName="{{column.value}}" class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
                 <p-autoComplete *ngIf="column.showFilteredValues" formControlName="{{column.value}}" class="p-autocomplete-custom" placeholder="{{ 'search' | translate | lowercase }}..." [dropdown]="true" 
-                                [suggestions]="filteredValues" (completeMethod)="filterValue(column.value, $event)" (onSelect)="selectValue(column.value, $event)" (onClear)="clearValue(column.value, $event.target)"
+                                [suggestions]="filteredValues" (completeMethod)="filterValue(column.value, $event)" (onSelect)="selectValue(column.value, $event)" (onClear)="clearValue(column.value)"
                                 dropdownIcon='fa-thin fa-chevron-down' field="name">
                 </p-autoComplete>
             </div>

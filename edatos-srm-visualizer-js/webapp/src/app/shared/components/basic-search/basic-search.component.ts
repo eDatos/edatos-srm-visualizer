@@ -133,11 +133,11 @@ export abstract class BasicSearchComponent {
 
 
     private resetSearchAdvancedFormByColumn(column: string, isFilteredValue: boolean) {
-        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.controls[column].value !== '';
+        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.controls[column].value !== null;
         if (isFilteredValue && emptyFilterAdvancedForm) {
-            this.onFilterByValue({column: column, filterValue: ""});
+            this.onFilterByValue({column: column, filterValue: null});
         } else if (emptyFilterAdvancedForm) {
-            this.tableExpandable.applyFilters(column, "");
+            this.tableExpandable.applyFilters(column, null);
         }
     }
 
@@ -153,7 +153,7 @@ export abstract class BasicSearchComponent {
     public onFilterByValue(event: any) {
         this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
         if (event.column === 'maintainer') {
-            this.apiService.agencyId = event.filterValue ? event.filterValue.value : event.filterValue;
+            this.apiService.agencyId = event.filterValue != null ? event.filterValue.code : "";
             this.apiService.setApiSearchUrl();
         }
         this.getAdvancedSearch();
@@ -251,7 +251,7 @@ export abstract class BasicSearchComponent {
             this.apiService.getAllMaintainers().subscribe((data) => {
                 if (data) {
                     data.agency?.forEach((maintainer: any) => {
-                        this.maintainers.push({ name: maintainer.id, value: maintainer.id });
+                        this.maintainers.push({ name: maintainer.id, code: maintainer.id });
                     });
                 }
             });
@@ -261,8 +261,8 @@ export abstract class BasicSearchComponent {
 
     private getRecommendedValues () {
         this.recommendedValues = [
-            { name: this.translateService.instant('yes'), boolean: true },
-            { name: this.translateService.instant('no'), boolean: false },
+            { name: this.translateService.instant('yes'), code: true },
+            { name: this.translateService.instant('no'), code: false },
         ];
         this.tableExpandable.options['recommended'] = this.recommendedValues;
     }
@@ -297,7 +297,7 @@ export abstract class BasicSearchComponent {
     
     public resetAutocomplete() {
         if (!this.tableExpandable.showRecommendedFilter) {
-            this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue("");
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue(null);
             this.tableExpandable.searchAdvancedForm.controls['recommended'].disable();
         } else {
             this.tableExpandable.searchAdvancedForm.controls['recommended'].enable();

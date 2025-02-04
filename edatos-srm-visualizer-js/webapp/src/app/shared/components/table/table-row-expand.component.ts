@@ -40,13 +40,13 @@ export class TableExpandableRows implements OnInit {
     public dataLoaded: boolean = false;
 
     public searchAdvancedForm: FormGroup = new FormBuilder().group({
-        id: '',
-        name: '',
-        urn: '',
-        description: '',
-        scheme: '',
-        maintainer: '',
-        recommended: ''
+        id: null,
+        name: null,
+        urn: null,
+        description: null,
+        scheme: null,
+        maintainer: null,
+        recommended: null
     });
 
     public isAdvancedSearch: boolean = false;
@@ -99,15 +99,15 @@ export class TableExpandableRows implements OnInit {
     }
 
     applyFilters(column: string, filterValue: any) {
-        this.onKeyupResource(filterValue.value, column);
+        this.onKeyupResource(filterValue?.value ? filterValue.value : null, column);
     }
 
     selectValue(column: string, value: any) {
         this.onSelectValue(value, column);
     }
 
-    clearValue(column: string, filterValue: any) {
-        this.onSelectValue(filterValue.value, column);
+    clearValue(column: string) {
+        this.onSelectValue(null, column);
     }
 
     filterValue(column: string, event: any) {
