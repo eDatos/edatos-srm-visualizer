@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { forkJoin, Observable } from 'rxjs';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { BuildQueryHelper } from 'src/app/core/services/helper/build-query-helper';
 import { ApiSrmUrlConstants } from 'src/app/shared/models/api-srm-url-constants';
 import { map } from 'rxjs/internal/operators/map';
+import { TranslateService } from '@ngx-translate/core';
 import {
     treeNode,
     TreeNode,
@@ -28,6 +29,8 @@ export abstract class ApiSrmService extends ApiService {
     public isLatestVersion: boolean = true;
     public isRecommended: boolean = false;
     public agencyId: string = '';
+    public translateService = Inject(TranslateService);
+    
     protected buildQueryHelper: BuildQueryHelper = new BuildQueryHelper();
 
     public getJSONFile(resource: Resource): Observable<any> {
@@ -70,12 +73,12 @@ export abstract class ApiSrmService extends ApiService {
             ));
     }
 
-    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean, form?: FormGroup): Observable<TreeNode[]> {
+    public findAllResourcesDetailsWithMaintainerFromSrm(resources: Resource[], isLatestVersion: boolean): Observable<TreeNode[]> {
         return forkJoin(
-            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion, form))
+            resources.map(resource => this.getDetailWithMaintainerFromSrm(resource, isLatestVersion))
         );
     }
-    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean ,form?: FormGroup): Observable<TreeNode> {
+    public getDetailWithMaintainerFromSrm(resource: Resource, isLatestVersion: boolean): Observable<TreeNode> {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
@@ -84,7 +87,7 @@ export abstract class ApiSrmService extends ApiService {
             }
         ).pipe(
             map(({data}) => {
-                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService);
+                    return treeNodeWithMaintainer(maintainer, data, isLatestVersion, this.localeService, this.translateService);
                 }
             ));
     }

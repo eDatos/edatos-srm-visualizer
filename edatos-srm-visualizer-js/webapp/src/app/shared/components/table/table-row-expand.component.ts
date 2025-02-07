@@ -23,9 +23,13 @@ import { ErrorService } from '../../../core/services/error/error.service';
 })
 export class TableExpandableRows implements OnInit {
     public columnsToDisplay: Column[] = [];
-    public filteredAgencies: string[] = [];
-    public options: string[] = [];
+    public filteredValues: any[] = [];
+    public options: any = {
+        'maintainer': [],
+        'recommended': []
+    };
     public routerLink: string | undefined;
+    public representationRouterLink: string | undefined;
     public columnToSort: SortConfig = {
         columnName: "",
         sortOrder: ""
@@ -36,17 +40,17 @@ export class TableExpandableRows implements OnInit {
     public dataLoaded: boolean = false;
 
     public searchAdvancedForm: FormGroup = new FormBuilder().group({
-        id: '',
-        name: '',
-        urn: '',
-        description: '',
-        scheme: '',
-        maintainer: ''
+        id: null,
+        name: null,
+        urn: null,
+        description: null,
+        scheme: null,
+        maintainer: null,
+        recommended: null
     });
 
     public isAdvancedSearch: boolean = false;
-
-    public navigate: boolean = false;
+    public showRecommendedFilter: boolean = true;
 
     public columnsToDisplayWithExpand = [...this.columnsToDisplay.map((field: any) => {
         return field.name;
@@ -72,7 +76,8 @@ export class TableExpandableRows implements OnInit {
             typeDimension: node.typeDimension,
             assigmentStatus: node.assigmentStatus,
             attributeRelationship: node.attributeRelationship,
-            localRepresentation: node.localRepresentation
+            localRepresentation: node.localRepresentation,
+            recommended: node.recommended
         };
     };
 
@@ -94,29 +99,28 @@ export class TableExpandableRows implements OnInit {
     }
 
     applyFilters(column: string, filterValue: any) {
-        this.onKeyupResource(filterValue.value, column);
+        this.onKeyupResource(filterValue?.value ? filterValue.value : null, column);
     }
 
-    selectAgency(value: any) {
-        this.onSelectAgency(value);
+    selectValue(column: string, value: any) {
+        this.onSelectValue(value, column);
     }
 
-    clearAgency(filterValue: any) {
-        this.onSelectAgency(filterValue.value);
+    clearValue(column: string) {
+        this.onSelectValue(null, column);
     }
 
-    filterAgency(event: any) {
+    filterValue(column: string, event: any) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.options.length; i++) {
-            let agency = this.options[i];
-            if (agency.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(agency);
+        for (let i = 0; i < this.options[column].length; i++) {
+            let value = this.options[column][i];
+            if (value.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(value);
             }
         }
-
-        this.filteredAgencies = filtered;
+        this.filteredValues = filtered;
     }
 
     @Input()
@@ -130,6 +134,12 @@ export class TableExpandableRows implements OnInit {
     set routerLinkDetail(data: string) {
         if (data) {
             this.routerLink = data;
+        }
+    }
+
+    @Input() set routerLinkLocalRepresentation(data: string) {
+        if (data) {
+            this.representationRouterLink = data;
         }
     }
 
@@ -156,7 +166,7 @@ export class TableExpandableRows implements OnInit {
 
     @Output() sortColumnEvent =  new EventEmitter<{ sortOrder: string, column: string }>();
     
-    @Output() selectEvent =  new EventEmitter<string>();
+    @Output() selectEvent =  new EventEmitter<{ filterValue: any, column: string }>();
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
 
@@ -199,6 +209,9 @@ export class TableExpandableRows implements OnInit {
         } else {
             this.expandRow(data);
             this.onClickResource(data.urn);
+            if (data.localRepresentation?.id) {
+                this.onClickResource(data.localRepresentation);
+            }
         }
     }
 
@@ -223,8 +236,7 @@ export class TableExpandableRows implements OnInit {
         }
     }
 
-    public onClickResource(resource: string, navigate?: boolean) {
-        this.navigate = navigate ? navigate : false;
+    public onClickResource(resource: string) {
         this.clickEvent.emit(resource);
     }
 
@@ -236,9 +248,10 @@ export class TableExpandableRows implements OnInit {
         this.sortColumnEvent.emit({ sortOrder: order, column: column });
     }
 
-    public onSelectAgency(agencyId: string) {
-        this.selectEvent.emit(agencyId);
+    public onSelectValue(value: any, column: string) {
+        this.selectEvent.emit({ filterValue: value, column: column });
     }
+
 }
 
 

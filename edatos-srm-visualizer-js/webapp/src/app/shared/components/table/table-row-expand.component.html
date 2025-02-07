@@ -12,8 +12,8 @@
             <div *ngIf='isAdvancedSearch'>
                 <input *ngIf="!column.showFilteredValues" formControlName="{{column.value}}" class="form-control" placeholder="{{ 'search' | translate | lowercase }}..." (keyup.enter)="applyFilters(column.value, $event.target)"/>
                 <p-autoComplete *ngIf="column.showFilteredValues" formControlName="{{column.value}}" class="p-autocomplete-custom" placeholder="{{ 'search' | translate | lowercase }}..." [dropdown]="true" 
-                                [suggestions]="filteredAgencies" (completeMethod)="filterAgency($event)" (onSelect)="selectAgency($event)" (onClear)="clearAgency($event.target)"
-                                dropdownIcon='fa-thin fa-chevron-down'>
+                                [suggestions]="filteredValues" (completeMethod)="filterValue(column.value, $event)" (onSelect)="selectValue(column.value, $event)" (onClear)="clearValue(column.value)"
+                                dropdownIcon='fa-thin fa-chevron-down' field="name">
                 </p-autoComplete>
             </div>
         </th>
@@ -65,10 +65,10 @@
                         <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
                     </div>
                     <div class='element-detail-button end'>
-                        <button type='button' class='text-icon-button' [routerLink]='[routerLink]' (click)='onClickResource(data.urn, true)'>
+                        <a class="text-icon-button" [routerLink]="[routerLink]">
                             <i class='fa-thin fa-eye'></i>&nbsp;
                             <span>{{ 'seeResource' | translate | uppercase }}</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class='element-description flex-column' *ngIf="data.localRepresentation?.id">
@@ -85,10 +85,10 @@
                         <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
                     </div>
                     <div class='element-detail-button end'>
-                        <button type='button' class='text-icon-button' (click)='onClickResource(data.localRepresentation)'>
+                        <a class="text-icon-button" [routerLink]="[representationRouterLink]">
                             <i class='fa-thin fa-eye'></i>&nbsp;
                             <span>{{ 'seeResource' | translate | uppercase }}</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
     <tr mat-row *matRowDef='let data; columns: columnsToDisplayWithExpand;'
         class='element-row'
         [class.expanded-row]='isRowExpanded(data)'
-        (click)='toggleRow(data)'>
+        (click)='toggleRow(data);'>
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class='detail-row'></tr>
     <tr mat-row *matNoDataRow></tr>

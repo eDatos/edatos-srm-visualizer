@@ -1,7 +1,7 @@
 @import 'src/assets/scss/variables.scss';
 
 .mat-tree-node {
-  padding: $padding-10px;
+  padding: $spacing-s;
   min-height: 40px;
   border-bottom: 1px solid $color-negro-5;
   .text-icon-button {
@@ -12,7 +12,7 @@
     font-size: $size-12;
     line-height: 16px;
     color: $color-negro-100;
-    padding: 0px 10px;
+    padding: 0 $spacing-s;
     flex:2;
     .node-detail-info-id {
       font-weight: $font-weight-600;
@@ -36,13 +36,13 @@
   font-size: $size-16;
   background: transparent;
   border: none;
-  padding: 0px 10px;
+  padding: 0 $spacing-s;
 }
 
 .sipnner-td-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: $spacing-s;
   justify-content: center;
   align-items: center;
   height: 100%;

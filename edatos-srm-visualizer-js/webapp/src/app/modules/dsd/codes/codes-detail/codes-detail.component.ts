@@ -34,6 +34,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public dimensionColumns: any[];
     public attributeColumns: any[];
     public routerLinkDetail: string = '';
+    public routerLinkLocalRepresentation: string = '';
 
     public dimensions: TreeNode[] = [];
     public attributes: TreeNode[] = [];
@@ -192,20 +193,18 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
             if (structuralResourceKind) {
                 switch (structuralResourceKind) {
                     case "codelist":
-                        this.router.navigate(['codelists/codelists', resource.agency, resource.resourceId, resource.version, 'detail']);
+                        this.routerLinkLocalRepresentation = `/codelists/codelists/${resource.agency}/${resource.resourceId}/${resource.version}/detail`;
                         break;
                     case "conceptScheme":
-                        this.router.navigate(['concepts/schemes', resource.agency, resource.resourceId, resource.version, 'detail']);
+                        this.routerLinkLocalRepresentation = `/concepts/schemes/${resource.agency}/${resource.resourceId}/${resource.version}/detail`;
                         break;
                 }
             }
         } else {
             const rootPath = '/concepts/concepts';
             const concept = new CodelistResource(object);
-            if (concept && !this.tableExpandable.navigate) {
+            if (concept) {
                 this.routerLinkDetail = `${rootPath}/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
-            } else if (concept) {
-                this.router.navigate([rootPath, concept.agency, concept.resourceId, concept.id, concept.version, 'detail']);
             }
         }
     }

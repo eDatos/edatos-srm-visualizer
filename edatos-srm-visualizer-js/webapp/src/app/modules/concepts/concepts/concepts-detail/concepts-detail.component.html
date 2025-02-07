@@ -84,7 +84,7 @@
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
              [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
-                                   (clickEvent)='onLoadCodelistDetail($event)'>
+                                   (clickEvent)='onLoadCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>
@@ -92,7 +92,7 @@
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
              [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
-                                   (clickEvent)='onLoadConceptsDetail($event)'>
+                                   (clickEvent)='onLoadConceptsDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>

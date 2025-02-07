@@ -27,7 +27,8 @@ export abstract class BasicSearchComponent {
     public showAllVersions = false;
     public selectedDefault: Column[] = [];
     public selectedFields: Column[] = [];
-    public maintainers: string[] = [];
+    public maintainers: any[] = [];
+    public recommendedValues: any[] = [];
     public filter = '';
     public markedSearchAdvanced = false;
     public markedViewAllVersions = false;
@@ -99,6 +100,7 @@ export abstract class BasicSearchComponent {
 
         if (this.markedSearchAdvanced) {
             this.getMaintainers();
+            this.getRecommendedValues();
         }
 
         if (!emptySearchSimpleForm) {
@@ -130,28 +132,30 @@ export abstract class BasicSearchComponent {
     }
 
 
-    private resetSearchAdvancedFormByColumn(column: string) {
-        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.value[column] !== '';
-        const emptyFilteredAgency = column === "maintainer";
-        if (emptyFilteredAgency && emptyFilterAdvancedForm) {
-            this.onFilterByAgency("");
+    private resetSearchAdvancedFormByColumn(column: string, isFilteredValue: boolean) {
+        const emptyFilterAdvancedForm = this.tableExpandable.searchAdvancedForm.controls[column].value !== null;
+        if (isFilteredValue && emptyFilterAdvancedForm) {
+            this.onFilterByValue({column: column, filterValue: null});
         } else if (emptyFilterAdvancedForm) {
-            this.tableExpandable.applyFilters(column, "");
+            this.tableExpandable.applyFilters(column, null);
         }
     }
 
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
+        this.resetAutocomplete();
         if (!event.itemValue.enabled) {
-            this.resetSearchAdvancedFormByColumn(event.itemValue.value);
+            this.resetSearchAdvancedFormByColumn(event.itemValue.value, event.itemValue.showFilteredValues);
         }
     }
 
-    public onFilterByAgency(event: any) {
-        this.tableExpandable.searchAdvancedForm.controls['maintainer'].setValue(event);
-        this.apiService.agencyId = event;
-        this.apiService.setApiSearchUrl();
+    public onFilterByValue(event: any) {
+        this.tableExpandable.searchAdvancedForm.controls[event.column].setValue(event.filterValue);
+        if (event.column === 'maintainer') {
+            this.apiService.agencyId = event.filterValue !== null ? event.filterValue.code : "";
+            this.apiService.setApiSearchUrl();
+        }
         this.getAdvancedSearch();
     }
 
@@ -247,12 +251,20 @@ export abstract class BasicSearchComponent {
             this.apiService.getAllMaintainers().subscribe((data) => {
                 if (data) {
                     data.agency?.forEach((maintainer: any) => {
-                        this.maintainers.push(maintainer.id);
+                        this.maintainers.push({ name: maintainer.id, code: maintainer.id });
                     });
                 }
             });
-            this.tableExpandable.options = this.maintainers;
+            this.tableExpandable.options['maintainer'] = this.maintainers;
         }
+    }
+
+    private getRecommendedValues () {
+        this.recommendedValues = [
+            { name: this.translateService.instant('yes'), code: true },
+            { name: this.translateService.instant('no'), code: false },
+        ];
+        this.tableExpandable.options['recommended'] = this.recommendedValues;
     }
 
     private resetSortColumn() {
@@ -281,6 +293,15 @@ export abstract class BasicSearchComponent {
         this.searchConfig.orderColumn = event.column;
         this.searchConfig.sortOrder = event.sortOrder;
         this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
+    }
+    
+    public resetAutocomplete() {
+        if (!this.tableExpandable.showRecommendedFilter) {
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue(null);
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].disable();
+        } else {
+            this.tableExpandable.searchAdvancedForm.controls['recommended'].enable();
+        }
     }
 
     protected abstract getDataChildren(resources: Resource[]): Observable<TreeNode[]>;

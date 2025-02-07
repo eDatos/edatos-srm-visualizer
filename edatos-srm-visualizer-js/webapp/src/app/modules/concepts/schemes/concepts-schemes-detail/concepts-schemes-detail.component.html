@@ -102,7 +102,7 @@
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
              [fromRoot]='true' (scrolled)='onScrollDown($event)'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='conceptsOfScheme'
-                                   (clickEvent)='onLoadConceptsDetail($event)'>
+                                   (clickEvent)='onLoadConceptsDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>

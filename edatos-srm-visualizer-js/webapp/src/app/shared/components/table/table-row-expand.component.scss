@@ -2,7 +2,7 @@
 .element-header { //Cabecera de la tabla de resultados
   height: 30px;
   th {
-    padding: 5px $padding-10px;
+    padding: $spacing-xs $spacing-s;
     line-height: 19px;
     font-weight: $font-weight-600;
     background: $color-negro-5;
@@ -18,10 +18,10 @@
   }
   &.filter {
     th {
-      padding: $padding-10px;
+      padding: $spacing-s;
     }
     div {
-      padding-top: $padding-10px;
+      padding-top: $spacing-s;
     }
   }
 }
@@ -32,10 +32,10 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc($container-2columns-max-width/2 - $padding-10px - $scroll-width-default);
+    max-width: calc($container-2columns-max-width/2 - $spacing-s - $scroll-width-default);
   }
   td {
-    padding: $padding-10px;
+    padding: $spacing-s;
     line-height: 16px;
     font-size: $size-12;
     border-bottom: 1px solid $color-negro-5;
@@ -54,10 +54,10 @@
     > td:last-child {
       border-radius: 0px 5px 0px 0px;
       text-align: end;
-      padding-right: calc(2*$padding-10px);
+      padding-right: calc(2*$spacing-s);
     }
     td {
-      padding: 0px $padding-10px;
+      padding: 0 $spacing-s;
       background: $color-azul-oscuro-100;
       color: $color-negro-0;
       border-bottom: none;
@@ -108,7 +108,7 @@ th > div {
 }
 
 .element-description {
-  padding: $padding-10px;
+  padding: $spacing-s;
   width: $container-2columns-max-width;
   font-size: $size-12;
   line-height: 16px;
@@ -130,7 +130,7 @@ th > div {
 
 
 .element-link {
-  padding: $padding-10px;
+  padding: $spacing-s;
   font-size: $size-12;
   line-height: 16px;
 }
@@ -138,8 +138,8 @@ th > div {
 .element-link-attribution {
   display: flex;
   flex-direction: row;
-  padding: $padding-10px;
-  gap: 5px;
+  padding: $spacing-s;
+  gap: $spacing-xs;
   height: 40px;
   background: $color-azul-10;
   border-radius: 5px;
@@ -172,7 +172,7 @@ th > div {
   display: flex;
 
   &.end  {
-    padding-top: 15px;
+    padding-top: $spacing-m;
     justify-content: flex-end;
   }
 }
@@ -180,7 +180,7 @@ th > div {
 .empty-td {
   width: $container-max-widths;
   padding: 32px 10px;
-  padding: 32px calc($container-max-widths/2 - ($empty-td-container-width)/2 - 2*$padding-10px);
+  padding: 32px calc($container-max-widths/2 - ($empty-td-container-width)/2 - 2*$spacing-s);
 }
 
 
@@ -188,7 +188,7 @@ th > div {
   display: flex;
   flex-direction: column;
   margin-left: 35%;
-  gap: 10px;
+  gap: $spacing-s;
   justify-content: center;
   align-items: center;
   height: 100%;

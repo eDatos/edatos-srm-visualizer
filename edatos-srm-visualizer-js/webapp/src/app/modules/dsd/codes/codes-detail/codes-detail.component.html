@@ -103,7 +103,7 @@
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='measureColumns' [data]='measures'
-                                   (clickEvent)='onLoadConceptDetail($event)'>
+                                   (clickEvent)='onLoadConceptDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>
@@ -111,7 +111,7 @@
     <div *ngIf='activeLink == navLinks[1]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='dimensionColumns' [data]='dimensions'
-                                   (clickEvent)='onLoadConceptDetail($event)'>
+                                   (clickEvent)='onLoadConceptDetail($event)' [routerLinkDetail]="routerLinkDetail" [routerLinkLocalRepresentation]="routerLinkLocalRepresentation">
             </table-expandable-rows>
         </div>
     </div>
@@ -119,7 +119,7 @@
     <div *ngIf='activeLink == navLinks[2]'>
         <div class='search-results-table-detail'>
             <table-expandable-rows #tableExpandable [columns]='attributeColumns' [data]='attributes'
-                                   (clickEvent)='onLoadConceptDetail($event)'>
+                                   (clickEvent)='onLoadConceptDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
     </div>
