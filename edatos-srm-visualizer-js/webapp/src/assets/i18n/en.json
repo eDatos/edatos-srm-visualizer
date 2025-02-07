@@ -39,6 +39,7 @@
     "advancedSearch": "Advanced search",
     "showAllVersions": "Show all versions",
     "isRecommended": "Show only recommended codelist",
+    "recommended": "Recommended",
     "displayedFields": "Fields to display",
     "selfLink": "Access via API",
     "concept": "Concept",

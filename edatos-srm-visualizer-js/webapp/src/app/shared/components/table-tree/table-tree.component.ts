@@ -15,6 +15,7 @@ export class TableTreeComponent implements OnInit{
 
     public dataLoaded: boolean = false;
     public apiError: boolean = false;
+    public routerLink: string | undefined;
 
     @Input()
     displayedColumns: string[] = ['name', 'id'];
@@ -26,7 +27,14 @@ export class TableTreeComponent implements OnInit{
         }
     }
 
-    @Output() clickEvent = new EventEmitter<string>();
+    @Input()
+    set routerLinkDetail(data: string) {
+        if (data) {
+            this.routerLink = data;
+        }
+    }
+
+    @Output() mouseoverEvent = new EventEmitter<string>();
 
     treeControl = new FlatTreeControl<FlatTreeNode>(
         node => node.level, node => node.expandable);
@@ -47,7 +55,8 @@ export class TableTreeComponent implements OnInit{
             typeDimension: node.typeDimension,
             assigmentStatus: node.assigmentStatus,
             attributeRelationship: node.attributeRelationship,
-            localRepresentation: node.localRepresentation
+            localRepresentation: node.localRepresentation,
+            recommended: node.recommended
         };
     };
 
@@ -67,7 +76,7 @@ export class TableTreeComponent implements OnInit{
     }
 
     loadResource(resource: FlatTreeNode) {
-        this.clickEvent.emit(resource.urn);
+        this.mouseoverEvent.emit(resource.urn);
     }
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;

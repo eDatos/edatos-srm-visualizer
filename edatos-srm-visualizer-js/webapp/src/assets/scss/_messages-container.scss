@@ -1,12 +1,12 @@
 /*messages*/
 .empty-td-container, .error-td-container {
-  gap: 10px;
+  gap: $spacing-s;
   display: flex;
   flex-direction: column;
   text-align: center;
   border-radius: 3px;
   width: $empty-td-container-width;
-  padding: 20px 30px;
+  padding: $spacing-l $spacing-xl;
   span {
     &.text-no-result {
       font-weight: 600;

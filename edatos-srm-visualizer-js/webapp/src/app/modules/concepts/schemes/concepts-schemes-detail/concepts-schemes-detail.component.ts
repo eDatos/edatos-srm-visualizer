@@ -123,10 +123,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
     public onLoadConceptsDetail(urn: string): void {
         const concept = new ConceptResource(urn);
-        if (concept && !this.tableExpandable.navigate) {
+        if (concept) {
             this.routerLinkDetail = `/concepts/concepts/${concept.agency}/${concept.resourceId}/${concept.id}/${concept.version}/detail`;
-        } else if (concept) {
-            this.router.navigate(['concepts', concept.agency, concept.resourceId, concept.id, concept.version, 'detail'], { relativeTo: this.route.parent });
         }
     }
 

@@ -44,7 +44,8 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true }
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true },
+            { name: this.translateService.instant('resourceParameters.recommended'), value: 'recommended', enabled: true, sortable: false, showFilteredValues: true }
         ];
 
         this.selectedDefault = this.fields.filter(opt => opt.enabled);
@@ -64,6 +65,8 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     public onSearchWithIsRecommended(event: any) {
         this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
         this.showRecommendedCodelists = this.apiService.isRecommended;
+        this.tableExpandable.showRecommendedFilter = !this.showRecommendedCodelists;
+        this.resetAutocomplete();
         this.apiService.setApiSearchUrl();
         this.getAdvancedSearch();
     }
@@ -79,6 +82,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     protected getDataChildren(resources: Resource[]): Observable<TreeNode[]> {
+        this.apiService.translateService = this.translateService;
         return this.apiService.findAllResourcesDetailsWithMaintainerFromSrm(resources, this.apiService.isLatestVersion);
     }
 }

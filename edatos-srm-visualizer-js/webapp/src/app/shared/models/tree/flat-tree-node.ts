@@ -14,4 +14,5 @@ export interface FlatTreeNode {
     assigmentStatus: string | undefined;
     attributeRelationship: string | undefined;
     localRepresentation: string | undefined;
+    recommended: string | undefined;
 }
