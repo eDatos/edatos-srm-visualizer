@@ -1,9 +1,9 @@
 ###
-# Dockerfile usado para consutruir la imagen del search indexer
+# Dockerfile usado para consutruir la imagen del srm-visualizer
 #
 # Antes de construir la imagen debemos haber compilado previamente el proyecto (desde el directorio raíz):
 #
-# mvn clean package
+# mvn clean package -Penv
 #
 # A continuación podremos construir la imagen ejecutando siempre desde el directorio raíz del proyecto:
 #
