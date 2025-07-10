@@ -31,4 +31,9 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
         return retrieveInternationalizationCookieId();
     }
 
+    @Override
+    public String getSrmVisualizerApiKey() {
+        return retrieveSrmVisualizerApiKey();
+    }
+
 }

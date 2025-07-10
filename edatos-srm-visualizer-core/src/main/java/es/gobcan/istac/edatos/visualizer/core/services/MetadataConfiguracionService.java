@@ -13,4 +13,6 @@ public interface MetadataConfiguracionService extends ConfigurationService {
     public String getSdmxApi();
 
     public String getLanguageCookie();
+
+    public String getSrmVisualizerApiKey();
 }

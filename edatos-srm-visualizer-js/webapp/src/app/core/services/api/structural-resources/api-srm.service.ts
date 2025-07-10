@@ -35,19 +35,19 @@ export abstract class ApiSrmService extends ApiService {
 
     public getJSONFile(resource: Resource): Observable<any> {
         return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.json').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`),
-            { responseType: 'blob' });
+            { headers: ApiService.headers, responseType: 'blob' });
     }
 
     public getCSVFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { responseType: 'blob' });
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.csv').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { headers: ApiService.headers, responseType: 'blob' });
     }
 
     public getXLSXFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { responseType: 'blob' });
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiDetailForFileUrl(resource)).concat('.xlsx').concat(`?${ApiSrmUrlConstants.FIELDS_DESCRIPTION}`), { headers: ApiService.headers, responseType: 'blob' });
     }
 
     public getAllMaintainers(): Observable<any> {
-        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl().concat(`?orderBy=id ASC`)));
+        return this.httpClient.get(ApiService.apiStructuralResource.concat(this.getApiMaintainersUrl().concat(`?orderBy=id ASC`)), { headers: ApiService.headers });
     }
 
     /* Detail */
@@ -64,7 +64,7 @@ export abstract class ApiSrmService extends ApiService {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(resource));
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url)
+                data: this.httpClient.get<any>(url, { headers: ApiService.headers })
             }
         ).pipe(
             map(({data}) => {
@@ -83,7 +83,7 @@ export abstract class ApiSrmService extends ApiService {
         const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url),
+                data: this.httpClient.get<any>(url, { headers: ApiService.headers }),
             }
         ).pipe(
             map(({data}) => {
@@ -104,8 +104,8 @@ export abstract class ApiSrmService extends ApiService {
         const maintainer = new Resource(resource.urn).agency;
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url),
-                scheme: this.httpClient.get<any>(urlScheme)
+                data: this.httpClient.get<any>(url, { headers: ApiService.headers }),
+                scheme: this.httpClient.get<any>(urlScheme, { headers: ApiService.headers })
             }
         ).pipe(
             map(({data, scheme}) => {
@@ -154,7 +154,7 @@ export abstract class ApiSrmService extends ApiService {
             url = this.buildQueryHelper.buildQueryUrl(url, query, this.isLatestVersion);
         }
         url = url.replace('{query}','');
-        return this.httpClient.get<any>(url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)));
+        return this.httpClient.get<any>(url.concat(this.buildQueryHelper.getResultLimit(url, searchConfig)), { headers: ApiService.headers });
     }
 
     protected getDataFromSrm(api: string, searchConfig?: SearchConfig, query?: string): Observable<any> {
@@ -168,7 +168,7 @@ export abstract class ApiSrmService extends ApiService {
         if (query) {
             url = this.buildQueryHelper.buildQueryUrl(url, query, this.isLatestVersion);
         }
-        return this.httpClient.get<any>(url);
+        return this.httpClient.get<any>(url, { headers: ApiService.headers });
     }
 
     abstract setApiSearchUrl(): void;

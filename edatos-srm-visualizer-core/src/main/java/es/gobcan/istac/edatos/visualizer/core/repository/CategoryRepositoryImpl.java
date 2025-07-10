@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.CategorySchemes;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 
@@ -27,16 +26,14 @@ public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements 
 
     @Override
     public Optional<Categories> findCategories(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        Categories categories = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Categories.class).getBody();
+        Categories categories = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Categories.class);
 
         return Optional.ofNullable(categories);
     }
 
     @Override
     public Optional<CategorySchemes> findAllVersions(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        CategorySchemes schemes = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class).getBody();
+        CategorySchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class);
         return Optional.ofNullable(schemes);
     }
 }

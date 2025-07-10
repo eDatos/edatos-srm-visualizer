@@ -2,11 +2,9 @@ package es.gobcan.istac.edatos.visualizer.core.repository;
 
 import java.util.Optional;
 
-
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.OrganisationSchemes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Organisations;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 
@@ -28,16 +26,14 @@ public class OrganisationRepositoryImpl extends AbstractSrmApiRepository impleme
 
     @Override
     public Optional<Organisations> findOrganisations(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        Organisations organisations = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Organisations.class).getBody();
+        Organisations organisations = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Organisations.class);
 
         return Optional.ofNullable(organisations);
     }
 
     @Override
     public Optional<OrganisationSchemes> findAllVersions(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        OrganisationSchemes schemes = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), OrganisationSchemes.class).getBody();
+        OrganisationSchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), OrganisationSchemes.class);
         return Optional.ofNullable(schemes);
     }
 }

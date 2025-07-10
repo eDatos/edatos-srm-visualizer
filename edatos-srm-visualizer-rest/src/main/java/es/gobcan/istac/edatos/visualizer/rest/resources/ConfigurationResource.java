@@ -48,4 +48,9 @@ public class ConfigurationResource {
         return metadataConfigurationService.getLanguageCookie();
     }
 
+    @GetMapping("/api-key")
+    public String getApiKey() {
+        return metadataConfigurationService.retrieveSrmVisualizerApiKey();
+    }
+
 }

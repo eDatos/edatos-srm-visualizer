@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 
-@Repository public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements CodelistRepository {
+@Repository
+public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements CodelistRepository {
 
     public static final String CODES_BY_AGENCY_SCHEME_VERSION_URL     = VERSION + "codelists/#AGENCY#/#SCHEME#/#VERSION#/codes";
     public static final String CODELISTS_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "codelists/#AGENCY#/#SCHEME#";
@@ -26,16 +26,14 @@ import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionServ
 
     @Override
     public Optional<Codes> findCodelist(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        Codes codes = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Codes.class).getBody();
+        Codes codes = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Codes.class);
 
         return Optional.ofNullable(codes);
     }
 
     @Override
     public Optional<Codelists> findAllVersions(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        Codelists codelists = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), Codelists.class).getBody();
+        Codelists codelists = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), Codelists.class);
         return Optional.ofNullable(codelists);
     }
 }

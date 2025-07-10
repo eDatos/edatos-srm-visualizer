@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptSchemes;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
 
@@ -22,8 +21,7 @@ public class ConceptRepositoryImpl extends AbstractSrmApiRepository implements C
 
     @Override
     public Optional<ConceptSchemes> findAllVersions(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        ConceptSchemes schemes = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), ConceptSchemes.class).getBody();
+        ConceptSchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), ConceptSchemes.class);
         return Optional.ofNullable(schemes);
     }
 }
