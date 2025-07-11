@@ -1,6 +1,5 @@
 -- ---------------------------------------------------------------------------------------------------
 -- EDATOS-5093. Incluir api-key en llamadas a apis de edatos desde el srm-visualizer
--- "metamac.portal.rest.internal.api_key" y "metamac.portal.widget.api_key"
 -- ---------------------------------------------------------------------------------------------------
 
 
