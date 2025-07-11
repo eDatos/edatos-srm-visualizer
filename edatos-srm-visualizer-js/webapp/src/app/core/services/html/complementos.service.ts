@@ -18,7 +18,7 @@ export class ComplementosService {
     getHeader(): Observable<string> {
         return this.configService.getUrlHeader().pipe(
             mergeMap(url => {
-                return this.http.get(url.concat(this.headerParamUrlFromLang()), { headers: this.headers, responseType: 'text' }).pipe(map(value => {
+                return this.http.get(url.concat(this.headerParamUrlFromLang().concat('&apiKey=' + this.headers.get('api-key'))), {responseType: 'text' }).pipe(map(value => {
                     return value.toString();
                 }));
             })

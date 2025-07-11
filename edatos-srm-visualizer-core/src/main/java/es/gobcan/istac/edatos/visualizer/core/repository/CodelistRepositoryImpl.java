@@ -26,14 +26,14 @@ public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements 
 
     @Override
     public Optional<Codes> findCodelist(String urn) {
-        Codes codes = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Codes.class);
+        Codes codes = getForEntity(getUrlApi(urn, urlApiChildrenDetails), Codes.class);
 
         return Optional.ofNullable(codes);
     }
 
     @Override
     public Optional<Codelists> findAllVersions(String urn) {
-        Codelists codelists = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), Codelists.class);
+        Codelists codelists = getForEntity(getUrlApi(urn, urlApiAllVersionsResource), Codelists.class);
         return Optional.ofNullable(codelists);
     }
 }

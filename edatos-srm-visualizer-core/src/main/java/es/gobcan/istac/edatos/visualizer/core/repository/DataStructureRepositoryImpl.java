@@ -19,7 +19,7 @@ public class DataStructureRepositoryImpl extends AbstractSrmApiRepository implem
 
     @Override
     public Optional<DataStructures> findAllVersions(String urn) {
-        DataStructures schemes = getForEntity(apiKey, getUrlApi(urn, urlApiChildrensFromParent), DataStructures.class);
+        DataStructures schemes = getForEntity(getUrlApi(urn, urlApiChildrensFromParent), DataStructures.class);
         return Optional.ofNullable(schemes);
     }
 }

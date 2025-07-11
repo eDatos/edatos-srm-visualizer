@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang.StringUtils;
 import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.siemac.edatos.core.common.constants.CoreCommonConstants;
-import org.siemac.edatos.core.common.exception.EDatosException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,8 @@ public abstract class AbstractSrmApiRepository {
     public void init() {
         try {
             this.apiKey = configurationService.retrieveSrmVisualizerApiKey();
-        } catch (EDatosException e) {
-            logger.warn("No se ha encontrado la propiedad api key de srm-visualizer para la instalación actual (\"edatos.srm_visualizer.rest.api_key\").");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,7 +56,7 @@ public abstract class AbstractSrmApiRepository {
         return urlApi.replace("#AGENCY#", agency).replace("#SCHEME#", scheme);
     }
 
-    protected <T> T getForEntity(String apiKey, String url, Class<T> responseType) {
+    protected <T> T getForEntity(String url, Class<T> responseType) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         if (StringUtils.isNotBlank(apiKey)) {

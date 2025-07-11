@@ -26,14 +26,14 @@ public class OrganisationRepositoryImpl extends AbstractSrmApiRepository impleme
 
     @Override
     public Optional<Organisations> findOrganisations(String urn) {
-        Organisations organisations = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Organisations.class);
+        Organisations organisations = getForEntity(getUrlApi(urn, urlApiChildrenDetails), Organisations.class);
 
         return Optional.ofNullable(organisations);
     }
 
     @Override
     public Optional<OrganisationSchemes> findAllVersions(String urn) {
-        OrganisationSchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), OrganisationSchemes.class);
+        OrganisationSchemes schemes = getForEntity(getUrlApi(urn, urlApiAllVersionsResource), OrganisationSchemes.class);
         return Optional.ofNullable(schemes);
     }
 }

@@ -21,7 +21,7 @@ public class ConceptRepositoryImpl extends AbstractSrmApiRepository implements C
 
     @Override
     public Optional<ConceptSchemes> findAllVersions(String urn) {
-        ConceptSchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), ConceptSchemes.class);
+        ConceptSchemes schemes = getForEntity(getUrlApi(urn, urlApiAllVersionsResource), ConceptSchemes.class);
         return Optional.ofNullable(schemes);
     }
 }

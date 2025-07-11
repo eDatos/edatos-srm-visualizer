@@ -26,14 +26,14 @@ public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements 
 
     @Override
     public Optional<Categories> findCategories(String urn) {
-        Categories categories = getForEntity(apiKey, getUrlApi(urn, urlApiChildrenDetails), Categories.class);
+        Categories categories = getForEntity(getUrlApi(urn, urlApiChildrenDetails), Categories.class);
 
         return Optional.ofNullable(categories);
     }
 
     @Override
     public Optional<CategorySchemes> findAllVersions(String urn) {
-        CategorySchemes schemes = getForEntity(apiKey, getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class);
+        CategorySchemes schemes = getForEntity(getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class);
         return Optional.ofNullable(schemes);
     }
 }
