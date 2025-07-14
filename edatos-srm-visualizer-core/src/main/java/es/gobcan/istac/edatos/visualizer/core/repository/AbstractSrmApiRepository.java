@@ -3,7 +3,6 @@ package es.gobcan.istac.edatos.visualizer.core.repository;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
-import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.siemac.edatos.core.common.constants.CoreCommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +20,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractSrmApiRepository {
 
-    private final Logger         logger  = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
-    public static final String   VERSION = "/v1.0/";
+    private final Logger                 logger  = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
+    public static final String           VERSION = "/v1.0/";
 
-    protected final String       urlApiChildrensFromParent;
+    protected final String               urlApiChildrensFromParent;
 
     @Autowired
-    private ConfigurationService configurationService;
-    public String                apiKey;
+    private MetadataConfiguracionService configurationService;
+    public String                        apiKey;
 
     public AbstractSrmApiRepository(MetadataConfiguracionService metadataConfiguracionService, String urlApi) {
         this.urlApiChildrensFromParent = metadataConfiguracionService.getStructuralResourcesApi().concat(urlApi);
@@ -37,7 +36,7 @@ public abstract class AbstractSrmApiRepository {
     @PostConstruct
     public void init() {
         try {
-            this.apiKey = configurationService.retrieveSrmVisualizerApiKey();
+            this.apiKey = configurationService.getSrmVisualizerApiKey();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

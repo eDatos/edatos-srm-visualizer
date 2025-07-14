@@ -3,6 +3,8 @@ package es.gobcan.istac.edatos.visualizer.core.services;
 import org.siemac.edatos.core.common.conf.ConfigurationServiceImpl;
 import org.springframework.stereotype.Service;
 
+import es.gobcan.istac.edatos.visualizer.core.config.SrmVisualizerConfigurationConstants;
+
 @Service
 public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl implements MetadataConfiguracionService {
 
@@ -29,6 +31,11 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
     @Override
     public String getLanguageCookie() {
         return retrieveInternationalizationCookieId();
+    }
+
+    @Override
+    public String getSrmVisualizerApiKey() {
+        return retrieveProperty(SrmVisualizerConfigurationConstants.SRM_VISUALIZER_REST_API_KEY);
     }
 
 }
