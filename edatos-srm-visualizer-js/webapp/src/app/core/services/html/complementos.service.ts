@@ -18,7 +18,7 @@ export class ComplementosService {
     getHeader(): Observable<string> {
         return this.configService.getUrlHeader().pipe(
             mergeMap(url => {
-                return this.http.get(url.concat(this.headerParamUrlFromLang().concat('&apiKey=' + this.headers.get('api-key'))), {responseType: 'text' }).pipe(map(value => {
+                return this.http.get(url.concat(this.headerParamsUrl()), {responseType: 'text' }).pipe(map(value => {
                     return value.toString();
                 }));
             })
@@ -35,9 +35,9 @@ export class ComplementosService {
         );
     }
 
-    private headerParamUrlFromLang(): string {
+    private headerParamsUrl(): string {
 		const VERSION = process.env['APP_VERSION'];
-        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&appVersion=' + process.env["APP_VERSION"];
+        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&apiKey=' + this.headers.get('api-key') + '&appVersion=' + process.env["APP_VERSION"];
     }
 
     private footerParamUrlFromLang(): string {
