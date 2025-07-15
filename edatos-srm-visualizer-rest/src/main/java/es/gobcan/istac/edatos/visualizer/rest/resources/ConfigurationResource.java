@@ -50,7 +50,7 @@ public class ConfigurationResource {
 
     @GetMapping("/api-key")
     public String getApiKey() {
-        return metadataConfigurationService.getSrmVisualizerApiKey();
+        return metadataConfigurationService.retrieveSrmVisualizerApiKey();
     }
 
 }

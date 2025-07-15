@@ -34,7 +34,7 @@ public class MetadataConfigurationServiceImpl extends ConfigurationServiceImpl i
     }
 
     @Override
-    public String getSrmVisualizerApiKey() {
+    public String retrieveSrmVisualizerApiKey() {
         return retrieveProperty(SrmVisualizerConfigurationConstants.SRM_VISUALIZER_REST_API_KEY);
     }
 

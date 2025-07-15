@@ -14,5 +14,5 @@ public interface MetadataConfiguracionService extends ConfigurationService {
 
     public String getLanguageCookie();
 
-    public String getSrmVisualizerApiKey();
+    public String retrieveSrmVisualizerApiKey();
 }

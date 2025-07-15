@@ -36,7 +36,7 @@ public abstract class AbstractSrmApiRepository {
     @PostConstruct
     public void init() {
         try {
-            this.apiKey = configurationService.getSrmVisualizerApiKey();
+            this.apiKey = configurationService.retrieveSrmVisualizerApiKey();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
