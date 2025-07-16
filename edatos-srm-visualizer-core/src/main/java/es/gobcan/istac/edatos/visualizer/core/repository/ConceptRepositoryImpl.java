@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.ConceptSchemes;
 import org.springframework.stereotype.Repository;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracionService;
 
 @Repository
 public class ConceptRepositoryImpl extends AbstractSrmApiRepository implements ConceptRepository {
@@ -14,9 +14,9 @@ public class ConceptRepositoryImpl extends AbstractSrmApiRepository implements C
 
     private final String urlApiAllVersionsResource;
 
-    public ConceptRepositoryImpl(MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService, CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME);
-        this.urlApiAllVersionsResource = metadataConfiguracionService.getStructuralResourcesApi().concat(CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME);
+    public ConceptRepositoryImpl(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService) {
+        super(srmVisualizerConfiguracionService, CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME);
+        this.urlApiAllVersionsResource = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME);
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.CategorySchemes;
 import org.springframework.stereotype.Repository;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracionService;
 
 @Repository
 public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements CategoryRepository {
@@ -17,10 +17,10 @@ public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;
 
-    public CategoryRepositoryImpl(MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService, CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat(CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiAllVersionsResource = metadataConfiguracionService.getStructuralResourcesApi().concat(CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL);
+    public CategoryRepositoryImpl(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService) {
+        super(srmVisualizerConfiguracionService, CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiChildrenDetails = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiAllVersionsResource = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL);
 
     }
 

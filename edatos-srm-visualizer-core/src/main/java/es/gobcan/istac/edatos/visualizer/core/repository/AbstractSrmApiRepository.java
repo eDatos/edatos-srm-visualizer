@@ -14,23 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import es.gobcan.istac.edatos.visualizer.core.models.Urn;
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracionService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractSrmApiRepository {
 
-    private final Logger                 logger  = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
-    public static final String           VERSION = "/v1.0/";
+    private final Logger                      logger  = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
+    public static final String                VERSION = "/v1.0/";
 
-    protected final String               urlApiChildrensFromParent;
+    protected final String                    urlApiChildrensFromParent;
 
     @Autowired
-    private MetadataConfiguracionService configurationService;
-    public String                        apiKey;
+    private SrmVisualizerConfiguracionService configurationService;
+    public String                             apiKey;
 
-    public AbstractSrmApiRepository(MetadataConfiguracionService metadataConfiguracionService, String urlApi) {
-        this.urlApiChildrensFromParent = metadataConfiguracionService.getStructuralResourcesApi().concat(urlApi);
+    public AbstractSrmApiRepository(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService, String urlApi) {
+        this.urlApiChildrensFromParent = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(urlApi);
+
     }
 
     @PostConstruct

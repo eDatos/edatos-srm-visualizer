@@ -6,7 +6,7 @@ import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
 import org.springframework.stereotype.Repository;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracionService;
 
 @Repository
 public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements CodelistRepository {
@@ -17,10 +17,10 @@ public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;
 
-    public CodelistRepositoryImpl(MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService, CODES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat(CODES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiAllVersionsResource = metadataConfiguracionService.getStructuralResourcesApi().concat(CODELISTS_BY_AGENCY_SCHEME_VERSION_URL);
+    public CodelistRepositoryImpl(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService) {
+        super(srmVisualizerConfiguracionService, CODES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiChildrenDetails = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CODES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiAllVersionsResource = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CODELISTS_BY_AGENCY_SCHEME_VERSION_URL);
 
     }
 
