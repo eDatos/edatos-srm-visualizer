@@ -10,10 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class ComplementosService {
-    private headers = new HttpHeaders();
-    constructor(private http: HttpClient, private configService: ConfigService, private cookieService: CookieService, private translateService: TranslateService) {
-        this.getHttpHeaders();
-    }
+    constructor(private http: HttpClient, private configService: ConfigService, private cookieService: CookieService, private translateService: TranslateService) {}
 
     getHeader(): Observable<string> {
         return this.configService.getUrlHeader().pipe(
@@ -28,7 +25,7 @@ export class ComplementosService {
     getFooter(): Observable<string> {
         return this.configService.getUrlFooter().pipe(
             mergeMap(url => {
-                return this.http.get(url.concat(this.footerParamUrlFromLang()), { headers: this.headers, responseType: 'text' }).pipe(map(value => {
+                return this.http.get(url.concat(this.footerParamUrlFromLang()), { headers: {'api-key': this.getApiKey()}, responseType: 'text' }).pipe(map(value => {
                     return value.toString();
                 }));
             })
@@ -37,7 +34,7 @@ export class ComplementosService {
 
     private headerParamsUrl(): string {
 		const VERSION = process.env['APP_VERSION'];
-        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&apiKey=' + this.headers.get('api-key') + '&appVersion=' + process.env["APP_VERSION"];
+        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&apiKey=' + this.getApiKey() + '&appVersion=' + process.env["APP_VERSION"];
     }
 
     private footerParamUrlFromLang(): string {
@@ -52,9 +49,11 @@ export class ComplementosService {
         return this.cookieService.get(languageCookie);
     }
 
-    private getHttpHeaders(): void {
+    private getApiKey(): string {
+        let apiKeyValue: string = '';
         this.configService.getApikey().subscribe((value: string) => {
-            this.headers = new HttpHeaders({'api-key': value});
+            apiKeyValue = value;
         });
+        return apiKeyValue;
     }
 }
