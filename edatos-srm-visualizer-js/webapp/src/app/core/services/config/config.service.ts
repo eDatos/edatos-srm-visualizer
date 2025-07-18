@@ -1,5 +1,5 @@
 import { DOCUMENT, LocationStrategy, Location, HashLocationStrategy } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs';
@@ -17,6 +17,7 @@ export class ConfigService {
     private urlFavicon: string = '';
     private urlStructuralResourcesApi: string = '';
     private languageCookie: string = '';
+    private apiKey: string = '';
 
     private genericConfig: GenericConfig = {} as GenericConfig;
 
@@ -110,6 +111,18 @@ export class ConfigService {
         return this.httpClient.get(this.urlApiBackConfiguration.concat('language-cookie'), { responseType: 'text' }).pipe(
             map((result) => {
                 this.languageCookie = result;
+                return result;
+            })
+        );
+    }
+
+    public getApikey(): Observable<string> {
+        if (this.apiKey) {
+            return of(this.apiKey);
+        }
+        return this.httpClient.get(this.urlApiBackConfiguration.concat('api-key'), { responseType: 'text' }).pipe(
+            map((result) => {
+                this.apiKey = result;
                 return result;
             })
         );

@@ -40,7 +40,7 @@ export class CodelistFamiliesApiService extends ApiSrmService {
         const url = ApiSrmService.apiStructuralResource.concat(this.getApiDetailUrl(dataDetail));
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url)
+                data: this.httpClient.get<any>(url, { headers: ApiSrmService.headers })
             }
         ).pipe(
             map(({ data }) => {

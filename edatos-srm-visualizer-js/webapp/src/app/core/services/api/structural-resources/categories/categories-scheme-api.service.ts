@@ -36,8 +36,8 @@ export class CategoriesSchemeApiService extends ApiSrmService {
         const urlMaintainer = ApiSrmService.apiStructuralResource.concat(this.getApiMaintainerUrl(dataDetail));
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer)
+                data: this.httpClient.get<any>(url, { headers: ApiSrmService.headers }),
+                maintainer: this.httpClient.get<any>(urlMaintainer, { headers: ApiSrmService.headers })
             }
         ).pipe(
             map(({ data, maintainer }) => {

@@ -11,6 +11,6 @@ import { Resource } from 'src/app/shared/models/resources/resource.model';
 export abstract class ApiSdmxService extends ApiService {
 
     public getSDMXFile(resource: Resource): Observable<any> {
-        return this.httpClient.get(ApiSdmxService.apiSdmx.concat(this.getApiSDMXUrl(resource)), { responseType: 'blob' as 'json'});
+        return this.httpClient.get(ApiSdmxService.apiSdmx.concat(this.getApiSDMXUrl(resource)), { headers: ApiService.headers, responseType: 'blob' as 'json'});
     }
 }

@@ -51,9 +51,9 @@ export class CodelistCodesApiService extends ApiSrmService {
         const urlScheme = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(dataDetail));
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url),
-                maintainer: this.httpClient.get<any>(urlMaintainer),
-                scheme: this.httpClient.get<any>(urlScheme)
+                data: this.httpClient.get<any>(url, { headers: ApiSrmService.headers }),
+                maintainer: this.httpClient.get<any>(urlMaintainer, { headers: ApiSrmService.headers }),
+                scheme: this.httpClient.get<any>(urlScheme, { headers: ApiSrmService.headers })
             }
         ).pipe(
             map(({ data, maintainer, scheme }) => {
@@ -72,8 +72,8 @@ export class CodelistCodesApiService extends ApiSrmService {
         const urlCodelist = ApiSrmService.apiStructuralResource.concat(this.getApiSchemeUrl(resource));
         return forkJoin(
             {
-                data: this.httpClient.get<any>(url),
-                codelist: this.httpClient.get<any>(urlCodelist)
+                data: this.httpClient.get<any>(url, { headers: ApiSrmService.headers }),
+                codelist: this.httpClient.get<any>(urlCodelist, { headers: ApiSrmService.headers })
             }
         ).pipe(
             map(({data, codelist}) => {
