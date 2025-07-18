@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { map, mergeMap, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -15,7 +15,7 @@ export class ComplementosService {
     getHeader(): Observable<string> {
         return this.configService.getUrlHeader().pipe(
             mergeMap(url => {
-                return this.http.get(url.concat(this.headerParamUrlFromLang()), { responseType: 'text' }).pipe(map(value => {
+                return this.http.get(url.concat(this.headerParamsUrl()), {responseType: 'text' }).pipe(map(value => {
                     return value.toString();
                 }));
             })
@@ -25,16 +25,16 @@ export class ComplementosService {
     getFooter(): Observable<string> {
         return this.configService.getUrlFooter().pipe(
             mergeMap(url => {
-                return this.http.get(url.concat(this.footerParamUrlFromLang()), { responseType: 'text' }).pipe(map(value => {
+                return this.http.get(url.concat(this.footerParamUrlFromLang()), { headers: {'api-key': this.getApiKey()}, responseType: 'text' }).pipe(map(value => {
                     return value.toString();
                 }));
             })
         );
     }
 
-    private headerParamUrlFromLang(): string {
+    private headerParamsUrl(): string {
 		const VERSION = process.env['APP_VERSION'];
-        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&appVersion=' + process.env["APP_VERSION"];
+        return '?appName=' + this.translateService.instant('title') + '&chosenLocale=' + this.currentLang() + '&appId=edatos-srm-visualizer-EXTERNAL' + '&apiKey=' + this.getApiKey() + '&appVersion=' + process.env["APP_VERSION"];
     }
 
     private footerParamUrlFromLang(): string {
@@ -47,5 +47,13 @@ export class ComplementosService {
             languageCookie = value;
         });
         return this.cookieService.get(languageCookie);
+    }
+
+    private getApiKey(): string {
+        let apiKeyValue: string = '';
+        this.configService.getApikey().subscribe((value: string) => {
+            apiKeyValue = value;
+        });
+        return apiKeyValue;
     }
 }

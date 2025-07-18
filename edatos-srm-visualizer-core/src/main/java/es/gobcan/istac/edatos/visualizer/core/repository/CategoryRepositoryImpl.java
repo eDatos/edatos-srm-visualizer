@@ -5,9 +5,8 @@ import java.util.Optional;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.CategorySchemes;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
-import es.gobcan.istac.edatos.visualizer.core.services.MetadataConfiguracionService;
+import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracionService;
 
 @Repository
 public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements CategoryRepository {
@@ -18,25 +17,23 @@ public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;
 
-    public CategoryRepositoryImpl(MetadataConfiguracionService metadataConfiguracionService) {
-        super(metadataConfiguracionService, CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiChildrenDetails = metadataConfiguracionService.getStructuralResourcesApi().concat(CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
-        this.urlApiAllVersionsResource = metadataConfiguracionService.getStructuralResourcesApi().concat(CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL);
+    public CategoryRepositoryImpl(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService) {
+        super(srmVisualizerConfiguracionService, CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiChildrenDetails = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL);
+        this.urlApiAllVersionsResource = srmVisualizerConfiguracionService.retrieveSrmExternalApiUrlBase().concat(CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL);
 
     }
 
     @Override
     public Optional<Categories> findCategories(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        Categories categories = restTemplate.getForEntity(getUrlApi(urn, urlApiChildrenDetails), Categories.class).getBody();
+        Categories categories = getForEntity(getUrlApi(urn, urlApiChildrenDetails), Categories.class);
 
         return Optional.ofNullable(categories);
     }
 
     @Override
     public Optional<CategorySchemes> findAllVersions(String urn) {
-        RestTemplate restTemplate = new RestTemplate();
-        CategorySchemes schemes = restTemplate.getForEntity(getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class).getBody();
+        CategorySchemes schemes = getForEntity(getUrlApi(urn, urlApiAllVersionsResource), CategorySchemes.class);
         return Optional.ofNullable(schemes);
     }
 }

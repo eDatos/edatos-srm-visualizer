@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
@@ -12,6 +12,7 @@ export class ApiService {
     public static apiStructuralResource: string = '';
     public static apiInternalDomain: string = '';
     public static apiSdmx: string = '';
+    public static headers: HttpHeaders =  new HttpHeaders();
 
     public apiMaintainersUrl: string = `/v1.0/agencyschemes/SDMX/AGENCIES/~latest/agencies`;
     public apiMaintainerUrl: string = `${this.apiMaintainersUrl}/{organisationID}`;
@@ -37,6 +38,11 @@ export class ApiService {
         });
 
         ApiService.apiInternalDomain = this.config.getDomainInternal();
+
+        this.config.getApikey().subscribe((value: string) => {
+            ApiService.headers = new HttpHeaders({'api-key': value});
+        });
+        
     }
 
     public getApiSDMXUrl(resource: Resource) {
