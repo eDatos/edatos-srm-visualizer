@@ -13,7 +13,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <postgresql.version>9.4.1212</postgresql.version>
     </properties>
 
     <dependencies>
