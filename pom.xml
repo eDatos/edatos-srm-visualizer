@@ -52,7 +52,7 @@
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 
         <metamac-srm-rest-external-api.version>3.0.0</metamac-srm-rest-external-api.version>
-        <edatos-core-common.version>1.8.0</edatos-core-common.version>
+        <edatos-core-common.version>1.9.1-SNAPSHOT</edatos-core-common.version>
 
     </properties>
 
