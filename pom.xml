@@ -11,7 +11,7 @@
 
     <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
     <artifactId>edatos-srm-visualizer</artifactId>
-    <version>1.10.2-SNAPSHOT</version>
+    <version>1.10.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>eDatos SRM Visualizer</name>
@@ -52,7 +52,7 @@
         <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 
         <metamac-srm-rest-external-api.version>3.0.0</metamac-srm-rest-external-api.version>
-        <edatos-core-common.version>1.9.1-SNAPSHOT</edatos-core-common.version>
+        <edatos-core-common.version>1.9.1</edatos-core-common.version>
 
     </properties>
 
