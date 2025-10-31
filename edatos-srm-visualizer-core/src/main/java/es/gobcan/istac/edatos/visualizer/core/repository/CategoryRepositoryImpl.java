@@ -11,8 +11,8 @@ import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracio
 @Repository
 public class CategoryRepositoryImpl extends AbstractSrmApiRepository implements CategoryRepository {
 
-    public static final String CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "categoryschemes/#AGENCY#/#SCHEME#/#VERSION#/categories";
-    public static final String CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "categoryschemes/#AGENCY#/#SCHEME#";
+    public static final String CATEGORIES_BY_AGENCY_SCHEME_VERSION_URL      = VERSION + "categoryschemes/#AGENCY#/#SCHEME#/#VERSION#/categories";
+    public static final String CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "categoryschemes/#AGENCY#/#SCHEME#" + LIMIT_AND_OFFSET;
 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;
