@@ -10,7 +10,7 @@ import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracio
 @Repository
 public class DataStructureRepositoryImpl extends AbstractSrmApiRepository implements DataStructureRepository {
 
-    public static final String CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "datastructures/#AGENCY#/#SCHEME#";
+    public static final String CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "datastructures/#AGENCY#/#SCHEME#" + LIMIT_AND_OFFSET;
 
     public DataStructureRepositoryImpl(SrmVisualizerConfiguracionService srmVisualizerConfiguracionService) {
         super(srmVisualizerConfiguracionService, CATEGORY_SCHEME_BY_AGENCY_SCHEME_VERSION_URL);

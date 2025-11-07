@@ -12,7 +12,7 @@ import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracio
 public class CodelistRepositoryImpl extends AbstractSrmApiRepository implements CodelistRepository {
 
     public static final String CODES_BY_AGENCY_SCHEME_VERSION_URL     = VERSION + "codelists/#AGENCY#/#SCHEME#/#VERSION#/codes";
-    public static final String CODELISTS_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "codelists/#AGENCY#/#SCHEME#";
+    public static final String CODELISTS_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "codelists/#AGENCY#/#SCHEME#" + LIMIT_AND_OFFSET;
 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;
