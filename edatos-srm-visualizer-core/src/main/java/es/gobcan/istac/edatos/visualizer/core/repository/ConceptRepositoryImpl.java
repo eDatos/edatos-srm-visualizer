@@ -9,8 +9,8 @@ import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracio
 
 @Repository
 public class ConceptRepositoryImpl extends AbstractSrmApiRepository implements ConceptRepository {
-    public static final String CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME = VERSION + "conceptschemes/#AGENCY#/#SCHEME#";
 
+    public static final String CONCEPT_SCHEMES_VERSIONS_BY_AGENCY_SCHEME = VERSION + "conceptschemes/#AGENCY#/#SCHEME#" + LIMIT_AND_OFFSET;
 
     private final String urlApiAllVersionsResource;
 

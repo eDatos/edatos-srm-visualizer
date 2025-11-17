@@ -12,7 +12,7 @@ import es.gobcan.istac.edatos.visualizer.core.services.SrmVisualizerConfiguracio
 public class OrganisationRepositoryImpl extends AbstractSrmApiRepository implements OrganisationRepository {
 
     public static final String ORGANISATIONS_BY_AGENCY_SCHEME_VERSION_URL = VERSION + "organisationschemes/#AGENCY#/#SCHEME#/#VERSION#/organisations";
-    public static final String ORGANISATIONS_SCHEME_VERSIONS_URL = VERSION + "organisationschemes/#AGENCY#/#SCHEME#";
+    public static final String ORGANISATIONS_SCHEME_VERSIONS_URL          = VERSION + "organisationschemes/#AGENCY#/#SCHEME#" + LIMIT_AND_OFFSET;
 
     private final String urlApiChildrenDetails;
     private final String urlApiAllVersionsResource;

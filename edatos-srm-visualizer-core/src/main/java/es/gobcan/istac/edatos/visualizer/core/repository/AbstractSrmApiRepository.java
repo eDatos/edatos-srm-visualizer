@@ -20,8 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractSrmApiRepository {
 
-    private final Logger                      logger  = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
-    public static final String                VERSION = "/v1.0/";
+    private final Logger                      logger           = LoggerFactory.getLogger(AbstractSrmApiRepository.class);
+    public static final String                VERSION          = "/v1.0/";
+    public static final String                LIMIT_AND_OFFSET = "?limit=1000&offset=0";
 
     protected final String                    urlApiChildrensFromParent;
 
