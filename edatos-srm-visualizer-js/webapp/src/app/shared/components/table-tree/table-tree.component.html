@@ -3,7 +3,7 @@
         <mat-spinner class='sipnner-td-container' mode='indeterminate'></mat-spinner>
     </div>
 
-    <div class='error-td-container' *ngIf='apiError'>
+    <div class='error-td-container' *ngIf='apiError && dataSource.data.length === 0'>
         <span class='text-no-result '>{{ 'apiError' | translate }}</span>
         <span class='text-retry'>{{ 'retryError' | translate }}</span>
     </div>
