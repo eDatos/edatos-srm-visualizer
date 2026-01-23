@@ -9,11 +9,11 @@
 
 .general-search.row {
     margin: 0px;
-    &.end {
-        justify-content: flex-end;
-    }
     .large {
         padding-right: 0px;
+    }
+    .col.first {
+        padding-left: 0;
     }
 }
 
@@ -29,6 +29,7 @@
     border: 1px solid $color-azul-oscuro-100;
     border-radius: 5px;
     align-items: center;
+    max-width: 100px;
 }
 
 .multiselect-custom-search {
@@ -128,9 +129,6 @@
     padding-left: $spacing-m;
     label {
         margin-bottom: 0;
-    }
-    &.first {
-        padding-left: 0;
     }
 }
 
