@@ -192,7 +192,7 @@
     align-items: center;
     color: #231F20;
     &.background {
-        background: $color-azul-10;
+        background: var(--edatos-color-gray-5);
         height: 40px;
         padding: $spacing-s;
         border-radius: 5px;

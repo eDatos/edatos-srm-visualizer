@@ -18,7 +18,7 @@
     "csv": "Descargar en formato CSV",
     "xlsx": "Descargar en formato XLSX"
   },
-  "seeResource": "Ver este recurso",
+  "seeResource": "Consultar",
   "noResourceResults": "No se ha encontrado ningún resultado para esas condiciones",
   "retrySearch": "Por favor, cambia los parámetros de búsqueda e inténtalo de nuevo.",
   "apiError": "No se pueden obtener resultados",

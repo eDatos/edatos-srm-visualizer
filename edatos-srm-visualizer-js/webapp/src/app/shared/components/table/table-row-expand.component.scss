@@ -141,7 +141,7 @@ th > div {
   padding: $spacing-s;
   gap: $spacing-xs;
   height: 40px;
-  background: $color-azul-10;
+  background: var(--edatos-color-gray-5);
   border-radius: 5px;
   align-items: center;
   color: #231F20;
