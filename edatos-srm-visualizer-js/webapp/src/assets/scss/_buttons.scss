@@ -1,15 +1,15 @@
 .text-icon-button, .menu-text-icon-button {
     padding: $spacing-xs $spacing-s;
     height: 30px;
-    border: 1px solid $color-azul-oscuro-100;
+    border: 1px solid var(--edatos-color-secondary-100);
     border-radius: 5px;
-    background: $color-negro-0;
-    color: $color-azul-oscuro-100;
-    font-size: $size-16;
+    background: var(--edatos-color-white-100);
+    color: var(--edatos-color-secondary-100);
+    font-size: var(--edatos-font-size-m);
     line-height: 16px;
     span {
-        font-size: $size-14;
-        font-weight: $font-weight-300;
+        font-size: var(--edatos-font-size-s);
+        font-weight: var(--edatos-font-weight-light);
     }
     display: inline-block;
     align-self: flex-end;

@@ -4,8 +4,8 @@
   th {
     padding: $spacing-xs $spacing-s;
     line-height: 19px;
-    font-weight: $font-weight-600;
-    background: $color-negro-5;
+    font-weight: var(--edatos-font-weight-semibold);
+    background: var(--edatos-color-gray-5);
     border: none;
     z-index: 0 !important;
     overflow: unset;
@@ -20,8 +20,8 @@
     th {
       padding: $spacing-s;
     }
-    div {
-      padding-top: $spacing-s;
+    div:not(:first-child) {
+      padding-top: $spacing-xs;
     }
   }
 }
@@ -37,17 +37,16 @@
   td {
     padding: $spacing-s;
     line-height: 16px;
-    font-size: $size-12;
-    border-bottom: 1px solid $color-negro-5;
+    font-size: var(--edatos-font-size-xs);
+    border-bottom: 1px solid var(--edatos-color-gray-5);
   }
   &:not(.expanded-row):hover {
-    background: $azul-istac-25;
+    background: var(--edatos-color-primary-5);
    td {
-    color: $color-azul-oscuro-100;
+    color: var(--edatos-color-secondary-100);
    }
   }
   &.expanded-row, &.expanded-row:hover {
-    height: 51px;
     > td:first-child {
       border-radius: 5px 0px 0px 0px;
     }
@@ -58,8 +57,8 @@
     }
     td {
       padding: 0 $spacing-s;
-      background: $color-azul-oscuro-100;
-      color: $color-negro-0;
+      background: var(--edatos-color-secondary-100);
+      color: var(--edatos-color-white-100);
       border-bottom: none;
     }
   }
@@ -71,6 +70,9 @@ tr.detail-row {
     padding: 0;
     &.hidden {
       border-bottom-width: 0px;
+      > .element-detail {
+        border: none;
+      }
     }
   }
 }
@@ -80,14 +82,14 @@ th > div {
   gap: 10px;
   align-items: center;
   .element-actions {
-    color: $color-azul-oscuro-100;
+    color: var(--edatos-color-secondary-100);
   }
 }
 
 .element-actions, .element-link-actions {
-  color: $color-negro-0;
+  color: var(--edatos-color-white-100);
   width: 1.25rem;
-  font-size: $size-16;
+  font-size: var(--edatos-font-size-m);
   background: transparent;
   border: none;
   &.end  {
@@ -97,10 +99,11 @@ th > div {
 
 .element-detail {
   display: flex;
-  background: $color-azul-oscuro-25-opacity-50;
+  flex-direction: column;
   border-radius: 0px 0px 5px 5px;
+  border: 1px solid var(--edatos-color-secondary-100);
   i {
-    color: $color-azul-oscuro-100;
+    color: var(--edatos-color-secondary-100);
   }
 }
 .element-detail.large {
@@ -109,8 +112,8 @@ th > div {
 
 .element-description {
   padding: $spacing-s;
-  width: $container-2columns-max-width;
-  font-size: $size-12;
+  width: $container-max-width-descriptions;
+  font-size: var(--edatos-font-size-xs);
   line-height: 16px;
   p {
     margin: 0;
@@ -118,21 +121,25 @@ th > div {
 }
 
 .element-label {
-  font-weight: $font-weight-600;
+  font-weight: var(--edatos-font-weight-semibold);
   &.title {
-    font-size: $size-16;
+    font-size: var(--edatos-font-size-m);
   }
 }
 
 .element-description-attribution {
-  font-weight: $font-weight-300;
+  font-weight: var(--edatos-font-weight-light);
 }
 
 
 .element-link {
-  padding: $spacing-s;
-  font-size: $size-12;
+  padding: $spacing-s $spacing-s $spacing-l;
+  font-size: var(--edatos-font-size-xs);
   line-height: 16px;
+  > div {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .element-link-attribution {
@@ -145,19 +152,13 @@ th > div {
   border-radius: 5px;
   align-items: center;
   color: #231F20;
-  &.short {
-    justify-content: flex-end;
-    max-width: calc($container-2columns-max-width - $scroll-width-default);
-    code {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
+  max-width: $container-max-width-descriptions;
   code {
-    font-size: $size-12;
-    flex-grow: 1;
+    font-size: var(--edatos-font-size-xs);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -172,7 +173,7 @@ th > div {
   display: flex;
 
   &.end  {
-    padding-top: $spacing-m;
+    flex-grow: 1;
     justify-content: flex-end;
   }
 }
@@ -194,7 +195,7 @@ th > div {
   height: 100%;
 
   ::ng-deep circle {
-    stroke: #009BD7; // --color-azul-100
+    stroke: #009BD7; // --color-azul-100  /*FIXME: preguntar a Lidia*/
   }
 }
 

@@ -54,21 +54,23 @@
                 <div class='element-link' [ngClass]="data.localRepresentation ? 'flex-column' : ''">
                     <label *ngIf="!data.description && data.localRepresentation?.id" class='element-label title'>{{ data.id }}</label>
                     <label class='element-label'>{{ 'resourceParameters.selfLink' | translate }}</label>
-                    <div class='element-link-attribution' [ngClass]="!data.description && !data.localRepresentation?.id ? '' : 'short'">
-                        <code>{{data.selfLink}}</code>
-                        <button type='button' class='element-link-actions' (click)="openSelfLink(data.selfLink)">
-                            <i class='fa-thin fa-arrow-up-right-from-square'></i>
-                        </button>
-                        <button class='element-link-actions' ngxClipboard copyClipboard="{{data.selfLink}}" (click)="onCopySuccess()">
-                            <i class='fa-thin fa-copy'></i>
-                        </button>
-                        <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
-                    </div>
-                    <div class='element-detail-button end'>
-                        <a class="text-icon-button" [routerLink]="[routerLink]">
-                            <i class='fa-thin fa-eye'></i>&nbsp;
-                            <span>{{ 'seeResource' | translate | uppercase }}</span>
-                        </a>
+                    <div>
+                        <div class='element-link-attribution'>
+                            <code>{{data.selfLink}}</code>
+                            <button type='button' class='element-link-actions' (click)="openSelfLink(data.selfLink)">
+                                <i class='fa-thin fa-arrow-up-right-from-square'></i>
+                            </button>
+                            <button class='element-link-actions' ngxClipboard copyClipboard="{{data.selfLink}}" (click)="onCopySuccess()">
+                                <i class='fa-thin fa-copy'></i>
+                            </button>
+                            <div class="copied-message" *ngIf="copied">{{ 'copy' | translate }}</div>
+                        </div>
+                        <div class='element-detail-button end'>
+                            <a class="text-icon-button" [routerLink]="[routerLink]">
+                                <i class='fa-thin fa-eye'></i>&nbsp;
+                                <span>{{ 'seeResource' | translate | uppercase }}</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class='element-description flex-column' *ngIf="data.localRepresentation?.id">
