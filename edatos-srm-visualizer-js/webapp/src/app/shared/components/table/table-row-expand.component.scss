@@ -195,7 +195,7 @@ th > div {
   height: 100%;
 
   ::ng-deep circle {
-    stroke: #009BD7; // --color-azul-100  /*FIXME: preguntar a Lidia*/
+    stroke: var(--edatos-color-accent-100);
   }
 }
 
