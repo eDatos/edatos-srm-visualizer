@@ -44,7 +44,8 @@
     "selfLink": "Access via API",
     "concept": "Concept",
     "type": "Type",
-    "agency": "Maintenance agency"
+    "agency": "Maintenance agency",
+    "publicationDate": "Date of publication"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
@@ -55,7 +56,7 @@
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
       "idConcept": "Concept identifier",
-      "idScheme": "Scheme identifier",
+      "idScheme": "Concept scheme identifie",
       "schemeConcepts": "Concepts of scheme"
     }
   },

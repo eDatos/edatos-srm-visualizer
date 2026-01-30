@@ -13,6 +13,12 @@
     "target": "https://estadisticas.arte-consultores.com/",
     "secure": true,
     "changeOrigin": true
+  },
+  "/complementos-apps": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
 
