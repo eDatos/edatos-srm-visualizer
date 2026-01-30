@@ -45,7 +45,8 @@
     "concept": "Concept",
     "type": "Type",
     "agency": "Maintenance agency",
-    "publicationDate": "Date of publication"
+    "publicationDate": "Date of publication",
+    "tabDisabledNoData": "No data found"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",

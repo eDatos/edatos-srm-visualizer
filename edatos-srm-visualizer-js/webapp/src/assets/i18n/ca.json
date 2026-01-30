@@ -45,7 +45,8 @@
     "concept": "Concepte",
     "type": "Tipus",
     "agency": "Agència mantenidora",
-    "publicationDate": "Data de publicació"
+    "publicationDate": "Data de publicació",
+    "tabDisabledNoData": "No s'han trobat dades"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",

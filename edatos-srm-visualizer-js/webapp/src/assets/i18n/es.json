@@ -45,7 +45,8 @@
     "concept": "Concepto",
     "type": "Tipo",
     "agency": "Agencia mantenedora",
-    "publicationDate": "Fecha de publicación"
+    "publicationDate": "Fecha de publicación",
+    "tabDisabledNoData": "No se han encontrado datos"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
