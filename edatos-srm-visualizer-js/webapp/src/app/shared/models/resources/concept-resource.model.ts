@@ -20,7 +20,7 @@ export class ConceptResource extends Resource {
 
         conceptResource.isVariable = !!resource.variable;
 
-        conceptResource.conceptScheme = scheme? { id: scheme?.id, name: schemeName } : {id: "", name: ""};
+        conceptResource.conceptScheme = scheme? { id: scheme?.id, name: schemeName, version: scheme?.version } : {id: "", name: "", version: ""};
         conceptResource.description = description;
         conceptResource.name = name;
         conceptResource.annotations = annotations;

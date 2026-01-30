@@ -54,7 +54,8 @@
     <label for='conceptScheme' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
     <div class='info-link'>
         <button type='button' (click)="openConceptSchemeLink(dataDetail.urn)">
-            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme?.id  }} ({{ dataDetail.conceptScheme?.name }})</span>&nbsp;
+            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme?.id }}
+                (v{{ dataDetail.conceptScheme?.version }})</span>&nbsp;
             <i class='fa-thin fa-arrow-up-right-from-square'></i>
         </button>
     </div>
