@@ -160,23 +160,21 @@
     flex-direction: column;
     gap: $spacing-s;
     label {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
         line-height: 25px;
-        font-size: $size-18;
+        font-size: var(--edatos-font-size-lg);
         margin-bottom: 0px;
     }
     span {
-        padding: 0px;
-        color: $color-negro-100;
-        font-size: $size-14;
+        font-size: var(--edatos-font-size-m);
         line-height: 19px;
+        font-weight: var(--edatos-font-weight-light);
         &.info-id {
-            font-weight: 300;
             font-size: $size-28;
             line-height: 38px;
         }
         &.info-agency {
-            color: $color-azul-oscuro-100;
+            color: var(--edatos-color-primary-100);
         }
     }
     input:disabled, input[readonly] {
@@ -201,7 +199,6 @@
         border-radius: 5px;
     }
     .code {
-        font-size: $size-12;
         flex-grow: 2;
     }
     button {
@@ -220,10 +217,10 @@
 
 .info-link, .element-link-actions {
     button {
-        font-size: $size-16;
+        font-size: var(--edatos-font-size-m);
         background: transparent;
         border: none;
-        color: $color-azul-oscuro-100;
+        color: var(--edatos-color-secondary-100);
         &:hover {
             color: var(--edatos-color-primary-50);
         }

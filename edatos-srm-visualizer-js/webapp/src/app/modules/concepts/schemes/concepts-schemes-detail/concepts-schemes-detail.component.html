@@ -34,13 +34,13 @@
     <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span id='name'>{{ dataDetail.name }}</span>
+    <span id='name' class='info-description'>{{ dataDetail.name }}</span>
 
     <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
     <span id='version'>{{ dataDetail.version }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></div>
+    <span id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
