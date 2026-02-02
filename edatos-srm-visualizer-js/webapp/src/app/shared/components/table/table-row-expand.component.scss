@@ -98,14 +98,18 @@ th > div {
   }
 }
 
+.element-link-actions {
+  color: var(--edatos-color-secondary-100);
+  &:hover {
+    color: var(--edatos-color-primary-50);
+  }
+}
+
 .element-detail {
   display: flex;
   flex-direction: column;
   border-radius: 0px 0px 5px 5px;
   border: 1px solid var(--edatos-color-secondary-100);
-  i {
-    color: var(--edatos-color-secondary-100);
-  }
 }
 .element-detail.large {
   display: block;

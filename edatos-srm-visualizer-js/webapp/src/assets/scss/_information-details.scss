@@ -54,6 +54,9 @@
         }
         &:not(.p-disabled):hover {
             border-color: $color-azul-oscuro-100;
+            &:not(.p-dropdown-open) {
+                background-color: var(--edatos-color-primary-5);
+            }
         }
     }
 
@@ -221,6 +224,9 @@
         background: transparent;
         border: none;
         color: $color-azul-oscuro-100;
+        &:hover {
+            color: var(--edatos-color-primary-50);
+        }
     }
 }
 

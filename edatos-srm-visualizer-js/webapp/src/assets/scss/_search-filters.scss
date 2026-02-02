@@ -71,6 +71,9 @@
         }
         &:not(.p-disabled):hover {
             border-color: $color-azul-oscuro-100;
+            &:not(.p-multiselect-open) {
+                background-color: var(--edatos-color-primary-5);
+            }
         }
     }
     .p-multiselect-panel {

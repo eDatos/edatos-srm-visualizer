@@ -18,6 +18,10 @@
     }
 }
 
+.text-icon-button:hover {
+    background-color: var(--edatos-color-primary-5);
+}
+
 .menu-text-icon-button {
     background-color: $color-azul-oscuro-100;
     border: 2px solid $color-azul-oscuro-100;
