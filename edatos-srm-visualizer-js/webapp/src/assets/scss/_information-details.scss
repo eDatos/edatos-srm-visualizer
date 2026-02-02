@@ -111,7 +111,7 @@
 //primeng menu
 .p-menu-custom {
     .p-menu.p-menu-overlay {
-        background: $color-azul-oscuro-100;
+        background: var(--edatos-color-primary-100);
         left:unset !important;
         padding: $spacing-xs;
         
@@ -130,24 +130,24 @@
             .p-menuitem-icon {
                 display: flex;
                 justify-content: center;
-                color: $color-negro-0;
-                font-size: $size-16;
+                color: var(--edatos-color-white-100);
+                font-size: var(--edatos-font-size-m);
                 width: 20px;
             }
             .p-menuitem-text {
-                color: $color-negro-0;
-                font-weight: 300;
-                font-size: $size-14;
+                color: var(--edatos-color-white-100);
+                font-weight: var(--edatos-font-weight-light);
+                font-size: var(--edatos-font-size-s);
                 line-height: 24px;
             }
             &:not(.p-disabled):hover {
-                background: $color-azul-25;
+                background: var(--edatos-color-primary-5);
                 border-radius: 3px;
                 .p-menuitem-text {
-                    color: #000000;
+                    color: var(--edatos-color-black-100);
                 }
                 .p-menuitem-icon {
-                    color: #000000;
+                    color: var(--edatos-color-black-100);
                 }
               }
         }

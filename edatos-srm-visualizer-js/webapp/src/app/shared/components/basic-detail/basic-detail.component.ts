@@ -56,7 +56,7 @@ export abstract class BasicDetailComponent implements OnInit {
         this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code',
+                icon: 'fa-thin fa-code-simple',
                 command: () => {
                     this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
                 }
@@ -70,14 +70,14 @@ export abstract class BasicDetailComponent implements OnInit {
             },
             {
                 label: this.translateService.instant('download.csv'),
-                icon: 'fa-thin fa-semicolon',
+                icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
                     this.fileDownloadHelper.onDownloadCsv(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.xlsx'),
-                icon: 'fa-thin fa-file-spreadsheet',
+                icon: 'fa-thin fa-file-excel',
                 command: () => {
                     this.fileDownloadHelper.onDownloadXLSX(this.dataDetail);                
                 }
