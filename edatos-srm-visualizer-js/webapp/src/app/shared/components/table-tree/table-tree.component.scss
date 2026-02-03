@@ -3,26 +3,25 @@
 .mat-tree-node {
   padding: $spacing-s;
   min-height: 40px;
-  border-bottom: 1px solid $color-negro-5;
+  border-bottom: 1px solid var(--edatos-color-gray-5);
   .text-icon-button {
     font-family: $font-family-sans-serif;
   }
   .node-detail-info {
     font-family: $font-family-sans-serif;
-    font-size: $size-12;
+    font-size: var(--edatos-font-size-xs);
     line-height: 16px;
-    color: $color-negro-100;
-    padding: 0 $spacing-s;
+    color: var(--edatos-color-black-100);
     flex:2;
     .node-detail-info-id {
-      font-weight: $font-weight-600;
+      font-weight: var(--edatos-font-weight-semibold);
     }
   }
   &:hover {
-    background: $color-azul-25;
+    background: var(--edatos-color-gray-5);
     height: 50px;
     .node-detail-info {
-      color:$color-azul-oscuro-100;
+      color: var(--edatos-color-secondary-100);
     }
     .hidden {
       display: block;
@@ -31,9 +30,8 @@
 }
 
 .element-actions {
-  color: $color-azul-oscuro-100;
-  width: 1.25rem;
-  font-size: $size-16;
+  color: var(--edatos-color-secondary-100);
+  font-size: var(--edatos-font-size-m);
   background: transparent;
   border: none;
   padding: 0 $spacing-s;
@@ -48,6 +46,6 @@
   height: 100%;
 
   ::ng-deep circle {
-    stroke: #009BD7; // --color-azul-100
+    stroke: var(--edatos-color-accent-100);
   }
 }

@@ -54,6 +54,9 @@
         }
         &:not(.p-disabled):hover {
             border-color: $color-azul-oscuro-100;
+            &:not(.p-dropdown-open) {
+                background-color: var(--edatos-color-primary-5);
+            }
         }
     }
 
@@ -108,7 +111,7 @@
 //primeng menu
 .p-menu-custom {
     .p-menu.p-menu-overlay {
-        background: $color-azul-oscuro-100;
+        background: var(--edatos-color-primary-100);
         left:unset !important;
         padding: $spacing-xs;
         
@@ -127,24 +130,24 @@
             .p-menuitem-icon {
                 display: flex;
                 justify-content: center;
-                color: $color-negro-0;
-                font-size: $size-16;
+                color: var(--edatos-color-white-100);
+                font-size: var(--edatos-font-size-m);
                 width: 20px;
             }
             .p-menuitem-text {
-                color: $color-negro-0;
-                font-weight: 300;
-                font-size: $size-14;
+                color: var(--edatos-color-white-100);
+                font-weight: var(--edatos-font-weight-light);
+                font-size: var(--edatos-font-size-s);
                 line-height: 24px;
             }
             &:not(.p-disabled):hover {
-                background: $color-azul-25;
+                background: var(--edatos-color-primary-5);
                 border-radius: 3px;
                 .p-menuitem-text {
-                    color: #000000;
+                    color: var(--edatos-color-black-100);
                 }
                 .p-menuitem-icon {
-                    color: #000000;
+                    color: var(--edatos-color-black-100);
                 }
               }
         }
@@ -157,23 +160,21 @@
     flex-direction: column;
     gap: $spacing-s;
     label {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
         line-height: 25px;
-        font-size: $size-18;
+        font-size: var(--edatos-font-size-lg);
         margin-bottom: 0px;
     }
     span {
-        padding: 0px;
-        color: $color-negro-100;
-        font-size: $size-14;
+        font-size: var(--edatos-font-size-m);
         line-height: 19px;
+        font-weight: var(--edatos-font-weight-light);
         &.info-id {
-            font-weight: 300;
             font-size: $size-28;
             line-height: 38px;
         }
         &.info-agency {
-            color: $color-azul-oscuro-100;
+            color: var(--edatos-color-primary-100);
         }
     }
     input:disabled, input[readonly] {
@@ -198,7 +199,6 @@
         border-radius: 5px;
     }
     .code {
-        font-size: $size-12;
         flex-grow: 2;
     }
     button {
@@ -217,10 +217,13 @@
 
 .info-link, .element-link-actions {
     button {
-        font-size: $size-16;
+        font-size: var(--edatos-font-size-m);
         background: transparent;
         border: none;
-        color: $color-azul-oscuro-100;
+        color: var(--edatos-color-secondary-100);
+        &:hover {
+            color: var(--edatos-color-primary-50);
+        }
     }
 }
 

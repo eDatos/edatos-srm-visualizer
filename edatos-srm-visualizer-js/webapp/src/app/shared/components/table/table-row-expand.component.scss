@@ -94,6 +94,14 @@ th > div {
   border: none;
   &.end  {
     justify-content: flex-end;
+    flex-grow: 1;
+  }
+}
+
+.element-link-actions {
+  color: var(--edatos-color-secondary-100);
+  &:hover {
+    color: var(--edatos-color-primary-50);
   }
 }
 
@@ -102,9 +110,6 @@ th > div {
   flex-direction: column;
   border-radius: 0px 0px 5px 5px;
   border: 1px solid var(--edatos-color-secondary-100);
-  i {
-    color: var(--edatos-color-secondary-100);
-  }
 }
 .element-detail.large {
   display: block;
@@ -136,10 +141,6 @@ th > div {
   padding: $spacing-s $spacing-s $spacing-l;
   font-size: var(--edatos-font-size-xs);
   line-height: 16px;
-  > div {
-    display: flex;
-    align-items: center;
-  }
 }
 
 .element-link-attribution {
@@ -152,7 +153,7 @@ th > div {
   border-radius: 5px;
   align-items: center;
   color: #231F20;
-  max-width: $container-max-width-descriptions;
+  width: $container-max-width-descriptions;
   code {
     font-size: var(--edatos-font-size-xs);
     display: block;
@@ -166,6 +167,10 @@ th > div {
   &.flex-column {
     display: flex;
     flex-direction: column
+  }
+  > div {
+    display: flex;
+    align-items: center;
   }
 }
 

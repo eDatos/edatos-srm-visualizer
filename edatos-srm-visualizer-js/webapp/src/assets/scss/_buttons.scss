@@ -18,13 +18,17 @@
     }
 }
 
+.text-icon-button:hover {
+    background-color: var(--edatos-color-primary-5);
+}
+
 .menu-text-icon-button {
-    background-color: $color-azul-oscuro-100;
-    border: 2px solid $color-azul-oscuro-100;
+    background-color: var(--edatos-color-primary-100);
+    border: 2px solid var(--edatos-color-primary-100);
     border-radius: 5px 5px 0px 0px;
-    color: $color-negro-0;
+    color: var(--edatos-color-white-100);
     span {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
     }
 }
 

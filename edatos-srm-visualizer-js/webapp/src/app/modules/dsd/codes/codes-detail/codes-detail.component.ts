@@ -95,7 +95,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code',
+                icon: 'fa-thin fa-code-simple',
                 command: () => {
                     this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
                 }
