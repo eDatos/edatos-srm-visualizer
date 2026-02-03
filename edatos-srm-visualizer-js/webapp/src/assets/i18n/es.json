@@ -44,7 +44,9 @@
     "selfLink": "Acceso vía API",
     "concept": "Concepto",
     "type": "Tipo",
-    "agency": "Agencia mantenedora"
+    "agency": "Agencia mantenedora",
+    "publicationDate": "Fecha de publicación",
+    "tabDisabledNoData": "No se han encontrado datos"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
@@ -55,7 +57,7 @@
     "recommendedCodelists": "Clasificaciones recomendadas",
     "parameters": {
       "idConcept": "Identificador del concepto",
-      "idScheme": "Identificador del esquema",
+      "idScheme": "Identificador del esquema de concepto",
       "schemeConcepts": "Conceptos del esquema"
     }
   },

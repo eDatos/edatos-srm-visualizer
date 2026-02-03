@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-import { LocaleService } from 'src/app/core/services/locale.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
-import { MenuItem } from 'primeng/api';
-import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
-import { Observable } from 'rxjs/internal/Observable';
-import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ConceptsApiService} from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
+import {LocaleService} from 'src/app/core/services/locale.service';
+import {TranslateService} from '@ngx-translate/core';
+import {ConceptResource} from 'src/app/shared/models/resources/concept-resource.model';
+import {MenuItem} from 'primeng/api';
+import {CodelistResource} from 'src/app/shared/models/resources/codelist-resource.model';
+import {TreeNode} from 'src/app/shared/models/tree/tree-node';
+import {BasicDetailComponent} from 'src/app/shared/components/basic-detail/basic-detail.component';
+import {Observable} from 'rxjs/internal/Observable';
+import {IInfiniteScrollEvent} from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-concept-detail',
@@ -58,15 +58,15 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.activeLink = this.navLinks[0];
 
         this.codelistColumns = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
+            {name: this.translateService.instant('resourceParameters.identifier'), value: 'id'},
+            {name: this.translateService.instant('resourceParameters.name'), value: 'name'},
+            {name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer'}
         ];
 
         this.conceptColumns = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+            {name: this.translateService.instant('resourceParameters.identifier'), value: 'id'},
+            {name: this.translateService.instant('resourceParameters.name'), value: 'name'},
+            {name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme'}
         ];
     }
 
@@ -75,22 +75,27 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
             this.loadRecommendedCodelists();
+            this.getOtherConcepts();
         });
+    }
+
+    private selectFirstTabWithData(): void {
+        const hasCodelists = this.dataDetail.isVariable && this.recommendedCodelists.length > 0;
+        const hasConcepts = this.otherConcepts.length > 0;
+
+        if (!hasCodelists && hasConcepts) {
+            this.activeLink = this.navLinks[1];
+        } else if (hasCodelists) {
+            this.activeLink = this.navLinks[0];
+        }
+
+        this.cdr.detectChanges();
     }
 
     public onActiveItemChange(event: any) {
         this.defaultParametersSearch();
-        
         this.activeLink = event;
         this.cdr.detectChanges();
-        if (this.activeLink == this.navLinks[0]) {
-            this.recommendedCodelists = new Array<TreeNode>();
-            this.loadRecommendedCodelists();
-        }
-        if (this.activeLink == this.navLinks[1]) {
-            this.otherConcepts = new Array<TreeNode>();
-            this.getOtherConcepts();
-        }
     }
 
     private loadDataDetailResource(data: any): Observable<ConceptResource> {
@@ -105,6 +110,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
                 this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((data) => {
                     this.otherConcepts = [...this.otherConcepts, ...data];
                     this.tableExpandable.dataLoaded = true;
+                    this.selectFirstTabWithData();
                 });
             }
         });
@@ -119,18 +125,21 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
                     this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
                         this.recommendedCodelists = [...this.recommendedCodelists, ...data];
                         this.tableExpandable.dataLoaded = true;
+                        this.selectFirstTabWithData();
                     });
                 } else {
                     this.tableExpandable.dataLoaded = true;
+                    this.selectFirstTabWithData();
                 }
             });
         } else if (!this.dataDetail.isVariable) {
             this.tableExpandable.dataLoaded = true;
+            this.selectFirstTabWithData();
         }
     }
 
     public override onReturn() {
-        this.router.navigate(['concepts'], { relativeTo: this.route.parent });
+        this.router.navigate(['concepts'], {relativeTo: this.route.parent});
     }
 
     public onLoadCodelistDetail(urn: string): void {
@@ -150,7 +159,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
 
     public openConceptSchemeLink(urn: string) {
         const resource = new ConceptResource(urn);
-        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], {relativeTo: this.route.parent});
     }
 
     public override onScrollDown($event: IInfiniteScrollEvent): void {

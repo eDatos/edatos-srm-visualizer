@@ -44,7 +44,9 @@
     "selfLink": "Accés via API",
     "concept": "Concepte",
     "type": "Tipus",
-    "agency": "Agència mantenidora"
+    "agency": "Agència mantenidora",
+    "publicationDate": "Data de publicació",
+    "tabDisabledNoData": "No s'han trobat dades"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -55,7 +57,7 @@
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
       "idConcept": "Identificador del concepte",
-      "idScheme": "Identificador de l'esquema",
+      "idScheme": "Identificador de l'esquema de concepte",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },

@@ -50,6 +50,7 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
             annotations: '',
             uri: '',
             maintainer: '',
+            publicationDate: ''
         });
 
         this.navLinks = [
