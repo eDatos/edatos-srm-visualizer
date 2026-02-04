@@ -16,44 +16,43 @@
 //primeng dropdown - OTHER VERSIONS
 .p-dropdown-custom .p-dropdown {
     height: 30px;
-    /* Azul Oscuro/100 */
-    border: 1px solid $color-azul-oscuro-100;
+    border: 1px solid var(--edatos-color-secondary-100);
     border-radius: 5px;
     align-items: center;
 }
 
 .p-dropdown-custom {
     .p-dropdown-label.p-placeholder {
-        color: $color-azul-oscuro-100;
-        font-weight: 300;
+        color: var(--edatos-color-secondary-100);
+        font-weight: var(--edatos-font-weight-light);
         padding: $spacing-xs $spacing-s;
-        font-size: $size-14;
+        font-size: var(--edatos-font-size-s);
     }
     
     .p-dropdown .p-dropdown-trigger {
-        color: $color-azul-oscuro-100;
+        color: var(--edatos-color-secondary-100);
         width: 1.25rem;
         justify-content: flex-start;
         padding-right: 25px;
     }
     
     .p-dropdown.p-component.p-dropdown-open {
-        background-color: $color-azul-oscuro-100;
+        background-color: var(--edatos-color-primary-100);
         border: none;
         border-radius: 5px 5px 0px 0px;
         
         .p-dropdown-label.p-placeholder, .p-dropdown-trigger-icon {
-            color: $color-negro-0;
-            font-weight: $font-weight-600;
+            color: var(--edatos-color-white-100);
+            font-weight: var(--edatos-font-weight-semibold);
         }
     }
     .p-dropdown.p-component {
         &.p-focus {
             box-shadow: none;
-            border-color: $color-azul-oscuro-100;
+            border-color: var(--edatos-color-secondary-100);
         }
         &:not(.p-disabled):hover {
-            border-color: $color-azul-oscuro-100;
+            border-color: var(--edatos-color-secondary-100);
             &:not(.p-dropdown-open) {
                 background-color: var(--edatos-color-primary-5);
             }
@@ -63,18 +62,19 @@
     .p-dropdown-panel {
         border-radius: 0px 0px 5px 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        background-color: $color-azul-10;
+        background-color: var(--edatos-color-primary-5);
         
         .p-dropdown-header {
             padding: $spacing-xxs;
-            background-color: $color-azul-10;
+            background-color: var(--edatos-color-primary-5);
             border-bottom: none;
            .p-dropdown-filter.p-inputtext {
                 height: 30px;
-                border: 1px solid $color-negro-60;
+                border: 1px solid var(--edatos-color-gray-60);
                 border-radius: 5px;
-                font-size: $size-12;
-                color: $color-negro-60;
+                font-size: var(--edatos-font-size-xs);
+                color: var(--edatos-color-gray-60);
+                padding: var(--edatos-spacing-x-sm);
                 &:focus {
                     box-shadow: none; //se elimina en options el sombreado alrededor de cada elementeo
                 }
@@ -84,26 +84,25 @@
             padding: $spacing-xxs;
         }
         .p-dropdown-item  {
-            font-size: $size-12;
+            font-size: var(--edatos-font-size-xs);
             padding: $spacing-xxs;
-            font-weight: $font-weight-300;
+            font-weight: var(--edatos-font-weight-light);
             line-height: 24px;
-            color: $color-azul-oscuro-100;
+            color: var(--edatos-color-secondary-100);
         }
     }
 }
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     .p-highlight {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
     }
 }
 
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
-    background: $color-azul-10;
-    color: $color-azul-oscuro-100;
-    background: $color-azul-25;
+    background: var(--edatos-color-primary-10);
+    color: var(--edatos-color-secondary-100);
     border-radius: 3px;
 }
 
@@ -237,13 +236,13 @@
 
 .p-dropdown-items-wrapper {
     scrollbar-width: thin;
-    scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
+    scrollbar-color: var(--edatos-color-secondary-100) var(--edatos-color-primary-5);
     &::-webkit-scrollbar {
         width: $scroll-width-default;
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 5px;
-        background-color: $color-azul-oscuro-100;
+        background-color: var(--edatos-color-secondary-100);
     }
 }
 
