@@ -33,7 +33,7 @@
 }
 
 .copied-message {
-    color: $color-azul-oscuro-100;
+    color: var(--edatos-color-secondary-100);
     font-weight: bold;
-    font-size: $size-10;
+    font-size: var(--edatos-font-size-xxs);
 }
