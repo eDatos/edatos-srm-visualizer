@@ -3,7 +3,7 @@
     min-height: 350px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
+    scrollbar-color: var(--edatos-color-secondary-100) var(--edatos-color-white-100);
     table {
         box-shadow: none;
         th, td {
@@ -29,5 +29,5 @@
 
 .search-results-table::-webkit-scrollbar-thumb, .search-results-table-detail::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: $color-azul-oscuro-100;
+    background-color: var(--edatos-color-secondary-100);
 }
