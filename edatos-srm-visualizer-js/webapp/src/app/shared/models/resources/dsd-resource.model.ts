@@ -1,7 +1,7 @@
-import { Resource } from './resource.model';
-import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from '../../../core/services/locale.service';
-import { DateUtils } from '../../utils/date-utils';
+import {Resource} from './resource.model';
+import {TranslateService} from '@ngx-translate/core';
+import {LocaleService} from '../../../core/services/locale.service';
+import {DateUtils} from '../../utils/date-utils';
 
 export class DsdResource extends Resource {
     publicationDate: string = '';
@@ -39,13 +39,13 @@ export class DsdResource extends Resource {
     public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
-        dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial? dimension.isSpatial : false, translateService);
-        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation);
+        dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial ? dimension.isSpatial : false, translateService);
+        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation, translateService);
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
         dsdResource.urn = dimension.conceptIdentity?.urn;
-        dsdResource.selfLink = dimension.conceptIdentity?.selfLink.href; 
+        dsdResource.selfLink = dimension.conceptIdentity?.selfLink.href;
 
         return dsdResource;
     }
@@ -65,9 +65,14 @@ export class DsdResource extends Resource {
         return dsdResource;
     }
 
-    public static getRepresentation(localRepresentation: any) {
+    public static getRepresentation(localRepresentation: any, translateService: TranslateService) {
         const representationType = localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist : localRepresentation.enumerationConceptScheme;
-        return representationType ? representationType : '';
+        if (!representationType) return '';
+        const currentLang = translateService.currentLang || 'es';
+
+        const nameObj = representationType.name?.text?.find((t: any) => t.lang === currentLang) || representationType.name?.text?.[0];
+        const nameValue = nameObj ? nameObj.value : representationType.id;
+        return `${representationType.id} - ${nameValue}`;
     }
 }
 
@@ -137,9 +142,9 @@ export function getAssignmentStatus(assignmentStatus: any, translateService: Tra
         case DsdAssignmentStatusResourceType.CONDITIONAL.getValue():
             return translateService.instant('dsd.assignmentStatus.conditional');
         case DsdAssignmentStatusResourceType.MANDATORY.getValue():
-           return translateService.instant('dsd.assignmentStatus.mandatory');
+            return translateService.instant('dsd.assignmentStatus.mandatory');
         default:
-            return String (assignmentStatus);
+            return String(assignmentStatus);
     }
 }
 
@@ -160,8 +165,8 @@ export function getAttributeType(attributeType: any, translateService: Translate
         return translateService.instant('dsd.attributeType.time');
     } else if (attributeType === DsdAttributeTypeResourceType.SPATIAL.getValue()) {
         return translateService.instant('dsd.attributeType.spatial')
-    } 
+    }
     return '';
-    
+
 }
 
