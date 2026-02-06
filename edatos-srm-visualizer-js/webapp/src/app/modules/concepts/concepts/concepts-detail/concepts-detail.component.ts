@@ -170,4 +170,10 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
             this.getOtherConcepts();
         }
     }
+
+    public isTabDisabled(index: number): boolean {
+        if (index === 0) return this.recommendedCodelists.length === 0;
+        if (index === 1) return this.otherConcepts.length === 0;
+        return false;
+    }
 }

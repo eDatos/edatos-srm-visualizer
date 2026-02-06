@@ -149,4 +149,10 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         }
     }
 
+    public isTabDisabled(index: number): boolean {
+        if (index === 0) return !this.dataChildren || this.dataChildren.length === 0;
+        if (index === 1) return !this.dataDetail?.isVariableElement;
+        return false;
+    }
+
 }
