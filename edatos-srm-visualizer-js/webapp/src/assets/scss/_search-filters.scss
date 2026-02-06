@@ -3,7 +3,7 @@
     align-items: center;
     padding: 0 $spacing-l;
     .title {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
     }
 }
 
@@ -25,8 +25,7 @@
 //primeng multiselect
 .multiselect-custom-search .p-multiselect {
     height: 30px;
-    /* Azul Oscuro/100 */
-    border: 1px solid $color-azul-oscuro-100;
+    border: 1px solid var(--edatos-color-secondary-100);
     border-radius: 5px;
     align-items: center;
     max-width: 100px;
@@ -34,30 +33,30 @@
 
 .multiselect-custom-search {
     .p-component {
-        font-size: 14px;
+        font-size: var(--edatos-font-size-s);
     }
     .p-multiselect-label.p-placeholder {
-        color: $color-azul-oscuro-100;
-        font-weight: 300;
+        color: var(--edatos-color-secondary-100);
+        font-weight: var(--edatos-font-weight-regular);
         padding: $spacing-xs $spacing-s;
     }
     
     .p-multiselect .p-multiselect-trigger {
-        color: $color-azul-oscuro-100;
+        color: var(--edatos-color-secondary-100);
         width: 1.25rem;
         justify-content: flex-start;
     }
     
     .p-multiselect.p-component.p-multiselect-open, .p-multiselect-panel {
-        background-color: $color-azul-oscuro-100;
+        background-color: var(--edatos-color-primary-100);
         width: 187px;
         .p-multiselect-label.p-placeholder, .p-multiselect-trigger {
-            color: $color-negro-0;
-            font-weight: $font-weight-600;
+            color: var(--edatos-color-white-100);
+            font-weight: var(--edatos-font-weight-semibold);
         } 
         .p-multiselect-item {
-            color: $color-negro-0;
-            font-weight: $font-weight-300;
+            color: var(--edatos-color-white-100);
+            font-weight: var(--edatos-font-weight-light);
         }
     }
     .p-multiselect.p-component {
@@ -67,17 +66,17 @@
         }
         &.p-focus {
             box-shadow: none;
-            border-color: $color-azul-oscuro-100;
+            border-color: var(--edatos-color-secondary-100);
         }
         &:not(.p-disabled):hover {
-            border-color: $color-azul-oscuro-100;
+            border-color: var(--edatos-color-secondary-100);
             &:not(.p-multiselect-open) {
                 background-color: var(--edatos-color-primary-5);
             }
         }
     }
     .p-multiselect-panel {
-        border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 5px 5px 5px;
         max-height: 128px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         .p-multiselect-item .p-checkbox {
@@ -91,7 +90,7 @@
 .p-multiselect .p-checkbox .p-checkbox-box {
     border: none;
     background: none;
-    color: $color-negro-0;
+    color: var(--edatos-color-white-100);
     @include fa-icon-thin($fa-var-square);
     &.p-highlight {
         @include fa-icon-solid($fa-var-square-check);
@@ -103,14 +102,14 @@
 
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     &.p-highlight {
-        background: $color-azul-oscuro-100;
-        font-weight: $font-weight-600 !important;
+        background: var(--edatos-color-primary-100);
+        font-weight: var(--edatos-font-weight-semibold) !important;
     }
     &:focus {
         box-shadow: none; //se elimina en options el sombreado alrededor de cada elementeo
     }
     &:hover {
-        background: $color-azul-oscuro-100;
+        background: var(--edatos-color-primary-100);
     }
 }
 
@@ -118,15 +117,15 @@
     background: none;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
-    color: $color-negro-0;
+    color: var(--edatos-color-white-100);
     background: none;
 }
 
 
 .custom-switch  {
-    color: $color-azul-oscuro-100;
-    font-weight: $font-weight-300;
-    gap: 16px;
+    color: var(--edatos-color-secondary-100);
+    font-weight: var(--edatos-font-weight-light);
+    gap: $spacing-s;
     display: flex;
     align-items: center;
     padding-left: $spacing-m;
@@ -177,19 +176,19 @@
 .p-autocomplete-custom {
     .p-inputtext {
         height: 30px;
-        border: 1px solid $color-negro-60;
+        border: 1px solid var(--edatos-color-gray-60);
         border-right: 0;
         border-radius: 5px;
-        font-size: $size-12;
+        font-size: var(--edatos-font-size-xs);
         font-family: $font-family-sans-serif;
         padding: 7px;
         &:focus, &:hover {
-            border-color: $color-negro-60;
+            border-color: var(--edatos-color-gray-60);
             box-shadow: none;
         }
     }
 
-    .p-autocomplete-panel {
+    .p-autocomplete-panel { //TODO: falta definir los estilos del desplegable
         border-radius: 0 0 5px 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         
@@ -226,22 +225,22 @@
 .p-autocomplete-dropdown.p-button-icon-only {
     height: 30px;
     width: 30px;
-    border: 1px solid $color-negro-60;
-    background: $color-negro-0;
+    border: 1px solid var(--edatos-color-gray-60);
+    background: var(--edatos-color-white-100);
     border-left: 0;
     color: unset;
     &:focus {
         box-shadow: none;
     }
     &:hover {
-        border-color:$color-negro-60;
-        background: $color-negro-0;
+        border-color: var(--edatos-color-gray-60);
+        background: var(--edatos-color-white-100);
         color: unset;
     }
 }
 
 .label-inputswitch-checked {
-    font-weight: $font-weight-600;
+    font-weight: var(--edatos-font-weight-semibold);
 }
 
 
