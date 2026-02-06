@@ -145,7 +145,6 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
         if (!hasChildren && isVariable) {
             this.activeLink = this.navLinks[1];
-            this.loadEquivalentCodes();
         }
     }
 
