@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
     CodelistCodesApiService
 } from 'src/app/core/services/api/structural-resources/codelist/codelist-codes-api.service';
-import { LocaleService } from 'src/app/core/services/locale.service';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
-import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
-import { Observable } from 'rxjs/internal/Observable';
-import { TreeNode } from 'src/app/shared/models/tree/tree-node';
-import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
-import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
+import {LocaleService} from 'src/app/core/services/locale.service';
+import {TranslateService} from '@ngx-translate/core';
+import {MenuItem} from 'primeng/api';
+import {CodelistResource} from 'src/app/shared/models/resources/codelist-resource.model';
+import {BasicDetailComponent} from 'src/app/shared/components/basic-detail/basic-detail.component';
+import {Observable} from 'rxjs/internal/Observable';
+import {TreeNode} from 'src/app/shared/models/tree/tree-node';
+import {ConceptResource} from 'src/app/shared/models/resources/concept-resource.model';
+import {IInfiniteScrollEvent} from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-code-detail',
@@ -58,9 +58,9 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.activeLink = this.navLinks[0];
 
         this.codeColumns = [
-            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            {name: this.translateService.instant('resourceParameters.identifier'), value: 'id'},
+            {name: this.translateService.instant('resourceParameters.name'), value: 'name'},
+            {name: this.translateService.instant('resourceParameters.description'), value: 'description'}
         ];
 
     }
@@ -70,6 +70,10 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
             this.loadChildrenTreeData();
+            this.loadEquivalentCodes();
+            if ((!this.dataChildren || this.dataChildren.length === 0) && this.activeLink === this.navLinks[0]) {
+                this.checkTabSelection();
+            }
         });
     }
 
@@ -97,12 +101,15 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllOtherCodesDetailsFromSrm(resources, true).subscribe((data) => {
                         this.equivalentCodes = [...this.equivalentCodes, ...data];
+                        if (this.tableExpandable) this.tableExpandable.dataLoaded = true;
                     });
+                } else {
+                    if (this.tableExpandable) this.tableExpandable.dataLoaded = true;
                 }
             });
-        } else if (!this.dataDetail.isVariableElement) {
+        } else {
             this.equivalentCodes = [];
-            this.tableExpandable.dataLoaded = true;
+            if (this.tableExpandable) this.tableExpandable.dataLoaded = true;
         }
     }
 
@@ -114,7 +121,7 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
     }
 
     public override onReturn() {
-        this.router.navigate(['codes'], { relativeTo: this.route.parent });
+        this.router.navigate(['codes'], {relativeTo: this.route.parent});
     }
 
     public onloadTreeNodeDetailData(urn: string) {
@@ -124,12 +131,27 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
 
     public openCodelistLink(urn: string) {
         const resource = new ConceptResource(urn);
-        this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.version, 'detail'], {relativeTo: this.route.parent});
     }
 
     public override onScrollDown($event: IInfiniteScrollEvent): void {
         this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
         this.loadEquivalentCodes();
+    }
+
+    private checkTabSelection(): void {
+        const hasChildren = this.dataChildren && this.dataChildren.length > 0;
+        const isVariable = this.dataDetail.isVariableElement;
+
+        if (!hasChildren && isVariable) {
+            this.activeLink = this.navLinks[1];
+        }
+    }
+
+    public isTabDisabled(index: number): boolean {
+        if (index === 0) return !this.dataChildren || this.dataChildren.length === 0;
+        if (index === 1) return !this.dataDetail?.isVariableElement;
+        return false;
     }
 
 }
