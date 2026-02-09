@@ -29,6 +29,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public codelistColumns: any[];
     public routerLinkDetail: string = '';
 
+    private isInitialTabSet = false;
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
@@ -80,6 +82,9 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     }
 
     private selectFirstTabWithData(): void {
+        if (this.isInitialTabSet) {
+            return;
+        }
         const hasCodelists = this.dataDetail.isVariable && this.recommendedCodelists.length > 0;
         const hasConcepts = this.otherConcepts.length > 0;
 
@@ -88,6 +93,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         } else if (hasCodelists) {
             this.activeLink = this.navLinks[0];
         }
+        this.isInitialTabSet = true;
 
         this.cdr.detectChanges();
     }
