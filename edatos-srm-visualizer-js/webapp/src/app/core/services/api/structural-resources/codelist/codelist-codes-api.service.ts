@@ -15,6 +15,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiSrmUrlConstants } from '../../../../../shared/models/api-srm-url-constants';
 import { SearchConfig } from 'src/app/shared/models/search-config';
+import {Constants} from "../../../../../shared/models/constants";
 
 
 @Injectable({
@@ -36,7 +37,15 @@ export class CodelistCodesApiService extends ApiSrmService {
 
     public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.CODELIST_LATEST_QUERY : '';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CODES_API_URL}${latestQuery}`;
+
+        const agencyId = this.agencyId !== '' ? `${this.agencyId}` : Constants.ALL;
+
+        let baseUrl = ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL
+            .replace('{agencyID}', agencyId)
+            .replace('{resourceID}', Constants.ALL)
+            .replace('{version}', Constants.ALL);
+
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${baseUrl}${latestQuery}`;
     }
 
     public loadEquivalentCodes(variableElementUrn: string, searchConfig: SearchConfig): Observable<any> {

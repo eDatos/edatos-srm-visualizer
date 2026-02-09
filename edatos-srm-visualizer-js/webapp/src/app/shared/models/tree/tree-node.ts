@@ -86,7 +86,7 @@ export function treeNodeWithMaintainerAndCodelist(codelist: any, data: any, isLa
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: maintainer,
-        scheme: isLatestVersion ? `${codelist.id} / ${maintainer}` : `${codelist.id}(${codelist.version}) / ${maintainer}`
+        scheme: isLatestVersion ? `${codelist.id}` : `${codelist.id}(${codelist.version})`
     };
     return treeNode;
 }
