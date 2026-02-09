@@ -90,10 +90,12 @@
 
 <div class='subsection-tab detail-tab'>
     <ul class='nav nav-tabs'>
-        <li class='nav-item' *ngFor='let link of navLinks'>
-            <a class='nav-link' [ngClass]="activeLink == link ? 'active' : ''" 
-               (click)='onActiveItemChange(link)'
-               routerLinkActive='active'>{{link.label}}
+        <li class='nav-item' *ngFor='let link of navLinks; let i = index'
+            [ngClass]="{'active': activeLink === link, 'disabled': isTabDisabled(i)}"
+            [attr.title]="isTabDisabled(i) ? ('resourceParameters.tabDisabledNoData' | translate) : null">
+            <a class="nav-link" [ngClass]="{'active': activeLink === link}"
+               (click)="isTabDisabled(i) ? null : onActiveItemChange(link)">
+                {{ link.label }}
             </a>
         </li>
     </ul>
