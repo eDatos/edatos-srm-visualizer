@@ -36,11 +36,11 @@ export class DsdResource extends Resource {
         return dsdResource;
     }
 
-    public static dsdDimensionResource(dimension: any, translateService: TranslateService): DsdResource {
+    public static dsdDimensionResource(dimension: any, translateService: TranslateService, localeService: LocaleService): DsdResource {
         const dsdResource = new DsdResource(dimension.urn);
         dsdResource.id = dimension.id;
         dsdResource.typeDimension = getTypeDimension(dimension.type, dimension.isSpatial ? dimension.isSpatial : false, translateService);
-        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation, translateService);
+        dsdResource.localRepresentation = this.getRepresentation(dimension.localRepresentation, localeService);
 
         const concept = new Resource(dimension.conceptIdentity?.urn);
         dsdResource.concept = dimension.conceptIdentity?.id + ' (' + concept.resourceId + ')';
@@ -65,14 +65,13 @@ export class DsdResource extends Resource {
         return dsdResource;
     }
 
-    public static getRepresentation(localRepresentation: any, translateService: TranslateService) {
+    public static getRepresentation(localRepresentation: any, localeService: LocaleService) {
         const representationType = localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist : localRepresentation.enumerationConceptScheme;
         if (!representationType) return '';
-        const currentLang = translateService.currentLang || 'es';
 
-        const nameObj = representationType.name?.text?.find((t: any) => t.lang === currentLang) || representationType.name?.text?.[0];
-        const nameValue = nameObj ? nameObj.value : representationType.id;
-        return `${representationType.id} - ${nameValue}`;
+        const nameValue = localeService.getTextValue(representationType.name?.text);
+
+        return representationType.id + ' - ' + nameValue;
     }
 }
 

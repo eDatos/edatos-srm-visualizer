@@ -157,7 +157,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     private getDimensions(dataStructureComponents: any): TreeNode[] {
         if (dataStructureComponents[this.apiSrmService.apiDimensionDataPath]) {
             this.dimensions = dataStructureComponents[this.apiSrmService.apiDimensionDataPath]['dimension'].map((dimension: any) => {
-                return DsdResource.dsdDimensionResource(dimension, this.translateService);
+                return DsdResource.dsdDimensionResource(dimension, this.translateService, this.localeService);
             });
         }
         return this.dimensions;
