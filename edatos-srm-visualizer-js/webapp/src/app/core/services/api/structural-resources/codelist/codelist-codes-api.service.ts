@@ -38,7 +38,7 @@ export class CodelistCodesApiService extends ApiSrmService {
     public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.CODELIST_LATEST_QUERY : '';
 
-        const agencyId = this.agencyId !== '' ? `${this.agencyId}` : Constants.ALL;
+        const agencyId = this.agencyId || Constants.ALL
 
         let baseUrl = ApiSrmUrlConstants.CODES_BY_CODELISTS_API_URL
             .replace('{agencyID}', agencyId)
