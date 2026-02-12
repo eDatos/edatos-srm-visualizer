@@ -22,6 +22,11 @@ import { ErrorService } from '../../../core/services/error/error.service';
     ]
 })
 export class TableExpandableRows implements OnInit {
+
+    @Input() set loading(value: boolean) {
+        this.dataLoaded = !value;
+    }
+
     public columnsToDisplay: Column[] = [];
     public filteredValues: any[] = [];
     public options: any = {
@@ -165,7 +170,7 @@ export class TableExpandableRows implements OnInit {
     @Output() keyupEvent = new EventEmitter<{ filterValue: string, column: string }>();
 
     @Output() sortColumnEvent =  new EventEmitter<{ sortOrder: string, column: string }>();
-    
+
     @Output() selectEvent =  new EventEmitter<{ filterValue: any, column: string }>();
 
     hasChild = (_: number, node: FlatTreeNode) => node.expandable;
