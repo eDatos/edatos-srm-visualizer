@@ -167,19 +167,12 @@ export abstract class BasicSearchComponent {
         this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
     }
 
-    public onScrollDown($event: IInfiniteScrollEvent) {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        let query = this.buildQueryHelper.buildQueryResultOffset(this.markedSearchAdvanced ? this.tableExpandable.searchAdvancedForm : this.searchSimpleForm, this.searchForm, this.apiService.isLatestVersion, this.markedSearchAdvanced);
-        this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
-            if (data[this.apiService.apiSearchDataPath]) {
-                this.dataSearch = data[this.apiService.apiSearchDataPath];
-                this.loadDetailDataChildren();
-            }
-        });
-    }
 
-    public onSearch(): void {
-        this.defaultParametersSearch();
+    public onSearch(resetPagination: boolean = true): void {
+        if (resetPagination) {
+            this.defaultParametersSearch();
+        }
+
         this.mapper(this.searchForm.controls);
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
