@@ -1,0 +1,47 @@
+.pagination {
+    padding-top: var(--edatos-spacing-y-l);
+    font-size: var(--edatos-font-size-s);
+
+    ul {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        a {
+            display: block;
+            padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-m);
+            text-decoration: none;
+            border: 1px solid var(--edatos-color-gray-40);
+            color: var(--edatos-color-gray-40);
+            margin: 0 var(--edatos-spacing-x-xs);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        &:not(.active) a:hover {
+            background-color: var(--edatos-color-primary-5);
+            border: 1px solid var(--edatos-color-primary-100);
+            color: var(--edatos-color-primary-100);
+        }
+
+        &.active a {
+            border: 1px solid var(--edatos-color-primary-100);
+            color: var(--edatos-color-primary-100);
+            font-weight: var(--edatos-font-weight-semibold);
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        &.disabled a {
+            display: none;
+            border: 1px solid var(--edatos-color-gray-20);
+            color: var(--edatos-color-gray-20);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
+}
