@@ -1,19 +1,35 @@
 <div class="pagination">
-    <ul *ngIf="pages.length > 1">
+    <ul *ngIf="totalPages > 1">
         <li [class.disabled]="currentPage === 0">
-            <a class="page-link" href="javascript:void(0)" (click)="onPreviusPage()" role="button">
+            <a class="page-link" (click)="onPreviusPage()" role="button">
                 <i class="fa-thin fa-chevrons-left"></i>
             </a>
         </li>
 
+        <ng-container *ngIf="pages[0] > 0">
+            <li><a class="page-link" (click)="onChangePage(0)" role="button">1</a></li>
+            <li class="disabled" *ngIf="pages[0] > 1"><span class="ellipsis">...</span></li>
+        </ng-container>
+
         <li *ngFor="let page of pages" [class.active]="page === currentPage">
-            <a class="page-link" href="javascript:void(0)" (click)="onChangePage(page)" role="button">
+            <a class="page-link" (click)="onChangePage(page)" role="button">
                 {{ page + 1 }}
             </a>
         </li>
 
-        <li [class.disabled]="currentPage === pages.length - 1">
-            <a class="page-link" href="javascript:void(0)" (click)="onNextPage()" role="button">
+        <ng-container *ngIf="pages[pages.length - 1] < totalPages - 1">
+            <li class="disabled" *ngIf="pages[pages.length - 1] < totalPages - 2">
+                <span class="ellipsis">...</span>
+            </li>
+            <li>
+                <a class="page-link" (click)="onChangePage(totalPages - 1)" role="button">
+                    {{ totalPages }}
+                </a>
+            </li>
+        </ng-container>
+
+        <li [class.disabled]="currentPage === totalPages - 1">
+            <a class="page-link" (click)="onNextPage()" role="button">
                 <i class="fa-thin fa-chevrons-right"></i>
             </a>
         </li>

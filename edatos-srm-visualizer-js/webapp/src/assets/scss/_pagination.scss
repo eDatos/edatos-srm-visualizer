@@ -1,4 +1,5 @@
 .pagination {
+    margin-top:var(--edatos-spacing-y-l);
     padding-top: var(--edatos-spacing-y-l);
     font-size: var(--edatos-font-size-s);
 
@@ -11,8 +12,12 @@
 
     li {
         a {
-            display: block;
-            padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-m);
+            display: flex;
+            padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
+            align-items: center;
+            justify-content: center;
+            min-width: 2rem;
+            aspect-ratio: 1 / 1;
             text-decoration: none;
             border: 1px solid var(--edatos-color-gray-40);
             color: var(--edatos-color-gray-40);
@@ -20,6 +25,7 @@
             border-radius: var(--border-radius-sm);
             cursor: pointer;
             transition: all 0.2s ease;
+            line-height: 1;
         }
 
         &:not(.active) a:hover {
@@ -43,5 +49,17 @@
             cursor: not-allowed;
             pointer-events: none;
         }
+    }
+    .ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2rem;
+        aspect-ratio: 1 / 1;
+        color: var(--edatos-color-gray-40);
+    }
+
+    .page-link i {
+        vertical-align: middle;
     }
 }

@@ -13,12 +13,16 @@ export class PaginationsComponent implements OnChanges {
     @Output() changePage: EventEmitter<number> = new EventEmitter<number>();
     pages: number[] = [];
 
+    get totalPages(): number {
+        return Math.ceil(this.paginationSize / this.paginationLimit);
+    }
+
     ngOnInit(): void {
         this.calculateNumberPages();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['paginationSize'] || changes['paginationLimit']) {
+        if (changes['paginationSize'] || changes['paginationLimit'] || changes['currentPage']) {
             this.calculateNumberPages();
         }
     }
@@ -43,11 +47,18 @@ export class PaginationsComponent implements OnChanges {
     }
 
     calculateNumberPages(): number[] {
-        if (this.paginationSize > 0 && this.paginationLimit > 0) {
-            const count = Math.ceil(this.paginationSize / this.paginationLimit);
-            this.pages = [...Array(count).keys()];
-        } else {
-            this.pages = [];
+        const total = this.totalPages;
+        const maxVisible = 5;
+        let start = Math.max(0, this.currentPage - Math.floor(maxVisible / 2));
+        let end = Math.min(total, start + maxVisible);
+
+        if (end - start < maxVisible) {
+            start = Math.max(0, end - maxVisible);
+        }
+
+        this.pages = [];
+        for (let i = start; i < end; i++) {
+            this.pages.push(i);
         }
         return this.pages;
     }
