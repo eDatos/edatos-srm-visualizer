@@ -43,4 +43,12 @@
         </table-expandable-rows>
     </div>
 </div>
+<div class="pagination-container" *ngIf="searchConfig.resultSize > searchConfig.resultLimit">
+    <app-paginations
+            [paginationSize]="searchConfig.resultSize"
+            [paginationLimit]="searchConfig.resultLimit"
+            [currentPage]="searchConfig.currentPage"
+            (changePage)="onChangePage($event)">
+    </app-paginations>
+</div>
 <br />
