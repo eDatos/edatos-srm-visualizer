@@ -1,5 +1,5 @@
 .search-results-table, .search-results-table-detail {
-    height: calc(100vh - 2*$height-nav - $height-general-search - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
+    height: calc(100vh - 2*$height-nav - $height-general-search - $title-bar-height - $istac-navbar-height - $istac-footer-height - $istac-pagination-height - 1px);
     min-height: 350px;
     overflow-y: auto;
     scrollbar-width: thin;
@@ -15,7 +15,7 @@
 
 
 .search-results-table-detail {
-    height: calc(100vh - 3*$height-nav - 210px - $title-bar-height - $istac-navbar-height - $istac-footer-height - 1px);
+    height: calc(100vh - 3*$height-nav - 210px - $title-bar-height - $istac-navbar-height - $istac-footer-height - $istac-pagination-height - 1px);
 }
 
 .search-results-tree-detail {
