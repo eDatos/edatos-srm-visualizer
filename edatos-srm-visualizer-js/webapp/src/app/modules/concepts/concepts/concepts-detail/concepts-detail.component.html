@@ -85,18 +85,30 @@
 <div class='detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+             [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
                                    (clickEvent)='onLoadCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [paginationSize]="searchConfig.resultSize"
+                [paginationLimit]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+             [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
                                    (clickEvent)='onLoadConceptsDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [paginationSize]="searchConfig.resultSize"
+                [paginationLimit]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
 </div>

@@ -54,8 +54,9 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
         ];
     }
 
-    loadDetailData(loadAll: boolean): void {
+    protected override loadDetailData(loadAll: boolean): void {
         if (loadAll) {
+            this.defaultParametersSearch();
             this.loadDataDetailResource(this.dataDetail).subscribe(data => {
                 this.dataDetail = data;
                 this.detailForm.patchValue(this.dataDetail);
@@ -71,16 +72,26 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
     }
 
     private loadFamilyCodelist(): void {
+        if (this.tableExpandable) {
+            this.tableExpandable.dataLoaded = false;
+        }
+
         this.apiSrmService.loadFamilyCodelist(this.dataDetail.urn, this.searchConfig).subscribe((data) => {
-            this.searchConfig.resultSize = data['total'];
+            this.searchConfig.resultSize = data['total'] || 0;
+
             if (data[this.apiSrmService.apiCodelistDataPath] && this.searchConfig.resultSize > 0) {
                 const resources = data[this.apiSrmService.apiCodelistDataPath];
                 this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
-                    this.familyCodelist = [...this.familyCodelist, ...codelist];
-                    this.tableExpandable.dataLoaded = true;
-                }); 
+                    this.familyCodelist = codelist;
+                    if (this.tableExpandable) {
+                        this.tableExpandable.dataLoaded = true;
+                    }
+                });
             } else {
-                this.tableExpandable.dataLoaded = true;
+                this.familyCodelist = [];
+                if (this.tableExpandable) {
+                    this.tableExpandable.dataLoaded = true;
+                }
             }
         });
     }

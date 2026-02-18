@@ -68,13 +68,19 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
 
     }
 
-    protected loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadChildrenTreeData();
-            this.loadAllVersionsFromResource();
-        });
+    protected loadDetailData(loadAll: boolean = true): void {
+        if (loadAll) {
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+                this.loadChildrenTreeData();
+                this.loadAllVersionsFromResource();
+            });
+        } else {
+            if (this.activeLink == this.navLinks[1]) {
+                this.loadRelatedCodelistDetails(this.dataDetail.variableUrn, false);
+            }
+        }
     }
 
     private loadDataDetailResource(data: any): Observable<CodelistResource> {
@@ -97,22 +103,30 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         if (this.activeLink == this.navLinks[0]) {
             this.loadChildrenTreeData();
         } else if (this.activeLink == this.navLinks[1]) {
-            this.defaultParametersSearch();
-            this.relationatedCodelist = new Array<TreeNode>();
-            this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
+            this.loadRelatedCodelistDetails(this.dataDetail.variableUrn, true);
         }
     }
 
-    private loadRelatedCodelistDetails(variableUrn: string) {
+    private loadRelatedCodelistDetails(variableUrn: string, resetPagination: boolean = false) {
+        if (resetPagination) {
+            this.defaultParametersSearch();
+            this.relationatedCodelist = [];
+        }
+
         if (this.dataDetail.variableUrn != '') {
+            this.tableExpandable.dataLoaded = false;
             this.apiSrmService.getRelatedCodelist(variableUrn, this.searchConfig).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
+
                 if (data[this.apiSrmService.apiSearchDataPath]) {
                     const resources = data[this.apiSrmService.apiSearchDataPath];
                     this.apiSrmService.findAllRelatedCodelistDetailsFromSrm(resources, true).subscribe((codelist) => {
-                        this.relationatedCodelist = [...this.relationatedCodelist, ...codelist];
+                        this.relationatedCodelist = codelist;
                         this.tableExpandable.dataLoaded = true;
                     });
+                } else {
+                    this.relationatedCodelist = [];
+                    this.tableExpandable.dataLoaded = true;
                 }
             });
         } else {
@@ -145,8 +159,4 @@ export class CodelistDetailComponent extends BasicDetailComponent implements OnI
         }
     }
 
-    public override onScrollDown($event: IInfiniteScrollEvent): void {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        this.loadRelatedCodelistDetails(this.dataDetail.variableUrn);
-    }
 }

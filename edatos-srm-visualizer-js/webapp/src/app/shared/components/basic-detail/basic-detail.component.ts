@@ -164,19 +164,23 @@ export abstract class BasicDetailComponent implements OnInit {
         this.router.navigate(['organisations/organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail']);
     }
 
-    public onScrollDown($event: IInfiniteScrollEvent) {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        
-        this.loadDetailData(false);
-    }
 
     protected defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
+        this.searchConfig.resultSize = 0;
     }
 
     protected abstract loadDetailData(loadAll?: boolean): void;
 
     protected abstract onReturn(): void;
 
+    public onChangePage(page: number): void {
+        this.searchConfig.currentPage = page;
+        this.searchConfig.resultOffset = page * this.searchConfig.resultLimit;
+        this.loadDetailData(false);
+        if (this.searchResults) {
+            this.searchResults.nativeElement.scrollTop = 0;
+        }
+    }
 }

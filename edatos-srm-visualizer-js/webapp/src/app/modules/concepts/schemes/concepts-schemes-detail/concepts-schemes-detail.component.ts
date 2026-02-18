@@ -70,7 +70,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     }
 
     loadDetailData(loadAll: boolean): void {
-        if (loadAll) { 
+        if (loadAll) {
+            this.defaultParametersSearch();
             this.loadDataDetailResource(this.dataDetail).subscribe(data => {
                 this.dataDetail = data;
                 this.detailForm.patchValue(this.dataDetail);
@@ -85,14 +86,19 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
     private loadConceptsOfScheme(): void {
         const schemeName = this.dataDetail.name;
         this.scheme = `${this.dataDetail.id} - ${schemeName}`;
-    
+
+        this.dataChildrenLoaded = false;
         this.apiSrmService.loadConceptsOfScheme(this.dataDetail, this.searchConfig).subscribe((data) => {
+            this.searchConfig.resultSize = data['total'] || 0;
             if (data[this.apiSrmService.apiChildrenDataPath]) {
                 const resources: any[] = data[this.apiSrmService.apiChildrenDataPath];
                 this.apiSrmService.findAllConceptsResourcesDetailsWithMaintainerAndSchemeFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((concepts) => {
-                    this.conceptsOfScheme = [...this.conceptsOfScheme, ...concepts];
+                    this.conceptsOfScheme = concepts;
                     this.dataChildrenLoaded = true;
                 });
+            } else {
+                this.conceptsOfScheme = [];
+                this.dataChildrenLoaded = true;
             }
         });
     }

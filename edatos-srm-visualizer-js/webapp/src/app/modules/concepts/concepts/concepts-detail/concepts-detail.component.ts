@@ -1,16 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConceptsApiService} from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
-import {LocaleService} from 'src/app/core/services/locale.service';
-import {TranslateService} from '@ngx-translate/core';
-import {ConceptResource} from 'src/app/shared/models/resources/concept-resource.model';
-import {MenuItem} from 'primeng/api';
-import {CodelistResource} from 'src/app/shared/models/resources/codelist-resource.model';
-import {TreeNode} from 'src/app/shared/models/tree/tree-node';
-import {BasicDetailComponent} from 'src/app/shared/components/basic-detail/basic-detail.component';
-import {Observable} from 'rxjs/internal/Observable';
-import {IInfiniteScrollEvent} from 'ngx-infinite-scroll';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConceptsApiService } from 'src/app/core/services/api/structural-resources/concepts/concepts-api.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ConceptResource } from 'src/app/shared/models/resources/concept-resource.model';
+import { MenuItem } from 'primeng/api';
+import { CodelistResource } from 'src/app/shared/models/resources/codelist-resource.model';
+import { TreeNode } from 'src/app/shared/models/tree/tree-node';
+import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
     selector: 'app-concept-detail',
@@ -60,41 +59,45 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.activeLink = this.navLinks[0];
 
         this.codelistColumns = [
-            {name: this.translateService.instant('resourceParameters.identifier'), value: 'id'},
-            {name: this.translateService.instant('resourceParameters.name'), value: 'name'},
-            {name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer'}
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
 
         this.conceptColumns = [
-            {name: this.translateService.instant('resourceParameters.identifier'), value: 'id'},
-            {name: this.translateService.instant('resourceParameters.name'), value: 'name'},
-            {name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme'}
+            { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
         ];
     }
 
-    loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadRecommendedCodelists();
-            this.getOtherConcepts();
-        });
+    loadDetailData(loadAll: boolean = true): void {
+        if (loadAll) {
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+
+                this.loadRecommendedCodelists();
+            });
+        } else {
+            if (this.activeLink === this.navLinks[0]) this.loadRecommendedCodelists();
+            else this.getOtherConcepts();
+        }
     }
 
     private selectFirstTabWithData(): void {
-        if (this.isInitialTabSet) {
-            return;
-        }
+        if (this.isInitialTabSet) return;
+
         const hasCodelists = this.dataDetail.isVariable && this.recommendedCodelists.length > 0;
         const hasConcepts = this.otherConcepts.length > 0;
 
         if (!hasCodelists && hasConcepts) {
             this.activeLink = this.navLinks[1];
-        } else if (hasCodelists) {
+        } else {
             this.activeLink = this.navLinks[0];
         }
-        this.isInitialTabSet = true;
 
+        this.isInitialTabSet = true;
         this.cdr.detectChanges();
     }
 
@@ -102,6 +105,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.defaultParametersSearch();
         this.activeLink = event;
         this.cdr.detectChanges();
+        if (this.activeLink === this.navLinks[0]) this.loadRecommendedCodelists();
+        else this.getOtherConcepts();
     }
 
     private loadDataDetailResource(data: any): Observable<ConceptResource> {
@@ -109,38 +114,52 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     }
 
     private getOtherConcepts() {
+        if (this.tableExpandable) this.tableExpandable.dataLoaded = false;
         this.apiSrmService.getOtherConcepts(this.dataDetail, this.searchConfig).subscribe((concept) => {
             this.searchConfig.resultSize = concept['total'];
-            if (concept[this.apiSrmService.apiSearchDataPath] && this.searchConfig.resultSize > 0) {
+            if (concept[this.apiSrmService.apiSearchDataPath] && concept['total'] > 0) {
                 const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
                 this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((data) => {
-                    this.otherConcepts = [...this.otherConcepts, ...data];
+                    this.otherConcepts = data;
                     this.tableExpandable.dataLoaded = true;
                     this.selectFirstTabWithData();
                 });
+            } else {
+                this.otherConcepts = [];
+                this.tableExpandable.dataLoaded = true;
             }
         });
     }
 
     private loadRecommendedCodelists(): void {
+        if (this.tableExpandable) this.tableExpandable.dataLoaded = false;
+
         if (this.dataDetail.isVariable) {
             this.apiSrmService.getRecommendedCodelists(this.dataDetail.urnVariable, this.searchConfig).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
-                if (data[this.apiSrmService.apiCodelistDataPath] && this.searchConfig.resultSize > 0) {
+                if (data[this.apiSrmService.apiCodelistDataPath] && data['total'] > 0) {
                     const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];
                     this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
-                        this.recommendedCodelists = [...this.recommendedCodelists, ...data];
+                        this.recommendedCodelists = data;
                         this.tableExpandable.dataLoaded = true;
-                        this.selectFirstTabWithData();
+                        if (!this.isInitialTabSet) this.getOtherConcepts();
+                        else this.selectFirstTabWithData();
                     });
                 } else {
-                    this.tableExpandable.dataLoaded = true;
-                    this.selectFirstTabWithData();
+                    this.recommendedCodelists = [];
+                    if (!this.isInitialTabSet) this.getOtherConcepts();
+                    else {
+                        this.tableExpandable.dataLoaded = true;
+                        this.selectFirstTabWithData();
+                    }
                 }
             });
-        } else if (!this.dataDetail.isVariable) {
-            this.tableExpandable.dataLoaded = true;
-            this.selectFirstTabWithData();
+        } else {
+            if (!this.isInitialTabSet) this.getOtherConcepts();
+            else {
+                this.tableExpandable.dataLoaded = true;
+                this.selectFirstTabWithData();
+            }
         }
     }
 
@@ -168,18 +187,8 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], {relativeTo: this.route.parent});
     }
 
-    public override onScrollDown($event: IInfiniteScrollEvent): void {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        if (this.activeLink == this.navLinks[0]) {
-            this.loadRecommendedCodelists();
-        } else if (this.activeLink == this.navLinks[1]) {
-            this.getOtherConcepts();
-        }
-    }
-
     public isTabDisabled(index: number): boolean {
-        if (index === 0) return this.recommendedCodelists.length === 0;
-        if (index === 1) return this.otherConcepts.length === 0;
+        if (index === 0) return !this.dataDetail?.isVariable;
         return false;
     }
 }

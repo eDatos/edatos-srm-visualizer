@@ -91,10 +91,16 @@
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-        [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+        [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='codeColumns' [data]='equivalentCodes'
                                    (clickEvent)='onLoadCodeDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [paginationSize]="searchConfig.resultSize"
+                [paginationLimit]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
 </div>
