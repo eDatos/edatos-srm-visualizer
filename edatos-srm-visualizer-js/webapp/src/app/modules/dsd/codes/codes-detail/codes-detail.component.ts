@@ -174,6 +174,10 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     onActiveItemChange(event: any) {
+        const index = this.navLinks.indexOf(event);
+        if (this.isTabDisabled(index)) {
+            return;
+        }
         this.isInitialTabSet = true;
         this.activeLink = event;
         this.cdr.detectChanges();
