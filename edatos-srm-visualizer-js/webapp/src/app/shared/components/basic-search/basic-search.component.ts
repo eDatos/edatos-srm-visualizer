@@ -213,15 +213,18 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public defaultParametersSearch(): void {
+     public defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
         this.searchConfig.resultSize = 0;
         this.dataSearch = [];
         this.dataChildren = new Array<TreeNode>();
-        // @ts-ignore
-        this.searchResults.nativeElement.scrollTop = 0;
-        this.tableExpandable.dataLoaded = false;
+        if (this.searchResults && this.searchResults.nativeElement) {
+            this.searchResults.nativeElement.scrollTop = 0;
+        }
+        if (this.tableExpandable) {
+            this.tableExpandable.dataLoaded = false;
+        }
     }
 
     private mapper<T>(obj: T) {

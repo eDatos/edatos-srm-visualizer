@@ -29,21 +29,19 @@ export class PaginationsComponent implements OnChanges {
 
     onPreviusPage() {
         if (this.currentPage > 0) {
-            this.currentPage = this.currentPage - 1;
-            this.changePage.emit(this.currentPage);
+            this.onChangePage(this.currentPage - 1);
         }
     }
 
     onNextPage() {
-        if (this.currentPage < this.pages.length - 1) {
-            this.currentPage = this.currentPage + 1;
-            this.changePage.emit(this.currentPage);
+        if (this.currentPage < this.totalPages - 1) {
+            this.onChangePage(this.currentPage + 1);
         }
     }
 
     onChangePage(newCurrentPage: number): void {
         this.currentPage = newCurrentPage;
-        this.changePage.emit(newCurrentPage);
+        this.changePage.emit(this.currentPage);
     }
 
     calculateNumberPages(): number[] {
