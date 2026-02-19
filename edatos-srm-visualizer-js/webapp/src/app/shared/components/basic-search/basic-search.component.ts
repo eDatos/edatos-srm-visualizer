@@ -69,8 +69,7 @@ export abstract class BasicSearchComponent {
 
     public loadInitialData(resetPagination: boolean = true) {
         if (resetPagination) {
-            this.searchConfig.resultOffset = 0;
-            this.searchConfig.currentPage = 0;
+            this.defaultParametersSearch();
         }
         this.isLatestVersion();
         this.resetFilteredAgency();
