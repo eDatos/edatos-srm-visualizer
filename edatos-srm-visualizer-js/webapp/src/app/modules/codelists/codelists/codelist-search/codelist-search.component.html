@@ -52,8 +52,8 @@
 </div>
 <div class="pagination-container" *ngIf="searchConfig.resultSize > searchConfig.resultLimit">
     <app-paginations
-            [paginationSize]="searchConfig.resultSize"
-            [paginationLimit]="searchConfig.resultLimit"
+            [totalItems]="searchConfig.resultSize"
+            [pageSize]="searchConfig.resultLimit"
             [currentPage]="searchConfig.currentPage"
             (changePage)="onChangePage($event)">
     </app-paginations>

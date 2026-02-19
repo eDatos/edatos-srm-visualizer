@@ -68,8 +68,8 @@
         </div>
         <app-paginations
                 [currentPage]="searchConfig.currentPage"
-                [paginationSize]="searchConfig.resultSize"
-                [paginationLimit]="searchConfig.resultLimit"
+                [totalItems]="searchConfig.resultSize"
+                [pageSize]="searchConfig.resultLimit"
                 (changePage)="onChangePage($event)">
         </app-paginations>
     </div>
