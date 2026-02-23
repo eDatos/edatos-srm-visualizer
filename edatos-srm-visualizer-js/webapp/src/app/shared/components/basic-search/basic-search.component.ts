@@ -277,7 +277,7 @@ export abstract class BasicSearchComponent {
     private loadDetailDataChildren() {
         const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
         this.getDataChildren(resources).subscribe((data) => {
-            this.dataChildren = [...this.dataChildren, ...data];
+            this.dataChildren = data;
             this.tableExpandable.dataLoaded = true;
         });
     }
@@ -309,6 +309,7 @@ export abstract class BasicSearchComponent {
 
     public onChangePage(event: number): void {
         this.tableExpandable.dataLoaded = false;
+        this.dataChildren = [];
         this.searchConfig.currentPage = event;
         this.searchConfig.resultOffset = this.searchConfig.currentPage * this.searchConfig.resultLimit;
 
