@@ -20,13 +20,13 @@
             </p-multiSelect>
         </div>
         <div class='custom-control custom-switch' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)' />
+            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
             <label for='allVersions'
                    [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
         </div>
         <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
             <p-inputSwitch id='recommendedCodelists' inputId='recommendedCodelists'
-                           (onChange)='onSearchWithIsRecommended($event)' />
+                           (onChange)='onSearchWithIsRecommended($event)'/>
             <label for='recommendedCodelists'
                    [ngClass]="showRecommendedCodelists?'label-inputswitch-checked':''">{{ 'resourceParameters.isRecommended' | translate }}</label>
         </div>
@@ -50,13 +50,11 @@
         </table-expandable-rows>
     </div>
 </div>
-<div class="pagination-container" *ngIf="searchConfig.resultSize > searchConfig.resultLimit">
-    <app-paginations
-            [totalItems]="searchConfig.resultSize"
-            [pageSize]="searchConfig.resultLimit"
-            [currentPage]="searchConfig.currentPage"
-            (changePage)="onChangePage($event)">
-    </app-paginations>
-</div>
-<br />
+<app-paginations
+        [totalItems]="searchConfig.resultSize"
+        [pageSize]="searchConfig.resultLimit"
+        [currentPage]="searchConfig.currentPage"
+        (changePage)="onChangePage($event)">
+</app-paginations>
+<br/>
 

@@ -20,7 +20,7 @@
             </p-multiSelect>
         </div>
         <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)' />
+            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
             <label for='allVersions'
                    [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
         </div>
@@ -40,19 +40,18 @@
          [fromRoot]='true'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail'
-                               (clickEvent)='onLoadOrganisationSchemeDetail($event)' [advancedSearch]='markedSearchAdvanced'
+                               (clickEvent)='onLoadOrganisationSchemeDetail($event)'
+                               [advancedSearch]='markedSearchAdvanced'
                                (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)"
                                (selectEvent)="onFilterByValue($event)">
         </table-expandable-rows>
     </div>
 </div>
-<div class="pagination-container" *ngIf="searchConfig.resultSize > searchConfig.resultLimit">
-    <app-paginations
-            [totalItems]="searchConfig.resultSize"
-            [pageSize]="searchConfig.resultLimit"
-            [currentPage]="searchConfig.currentPage"
-            (changePage)="onChangePage($event)">
-    </app-paginations>
-</div>
-<br />
+<app-paginations
+        [totalItems]="searchConfig.resultSize"
+        [pageSize]="searchConfig.resultLimit"
+        [currentPage]="searchConfig.currentPage"
+        (changePage)="onChangePage($event)">
+</app-paginations>
+<br/>
 
