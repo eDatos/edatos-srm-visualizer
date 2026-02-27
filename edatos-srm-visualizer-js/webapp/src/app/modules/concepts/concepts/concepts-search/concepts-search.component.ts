@@ -35,7 +35,7 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
             urn: '',
             description: '',
             version: '',
-            scheme: '',
+            scheme: ''
         });
 
         this.fields = [
@@ -43,7 +43,8 @@ export class ConceptsSearchComponent extends BasicSearchComponent implements OnI
             { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false },
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true },
             { name: this.translateService.instant('resourceParameters.description'), value: 'description', enabled: false, sortable: false, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme', enabled: true, sortable: false, showFilteredValues: false }
+            { name: this.translateService.instant('resourceParameters.schemeId'), value: 'schemeId', enabled: true, sortable: false, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.schemeName'), value: 'schemeName', enabled: true, sortable: false, showFilteredValues: false }
         ];
 
         this.selectedDefault = this.fields.filter(opt=>opt.enabled);
