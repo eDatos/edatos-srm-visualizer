@@ -67,6 +67,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.conceptColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' },
             { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
         ];
     }

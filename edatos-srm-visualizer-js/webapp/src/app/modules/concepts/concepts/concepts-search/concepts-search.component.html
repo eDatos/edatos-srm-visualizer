@@ -39,7 +39,8 @@
         <table-expandable-rows #tableExpandable [columns]='selectedFields' [data]='dataChildren'
                                [routerLinkDetail]='routerLinkDetail' [advancedSearch]='markedSearchAdvanced'
                                (clickEvent)='onLoadConceptDetail($event)'
-                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)">
+                               (keyupEvent)='onAdvancedSearch($event)' (sortColumnEvent)="onSortColumn($event)"
+                               (selectEvent)="onFilterByValue($event)">
         </table-expandable-rows>
     </div>
 </div>
