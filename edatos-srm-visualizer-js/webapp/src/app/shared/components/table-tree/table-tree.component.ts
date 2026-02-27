@@ -51,6 +51,8 @@ export class TableTreeComponent implements OnInit{
             selfLink: node.selfLink,
             maintainer: node.maintainer,
             scheme: node.scheme,
+            schemeId: node.schemeId,
+            schemeName: node.schemeName,
             concept: node.concept,
             typeDimension: node.typeDimension,
             assigmentStatus: node.assigmentStatus,
@@ -64,7 +66,7 @@ export class TableTreeComponent implements OnInit{
         this.transformer, node => node.level,
         node => node.expandable, node => node.children);
 
-    dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener as any);
 
     constructor(private errorService: ErrorService) {}
 
