@@ -31,6 +31,8 @@
     "urn": "URN",
     "description": "Description",
     "scheme": "Scheme",
+    "schemeId": "Scheme identifier",
+    "schemeName": "Scheme name",
     "version": "Version",
     "comments": "Comments",
     "maintainer": "Maintainer",

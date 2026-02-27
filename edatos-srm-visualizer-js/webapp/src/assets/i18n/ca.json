@@ -31,6 +31,8 @@
     "urn": "URN",
     "description": "Descripció",
     "scheme": "Esquema",
+    "schemeId": "Identificador d'esquema",
+    "schemeName": "Nom d'esquema",
     "version": "Versió",
     "comments": "Anotacions",
     "maintainer": "Mantenidor",
