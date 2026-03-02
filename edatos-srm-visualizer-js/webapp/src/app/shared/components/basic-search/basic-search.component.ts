@@ -238,7 +238,7 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues };
+            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues, showTooltip: field.showTooltip  };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
