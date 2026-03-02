@@ -49,7 +49,7 @@ export class FamilyDetailComponent extends BasicDetailComponent implements OnIni
 
         this.columns = [
             { name: this.translateService.instant('codelists.parameters.id'), value: 'id' },
-            { name: this.translateService.instant('codelists.parameters.name'), value: 'name' },
+            { name: this.translateService.instant('codelists.parameters.name'), value: 'name', showTooltip: true },
             { name: this.translateService.instant('codelists.parameters.maintainer'), value: 'maintainer' }
         ];
     }

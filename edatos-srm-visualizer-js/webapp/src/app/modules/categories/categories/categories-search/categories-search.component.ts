@@ -39,8 +39,8 @@ export class CategoriesSearchComponent extends BasicSearchComponent implements O
 
         this.fields = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme', enabled: true, sortable: false, showFilteredValues: false }
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', enabled: true, sortable: true, showFilteredValues: false, showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme', enabled: true, sortable: false, showFilteredValues: false, showTooltip: true }
         ];
 
         this.selectedDefault = this.fields.map(field => field);

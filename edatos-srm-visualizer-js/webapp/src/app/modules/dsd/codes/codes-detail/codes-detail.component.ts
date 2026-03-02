@@ -76,14 +76,14 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
         this.measureColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description', showTooltip: true }
         ];
         this.dimensionColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
             { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
-            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation' }
+            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation', showTooltip: true }
             
         ];
         this.attributeColumns = [

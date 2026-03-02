@@ -63,8 +63,8 @@ export class ConceptsSchemesDetailComponent extends BasicDetailComponent impleme
 
         this.columns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description', showTooltip: true }
         ];
 
     }

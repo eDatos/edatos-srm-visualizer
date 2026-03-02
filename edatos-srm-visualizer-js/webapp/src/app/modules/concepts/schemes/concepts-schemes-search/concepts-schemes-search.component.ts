@@ -39,8 +39,8 @@ export class ConceptsSchemesSearchComponent extends BasicSearchComponent impleme
 
         this.fields = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id', enabled: true, sortable: true, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' ,enabled: true, sortable: true, showFilteredValues: false },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' ,enabled: false, sortable: false, showFilteredValues: false },
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name' ,enabled: true, sortable: true, showFilteredValues: false, showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' ,enabled: false, sortable: false, showFilteredValues: false, showTooltip: true },
             { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer', enabled: true, sortable: false, showFilteredValues: true }
         ];
 
