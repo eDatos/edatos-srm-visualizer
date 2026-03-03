@@ -19,7 +19,7 @@
         </th>
         </form>
         <td mat-cell *matCellDef='let data'
-            [matTooltip]="data[column.value]?.name || (data[column.value]?.id ? data[column.value].id : data[column.value])"
+            [matTooltip]="data[column.value]?.name || data[column.value]?.id || data[column.value]"
             [matTooltipDisabled]="!column.showTooltip"
             matTooltipPosition="above">
             {{ data[column.value].id ? data[column.value].id : data[column.value] }}
