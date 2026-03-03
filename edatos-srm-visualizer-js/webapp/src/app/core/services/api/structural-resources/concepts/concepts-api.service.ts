@@ -38,7 +38,7 @@ export class ConceptsApiService extends ApiSrmService {
 
     public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.CONCEPT_SCHEME_LATEST_QUERY : '';
-        const agencyId = this.agencyId || Constants.ALL
+        const agencyId = this.agencyId || Constants.ALL;
 
         let baseUrl = ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL
             .replace('{agencyID}', agencyId)
