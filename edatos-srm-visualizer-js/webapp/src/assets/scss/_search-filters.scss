@@ -188,34 +188,33 @@
         }
     }
 
-    .p-autocomplete-panel { //TODO: falta definir los estilos del desplegable
+    .p-autocomplete-panel {
         border-radius: 0 0 5px 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         
         scrollbar-width: thin;
-        scrollbar-color: $color-azul-oscuro-100 $color-negro-0;
+        scrollbar-color: var(--edatos-color-secondary-100) var(--edatos-color-white-100);
         &::-webkit-scrollbar {
             width: $scroll-width-default;
         }
         &::-webkit-scrollbar-thumb {
             border-radius: 5px;
-            background-color: $color-azul-oscuro-100;
+            background-color: var(--edatos-color-secondary-100);
         }
         
         .p-autocomplete-items {
             padding: 3px;
 
             .p-autocomplete-item {
-                font-size: $size-12;
+                font-size: var(--edatos-font-size-xs);
                 font-family: $font-family-sans-serif;
                 padding: 3px;
-                font-weight: $font-weight-300;
+                font-weight: var(--edatos-font-weight-light);
                 line-height: 24px;
-                color: $color-azul-oscuro-100;
+                color: var(--edatos-color-secondary-100);
                 &:hover {
-                    background: $color-azul-10;
-                    color: $color-azul-oscuro-100;
-                    background: $color-azul-25;
+                    background: var(--edatos-color-gray-5);
+                    color: var(--edatos-color-secondary-100);
                     border-radius: 3px;
                 }
             }
