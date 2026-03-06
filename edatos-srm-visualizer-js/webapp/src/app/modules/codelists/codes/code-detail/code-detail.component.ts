@@ -52,8 +52,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.codeColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description' },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
     }
 
