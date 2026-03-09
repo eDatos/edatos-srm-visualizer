@@ -1,3 +1,4 @@
+import { DateUtils } from "../../utils/date-utils";
 import { Resource } from "./resource.model";
 import { LocaleService } from 'src/app/core/services/locale.service';
 
@@ -6,6 +7,7 @@ export class ConceptResource extends Resource {
    
     urnVariable: string = '';
     idVariable: string = '';
+    publicationDate: string = '';
 
     isVariable: boolean = false;
 
@@ -28,6 +30,7 @@ export class ConceptResource extends Resource {
         conceptResource.maintainer = `${maintainer.id} - ${maintainerName}`;
         conceptResource.idVariable = resource.variable?.id;
         conceptResource.urnVariable = resource.variable?.urn
+        conceptResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
 
         return conceptResource;
     }
