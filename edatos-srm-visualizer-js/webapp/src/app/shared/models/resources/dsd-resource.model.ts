@@ -68,10 +68,12 @@ export class DsdResource extends Resource {
     public static getRepresentation(localRepresentation: any, localeService: LocaleService) {
         const representationType = localRepresentation.enumerationCodelist ? localRepresentation.enumerationCodelist : localRepresentation.enumerationConceptScheme;
         if (!representationType) return '';
-
+        
         const nameValue = localeService.getTextValue(representationType.name?.text);
-
-        return representationType.id + ' - ' + nameValue;
+        representationType.code =  representationType.id;
+        representationType.id =  representationType.id + ' - ' + nameValue;
+        
+        return representationType;
     }
 }
 
