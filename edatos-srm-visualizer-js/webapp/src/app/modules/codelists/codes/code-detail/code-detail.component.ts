@@ -64,10 +64,6 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
                 this.detailForm.patchValue(this.dataDetail);
                 this.loadChildrenTreeData();
                 this.loadEquivalentCodes(true);
-
-                if ((!this.dataChildren || this.dataChildren.length === 0) && this.activeLink === this.navLinks[0]) {
-                    this.checkTabSelection();
-                }
             });
         } else {
             if (this.activeLink === this.navLinks[1]) {
@@ -139,17 +135,8 @@ export class CodeDetailComponent extends BasicDetailComponent implements OnInit 
         this.router.navigate(['codelists', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
     }
 
-    private checkTabSelection(): void {
-        const hasChildren = this.dataChildren && this.dataChildren.length > 0;
-        const isVariable = this.dataDetail.isVariableElement;
-
-        if (!hasChildren && isVariable) {
-            this.activeLink = this.navLinks[1];
-        }
-    }
-
     public isTabDisabled(index: number): boolean {
-        if (index === 0) return !this.dataChildren || this.dataChildren.length === 0;
+        if (index === 0) return false;
         if (index === 1) return !this.dataDetail?.isVariableElement;
         return false;
     }
