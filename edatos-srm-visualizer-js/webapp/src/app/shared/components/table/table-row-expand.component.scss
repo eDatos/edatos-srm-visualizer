@@ -42,9 +42,6 @@
   }
   &:not(.expanded-row):hover {
     background: var(--edatos-color-primary-5);
-   td {
-    color: var(--edatos-color-secondary-100);
-   }
   }
   &.expanded-row, &.expanded-row:hover {
     > td:first-child {
@@ -57,7 +54,7 @@
     }
     td {
       padding: 0 $spacing-s;
-      background: var(--edatos-color-secondary-100);
+      background: var(--edatos-color-primary-100);
       color: var(--edatos-color-white-100);
       border-bottom: none;
     }
@@ -109,7 +106,7 @@ th > div {
   display: flex;
   flex-direction: column;
   border-radius: 0px 0px 5px 5px;
-  border: 1px solid var(--edatos-color-secondary-100);
+  border: 1px solid var(--edatos-color-primary-100);
 }
 .element-detail.large {
   display: block;
@@ -129,6 +126,7 @@ th > div {
   font-weight: var(--edatos-font-weight-semibold);
   &.title {
     font-size: var(--edatos-font-size-m);
+    color:  var(--edatos-color-gray-80);
   }
 }
 
