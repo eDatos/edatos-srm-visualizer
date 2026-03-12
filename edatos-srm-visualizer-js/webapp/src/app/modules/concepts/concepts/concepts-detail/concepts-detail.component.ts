@@ -29,6 +29,7 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public routerLinkDetail: string = '';
 
     private isInitialTabSet = false;
+    private hasRecommendedCodelists = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -89,10 +90,9 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     private selectFirstTabWithData(): void {
         if (this.isInitialTabSet) return;
 
-        const hasCodelists = this.dataDetail.isVariable && this.recommendedCodelists.length > 0;
         const hasConcepts = this.otherConcepts.length > 0;
 
-        if (!hasCodelists && hasConcepts) {
+        if (!this.hasRecommendedCodelists && hasConcepts) {
             this.activeLink = this.navLinks[1];
         } else {
             this.activeLink = this.navLinks[0];
@@ -143,24 +143,16 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
                     this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
                         this.recommendedCodelists = data;
                         this.tableExpandable.dataLoaded = true;
-                        if (!this.isInitialTabSet) this.getOtherConcepts();
-                        else this.selectFirstTabWithData();
+                        this.hasRecommendedCodelists = true;
+                        this.selectFirstTabWithData();
                     });
                 } else {
                     this.recommendedCodelists = [];
                     if (!this.isInitialTabSet) this.getOtherConcepts();
-                    else {
-                        this.tableExpandable.dataLoaded = true;
-                        this.selectFirstTabWithData();
-                    }
                 }
             });
         } else {
             if (!this.isInitialTabSet) this.getOtherConcepts();
-            else {
-                this.tableExpandable.dataLoaded = true;
-                this.selectFirstTabWithData();
-            }
         }
     }
 
