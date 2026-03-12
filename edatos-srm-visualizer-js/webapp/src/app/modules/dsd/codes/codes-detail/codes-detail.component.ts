@@ -113,7 +113,6 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     protected loadDetailData(): void {
-        this.isInitialTabSet = false;
         this.loadDataDetailResource(this.dataDetail).subscribe(data => {
             this.dataDetail = data;
             this.detailForm.patchValue(this.dataDetail);
@@ -228,16 +227,14 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         const hasMeasures = this.measures.length > 0;
         const hasDimensions = this.dimensions.length > 0;
         const hasAttributes = this.attributes.length > 0;
+        this.isInitialTabSet = hasMeasures || hasDimensions || hasAttributes;
 
         if (hasMeasures) {
             this.activeLink = this.navLinks[0];
-            this.isInitialTabSet = true;
         } else if (hasDimensions) {
             this.activeLink = this.navLinks[1];
-            this.isInitialTabSet = true;
         } else if (hasAttributes) {
             this.activeLink = this.navLinks[2];
-            this.isInitialTabSet = true;
         }
 
         this.cdr.detectChanges();
