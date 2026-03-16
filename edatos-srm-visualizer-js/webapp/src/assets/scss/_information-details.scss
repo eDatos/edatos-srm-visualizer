@@ -196,6 +196,9 @@
         height: 40px;
         padding: $spacing-s;
         border-radius: 5px;
+        button:hover {
+            text-decoration: none;
+        }
     }
     .code {
         flex-grow: 2;
@@ -203,6 +206,9 @@
     button {
         padding: 0px;
         color: var(--edatos-color-primary-100);
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
