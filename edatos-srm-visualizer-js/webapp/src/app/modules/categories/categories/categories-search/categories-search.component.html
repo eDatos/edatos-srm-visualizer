@@ -10,9 +10,8 @@
         <div *ngIf='markedSearchAdvanced' class="col first">
             <p-multiSelect #multiSelect [options]='fields' formControlName='selectedFields'
                            defaultLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
-                           optionLabel='name' [filter]='false' [showToggleAll]='false' [virtualScroll]='true'
-                           [virtualScrollItemSize]='1' [showHeader]='false' class='multiselect-custom-search'
-                           [maxSelectedLabels]='0'
+                           optionLabel='name' [filter]='false' [showToggleAll]='false'
+                           [showHeader]='false' class='multiselect-custom-search'  [maxSelectedLabels]='0'
                            selectedItemsLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
                            dropdownIcon='fa-thin fa-chevron-down'
                            (onChange)='onSelectFields($event)'
