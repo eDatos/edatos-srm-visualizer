@@ -32,9 +32,9 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc($container-2columns-max-width/2 - $spacing-s - $scroll-width-default);
   }
   td {
+    max-width: calc($container-2columns-max-width/2 - $spacing-s - $scroll-width-default);
     padding: $spacing-s;
     line-height: 16px;
     font-size: var(--edatos-font-size-xs);
