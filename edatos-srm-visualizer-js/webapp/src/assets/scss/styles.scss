@@ -3,15 +3,15 @@
 body {
     font-family: $font-family-sans-serif;
     font-style: normal;
-    color: $color-negro-100;
+    color: var(--edatos-color-black-100);
 }
 
 h1, h3 {
-    font-weight: $font-weight-600;
+    font-weight: var(--edatos-font-weight-semibold);
 }
 
 h4, h5, h6 {
-    font-weight: $font-weight-400;
+    font-weight: var(--edatos-font-weight-regular);
 }
 
 /* Heading 01 */
@@ -23,7 +23,7 @@ h1 {
 
 /* Encabezado/H2 */
 h2 {
-    font-weight: $font-weight-700;
+    font-weight: var(--edatos-font-weight-bold);
     font-size: 36px;
     /* or 43px */
     line-height: 120%;
@@ -37,7 +37,7 @@ h3 {
     /* identical to box height, or 34px */
     text-transform: uppercase;
     /* Azul ISTAC/100 */
-    color: $azul-istac-100;
+    color: var(--edatos-color-light-blue-100);
 }
 
 /* Encabezado/H4 */
@@ -76,6 +76,7 @@ app-root {
 @import 'search-table';
 @import 'information-details';
 @import 'messages-container';
+@import 'pagination';
 
 
 

@@ -13,7 +13,10 @@
     <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span id='name'>{{ dataDetail.name }}</span>
+    <span id='name' class='info-description'>{{ dataDetail.name }}</span>
+
+    <label for='lastUpdatedDate' class='title'>{{ 'codelists.parameters.lastUpdatedDate' | translate }}</label>
+    <span id='lastUpdatedDate'>{{ dataDetail.lastUpdatedDate }}</span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
@@ -55,14 +58,20 @@
     </ul>
 </div>
 
-<div class='container detail-table'>
+<div class='detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+             [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='familyCodelist'
                                (clickEvent)='onLoadFamilyCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [totalItems]="searchConfig.resultSize"
+                [pageSize]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
 </div>
 

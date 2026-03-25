@@ -18,7 +18,7 @@
     "csv": "Descarregar en format CSV",
     "xlsx": "Descarregar en format XLSX"
   },
-  "seeResource": "Veure aquest recurs",
+  "seeResource": "Consultar",
   "noResourceResults": "No s'ha trobat cap resultat per a aquestes condicions",
   "retrySearch": "Si us plau, canvia els paràmetres de cerca i intenta-ho de nou.",
   "apiError": "No s'ha pogut obtenir resultats",
@@ -31,6 +31,8 @@
     "urn": "URN",
     "description": "Descripció",
     "scheme": "Esquema",
+    "schemeId": "Identificador d'esquema",
+    "schemeName": "Nom d'esquema",
     "version": "Versió",
     "comments": "Anotacions",
     "maintainer": "Mantenidor",
@@ -40,11 +42,13 @@
     "showAllVersions": "Mostrar totes les versions",
     "isRecommended": "Mostrar només les clasificacions recomanades",
     "recommended": "Recomanada",
-    "displayedFields": "Camps a mostrar",
+    "displayedFields": "Camps",
     "selfLink": "Accés via API",
     "concept": "Concepte",
     "type": "Tipus",
-    "agency": "Agència mantenidora"
+    "agency": "Agència mantenidora",
+    "publicationDate": "Data de publicació",
+    "tabDisabledNoData": "No s'han trobat dades"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",
@@ -55,7 +59,7 @@
     "recommendedCodelists": "Classificacions recomanades",
     "parameters": {
       "idConcept": "Identificador del concepte",
-      "idScheme": "Identificador de l'esquema",
+      "idScheme": "Identificador de l'esquema de concepte",
       "schemeConcepts": "Conceptes de l'esquema"
     }
   },

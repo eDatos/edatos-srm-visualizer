@@ -7,5 +7,7 @@ export interface SearchFormValues {
     description: AbstractControl<string>;
     maintainer: AbstractControl<string>;
     scheme: AbstractControl<string>;
+    schemeId: AbstractControl<string>;
+    schemeName: AbstractControl<string>;
     recommended: AbstractControl<any>;
 }

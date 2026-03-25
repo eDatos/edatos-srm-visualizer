@@ -67,7 +67,10 @@ export abstract class BasicSearchComponent {
         protected localeService: LocaleService
     ) {}
 
-    public loadInitialData() {
+    public loadInitialData(resetPagination: boolean = true) {
+        if (resetPagination) {
+            this.defaultParametersSearch();
+        }
         this.isLatestVersion();
         this.resetFilteredAgency();
         this.dataChildren = [];
@@ -167,27 +170,20 @@ export abstract class BasicSearchComponent {
         this.multiSelect.dropdownIcon = 'fa-thin fa-chevron-down';
     }
 
-    public onScrollDown($event: IInfiniteScrollEvent) {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        let query = this.buildQueryHelper.buildQueryResultOffset(this.markedSearchAdvanced ? this.tableExpandable.searchAdvancedForm : this.searchSimpleForm, this.searchForm, this.apiService.isLatestVersion, this.markedSearchAdvanced);
-        this.apiService.getSearch(this.searchConfig, query).subscribe((data) => {
-            if (data[this.apiService.apiSearchDataPath]) {
-                this.dataSearch = data[this.apiService.apiSearchDataPath];
-                this.loadDetailDataChildren();
-            }
-        });
-    }
 
-    public onSearch(): void {
-        this.defaultParametersSearch();
+    public onSearch(resetPagination: boolean = true): void {
+        if (resetPagination) {
+            this.defaultParametersSearch();
+        }
+
         this.mapper(this.searchForm.controls);
         if (this.searchForm.valid) {
             this.apiService.getSearchFromForms(this.searchConfig, this.searchForm).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
+                this.dataSearch = data[this.apiService.apiSearchDataPath] || [];
                 if (this.searchConfig.resultSize > 0) {
-                    this.dataSearch = data[this.apiService.apiSearchDataPath];
                     this.loadDetailDataChildren();
-                } else if (this.searchConfig.resultSize == 0) {
+                } else {
                     this.tableExpandable.dataLoaded = true;
                 }
             });
@@ -202,28 +198,33 @@ export abstract class BasicSearchComponent {
         }
     }
 
-    public getAdvancedSearch() {
-        this.defaultParametersSearch();
+    public getAdvancedSearch(resetPagination: boolean = true) {
+        if (resetPagination) {
+            this.defaultParametersSearch();
+        }
         this.apiService.getAdvancedSearchFromForms(this.searchConfig, this.tableExpandable.searchAdvancedForm).subscribe((data) => {
             this.searchConfig.resultSize = data['total'];
             if (this.searchConfig.resultSize > 0) {
                 this.dataSearch = data[this.apiService.apiSearchDataPath];
                 this.loadDetailDataChildren();
-            } else if (this.searchConfig.resultSize == 0) {
+            } else {
                 this.tableExpandable.dataLoaded = true;
             }
         });
     }
 
-    public defaultParametersSearch(): void {
+     public defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
         this.searchConfig.resultSize = 0;
         this.dataSearch = [];
         this.dataChildren = new Array<TreeNode>();
-        // @ts-ignore
-        this.searchResults.nativeElement.scrollTop = 0;
-        this.tableExpandable.dataLoaded = false;
+        if (this.searchResults && this.searchResults.nativeElement) {
+            this.searchResults.nativeElement.scrollTop = 0;
+        }
+        if (this.tableExpandable) {
+            this.tableExpandable.dataLoaded = false;
+        }
     }
 
     private mapper<T>(obj: T) {
@@ -237,7 +238,7 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues };
+            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues, showTooltip: field.showTooltip  };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
@@ -276,7 +277,7 @@ export abstract class BasicSearchComponent {
     private loadDetailDataChildren() {
         const resources: Resource[] = this.dataSearch.map((resource: any) => new Resource(resource.urn));
         this.getDataChildren(resources).subscribe((data) => {
-            this.dataChildren = [...this.dataChildren, ...data];
+            this.dataChildren = data;
             this.tableExpandable.dataLoaded = true;
         });
     }
@@ -305,4 +306,22 @@ export abstract class BasicSearchComponent {
     }
 
     protected abstract getDataChildren(resources: Resource[]): Observable<TreeNode[]>;
+
+    public onChangePage(event: number): void {
+        this.tableExpandable.dataLoaded = false;
+        this.dataChildren = [];
+        this.searchConfig.currentPage = event;
+        this.searchConfig.resultOffset = this.searchConfig.currentPage * this.searchConfig.resultLimit;
+
+        if (this.markedSearchAdvanced) {
+            this.getAdvancedSearch(false);
+        } else {
+            const hasFilter = !!this.searchSimpleForm.get('filter')?.value;
+            hasFilter ? this.onSearch(false) : this.loadInitialData(false);
+        }
+
+        if (this.searchResults) {
+            this.searchResults.nativeElement.scrollTop = 0;
+        }
+    }
 }

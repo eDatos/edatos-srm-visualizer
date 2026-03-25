@@ -11,6 +11,8 @@ export interface TreeNode {
     selfLink: string;
     maintainer: string;
     scheme: string;
+    schemeId?: string;
+    schemeName?: string;
     concept?: string;
     typeDimension?: string;
     assigmentStatus?: string;
@@ -33,6 +35,8 @@ export function treeNode(data: any, isLatestVersion: boolean, localeService: Loc
         selfLink: data.selfLink.href,
         maintainer: '',
         scheme: '',
+        schemeId: '',
+        schemeName: '',
         concept: '',
         typeDimension: '',
         assigmentStatus: '',
@@ -52,7 +56,9 @@ export function treeNodeWithMaintainerAndScheme(maintainer: any, scheme: any, da
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: maintainer,
-        scheme: isLatestVersion ? `${scheme.id} - ${schemeName}` : `${scheme.id}(${scheme.version}) - ${schemeName}`
+        scheme: isLatestVersion ? `${scheme.id} - ${schemeName}` : `${scheme.id}(${scheme.version}) - ${schemeName}`,
+        schemeId: isLatestVersion ? `${scheme.id}` : `${scheme.id}(${scheme.version})`,
+        schemeName: schemeName
     };
     return treeNode;
 }
@@ -86,7 +92,7 @@ export function treeNodeWithMaintainerAndCodelist(codelist: any, data: any, isLa
         description: localeService.getTextValue(data.description?.text),
         selfLink: data.selfLink.href,
         maintainer: maintainer,
-        scheme: isLatestVersion ? `${codelist.id} / ${maintainer}` : `${codelist.id}(${codelist.version}) / ${maintainer}`
+        scheme: isLatestVersion ? `${codelist.id}` : `${codelist.id}(${codelist.version})`
     };
     return treeNode;
 }

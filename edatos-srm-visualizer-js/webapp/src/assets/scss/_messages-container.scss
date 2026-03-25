@@ -6,26 +6,26 @@
   text-align: center;
   border-radius: 3px;
   width: $empty-td-container-width;
-  padding: $spacing-l $spacing-xl;
+  padding: var(--edatos-spacing-x-m);
   span {
     &.text-no-result {
-      font-weight: 600;
-      font-size: $size-16;
+      font-weight: var(--edatos-font-weight-semibold);
+      font-size: var(--edatos-font-size-m);
       line-height: 22px;
     }
     &.text-retry {
-      font-weight: 300;
+      font-weight: var(--edatos-font-weight-light);
       line-height: 19px;
     }
   }
 }
 
 .error-td-container {
-  background: $color-rojo-25;
+  background: var(--edatos-color-red-25);
 }
 
 .empty-td-container {
-  background: $color-amarillo-25;
+  background: var(--edatos-color-yellow-25);
 }
 
 .no-data-container{

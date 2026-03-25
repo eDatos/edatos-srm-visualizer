@@ -5,6 +5,7 @@ import { ApiSrmService } from 'src/app/core/services/api/structural-resources/ap
 import { Observable } from 'rxjs/internal/Observable';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { Resource } from 'src/app/shared/models/resources/resource.model';
+import {Constants} from "../../../../../shared/models/constants";
 import {
     TreeNode,
     treeNodeWithMaintainer,
@@ -37,7 +38,14 @@ export class ConceptsApiService extends ApiSrmService {
 
     public setApiSearchUrl(): void {
         const latestQuery = this.isLatestVersion ? ApiSrmUrlConstants.CONCEPT_SCHEME_LATEST_QUERY : '';
-        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${ApiSrmUrlConstants.ALL_CONCEPTS_SCHEMES_API_URL}${latestQuery}`;
+        const agencyId = this.agencyId || Constants.ALL;
+
+        let baseUrl = ApiSrmUrlConstants.CONCEPTS_BY_CONCEPT_SCHEME_API_URL
+            .replace('{agencyID}', agencyId)
+            .replace('{resourceID}', Constants.ALL)
+            .replace('{version}', Constants.ALL);
+
+        this.apiSearchUrl = `${ApiSrmUrlConstants.API_SRM_VERSION}${baseUrl}${latestQuery}`;
     }
 
     public getApiOtherConceptsUrl(resource: Resource): string {

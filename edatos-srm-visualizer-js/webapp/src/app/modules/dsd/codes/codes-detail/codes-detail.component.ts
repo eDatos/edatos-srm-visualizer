@@ -40,6 +40,8 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     public attributes: TreeNode[] = [];
     public measures: TreeNode[] = [];
 
+    private isInitialTabSet = false;
+
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: DsdApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
                 protected override localeService: LocaleService, protected override translateService: TranslateService,
@@ -74,14 +76,14 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
         this.measureColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
-            { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.description'), value: 'description' }
+            { name: this.translateService.instant('resourceParameters.name'), value: 'name', showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.description'), value: 'description', showTooltip: true }
         ];
         this.dimensionColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.type'), value: 'typeDimension' },
             { name: this.translateService.instant('resourceParameters.concept'), value: 'concept' },
-            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation' }
+            { name: this.translateService.instant('dsd.parameters.representation'), value: 'localRepresentation', showTooltip: true }
             
         ];
         this.attributeColumns = [
@@ -95,7 +97,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
         this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code',
+                icon: 'fa-thin fa-code-simple',
                 command: () => {
                     this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
                 }
@@ -141,6 +143,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
                 this.getMeasures(dataStructureComponents);
                 this.getAttributes(dataStructureComponents);
                 this.getDimensions(dataStructureComponents);
+                this.selectFirstTabWithData();
             }
         });
     }
@@ -157,7 +160,7 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     private getDimensions(dataStructureComponents: any): TreeNode[] {
         if (dataStructureComponents[this.apiSrmService.apiDimensionDataPath]) {
             this.dimensions = dataStructureComponents[this.apiSrmService.apiDimensionDataPath]['dimension'].map((dimension: any) => {
-                return DsdResource.dsdDimensionResource(dimension, this.translateService);
+                return DsdResource.dsdDimensionResource(dimension, this.translateService, this.localeService);
             });
         }
         return this.dimensions;
@@ -170,6 +173,11 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
     }
 
     onActiveItemChange(event: any) {
+        const index = this.navLinks.indexOf(event);
+        if (this.isTabDisabled(index)) {
+            return;
+        }
+        this.isInitialTabSet = true;
         this.activeLink = event;
         this.cdr.detectChanges();
         if (this.activeLink == this.navLinks[2]) {
@@ -211,5 +219,31 @@ export class CodesDetailComponent extends BasicDetailComponent implements OnInit
 
     public override onReturn() {
         this.router.navigate(['codes'], { relativeTo: this.route.parent });
+    }
+
+    private selectFirstTabWithData(): void {
+        if (this.isInitialTabSet) return;
+
+        const hasMeasures = this.measures.length > 0;
+        const hasDimensions = this.dimensions.length > 0;
+        const hasAttributes = this.attributes.length > 0;
+        this.isInitialTabSet = hasMeasures || hasDimensions || hasAttributes;
+
+        if (hasMeasures) {
+            this.activeLink = this.navLinks[0];
+        } else if (hasDimensions) {
+            this.activeLink = this.navLinks[1];
+        } else if (hasAttributes) {
+            this.activeLink = this.navLinks[2];
+        }
+
+        this.cdr.detectChanges();
+    }
+
+    public isTabDisabled(index: number): boolean {
+        if (index === 0) return this.measures.length === 0;
+        if (index === 1) return this.dimensions.length === 0;
+        if (index === 2) return this.attributes.length === 0;
+        return false;
     }
 }

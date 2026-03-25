@@ -10,8 +10,8 @@
         <div *ngIf='markedSearchAdvanced'>
             <p-multiSelect #multiSelect [options]='fields' formControlName='selectedFields'
                            defaultLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
-                           optionLabel='name' [filter]='false' [showToggleAll]='false' [virtualScroll]='true'
-                           [virtualScrollItemSize]='1' [showHeader]='false' class='multiselect-custom-search'
+                           optionLabel='name' [filter]='false' [showToggleAll]='false'
+                           [showHeader]='false' class='multiselect-custom-search'
                            [maxSelectedLabels]='0'
                            selectedItemsLabel="{{ 'resourceParameters.displayedFields' | translate | uppercase }}"
                            dropdownIcon='fa-thin fa-chevron-down'
@@ -20,7 +20,7 @@
             </p-multiSelect>
         </div>
         <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)' />
+            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
             <label for='allVersions'
                    [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
         </div>
@@ -35,8 +35,7 @@
 
 <div class='search-results-container'>
     <div #searchResults class='search-results-table' [scrollWindow]='false' infinite-scroll
-         [fromRoot]='true'
-         (scrolled)='onScrollDown($event)'>
+         [fromRoot]='true'>
         <table-expandable-rows #tableExpandable [columns]='selectedFields'
                                [data]='dataChildren' [routerLinkDetail]='routerLinkDetail'
                                (clickEvent)='onLoadDsdDetail($event)' [advancedSearch]='markedSearchAdvanced'
@@ -45,4 +44,10 @@
         </table-expandable-rows>
     </div>
 </div>
-<br />
+<app-paginations
+        [totalItems]="searchConfig.resultSize"
+        [pageSize]="searchConfig.resultLimit"
+        [currentPage]="searchConfig.currentPage"
+        (changePage)="onChangePage($event)">
+</app-paginations>
+<br/>

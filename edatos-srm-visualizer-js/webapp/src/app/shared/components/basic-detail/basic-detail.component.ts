@@ -56,7 +56,7 @@ export abstract class BasicDetailComponent implements OnInit {
         this.items = [
             {
                 label: this.translateService.instant('download.sdmx-xml'),
-                icon: 'fa-thin fa-code',
+                icon: 'fa-thin fa-code-simple',
                 command: () => {
                     this.fileDownloadHelper.onDownloadSdmx(this.dataDetail);
                 }
@@ -70,14 +70,14 @@ export abstract class BasicDetailComponent implements OnInit {
             },
             {
                 label: this.translateService.instant('download.csv'),
-                icon: 'fa-thin fa-semicolon',
+                icon: 'fa-thin fa-file-spreadsheet',
                 command: () => {
                     this.fileDownloadHelper.onDownloadCsv(this.dataDetail);
                 }
             },
             {
                 label: this.translateService.instant('download.xlsx'),
-                icon: 'fa-thin fa-file-spreadsheet',
+                icon: 'fa-thin fa-file-excel',
                 command: () => {
                     this.fileDownloadHelper.onDownloadXLSX(this.dataDetail);                
                 }
@@ -164,19 +164,23 @@ export abstract class BasicDetailComponent implements OnInit {
         this.router.navigate(['organisations/organisations', resource.agency, resource.resourceId, resource.id, resource.version, 'detail']);
     }
 
-    public onScrollDown($event: IInfiniteScrollEvent) {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        
-        this.loadDetailData(false);
-    }
 
     protected defaultParametersSearch(): void {
         this.searchConfig.currentPage = 0;
         this.searchConfig.resultOffset = 0;
+        this.searchConfig.resultSize = 0;
     }
 
     protected abstract loadDetailData(loadAll?: boolean): void;
 
     protected abstract onReturn(): void;
 
+    public onChangePage(page: number): void {
+        this.searchConfig.currentPage = page;
+        this.searchConfig.resultOffset = page * this.searchConfig.resultLimit;
+        this.loadDetailData(false);
+        if (this.searchResults) {
+            this.searchResults.nativeElement.scrollTop = 0;
+        }
+    }
 }

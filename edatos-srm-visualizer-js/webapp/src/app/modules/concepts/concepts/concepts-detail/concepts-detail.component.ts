@@ -10,7 +10,6 @@ import { CodelistResource } from 'src/app/shared/models/resources/codelist-resou
 import { TreeNode } from 'src/app/shared/models/tree/tree-node';
 import { BasicDetailComponent } from 'src/app/shared/components/basic-detail/basic-detail.component';
 import { Observable } from 'rxjs/internal/Observable';
-import { IInfiniteScrollEvent } from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-concept-detail',
@@ -28,6 +27,9 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     public conceptColumns: any[];
     public codelistColumns: any[];
     public routerLinkDetail: string = '';
+
+    private isInitialTabSet = false;
+    private hasRecommendedCodelists = false;
 
     constructor(protected override formBuilder: FormBuilder, protected override apiSrmService: ConceptsApiService,
                 protected override route: ActivatedRoute, protected override router: Router,
@@ -66,31 +68,46 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
         this.conceptColumns = [
             { name: this.translateService.instant('resourceParameters.identifier'), value: 'id' },
             { name: this.translateService.instant('resourceParameters.name'), value: 'name' },
-            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme' }
+            { name: this.translateService.instant('resourceParameters.scheme'), value: 'scheme', showTooltip: true },
+            { name: this.translateService.instant('resourceParameters.maintainer'), value: 'maintainer' }
         ];
     }
 
-    loadDetailData(): void {
-        this.loadDataDetailResource(this.dataDetail).subscribe(data => {
-            this.dataDetail = data;
-            this.detailForm.patchValue(this.dataDetail);
-            this.loadRecommendedCodelists();
-        });
+    loadDetailData(loadAll: boolean = true): void {
+        if (loadAll) {
+            this.loadDataDetailResource(this.dataDetail).subscribe(data => {
+                this.dataDetail = data;
+                this.detailForm.patchValue(this.dataDetail);
+
+                this.loadRecommendedCodelists();
+            });
+        } else {
+            if (this.activeLink === this.navLinks[0]) this.loadRecommendedCodelists();
+            else this.getOtherConcepts();
+        }
+    }
+
+    private selectFirstTabWithData(): void {
+        if (this.isInitialTabSet) return;
+
+        const hasConcepts = this.otherConcepts.length > 0;
+
+        if (!this.hasRecommendedCodelists && hasConcepts) {
+            this.activeLink = this.navLinks[1];
+        } else {
+            this.activeLink = this.navLinks[0];
+        }
+
+        this.isInitialTabSet = true;
+        this.cdr.detectChanges();
     }
 
     public onActiveItemChange(event: any) {
         this.defaultParametersSearch();
-        
         this.activeLink = event;
         this.cdr.detectChanges();
-        if (this.activeLink == this.navLinks[0]) {
-            this.recommendedCodelists = new Array<TreeNode>();
-            this.loadRecommendedCodelists();
-        }
-        if (this.activeLink == this.navLinks[1]) {
-            this.otherConcepts = new Array<TreeNode>();
-            this.getOtherConcepts();
-        }
+        if (this.activeLink === this.navLinks[0]) this.loadRecommendedCodelists();
+        else this.getOtherConcepts();
     }
 
     private loadDataDetailResource(data: any): Observable<ConceptResource> {
@@ -98,39 +115,49 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
     }
 
     private getOtherConcepts() {
+        if (this.tableExpandable) this.tableExpandable.dataLoaded = false;
         this.apiSrmService.getOtherConcepts(this.dataDetail, this.searchConfig).subscribe((concept) => {
             this.searchConfig.resultSize = concept['total'];
-            if (concept[this.apiSrmService.apiSearchDataPath] && this.searchConfig.resultSize > 0) {
+            if (concept[this.apiSrmService.apiSearchDataPath] && concept['total'] > 0) {
                 const resources: any[] = concept[this.apiSrmService.apiSearchDataPath];
                 this.apiSrmService.findAllOtherConceptsDetailsFromSrm(resources, true, this.dataDetail.conceptScheme).subscribe((data) => {
-                    this.otherConcepts = [...this.otherConcepts, ...data];
+                    this.otherConcepts = data;
                     this.tableExpandable.dataLoaded = true;
+                    this.selectFirstTabWithData();
                 });
+            } else {
+                this.otherConcepts = [];
+                this.tableExpandable.dataLoaded = true;
             }
         });
     }
 
     private loadRecommendedCodelists(): void {
+        if (this.tableExpandable) this.tableExpandable.dataLoaded = false;
+
         if (this.dataDetail.isVariable) {
             this.apiSrmService.getRecommendedCodelists(this.dataDetail.urnVariable, this.searchConfig).subscribe((data) => {
                 this.searchConfig.resultSize = data['total'];
-                if (data[this.apiSrmService.apiCodelistDataPath] && this.searchConfig.resultSize > 0) {
+                if (data[this.apiSrmService.apiCodelistDataPath] && data['total'] > 0) {
                     const resources: any[] = data[this.apiSrmService.apiCodelistDataPath];
                     this.apiSrmService.findAllRecommendedCodelistsDetailsFromSrm(resources, true).subscribe((data) => {
-                        this.recommendedCodelists = [...this.recommendedCodelists, ...data];
+                        this.recommendedCodelists = data;
                         this.tableExpandable.dataLoaded = true;
+                        this.hasRecommendedCodelists = true;
+                        this.selectFirstTabWithData();
                     });
                 } else {
-                    this.tableExpandable.dataLoaded = true;
+                    this.recommendedCodelists = [];
+                    if (!this.isInitialTabSet) this.getOtherConcepts();
                 }
             });
-        } else if (!this.dataDetail.isVariable) {
-            this.tableExpandable.dataLoaded = true;
+        } else {
+            if (!this.isInitialTabSet) this.getOtherConcepts();
         }
     }
 
     public override onReturn() {
-        this.router.navigate(['concepts'], { relativeTo: this.route.parent });
+        this.router.navigate(['concepts'], {relativeTo: this.route.parent});
     }
 
     public onLoadCodelistDetail(urn: string): void {
@@ -150,15 +177,11 @@ export class ConceptsDetailComponent extends BasicDetailComponent implements OnI
 
     public openConceptSchemeLink(urn: string) {
         const resource = new ConceptResource(urn);
-        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], { relativeTo: this.route.parent });
+        this.router.navigate(['schemes', resource.agency, resource.resourceId, resource.version, 'detail'], {relativeTo: this.route.parent});
     }
 
-    public override onScrollDown($event: IInfiniteScrollEvent): void {
-        this.searchConfig.resultOffset = ++this.searchConfig.currentPage * this.searchConfig.resultLimit;
-        if (this.activeLink == this.navLinks[0]) {
-            this.loadRecommendedCodelists();
-        } else if (this.activeLink == this.navLinks[1]) {
-            this.getOtherConcepts();
-        }
+    public isTabDisabled(index: number): boolean {
+        if (index === 0) return !this.dataDetail?.isVariable;
+        return false;
     }
 }
