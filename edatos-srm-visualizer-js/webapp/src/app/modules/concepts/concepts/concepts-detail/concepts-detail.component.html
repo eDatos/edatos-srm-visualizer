@@ -12,10 +12,10 @@
     <span id='id' class='info-id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span id='name'>{{ dataDetail.name }}</span>
+    <span id='name' class='info-description'>{{ dataDetail.name }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></div>
+    <span id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
@@ -54,7 +54,8 @@
     <label for='conceptScheme' class='title'>{{ 'concepts.conceptSchemes' | translate }}</label>
     <div class='info-link'>
         <button type='button' (click)="openConceptSchemeLink(dataDetail.urn)">
-            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme?.id  }} ({{ dataDetail.conceptScheme?.name }})</span>&nbsp;
+            <span class='info-agency' id='conceptScheme'>{{ dataDetail.conceptScheme?.id }}
+                (v{{ dataDetail.conceptScheme?.version }})</span>&nbsp;
             <i class='fa-thin fa-arrow-up-right-from-square'></i>
         </button>
     </div>
@@ -70,30 +71,44 @@
 
 <div class="subsection-tab detail-tab">
     <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let link of navLinks">
-            <a class="nav-link" [ngClass]="activeLink == link ? 'active' : ''" 
-                (click)="activeLink = link; onActiveItemChange(link)"
-               routerLinkActive="active">{{link.label}}
+        <li class="nav-item" *ngFor="let link of navLinks; let i = index"
+            [ngClass]="{'active': activeLink === link, 'disabled': isTabDisabled(i)}"
+            [attr.title]="isTabDisabled(i) ? ('resourceParameters.tabDisabledNoData' | translate) : null">
+            <a class="nav-link" [ngClass]="{'active': activeLink === link}"
+               (click)="isTabDisabled(i) ? null : onActiveItemChange(link)">
+                {{ link.label }}
             </a>
         </li>
     </ul>
 </div>
 
-<div class='container detail-table'>
+<div class='detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+             [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='codelistColumns' [data]='recommendedCodelists'
                                    (clickEvent)='onLoadCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [totalItems]="searchConfig.resultSize"
+                [pageSize]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-             [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+             [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='conceptColumns' [data]='otherConcepts'
                                    (clickEvent)='onLoadConceptsDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [totalItems]="searchConfig.resultSize"
+                [pageSize]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
 </div>

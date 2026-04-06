@@ -18,7 +18,7 @@
     "csv": "Download in CSV format",
     "xlsx": "Download in XLSX format"
   },
-  "seeResource": "See this resource",
+  "seeResource": "Consult",
   "noResourceResults": "No results found for those conditions",
   "retrySearch": "Please, change the search parameters and try again.",
   "apiError": "Can not obtain a results.",
@@ -31,6 +31,8 @@
     "urn": "URN",
     "description": "Description",
     "scheme": "Scheme",
+    "schemeId": "Scheme identifier",
+    "schemeName": "Scheme name",
     "version": "Version",
     "comments": "Comments",
     "maintainer": "Maintainer",
@@ -40,11 +42,13 @@
     "showAllVersions": "Show all versions",
     "isRecommended": "Show only recommended codelist",
     "recommended": "Recommended",
-    "displayedFields": "Fields to display",
+    "displayedFields": "Fields",
     "selfLink": "Access via API",
     "concept": "Concept",
     "type": "Type",
-    "agency": "Maintenance agency"
+    "agency": "Maintenance agency",
+    "publicationDate": "Date of publication",
+    "tabDisabledNoData": "No data found"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
@@ -55,7 +59,7 @@
     "recommendedCodelists": "Recommended codelists",
     "parameters": {
       "idConcept": "Concept identifier",
-      "idScheme": "Scheme identifier",
+      "idScheme": "Concept scheme identifie",
       "schemeConcepts": "Concepts of scheme"
     }
   },

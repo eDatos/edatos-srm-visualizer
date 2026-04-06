@@ -1,20 +1,37 @@
-<div class="row">
-    <div class="col fw-lighter">
-        Resultados: {{paginationSize}}
-    </div>
-    <div *ngIf="pages.length > 0" class=" col btn-toolbar justify-content-end mt-2" role="toolbar"
-        aria-label="Toolbar with button groups">
-        <div class="btn-group" role="group" aria-label="First group">
-            <button type="button" class="btn btn-labeled btn-info"
-            (click)="onPreviusPage()">
-                <i class="fa fa-arrow-left"></i></button>
-            <button *ngFor="let page of pages" type="button"  
-            (click)="onChangePage(page)"
-             [class.active]="page === currentPage"   class="btn">{{page}}
-            </button>
-            <button type="button" class="btn btn-labeled btn-info"
-            (click)="onNextPage()">
-                <i class="fa fa-arrow-right"></i></button>
-        </div>
-    </div>
+<div class="pagination">
+    <ul *ngIf="totalPages > 1">
+        <li [class.disabled]="currentPage === 0">
+            <a class="page-link" (click)="onPreviusPage()" role="button">
+                <i class="fa-thin fa-chevrons-left"></i>
+            </a>
+        </li>
+
+        <ng-container *ngIf="pages[0] > 0">
+            <li><a class="page-link" (click)="onChangePage(0)" role="button">1</a></li>
+            <li class="disabled" *ngIf="pages[0] > 1"><span class="ellipsis">...</span></li>
+        </ng-container>
+
+        <li *ngFor="let page of pages" [class.active]="page === currentPage">
+            <a class="page-link" (click)="onChangePage(page)" role="button">
+                {{ page + 1 }}
+            </a>
+        </li>
+
+        <ng-container *ngIf="pages[pages.length - 1] < totalPages - 1">
+            <li class="disabled" *ngIf="pages[pages.length - 1] < totalPages - 2">
+                <span class="ellipsis">...</span>
+            </li>
+            <li>
+                <a class="page-link" (click)="onChangePage(totalPages - 1)" role="button">
+                    {{ totalPages }}
+                </a>
+            </li>
+        </ng-container>
+
+        <li [class.disabled]="currentPage === totalPages - 1">
+            <a class="page-link" (click)="onNextPage()" role="button">
+                <i class="fa-thin fa-chevrons-right"></i>
+            </a>
+        </li>
+    </ul>
 </div>

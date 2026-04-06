@@ -44,8 +44,9 @@ export class SimpleSearchFilter {
         if (values.description.value) {
             criterias = this.concatAndIsNotEmpty(criterias).concat(`DESCRIPTION ILIKE '%${values.description.value}%'`);
         }
-        if (values.scheme.value) {
-            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${values.scheme.value}%'`);
+        if (values.scheme.value || values.schemeId.value || values.schemeName.value) {
+            const schemeValue = values.scheme?.value || values.schemeId?.value || values.schemeName?.value;
+            criterias = this.concatAndIsNotEmpty(criterias).concat(`URN ILIKE '%${schemeValue}%'`);
         }
         return criterias;
     }

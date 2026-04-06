@@ -9,6 +9,8 @@ export interface FlatTreeNode {
     selfLink: string;
     maintainer: string;
     scheme: string;
+    schemeId?: string;
+    schemeName?: string;
     concept: string | undefined;
     typeDimension: string | undefined;
     assigmentStatus: string | undefined;

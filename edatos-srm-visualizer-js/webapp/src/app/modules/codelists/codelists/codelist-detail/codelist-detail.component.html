@@ -34,16 +34,16 @@
     <span class='info-id' id='id'>{{ dataDetail.id }}</span>
 
     <label for='name' class='title'>{{ 'resourceParameters.name' | translate }}</label>
-    <span id='name'>{{ dataDetail.name }}</span>
+    <span id='name' class='info-description'>{{ dataDetail.name }}</span>
 
     <label for='version' class='title'>{{ 'resourceParameters.version' | translate }}</label>
-    <span id='version'>{{ dataDetail.version }}</span>
+    <span id='version'>v{{ dataDetail.version }}</span>
 
     <label for='publicationDate' class='title'>{{ 'codelists.parameters.publicationDate' | translate }}</label>
     <span id='publicationDate'>{{ dataDetail.publicationDate }}</span>
 
     <label for='description' class='title'>{{ 'resourceParameters.description' | translate }}</label>
-    <div id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></div>
+    <span id='description' class='info-description' [innerHTML]='parseDescriptionToHtml()'></span>
 
     <label for='uri' class='title'>{{ 'resourceParameters.selfLink' | translate }}</label>
     <div id='uri' class='info-link background'>
@@ -102,7 +102,7 @@
     </ul>
 </div>
 
-<div class='container detail-table'>
+<div class='detail-table'>
     <div *ngIf='activeLink == navLinks[0]'>
         <div class='search-results-tree-detail'>
             <app-table-tree #tabletreenode [data]='dataChildren'
@@ -111,11 +111,17 @@
     </div>
     <div *ngIf='activeLink == navLinks[1]'>
         <div #searchResults class='search-results-table-detail' [scrollWindow]='false' infinite-scroll
-        [fromRoot]='true' (scrolled)='onScrollDown($event)'>
+        [fromRoot]='true'>
             <table-expandable-rows #tableExpandable [columns]='columns' [data]='relationatedCodelist'
                                    (clickEvent)='onLoadCodelistDetail($event)' [routerLinkDetail]="routerLinkDetail">
             </table-expandable-rows>
         </div>
+        <app-paginations
+                [currentPage]="searchConfig.currentPage"
+                [totalItems]="searchConfig.resultSize"
+                [pageSize]="searchConfig.resultLimit"
+                (changePage)="onChangePage($event)">
+        </app-paginations>
     </div>
 </div>
 

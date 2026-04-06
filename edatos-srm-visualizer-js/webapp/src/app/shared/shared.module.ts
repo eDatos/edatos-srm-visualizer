@@ -78,6 +78,7 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         MatTableModule,
         MatTreeModule,
         MatButtonModule,
+        MatTooltipModule,
         MatProgressSpinnerModule,
         ReactiveFormsModule,
         ScrollingModule,

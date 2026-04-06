@@ -1,15 +1,15 @@
 .text-icon-button, .menu-text-icon-button {
     padding: $spacing-xs $spacing-s;
     height: 30px;
-    border: 1px solid $color-azul-oscuro-100;
+    border: 1px solid var(--edatos-color-secondary-100);
     border-radius: 5px;
-    background: $color-negro-0;
-    color: $color-azul-oscuro-100;
-    font-size: $size-16;
+    background: var(--edatos-color-white-100);
+    color: var(--edatos-color-secondary-100);
+    font-size: var(--edatos-font-size-m);
     line-height: 16px;
     span {
-        font-size: $size-14;
-        font-weight: $font-weight-300;
+        font-size: var(--edatos-font-size-s);
+        font-weight: var(--edatos-font-weight-regular);
     }
     display: inline-block;
     align-self: flex-end;
@@ -18,18 +18,24 @@
     }
 }
 
+.text-icon-button:hover {
+    background-color: var(--edatos-color-primary-5);
+    color: var(--edatos-color-secondary-100);
+    text-decoration: none;
+}
+
 .menu-text-icon-button {
-    background-color: $color-azul-oscuro-100;
-    border: 2px solid $color-azul-oscuro-100;
+    background-color: var(--edatos-color-primary-100);
+    border: 2px solid var(--edatos-color-primary-100);
     border-radius: 5px 5px 0px 0px;
-    color: $color-negro-0;
+    color: var(--edatos-color-white-100);
     span {
-        font-weight: $font-weight-600;
+        font-weight: var(--edatos-font-weight-semibold);
     }
 }
 
 .copied-message {
-    color: $color-azul-oscuro-100;
+    color: var(--edatos-color-secondary-100);
     font-weight: bold;
-    font-size: $size-10;
+    font-size: var(--edatos-font-size-xxs);
 }

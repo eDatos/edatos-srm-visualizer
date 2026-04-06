@@ -4,6 +4,7 @@ export interface Column {
     enabled: boolean;
     sortable: boolean;
     showFilteredValues: boolean;
+    showTooltip?: boolean;
 }
 
 export function sortColumns(selectedFields: Column[], defaultFields: Column[]): Column[] {
