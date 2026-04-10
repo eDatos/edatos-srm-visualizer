@@ -111,7 +111,7 @@ export abstract class BasicDetailComponent implements OnInit {
     }
 
     public loadChildrenTreeData() {
-        this.apiSrmService.getChildrenTree(this.dataDetail!).subscribe((children) => {
+        this.apiSrmService.getChildrenTree(this.dataDetail!, this.translateService.currentLang).subscribe((children) => {
             if (children.length > 0) {
                 this.tabletreenode.data = [];
                 this.dataChildren = children;

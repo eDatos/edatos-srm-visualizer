@@ -8,14 +8,21 @@ public class InternationalStringUtils {
 
     private InternationalStringUtils() {}
 
-    public static String loadInternationalString(List<LocalisedString> texts, String lang) {
+    public static String loadInternationalString(List<LocalisedString> texts, String lang, String defaultLangValue) {
         return texts.stream()
                 .filter(element ->
-                        element.getLang().equals(lang)
+                    element.getLang().equals(lang)
                 )
-                .findFirst()
                 .map(LocalisedString::getValue)
-                .orElse("");
+                .findFirst()
+                .orElseGet(() ->
+                    texts.stream().filter(element -> 
+                        element.getLang().equals(defaultLangValue)
+                    )
+                    .map(LocalisedString::getValue)
+                    .findFirst()
+                    .orElse("")
+                );
     }
 
 }
