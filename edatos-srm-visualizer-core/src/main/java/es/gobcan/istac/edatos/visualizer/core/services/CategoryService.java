@@ -25,14 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepository   categoryRepository;
+
+    private final ConfigurationService configurationService;
 
     @Autowired
-    private ConfigurationService     configurationService;
-
-    @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, ConfigurationService configurationService) {
         this.categoryRepository = categoryRepository;
+        this.configurationService = configurationService;
     }
 
     public List<TreeNode> findCategoriesFromScheme(String urn, String lang) {

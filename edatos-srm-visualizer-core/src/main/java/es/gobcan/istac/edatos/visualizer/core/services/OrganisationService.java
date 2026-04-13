@@ -26,12 +26,12 @@ public class OrganisationService {
 
     private final OrganisationRepository organisationRepository;
 
-    @Autowired
-    private ConfigurationService         configurationService;
+    private final ConfigurationService   configurationService;
 
     @Autowired
-    public OrganisationService(OrganisationRepository organisationRepository) {
+    public OrganisationService(OrganisationRepository organisationRepository, ConfigurationService configurationService) {
         this.organisationRepository = organisationRepository;
+        this.configurationService = configurationService;
     }
 
     public List<TreeNode> findOrganisationsFromScheme(String urn, String lang) {

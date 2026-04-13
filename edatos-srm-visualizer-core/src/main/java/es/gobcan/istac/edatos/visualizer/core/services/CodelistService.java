@@ -24,14 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CodelistService {
 
-    private final CodelistRepository codeListRepository;
+    private final CodelistRepository   codeListRepository;
+
+    private final ConfigurationService configurationService;
 
     @Autowired
-    private ConfigurationService     configurationService;
-
-    @Autowired
-    public CodelistService(CodelistRepository codeListRepository) {
+    public CodelistService(CodelistRepository codeListRepository, ConfigurationService configurationService) {
         this.codeListRepository = codeListRepository;
+        this.configurationService = configurationService;
     }
 
     public List<TreeNode> findCodelistFromScheme(String urn, String lang) {
