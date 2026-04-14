@@ -9,20 +9,17 @@ public class InternationalStringUtils {
     private InternationalStringUtils() {}
 
     public static String loadInternationalString(List<LocalisedString> texts, String lang, String defaultLangValue) {
-        return texts.stream()
-                .filter(element ->
-                    element.getLang().equals(lang)
-                )
-                .map(LocalisedString::getValue)
-                .findFirst()
-                .orElseGet(() ->
-                    texts.stream().filter(element -> 
-                        element.getLang().equals(defaultLangValue)
-                    )
-                    .map(LocalisedString::getValue)
-                    .findFirst()
-                    .orElse("")
-                );
+        String result = "";
+
+        for (LocalisedString e : texts) {
+            if (e.getLang().equals(lang)) {
+                return e.getValue();
+            }
+            if (e.getLang().equals(defaultLangValue)) {
+                result = e.getValue();
+            }
+        }
+        return result;
     }
 
 }
