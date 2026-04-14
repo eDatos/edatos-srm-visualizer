@@ -28,17 +28,18 @@ public class CategoryService {
     private final CategoryRepository   categoryRepository;
 
     private final ConfigurationService configurationService;
+    private String                     languageDefault;
 
     @Autowired
     public CategoryService(CategoryRepository categoryRepository, ConfigurationService configurationService) {
         this.categoryRepository = categoryRepository;
         this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findCategoriesFromScheme(String urn, String lang) {
         List<TreeNode> result = new ArrayList<>();
         Categories categories = categoryRepository.findCategories(urn).orElse(new Categories());
-        String languageDefault = configurationService.retrieveLanguageDefault();
 
         Map<String, TreeNode> categoryToTreeNodeMap = new HashMap<>();
 

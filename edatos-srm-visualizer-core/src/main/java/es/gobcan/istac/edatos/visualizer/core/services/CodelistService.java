@@ -27,17 +27,18 @@ public class CodelistService {
     private final CodelistRepository   codeListRepository;
 
     private final ConfigurationService configurationService;
+    private String                     languageDefault;
 
     @Autowired
     public CodelistService(CodelistRepository codeListRepository, ConfigurationService configurationService) {
         this.codeListRepository = codeListRepository;
         this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findCodelistFromScheme(String urn, String lang) {
         List<TreeNode> result = new ArrayList<>();
         Codes codes = codeListRepository.findCodelist(urn).orElse(new Codes());
-        String languageDefault = configurationService.retrieveLanguageDefault();
 
         Map<String, TreeNode> codeToTreeNodeMap = new HashMap<>();
 

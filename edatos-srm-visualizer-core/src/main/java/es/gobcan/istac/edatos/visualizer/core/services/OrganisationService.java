@@ -27,17 +27,18 @@ public class OrganisationService {
     private final OrganisationRepository organisationRepository;
 
     private final ConfigurationService   configurationService;
+    private String                       languageDefault;
 
     @Autowired
     public OrganisationService(OrganisationRepository organisationRepository, ConfigurationService configurationService) {
         this.organisationRepository = organisationRepository;
         this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findOrganisationsFromScheme(String urn, String lang) {
         List<TreeNode> result = new ArrayList<>();
         Organisations organisations = organisationRepository.findOrganisations(urn).orElse(new Organisations());
-        String languageDefault = configurationService.retrieveLanguageDefault();
 
         Map<String, TreeNode> organisationToTreeNodeMap = new HashMap<>();
 
