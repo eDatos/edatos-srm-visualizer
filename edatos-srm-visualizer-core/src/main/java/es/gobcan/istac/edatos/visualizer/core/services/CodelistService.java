@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codelists;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
@@ -19,13 +20,20 @@ import es.gobcan.istac.edatos.visualizer.core.repository.CodelistRepository;
 import es.gobcan.istac.edatos.visualizer.core.utils.InternationalStringUtils;
 import lombok.extern.slf4j.Slf4j;
 
-@Service @Slf4j public class CodelistService {
+@Service
+@Slf4j
+public class CodelistService {
 
-    private final CodelistRepository codeListRepository;
+    private final CodelistRepository   codeListRepository;
+
+    private final ConfigurationService configurationService;
+    private String                     languageDefault;
 
     @Autowired
-    public CodelistService(CodelistRepository codeListRepository) {
+    public CodelistService(CodelistRepository codeListRepository, ConfigurationService configurationService) {
         this.codeListRepository = codeListRepository;
+        this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findCodelistFromScheme(String urn, String lang) {
@@ -35,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
         Map<String, TreeNode> codeToTreeNodeMap = new HashMap<>();
 
         codes.getCodes().forEach(code -> {
-            TreeNode treeNode = new TreeNode(code.getUrn(), InternationalStringUtils.loadInternationalString(code.getName().getTexts(), lang));
+            TreeNode treeNode = new TreeNode(code.getUrn(), InternationalStringUtils.loadInternationalString(code.getName().getTexts(), lang, languageDefault));
             codeToTreeNodeMap.put(code.getUrn(), treeNode);
         });
 
