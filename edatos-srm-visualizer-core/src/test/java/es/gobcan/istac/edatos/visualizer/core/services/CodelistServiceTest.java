@@ -9,14 +9,16 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.siemac.edatos.core.common.conf.ConfigurationService;
 
 import es.gobcan.istac.edatos.visualizer.core.models.TreeNode;
 import es.gobcan.istac.edatos.visualizer.core.repository.CodelistRepository;
 
 public class CodelistServiceTest {
 
-    private final CodelistRepository mockCodelistRepository = mock(CodelistRepository.class);
-    private final CodelistService    codelistService        = new CodelistService(mockCodelistRepository);
+    private final CodelistRepository   mockCodelistRepository   = mock(CodelistRepository.class);
+    private final ConfigurationService mockConfigurationService = mock(ConfigurationService.class);
+    private final CodelistService      codelistService          = new CodelistService(mockCodelistRepository, mockConfigurationService);
 
     @Test
     public void should_return_empty_when_is_invalid_urn() {

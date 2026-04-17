@@ -1,17 +1,15 @@
 package es.gobcan.istac.edatos.visualizer.core.services;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Categories;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.CategorySchemes;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.Codes;
-import org.siemac.metamac.rest.structural_resources.v1_0.domain.ItemResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,20 @@ import es.gobcan.istac.edatos.visualizer.core.utils.InternationalStringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service @Slf4j public class CategoryService {
+@Service
+@Slf4j
+public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepository   categoryRepository;
+
+    private final ConfigurationService configurationService;
+    private String                     languageDefault;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, ConfigurationService configurationService) {
         this.categoryRepository = categoryRepository;
+        this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findCategoriesFromScheme(String urn, String lang) {
@@ -39,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
         Map<String, TreeNode> categoryToTreeNodeMap = new HashMap<>();
 
         categories.getCategories().forEach(category -> {
-            TreeNode treeNode = new TreeNode(category.getUrn(), InternationalStringUtils.loadInternationalString(category.getName().getTexts(), lang));
+            TreeNode treeNode = new TreeNode(category.getUrn(), InternationalStringUtils.loadInternationalString(category.getName().getTexts(), lang, languageDefault));
             categoryToTreeNodeMap.put(category.getUrn(), treeNode);
         });
 

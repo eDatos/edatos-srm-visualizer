@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.siemac.edatos.core.common.conf.ConfigurationService;
 import org.siemac.metamac.rest.common.v1_0.domain.Resource;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.OrganisationSchemes;
 import org.siemac.metamac.rest.structural_resources.v1_0.domain.Organisations;
@@ -25,9 +26,14 @@ public class OrganisationService {
 
     private final OrganisationRepository organisationRepository;
 
+    private final ConfigurationService   configurationService;
+    private String                       languageDefault;
+
     @Autowired
-    public OrganisationService(OrganisationRepository organisationRepository) {
+    public OrganisationService(OrganisationRepository organisationRepository, ConfigurationService configurationService) {
         this.organisationRepository = organisationRepository;
+        this.configurationService = configurationService;
+        this.languageDefault = this.configurationService.retrieveLanguageDefault();
     }
 
     public List<TreeNode> findOrganisationsFromScheme(String urn, String lang) {
@@ -36,9 +42,8 @@ public class OrganisationService {
 
         Map<String, TreeNode> organisationToTreeNodeMap = new HashMap<>();
 
-
         organisations.getOrganisations().forEach(organisation -> {
-            TreeNode treeNode = new TreeNode(organisation.getUrn(), InternationalStringUtils.loadInternationalString(organisation.getName().getTexts(), lang));
+            TreeNode treeNode = new TreeNode(organisation.getUrn(), InternationalStringUtils.loadInternationalString(organisation.getName().getTexts(), lang, languageDefault));
             organisationToTreeNodeMap.put(organisation.getUrn(), treeNode);
         });
 
@@ -57,7 +62,6 @@ public class OrganisationService {
 
         return result;
     }
-
 
     public List<String> loadAllOrganisationVersions(String urn) {
         log.debug("Search soon {}", urn);

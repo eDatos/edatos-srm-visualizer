@@ -14,6 +14,7 @@ import {
     treeNodeWithMaintainer,
     treeNodeWithMaintainerAndScheme
 } from 'src/app/shared/models/tree/tree-node';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -119,8 +120,8 @@ export abstract class ApiSrmService extends ApiService {
     }
 
     /* Children */
-    public getChildrenTree(dataDetail: Resource): Observable<any> {
-        return this.getData(ApiSrmService.apiInternalDomain.concat(this.apiChildrenTreeUrl.replace('{urn}', dataDetail!.urn)));
+    public getChildrenTree(dataDetail: Resource, lang: string): Observable<any> {
+        return this.getDataWithLanguage(ApiSrmService.apiInternalDomain.concat(this.apiChildrenTreeUrl.replace('{urn}', dataDetail!.urn)), lang);
     }
 
     /* Search */
@@ -169,6 +170,11 @@ export abstract class ApiSrmService extends ApiService {
             url = this.buildQueryHelper.buildQueryUrl(url, query, this.isLatestVersion);
         }
         return this.httpClient.get<any>(url, { headers: ApiService.headers });
+    }
+
+    protected getDataWithLanguage(url: string, lang: string) : Observable<any> {
+        let params = new HttpParams().set('lang', lang);
+        return this.httpClient.get<any>(url, { headers: ApiService.headers, params: params});
     }
 
     abstract setApiSearchUrl(): void;
