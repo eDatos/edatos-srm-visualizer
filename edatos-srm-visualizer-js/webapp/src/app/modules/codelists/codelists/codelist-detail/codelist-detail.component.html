@@ -79,7 +79,7 @@
 
     <div *ngIf='dataDetail.annotations'>
         <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <span id='annotations'>{{ dataDetail.annotations }}</span>
+        <div id='annotations' class="annotations" [innerHTML]="parseDescriptionToHtml('annotations')"></div>
     </div>
 
     <label for='maintainer' class='title'>{{ 'resourceParameters.agency' | translate }}</label>

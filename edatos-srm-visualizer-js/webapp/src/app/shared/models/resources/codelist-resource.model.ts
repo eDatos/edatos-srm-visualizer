@@ -19,7 +19,7 @@ export class CodelistResource extends Resource {
 
         const name = localeService.getTextValue(resource.name?.text);
         const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
+        const annotations = codelistResource.getAnnotations(resource.annotations, localeService);
 
         codelistResource.description = description;
         codelistResource.name = name;
@@ -35,13 +35,14 @@ export class CodelistResource extends Resource {
     public static codelistResource(resource: any, maintainer: any, localeService: LocaleService,
                                    translateService: TranslateService, isCodes: boolean, codelistScheme?: any): CodelistResource {
         const codelistResource = new CodelistResource(resource.urn);
+
         const maintainerName = localeService.getTextValue(maintainer.name.text);
         const codelist = codelistScheme ? localeService.getTextValue(codelistScheme.name.text) : '';
         const codelistSceme = `${resource.id}(v${resource.version})`;
         const codeCodelistScheme = resource.codelist ? `${resource.codelist.id}(${codelist})` : '';
         const name = localeService.getTextValue(resource.name?.text);
         const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
+        const annotations = codelistResource.getAnnotations(resource.annotations, localeService);
 
         codelistResource.isVariableElement = !!resource.variableElement;
 

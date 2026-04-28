@@ -123,8 +123,8 @@ export abstract class BasicDetailComponent implements OnInit {
         });
     }
 
-    public parseDescriptionToHtml(): string {
-        return this.detailForm.get('description')?.value || '';
+    public parseDescriptionToHtml(field?: string): string {
+       return field ? this.detailForm.get(field)?.value : this.detailForm.get('description')?.value || '';
     }
 
     public handleOnPanelShow() {

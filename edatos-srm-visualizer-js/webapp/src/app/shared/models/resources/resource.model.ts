@@ -1,3 +1,4 @@
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { UrnUtils } from 'src/app/shared/utils/urn-utils';
 
 export class Resource {
@@ -24,4 +25,16 @@ export class Resource {
             this.id = UrnUtils.id;
         }
     }
+
+    public getAnnotations(annotations: any, localeService: LocaleService) {
+        if (!annotations || !annotations.annotation) {
+            return '';
+        }
+
+        return (annotations.annotation)
+            .map((a:any) => '<span>' + localeService.getTextValue(a.text?.text))
+            .filter((text:any) =>  !!text)
+            .join('</span>');
+    }
+    
 }

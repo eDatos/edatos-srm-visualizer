@@ -13,7 +13,7 @@ export class CategoryResource extends Resource {
         const schemeName = scheme? localeService.getTextValue(scheme.name.text) : '';
         const name = localeService.getTextValue(resource.name?.text);
         const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
+        const annotations = categoryResource.getAnnotations(resource.annotations, localeService);
 
         categoryResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         categoryResource.categoryScheme = scheme?`${scheme?.id}(${schemeName})` : '';

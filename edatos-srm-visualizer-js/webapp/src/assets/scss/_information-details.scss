@@ -183,6 +183,12 @@
     .info-description {
         max-width: $container-max-width-descriptions;
     }
+
+    .annotations {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+    }
 }
 
 .info-link {

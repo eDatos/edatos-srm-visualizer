@@ -13,7 +13,7 @@ export class OrganisationResource extends Resource {
         const schemeName = scheme? localeService.getTextValue(scheme.name.text) : '';
         const name = localeService.getTextValue(resource.name?.text);
         const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
+        const annotations = organisationResource.getAnnotations(resource.annotations, localeService);
 
         organisationResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         organisationResource.organisationScheme = scheme?`${scheme?.id}(${schemeName})` : '';

@@ -19,7 +19,7 @@ export class DsdResource extends Resource {
         const maintainerName = localeService.getTextValue(maintainer.name.text);
         const name = localeService.getTextValue(resource.name?.text);
         const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
+        const annotations = dsdResource.getAnnotations(resource.annotations, localeService);
 
         dsdResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         dsdResource.description = description;
