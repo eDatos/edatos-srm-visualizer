@@ -11,16 +11,10 @@ export class OrganisationResource extends Resource {
 
         const maintainerName = localeService.getTextValue(maintainer.name.text);
         const schemeName = scheme? localeService.getTextValue(scheme.name.text) : '';
-        const name = localeService.getTextValue(resource.name?.text);
-        const description = localeService.getTextValue(resource.description?.text);
-        const annotations = organisationResource.getAnnotations(resource.annotations, localeService);
 
+        organisationResource.setCommonFields(resource, localeService);
         organisationResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         organisationResource.organisationScheme = scheme?`${scheme?.id}(${schemeName})` : '';
-        organisationResource.description = description;
-        organisationResource.name = name;
-        organisationResource.annotations = annotations;
-        organisationResource.uri = resource.selfLink?.href;
         organisationResource.maintainer = `${maintainer.id} - ${maintainerName}`;
 
         return organisationResource;

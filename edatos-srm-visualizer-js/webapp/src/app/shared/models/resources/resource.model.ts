@@ -26,7 +26,14 @@ export class Resource {
         }
     }
 
-    public getAnnotations(annotations: any, localeService: LocaleService) {
+    protected setCommonFields (resource: any, localeService: LocaleService) { 
+        this.description = localeService.getTextValue(resource.description?.text);
+        this.name = localeService.getTextValue(resource.name?.text);
+        this.annotations = this.getAnnotations(resource.annotations, localeService);
+        this.uri = resource.selfLink?.href;
+    }
+
+    private getAnnotations(annotations: any, localeService: LocaleService) {
         if (!annotations || !annotations.annotation) {
             return '';
         }

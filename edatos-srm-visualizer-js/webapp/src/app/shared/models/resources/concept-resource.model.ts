@@ -16,17 +16,10 @@ export class ConceptResource extends Resource {
 
         const maintainerName = localeService.getTextValue(maintainer.name.text);
         const schemeName = scheme? localeService.getTextValue(scheme.name.text) : '';
-        const name = localeService.getTextValue(resource.name?.text);
-        const description = localeService.getTextValue(resource.description?.text);
-        const annotations = conceptResource.getAnnotations(resource.annotations, localeService);
 
+        conceptResource.setCommonFields(resource, localeService);
         conceptResource.isVariable = !!resource.variable;
-
         conceptResource.conceptScheme = scheme? { id: scheme?.id, name: schemeName, version: scheme?.version } : {id: "", name: "", version: ""};
-        conceptResource.description = description;
-        conceptResource.name = name;
-        conceptResource.annotations = annotations;
-        conceptResource.uri = resource.selfLink?.href;
         conceptResource.maintainer = `${maintainer.id} - ${maintainerName}`;
         conceptResource.idVariable = resource.variable?.id;
         conceptResource.urnVariable = resource.variable?.urn

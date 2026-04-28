@@ -17,14 +17,7 @@ export class CodelistResource extends Resource {
     public static familyCodelistResource(resource: any, localeService: LocaleService): CodelistResource {
         const codelistResource = new CodelistResource(resource.urn);
 
-        const name = localeService.getTextValue(resource.name?.text);
-        const description = localeService.getTextValue(resource.description?.text);
-        const annotations = codelistResource.getAnnotations(resource.annotations, localeService);
-
-        codelistResource.description = description;
-        codelistResource.name = name;
-        codelistResource.annotations = annotations;
-        codelistResource.uri = resource.selfLink?.href;
+        codelistResource.setCommonFields(resource, localeService);
         codelistResource.variableUrn = resource.variable ? resource.variable.urn : '';
         codelistResource.maintainer = '';
         codelistResource.lastUpdatedDate = resource.lastUpdatedDate ? DateUtils.formatSimpleDate(resource.lastUpdatedDate) : '';
@@ -40,21 +33,15 @@ export class CodelistResource extends Resource {
         const codelist = codelistScheme ? localeService.getTextValue(codelistScheme.name.text) : '';
         const codelistSceme = `${resource.id}(v${resource.version})`;
         const codeCodelistScheme = resource.codelist ? `${resource.codelist.id}(${codelist})` : '';
-        const name = localeService.getTextValue(resource.name?.text);
-        const description = localeService.getTextValue(resource.description?.text);
-        const annotations = codelistResource.getAnnotations(resource.annotations, localeService);
 
         codelistResource.isVariableElement = !!resource.variableElement;
 
+        codelistResource.setCommonFields(resource, localeService);
         codelistResource.lastUpdatedDate = resource.lifeCycle ? DateUtils.formatSimpleDate(resource.lifeCycle.lastUpdatedDate) : '';
         codelistResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
         codelistResource.isRecommended = resource.isRecommended ? translateService.instant('yes') : translateService.instant('no');
         codelistResource.codelist = isCodes ? codeCodelistScheme : codelistSceme;
-        codelistResource.description = description;
-        codelistResource.name = name;
-        codelistResource.annotations = annotations;
         codelistResource.variableUrn = resource.variable ? resource.variable.urn : '';
-        codelistResource.uri = resource.selfLink?.href;
         codelistResource.maintainer = `${maintainer.id} - ${maintainerName}`;
         codelistResource.variableElementUrn = resource.variableElement ? resource.variableElement.urn : '';
 
