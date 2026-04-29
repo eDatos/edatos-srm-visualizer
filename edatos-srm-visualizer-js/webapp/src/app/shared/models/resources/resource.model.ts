@@ -35,13 +35,12 @@ export class Resource {
 
     private getAnnotations(annotations: any, localeService: LocaleService) {
         if (!annotations || !annotations.annotation) {
-            return '';
+            return null;
         }
 
         return (annotations.annotation)
-            .map((a:any) => '<span>' + localeService.getTextValue(a.text?.text))
-            .filter((text:any) =>  !!text)
-            .join('</span>');
+            .map((a:any) => localeService.getTextValue(a.text?.text))
+            .filter((text:any) =>  !!text);
     }
     
 }
