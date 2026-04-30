@@ -78,8 +78,8 @@
     <span id='isRecommended'> {{ dataDetail.isRecommended }}</span>
 
     <div *ngIf='dataDetail.annotations'>
-        <label for='annotations' class='title'>{{ 'resourceParameters.comments' | translate }}</label>
-        <div id='annotations' class="annotations">
+        <span class='title'>{{ 'resourceParameters.comments' | translate }}</span>
+        <div class="annotations">
             <span *ngFor="let annotation of dataDetail.annotations">{{ annotation }}</span>
         </div>
     </div>
