@@ -17,15 +17,9 @@ export class DsdResource extends Resource {
         const dsdResource = new DsdResource(resource.urn);
 
         const maintainerName = localeService.getTextValue(maintainer.name.text);
-        const name = localeService.getTextValue(resource.name?.text);
-        const description = localeService.getTextValue(resource.description?.text);
-        const annotations = localeService.getTextValue(resource.annotations?.text);
 
+        dsdResource.setCommonFields(resource, localeService);
         dsdResource.publicationDate = resource.validFrom ? DateUtils.formatSimpleDate(resource.validFrom) : '';
-        dsdResource.description = description;
-        dsdResource.name = name;
-        dsdResource.annotations = annotations;
-        dsdResource.uri = resource.selfLink?.href;
         dsdResource.maintainer = `${maintainer.id} - ${maintainerName}`;
 
         return dsdResource;

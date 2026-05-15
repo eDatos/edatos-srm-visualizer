@@ -1,3 +1,4 @@
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { UrnUtils } from 'src/app/shared/utils/urn-utils';
 
 export class Resource {
@@ -24,4 +25,22 @@ export class Resource {
             this.id = UrnUtils.id;
         }
     }
+
+    protected setCommonFields (resource: any, localeService: LocaleService) { 
+        this.description = localeService.getTextValue(resource.description?.text);
+        this.name = localeService.getTextValue(resource.name?.text);
+        this.annotations = this.getAnnotations(resource.annotations, localeService);
+        this.uri = resource.selfLink?.href;
+    }
+
+    private getAnnotations(annotations: any, localeService: LocaleService) {
+        if (!annotations || !annotations.annotation) {
+            return null;
+        }
+
+        return (annotations.annotation)
+            .map((a:any) => localeService.getTextValue(a.text?.text))
+            .filter((text:any) =>  !!text);
+    }
+    
 }

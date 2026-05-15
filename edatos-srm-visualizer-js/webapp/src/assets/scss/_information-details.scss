@@ -158,7 +158,7 @@
     display: flex;
     flex-direction: column;
     gap: $spacing-s;
-    label {
+    .title {
         font-weight: var(--edatos-font-weight-semibold);
         line-height: 25px;
         font-size: var(--edatos-font-size-lg);
@@ -182,6 +182,13 @@
     }
     .info-description {
         max-width: $container-max-width-descriptions;
+    }
+
+    .annotations {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+        padding-top: $spacing-s;
     }
 }
 
