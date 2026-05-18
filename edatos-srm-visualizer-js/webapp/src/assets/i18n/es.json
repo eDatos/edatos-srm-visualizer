@@ -39,7 +39,6 @@
     "codelist": "Clasificación",
     "generalSearch": "Buscador general",
     "advancedSearch": "Búsqueda avanzada",
-    "isRecommended": "Mostrar sólo las clasificaciones recomendadas",
     "recommended": "Recomendada",
     "displayedFields": "Campos",
     "selfLink": "Acceso vía API",
@@ -51,7 +50,10 @@
     "filters": "Filtros",
     "versions": "Versiones",
     "latestVersions": "Últimas versiones",
-    "all": "Todas"
+    "all": "Todas",
+    "codelists": "Clasificaciones",
+    "recommendedCodelists": "Recomendadas"
+
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",

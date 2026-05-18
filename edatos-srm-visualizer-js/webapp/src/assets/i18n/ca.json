@@ -39,7 +39,6 @@
     "codelist": "Classificació",
     "generalSearch": "Cercador general",
     "advancedSearch": "Cerca avançada",
-    "isRecommended": "Mostrar només les clasificacions recomanades",
     "recommended": "Recomanada",
     "displayedFields": "Camps",
     "selfLink": "Accés via API",
@@ -51,7 +50,9 @@
     "filters": "Filtres",
     "versions": "Versions",
     "latestVersions": "Últimes versions",
-    "all": "Totes"
+    "all": "Totes",
+    "codelists": "Classificacions",
+    "recommendedCodelists": "Recomanades"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",

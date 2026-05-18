@@ -37,13 +37,20 @@
                            (change)='onSearchWithAllVersions({checked: false})'>
                     <label for='latestVersions'>{{ 'resourceParameters.latestVersions' | translate }}</label>
                 </div>
+                <span class='filter-section-title'>{{ 'resourceParameters.codelists' | translate }}</span>
+                <div class='filter-option'>
+                    <input type='radio' name='codeslists' id='allCodelists'
+                           [checked]='!showRecommendedCodelists'
+                           (change)='onSearchWithIsRecommended({checked: false})'>
+                    <label for='allCodelists'>{{ 'resourceParameters.all' | translate }}</label>
+                </div>
+                <div class='filter-option'>
+                    <input type='radio' name='codeslists' id='recommendedCodelists'
+                           [checked]='showRecommendedCodelists'
+                           (change)='onSearchWithIsRecommended({checked: true})'>
+                    <label for='recommendedCodelists'>{{ 'resourceParameters.recommendedCodelists' | translate }}</label>
+                </div>
             </p-overlayPanel>
-        </div>
-        <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='recommendedCodelists' inputId='recommendedCodelists'
-                           (onChange)='onSearchWithIsRecommended($event)'/>
-            <label for='recommendedCodelists'
-                   [ngClass]="showRecommendedCodelists?'label-inputswitch-checked':''">{{ 'resourceParameters.isRecommended' | translate }}</label>
         </div>
         <div class='custom-control custom-switch'>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'

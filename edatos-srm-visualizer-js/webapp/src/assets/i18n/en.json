@@ -39,7 +39,6 @@
     "codelist": "Codelist",
     "generalSearch": "General search",
     "advancedSearch": "Advanced search",
-    "isRecommended": "Show only recommended codelist",
     "recommended": "Recommended",
     "displayedFields": "Fields",
     "selfLink": "Access via API",
@@ -51,7 +50,9 @@
     "filters": "Filters",
     "versions": "Versions",
     "latestVersions": "Latest versions",
-    "all": "All"
+    "all": "All",
+    "codelists": "Codelists",
+    "recommendedCodelists": "Recommended"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",
