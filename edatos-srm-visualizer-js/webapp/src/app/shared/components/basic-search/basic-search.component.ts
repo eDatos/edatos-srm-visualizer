@@ -96,7 +96,6 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.markedSearchAdvanced = event.checked;
-        this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.tableExpandable.searchAdvancedForm.value);
         const emptyFilteredAgency = this.apiService.agencyId !== '' ? false : true;

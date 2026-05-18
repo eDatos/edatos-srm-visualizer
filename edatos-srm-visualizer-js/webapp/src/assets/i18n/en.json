@@ -39,7 +39,6 @@
     "codelist": "Codelist",
     "generalSearch": "General search",
     "advancedSearch": "Advanced search",
-    "showAllVersions": "Show all versions",
     "isRecommended": "Show only recommended codelist",
     "recommended": "Recommended",
     "displayedFields": "Fields",
@@ -48,7 +47,11 @@
     "type": "Type",
     "agency": "Maintenance agency",
     "publicationDate": "Date of publication",
-    "tabDisabledNoData": "No data found"
+    "tabDisabledNoData": "No data found",
+    "filters": "Filters",
+    "versions": "Versions",
+    "latestVersions": "Latest versions",
+    "all": "All"
   },
   "concepts": {
     "conceptSchemes": "Concept scheme",

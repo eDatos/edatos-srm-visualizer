@@ -19,10 +19,26 @@
                            (onPanelShow)='handleOnPanelShow()' (onPanelHide)='handleOnPanelHide()'>
             </p-multiSelect>
         </div>
-        <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
-            <label for='allVersions'
-                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
+        <div class='filter-dropdown col' *ngIf='markedSearchAdvanced'>
+            <button type='button' (click)='filterOverlay.toggle($event)' [ngClass]="filterOverlay.overlayVisible ? 'menu-text-icon-button' : 'text-icon-button'">
+                {{ 'resourceParameters.filters' | translate | uppercase }}
+                <i [ngClass]="filterOverlay.overlayVisible ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
+            </button>
+            <p-overlayPanel #filterOverlay>
+                <span class='filter-section-title'>{{ 'resourceParameters.versions' | translate }}</span>
+                <div class='filter-option'>
+                    <input type='radio' name='versions' id='allVersions'
+                           [checked]='showAllVersions'
+                           (change)='onSearchWithAllVersions({checked: true})'>
+                    <label for='allVersions'>{{ 'resourceParameters.all' | translate }}</label>
+                </div>
+                <div class='filter-option'>
+                    <input type='radio' name='versions' id='latestVersions'
+                           [checked]='!showAllVersions'
+                           (change)='onSearchWithAllVersions({checked: false})'>
+                    <label for='latestVersions'>{{ 'resourceParameters.latestVersions' | translate }}</label>
+                </div>
+            </p-overlayPanel>
         </div>
         <div class='custom-control custom-switch'>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'

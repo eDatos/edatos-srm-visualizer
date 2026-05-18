@@ -39,7 +39,6 @@
     "codelist": "Classificació",
     "generalSearch": "Cercador general",
     "advancedSearch": "Cerca avançada",
-    "showAllVersions": "Mostrar totes les versions",
     "isRecommended": "Mostrar només les clasificacions recomanades",
     "recommended": "Recomanada",
     "displayedFields": "Camps",
@@ -48,7 +47,11 @@
     "type": "Tipus",
     "agency": "Agència mantenidora",
     "publicationDate": "Data de publicació",
-    "tabDisabledNoData": "No s'han trobat dades"
+    "tabDisabledNoData": "No s'han trobat dades",
+    "filters": "Filtres",
+    "versions": "Versions",
+    "latestVersions": "Últimes versions",
+    "all": "Totes"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptes",

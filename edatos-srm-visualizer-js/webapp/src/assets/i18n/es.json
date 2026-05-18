@@ -39,7 +39,6 @@
     "codelist": "Clasificación",
     "generalSearch": "Buscador general",
     "advancedSearch": "Búsqueda avanzada",
-    "showAllVersions": "Mostrar todas las versiones",
     "isRecommended": "Mostrar sólo las clasificaciones recomendadas",
     "recommended": "Recomendada",
     "displayedFields": "Campos",
@@ -48,7 +47,11 @@
     "type": "Tipo",
     "agency": "Agencia mantenedora",
     "publicationDate": "Fecha de publicación",
-    "tabDisabledNoData": "No se han encontrado datos"
+    "tabDisabledNoData": "No se han encontrado datos",
+    "filters": "Filtros",
+    "versions": "Versiones",
+    "latestVersions": "Últimas versiones",
+    "all": "Todas"
   },
   "concepts": {
     "conceptSchemes": "Esquema de conceptos",
