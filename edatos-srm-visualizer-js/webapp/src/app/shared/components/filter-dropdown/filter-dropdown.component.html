@@ -7,13 +7,13 @@
     <div class='filter-option'>
         <input type='radio' name='versions' id='allVersions'
                [checked]='showAllVersions'
-               (change)='versionChange.emit({checked: true})'>
+               (change)='versionChange.emit(true)'>
         <label for='allVersions'>{{ 'resourceParameters.all' | translate }}</label>
     </div>
     <div class='filter-option'>
         <input type='radio' name='versions' id='latestVersions'
                [checked]='!showAllVersions'
-               (change)='versionChange.emit({checked: false})'>
+               (change)='versionChange.emit(false)'>
         <label for='latestVersions'>{{ 'resourceParameters.latestVersions' | translate }}</label>
     </div>
     <ng-container *ngIf='showRecommendedCodelists !== null'>
@@ -21,13 +21,13 @@
         <div class='filter-option'>
             <input type='radio' name='codelists' id='allCodelists'
                    [checked]='!showRecommendedCodelists'
-                   (change)='recommendedChange.emit({checked: false})'>
+                   (change)='recommendedChange.emit(false)'>
             <label for='allCodelists'>{{ 'resourceParameters.all' | translate }}</label>
         </div>
         <div class='filter-option'>
             <input type='radio' name='codelists' id='recommendedCodelists'
                    [checked]='showRecommendedCodelists'
-                   (change)='recommendedChange.emit({checked: true})'>
+                   (change)='recommendedChange.emit(true)'>
             <label for='recommendedCodelists'>{{ 'resourceParameters.recommendedCodelists' | translate }}</label>
         </div>
     </ng-container>

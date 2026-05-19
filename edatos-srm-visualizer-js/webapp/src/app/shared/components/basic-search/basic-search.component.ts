@@ -82,8 +82,8 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onSearchWithAllVersions(event: any): void {
-        this.markedViewAllVersions = !this.markedSearchAdvanced ? false : event.checked;
+    public onSearchWithAllVersions(showAll: boolean): void {
+        this.markedViewAllVersions = this.markedSearchAdvanced && showAll;
         this.isLatestVersion();
         this.getAdvancedSearch();
     }

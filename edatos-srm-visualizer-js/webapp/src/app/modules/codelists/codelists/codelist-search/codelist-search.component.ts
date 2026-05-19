@@ -72,8 +72,8 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
         this.apiService.setApiSearchUrl();
     }
 
-    public onSearchWithIsRecommended(event: any) {
-        this.apiService.isRecommended = !this.markedSearchAdvanced ? false : event.checked;
+    public onSearchWithIsRecommended(isRecommended: boolean): void {
+        this.apiService.isRecommended = this.markedSearchAdvanced && isRecommended;
         this.showRecommendedCodelists = this.apiService.isRecommended;
         this.tableExpandable.showRecommendedFilter = !this.showRecommendedCodelists;
         this.resetAutocomplete();
