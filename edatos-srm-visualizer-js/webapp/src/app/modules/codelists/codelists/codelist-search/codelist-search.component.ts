@@ -62,12 +62,12 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
     }
 
     public override loadInitialData(resetPagination?: boolean): void {
-        this.isRecommendedCodelist();
+        this.refreshRecommendedCodelist();
         super.loadInitialData();
     }
 
-    private isRecommendedCodelist(){
-        this.apiService.isRecommended = !this.markedSearchAdvanced ? false : this.showRecommendedCodelists;
+    private refreshRecommendedCodelist() {
+        this.apiService.isRecommended = this.markedSearchAdvanced && this.showRecommendedCodelists;
         this.showRecommendedCodelists = this.apiService.isRecommended;
         this.apiService.setApiSearchUrl();
     }
