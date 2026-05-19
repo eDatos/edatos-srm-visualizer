@@ -63,7 +63,7 @@ export class CodelistSearchComponent extends BasicSearchComponent implements OnI
 
     public override loadInitialData(resetPagination?: boolean): void {
         this.refreshRecommendedCodelist();
-        super.loadInitialData();
+        super.loadInitialData(resetPagination);
     }
 
     private refreshRecommendedCodelist() {
