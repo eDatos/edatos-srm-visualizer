@@ -1,0 +1,34 @@
+<button type='button' (click)='filterOverlay.toggle($event)' [ngClass]="filterOverlay.overlayVisible ? 'menu-text-icon-button' : 'text-icon-button'">
+    {{ 'resourceParameters.filters' | translate | uppercase }}
+    <i [ngClass]="filterOverlay.overlayVisible ? 'fa-solid fa-chevron-up' : 'fa-thin fa-chevron-down'"></i>
+</button>
+<p-overlayPanel #filterOverlay>
+    <span class='filter-section-title'>{{ 'resourceParameters.versions' | translate }}</span>
+    <div class='filter-option'>
+        <input type='radio' name='versions' id='allVersions'
+               [checked]='showAllVersions'
+               (change)='versionChange.emit({checked: true})'>
+        <label for='allVersions'>{{ 'resourceParameters.all' | translate }}</label>
+    </div>
+    <div class='filter-option'>
+        <input type='radio' name='versions' id='latestVersions'
+               [checked]='!showAllVersions'
+               (change)='versionChange.emit({checked: false})'>
+        <label for='latestVersions'>{{ 'resourceParameters.latestVersions' | translate }}</label>
+    </div>
+    <ng-container *ngIf='showRecommendedCodelists !== null'>
+        <span class='filter-section-title'>{{ 'resourceParameters.codelists' | translate }}</span>
+        <div class='filter-option'>
+            <input type='radio' name='codelists' id='allCodelists'
+                   [checked]='!showRecommendedCodelists'
+                   (change)='recommendedChange.emit({checked: false})'>
+            <label for='allCodelists'>{{ 'resourceParameters.all' | translate }}</label>
+        </div>
+        <div class='filter-option'>
+            <input type='radio' name='codelists' id='recommendedCodelists'
+                   [checked]='showRecommendedCodelists'
+                   (change)='recommendedChange.emit({checked: true})'>
+            <label for='recommendedCodelists'>{{ 'resourceParameters.recommendedCodelists' | translate }}</label>
+        </div>
+    </ng-container>
+</p-overlayPanel>

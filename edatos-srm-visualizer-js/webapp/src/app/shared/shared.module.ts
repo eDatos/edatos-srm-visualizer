@@ -62,10 +62,12 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableExpandableRows } from './components/table/table-row-expand.component';
 import { RouterLink } from '@angular/router';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
+import { FilterDropdownComponent } from './components/filter-dropdown/filter-dropdown.component';
 
 @NgModule({
     declarations: [
         AgencyPipe,
+        FilterDropdownComponent,
         PaginationsComponent,
         SchemePipe,
         TableTreeComponent,
@@ -142,6 +144,7 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         OverlayModule,
         PortalModule,
         CopyClipboardDirective,
+        FilterDropdownComponent,
         PaginationsComponent,
         SchemePipe,
         ScrollingModule,
