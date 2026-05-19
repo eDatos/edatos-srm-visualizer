@@ -25,7 +25,7 @@ mvn clean install -Dmaven.test.skip=true
 ### Dev server for frontend
 
 ```bash
-# From edatos-srm-visualizer/webapp/
+# From edatos-srm-visualizer-js/webapp/
 npm start
 ```
 
@@ -36,11 +36,10 @@ npm start
 ### Module Structure
 
 ```
-metamac-portal-core/                → Services
+edatos-srm-visualizer-core/         → Services, models, repositories
 edatos-srm-visualizer-js/           → Frontend Angular/Primeng/Bootstrap
-edatos-srm-visualizer-rest/  	    → Internal API interface for accessing the methods and services of the core module
-metamac-portal-web/                 → WAR that serves the frontend + exposes REST via CXF
-edatos-srm-visualizer-web/          → Frontend WAR
+edatos-srm-visualizer-rest/         → Internal API interface for accessing the methods and services of the core module
+edatos-srm-visualizer-web/          → WAR that serves the frontend + exposes REST via CXF
 ```
 
 ### Frontend Stack
