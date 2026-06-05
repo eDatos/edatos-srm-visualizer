@@ -22,7 +22,7 @@
         <app-filter-dropdown
             *ngIf='markedSearchAdvanced'
             [showAllVersions]='showAllVersions'
-            (versionChange)='onSearchWithAllVersions($event)'>
+            (showAllVersionsChange)='onSearchWithAllVersions($event)'>
         </app-filter-dropdown>
         <div class='custom-control custom-switch'>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'

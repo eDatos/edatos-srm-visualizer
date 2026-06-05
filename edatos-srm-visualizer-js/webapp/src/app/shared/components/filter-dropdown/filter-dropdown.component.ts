@@ -8,6 +8,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class FilterDropdownComponent {
     @Input() showAllVersions = false;
     @Input() showRecommendedCodelists: boolean | null = null;
-    @Output() versionChange = new EventEmitter<boolean>();
+    @Output() showAllVersionsChange = new EventEmitter<boolean>();
     @Output() recommendedChange = new EventEmitter<boolean>();
 }

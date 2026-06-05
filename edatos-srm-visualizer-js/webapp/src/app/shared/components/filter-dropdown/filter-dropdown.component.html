@@ -7,13 +7,13 @@
     <div class='filter-option'>
         <input type='radio' name='versions' id='allVersions'
                [checked]='showAllVersions'
-               (change)='versionChange.emit(true)'>
+               (change)='showAllVersionsChange.emit(true)'>
         <label for='allVersions'>{{ 'resourceParameters.all' | translate }}</label>
     </div>
     <div class='filter-option'>
         <input type='radio' name='versions' id='latestVersions'
                [checked]='!showAllVersions'
-               (change)='versionChange.emit(false)'>
+               (change)='showAllVersionsChange.emit(false)'>
         <label for='latestVersions'>{{ 'resourceParameters.latestVersions' | translate }}</label>
     </div>
     <ng-container *ngIf='showRecommendedCodelists !== null'>

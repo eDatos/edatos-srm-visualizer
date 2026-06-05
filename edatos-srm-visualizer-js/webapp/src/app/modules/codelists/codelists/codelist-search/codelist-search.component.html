@@ -22,7 +22,7 @@
             *ngIf='markedSearchAdvanced'
             [showAllVersions]='showAllVersions'
             [showRecommendedCodelists]='showRecommendedCodelists'
-            (versionChange)='onSearchWithAllVersions($event)'
+            (showAllVersionsChange)='onSearchWithAllVersions($event)'
             (recommendedChange)='onSearchWithIsRecommended($event)'>
         </app-filter-dropdown>
         <div class='custom-control custom-switch'>
