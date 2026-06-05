@@ -9,5 +9,5 @@ export class FilterDropdownComponent {
     @Input() showAllVersions = false;
     @Input() showRecommendedCodelists: boolean | null = null;
     @Output() showAllVersionsChange = new EventEmitter<boolean>();
-    @Output() recommendedChange = new EventEmitter<boolean>();
+    @Output() showRecommendedCodelistsChange = new EventEmitter<boolean>();
 }

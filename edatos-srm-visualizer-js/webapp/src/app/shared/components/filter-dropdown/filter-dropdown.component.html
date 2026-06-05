@@ -21,13 +21,13 @@
         <div class='filter-option'>
             <input type='radio' name='codelists' id='allCodelists'
                    [checked]='!showRecommendedCodelists'
-                   (change)='recommendedChange.emit(false)'>
+                   (change)='showRecommendedCodelistsChange.emit(false)'>
             <label for='allCodelists'>{{ 'resourceParameters.all' | translate }}</label>
         </div>
         <div class='filter-option'>
             <input type='radio' name='codelists' id='recommendedCodelists'
                    [checked]='showRecommendedCodelists'
-                   (change)='recommendedChange.emit(true)'>
+                   (change)='showRecommendedCodelistsChange.emit(true)'>
             <label for='recommendedCodelists'>{{ 'resourceParameters.recommendedCodelists' | translate }}</label>
         </div>
     </ng-container>
