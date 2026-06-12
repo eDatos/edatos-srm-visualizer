@@ -114,6 +114,8 @@ export abstract class BasicSearchComponent {
 
     private resetSearchAdvancedForm() {
         this.tableExpandable.searchAdvancedForm.reset();
+        this.tableExpandable.showRecommendedFilter = true;
+        this.resetRecommendedTableFilter();
         this.resetSearch();
     }
 
@@ -146,7 +148,7 @@ export abstract class BasicSearchComponent {
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
-        this.resetAutocomplete();
+        this.resetRecommendedTableFilter();
         if (!event.itemValue.enabled) {
             this.resetSearchAdvancedFormByColumn(event.itemValue.value, event.itemValue.showFilteredValues);
         }
@@ -295,7 +297,7 @@ export abstract class BasicSearchComponent {
         this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
     }
     
-    public resetAutocomplete() {
+    public resetRecommendedTableFilter() {
         if (!this.tableExpandable.showRecommendedFilter) {
             this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue(null);
             this.tableExpandable.searchAdvancedForm.controls['recommended'].disable();
