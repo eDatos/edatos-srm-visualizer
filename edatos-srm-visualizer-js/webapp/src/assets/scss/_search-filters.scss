@@ -251,7 +251,6 @@
 
 //primeng overlaypanel
 .p-overlaypanel {
-    color: var(--edatos-color-white-100);
     &.p-component {
     margin: 0;
     background: var(--edatos-color-primary-100);
@@ -307,6 +306,7 @@
         @include fa-icon-thin($fa-var-circle);
         cursor: pointer;
         flex-shrink: 0;
+        color: var(--edatos-color-white-100);
 
         &:checked {
             @include fa-icon-solid($fa-var-circle-check);
