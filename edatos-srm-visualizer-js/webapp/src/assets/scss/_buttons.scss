@@ -2,7 +2,7 @@
     padding: $spacing-xs $spacing-s;
     height: 30px;
     border: 1px solid var(--edatos-color-secondary-100);
-    border-radius: 5px;
+    border-radius: var(--edatos-border-radius-sm);
     background: var(--edatos-color-white-100);
     color: var(--edatos-color-secondary-100);
     font-size: var(--edatos-font-size-md);
@@ -27,7 +27,7 @@
 .menu-text-icon-button {
     background-color: var(--edatos-color-primary-100);
     border: 2px solid var(--edatos-color-primary-100);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
     color: var(--edatos-color-white-100);
     span {
         font-weight: var(--edatos-font-weight-semibold);

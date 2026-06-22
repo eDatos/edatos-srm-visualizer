@@ -10,10 +10,10 @@
     z-index: 0 !important;
     overflow: unset;
     &:first-child {
-      border-radius: 5px 0px 0px 5px;
+      border-radius: var(--edatos-border-radius-sm) 0px 0px var(--edatos-border-radius-sm);
     }
     &:last-child {
-      border-radius: 0px 5px 5px 0px;
+      border-radius: 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px;
     }
   }
   &.filter {

@@ -28,6 +28,6 @@
 }
 
 .search-results-table::-webkit-scrollbar-thumb, .search-results-table-detail::-webkit-scrollbar-thumb {
-    border-radius: 5px;
+    border-radius: var(--edatos-border-radius-sm);
     background-color: var(--edatos-color-secondary-100);
 }

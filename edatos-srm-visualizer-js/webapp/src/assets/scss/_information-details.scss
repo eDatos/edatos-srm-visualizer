@@ -17,7 +17,7 @@
 .p-dropdown-custom .p-dropdown {
     height: 30px;
     border: 1px solid var(--edatos-color-secondary-100);
-    border-radius: 5px;
+    border-radius: var(--edatos-border-radius-sm);
     align-items: center;
 }
 
@@ -39,7 +39,7 @@
     .p-dropdown.p-component.p-dropdown-open {
         background-color: var(--edatos-color-primary-100);
         border: none;
-        border-radius: 5px 5px 0px 0px;
+        border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
         
         .p-dropdown-label.p-placeholder, .p-dropdown-trigger-icon {
             color: var(--edatos-color-white-100);
@@ -60,7 +60,7 @@
     }
 
     .p-dropdown-panel {
-        border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm);
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         background-color: var(--edatos-color-primary-5);
         
@@ -71,7 +71,7 @@
            .p-dropdown-filter.p-inputtext {
                 height: 30px;
                 border: 1px solid var(--edatos-color-gray-60);
-                border-radius: 5px;
+                border-radius: var(--edatos-border-radius-sm);
                 font-size: var(--edatos-font-size-xs);
                 color: var(--edatos-color-gray-60);
                 padding: var(--edatos-spacing-x-sm);
@@ -103,7 +103,7 @@
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
     background: var(--edatos-color-primary-10);
     color: var(--edatos-color-secondary-100);
-    border-radius: 3px;
+    border-radius: var(--edatos-border-radius-xs);
 }
 
 
@@ -119,7 +119,7 @@
         &.p-component {
             width: unset;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 0px 5px 5px 5px;
+            border-radius: 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) var(--edatos-border-radius-sm);
         }
         .p-menu-list, .p-menuitem {
             padding: $spacing-xxs;
@@ -141,7 +141,7 @@
             }
             &:not(.p-disabled):hover {
                 background: var(--edatos-color-primary-5);
-                border-radius: 3px;
+                border-radius: var(--edatos-border-radius-xs);
                 .p-menuitem-text {
                     color: var(--edatos-color-black-100);
                 }
@@ -202,7 +202,7 @@
         background: var(--edatos-color-gray-5);
         height: 40px;
         padding: $spacing-s;
-        border-radius: 5px;
+        border-radius: var(--edatos-border-radius-sm);
         button:hover {
             text-decoration: none;
         }
@@ -255,7 +255,7 @@
         width: $scroll-width-default;
     }
     &::-webkit-scrollbar-thumb {
-        border-radius: 5px;
+        border-radius: var(--edatos-border-radius-sm);
         background-color: var(--edatos-color-secondary-100);
     }
 }

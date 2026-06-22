@@ -48,20 +48,20 @@
 }
 
 .subsection-tab .nav-tabs .nav-link:hover {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .subsection-tab .nav-tabs .nav-link.active {
     font-weight: var(--edatos-font-weight-semibold);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .subsection-tab .nav-tabs .nav-link:hover {
     background-color: var(--edatos-color-primary-10);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 .subsection-tab a.nav-link:focus {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .section-tab a.nav-link:focus-visible, .subsection-tab a.nav-link:focus-visible {
