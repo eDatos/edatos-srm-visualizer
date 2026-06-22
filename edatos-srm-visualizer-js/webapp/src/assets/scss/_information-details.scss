@@ -26,7 +26,7 @@
         color: var(--edatos-color-secondary-100);
         font-weight: var(--edatos-font-weight-regular);
         padding: $spacing-xs $spacing-s;
-        font-size: var(--edatos-font-size-s);
+        font-size: var(--edatos-font-size-sm);
     }
     
     .p-dropdown .p-dropdown-trigger {
@@ -130,13 +130,13 @@
                 display: flex;
                 justify-content: center;
                 color: var(--edatos-color-white-100);
-                font-size: var(--edatos-font-size-m);
+                font-size: var(--edatos-font-size-md);
                 width: 20px;
             }
             .p-menuitem-text {
                 color: var(--edatos-color-white-100);
                 font-weight: var(--edatos-font-weight-light);
-                font-size: var(--edatos-font-size-s);
+                font-size: var(--edatos-font-size-sm);
                 line-height: 24px;
             }
             &:not(.p-disabled):hover {
@@ -165,7 +165,7 @@
         margin-bottom: 0px;
     }
     span {
-        font-size: var(--edatos-font-size-m);
+        font-size: var(--edatos-font-size-md);
         line-height: 19px;
         font-weight: var(--edatos-font-weight-light);
         &.info-id {
@@ -231,7 +231,7 @@
 
 .info-link, .element-link-actions {
     button {
-        font-size: var(--edatos-font-size-m);
+        font-size: var(--edatos-font-size-md);
         background: transparent;
         border: none;
         &:hover {

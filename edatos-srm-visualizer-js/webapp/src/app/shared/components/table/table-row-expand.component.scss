@@ -86,7 +86,7 @@ th > div {
 .element-actions, .element-link-actions {
   color: var(--edatos-color-white-100);
   width: 1.25rem;
-  font-size: var(--edatos-font-size-m);
+  font-size: var(--edatos-font-size-md);
   background: transparent;
   border: none;
   &.end  {
@@ -125,7 +125,7 @@ th > div {
 .element-label {
   font-weight: var(--edatos-font-weight-semibold);
   &.title {
-    font-size: var(--edatos-font-size-m);
+    font-size: var(--edatos-font-size-md);
     color:  var(--edatos-color-gray-80);
   }
 }

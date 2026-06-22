@@ -5,10 +5,10 @@
     border-radius: 5px;
     background: var(--edatos-color-white-100);
     color: var(--edatos-color-secondary-100);
-    font-size: var(--edatos-font-size-m);
+    font-size: var(--edatos-font-size-md);
     line-height: 16px;
     span {
-        font-size: var(--edatos-font-size-s);
+        font-size: var(--edatos-font-size-sm);
         font-weight: var(--edatos-font-weight-regular);
     }
     display: inline-block;
@@ -37,5 +37,5 @@
 .copied-message {
     color: var(--edatos-color-secondary-100);
     font-weight: bold;
-    font-size: var(--edatos-font-size-xxs);
+    font-size: var(--edatos-font-size-2xs);
 }
