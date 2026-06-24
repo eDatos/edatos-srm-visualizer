@@ -19,11 +19,11 @@
                            (onPanelShow)='handleOnPanelShow()' (onPanelHide)='handleOnPanelHide()'>
             </p-multiSelect>
         </div>
-        <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
-            <label for='allVersions'
-                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
-        </div>
+        <app-filter-dropdown
+            *ngIf='markedSearchAdvanced'
+            [showAllVersions]='showAllVersions'
+            (showAllVersionsChange)='onSearchWithAllVersions($event)'>
+        </app-filter-dropdown>
         <div class='custom-control custom-switch'>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
                            (onChange)='toggleVisibility($event)'></p-inputSwitch>
