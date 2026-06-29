@@ -18,17 +18,13 @@
                            (onPanelShow)='handleOnPanelShow()' (onPanelHide)='handleOnPanelHide()'>
             </p-multiSelect>
         </div>
-        <div class='custom-control custom-switch' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='allVersions' inputId='allVersions' (onChange)='onSearchWithAllVersions($event)'/>
-            <label for='allVersions'
-                   [ngClass]="showAllVersions?'label-inputswitch-checked':''">{{ 'resourceParameters.showAllVersions' | translate }}</label>
-        </div>
-        <div class='custom-control custom-switch col' *ngIf='markedSearchAdvanced'>
-            <p-inputSwitch id='recommendedCodelists' inputId='recommendedCodelists'
-                           (onChange)='onSearchWithIsRecommended($event)'/>
-            <label for='recommendedCodelists'
-                   [ngClass]="showRecommendedCodelists?'label-inputswitch-checked':''">{{ 'resourceParameters.isRecommended' | translate }}</label>
-        </div>
+        <app-filter-dropdown
+            *ngIf='markedSearchAdvanced'
+            [showAllVersions]='showAllVersions'
+            [showRecommendedCodelists]='showRecommendedCodelists'
+            (showAllVersionsChange)='onSearchWithAllVersions($event)'
+            (showRecommendedCodelistsChange)='onSearchWithIsRecommended($event)'>
+        </app-filter-dropdown>
         <div class='custom-control custom-switch'>
             <p-inputSwitch id='advancedSearch' inputId='advancedSearch'
                            (onChange)='toggleVisibility($event)'></p-inputSwitch>
