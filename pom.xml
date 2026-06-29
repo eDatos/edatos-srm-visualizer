@@ -11,7 +11,7 @@
 
     <groupId>es.gobcan.istac.edatos-srm-visualizer</groupId>
     <artifactId>edatos-srm-visualizer</artifactId>
-    <version>1.11.3-SNAPSHOT</version>
+    <version>1.12.0</version>
     <packaging>pom</packaging>
 
     <name>eDatos SRM Visualizer</name>
@@ -19,7 +19,7 @@
     <scm>
         <connection>scm:git:https://git.arte-consultores.com/istac/edatos-srm-visualizer/</connection>
         <developerConnection>scm:git:https://git.arte-consultores.com/istac/edatos-srm-visualizer/</developerConnection>
-        <tag>HEAD</tag>
+        <tag>20260629-1447-v1.12.0</tag>
         <url>https://git.arte-consultores.com/istac/edatos-srm-visualizer</url>
     </scm>
     <issueManagement>
