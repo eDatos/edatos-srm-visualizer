@@ -249,6 +249,70 @@
 }
 
 
+//primeng overlaypanel
+.p-overlaypanel {
+    &.p-component {
+    margin: 0;
+    background: var(--edatos-color-primary-100);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 5px 5px 5px;
+    }
+    &::before,
+    &::after {
+        display: none !important;
+    }
+
+    .p-overlaypanel-content {
+        padding: var(--edatos-spacing-y-sm) 0;
+    }
+}
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+
+    .text-icon-button {
+        font-size: var(--edatos-font-size-s);
+        
+    }
+
+    .menu-text-icon-button {
+        font-weight: var(--edatos-font-weight-semibold);
+    }
+}
+
+.filter-section-title {
+    font-size: var(--edatos-font-size-s);
+    font-weight: var(--edatos-font-weight-semibold);
+    padding: $spacing-xxs $spacing-m;
+    color: var(--edatos-color-white-100);
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-xxs $spacing-m;
+
+    label {
+        font-size: var(--edatos-font-size-s);
+        color: var(--edatos-color-white-100);
+        cursor: pointer;
+        margin: 0;
+    }
+
+    input[type='radio'] {
+        appearance: none;
+        -webkit-appearance: none;
+        @include fa-icon-thin($fa-var-circle);
+        cursor: pointer;
+        flex-shrink: 0;
+        color: var(--edatos-color-white-100);
+
+        &:checked {
+            @include fa-icon-solid($fa-var-circle-check);
+        }
+    }
+}
 
 
 

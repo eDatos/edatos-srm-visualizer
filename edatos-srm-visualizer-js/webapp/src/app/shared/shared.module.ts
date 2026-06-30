@@ -58,13 +58,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableExpandableRows } from './components/table/table-row-expand.component';
 import { RouterLink } from '@angular/router';
 import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
+import { FilterDropdownComponent } from './components/filter-dropdown/filter-dropdown.component';
 
 @NgModule({
     declarations: [
         AgencyPipe,
+        FilterDropdownComponent,
         PaginationsComponent,
         SchemePipe,
         TableTreeComponent,
@@ -86,6 +89,7 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         MultiSelectModule,
         InputSwitchModule,
         AutoCompleteModule,
+        OverlayPanelModule,
         ClipboardModule,
         RouterLink,
         FormsModule
@@ -140,6 +144,7 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         OverlayModule,
         PortalModule,
         CopyClipboardDirective,
+        FilterDropdownComponent,
         PaginationsComponent,
         SchemePipe,
         ScrollingModule,
@@ -149,7 +154,8 @@ import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
         VersionPipe,
         MultiSelectModule,
         InputSwitchModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        OverlayPanelModule
     ],
     providers: [CookieService]
 })

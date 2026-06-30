@@ -82,8 +82,8 @@ export abstract class BasicSearchComponent {
         });
     }
 
-    public onSearchWithAllVersions(event: any): void {
-        this.markedViewAllVersions = !this.markedSearchAdvanced ? false : event.checked;
+    public onSearchWithAllVersions(showAll: boolean): void {
+        this.markedViewAllVersions = this.markedSearchAdvanced && showAll;
         this.isLatestVersion();
         this.getAdvancedSearch();
     }
@@ -96,7 +96,6 @@ export abstract class BasicSearchComponent {
 
     public toggleVisibility(event: any) {
         this.markedSearchAdvanced = event.checked;
-        this.showAllVersions = false;
         const emptySearchSimpleForm = this.isEmptyForm(this.searchSimpleForm.value);
         const emptySearchAdvancedForm = this.isEmptyForm(this.tableExpandable.searchAdvancedForm.value);
         const emptyFilteredAgency = this.apiService.agencyId !== '' ? false : true;
@@ -115,6 +114,8 @@ export abstract class BasicSearchComponent {
 
     private resetSearchAdvancedForm() {
         this.tableExpandable.searchAdvancedForm.reset();
+        this.tableExpandable.showRecommendedFilter = true;
+        this.resetRecommendedTableFilter();
         this.resetSearch();
     }
 
@@ -147,7 +148,7 @@ export abstract class BasicSearchComponent {
     public onSelectFields(event: any) {
         event.itemValue.enabled = !event.itemValue.enabled;
         this.columnsToDisplay();
-        this.resetAutocomplete();
+        this.resetRecommendedTableFilter();
         if (!event.itemValue.enabled) {
             this.resetSearchAdvancedFormByColumn(event.itemValue.value, event.itemValue.showFilteredValues);
         }
@@ -238,7 +239,14 @@ export abstract class BasicSearchComponent {
     private columnsToDisplay() {
         // @ts-ignore
         this.selectedFields = this.searchSimpleForm.value.selectedFields.map((field: any) => {
-            return { name: field.name, value: field.value, enabled: field.enabled, sortable: field.sortable, showFilteredValues: field.showFilteredValues, showTooltip: field.showTooltip  };
+            return {
+                name: field.name,
+                value: field.value,
+                enabled: field.enabled,
+                sortable: field.sortable,
+                showFilteredValues: field.showFilteredValues,
+                ...(field.showTooltip !== undefined && { showTooltip: field.showTooltip })
+            };
         }).filter((field: any) => field.enabled);
         this.selectedFields = sortColumns(this.selectedFields, this.fields);
         this.initialForm.value.selectedFields = this.selectedFields;
@@ -296,7 +304,7 @@ export abstract class BasicSearchComponent {
         this.markedSearchAdvanced ? this.getAdvancedSearch() : this.onSearch();
     }
     
-    public resetAutocomplete() {
+    public resetRecommendedTableFilter() {
         if (!this.tableExpandable.showRecommendedFilter) {
             this.tableExpandable.searchAdvancedForm.controls['recommended'].setValue(null);
             this.tableExpandable.searchAdvancedForm.controls['recommended'].disable();
