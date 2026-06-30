@@ -1,6 +1,6 @@
 /*messages*/
 .empty-td-container, .error-td-container {
-  gap: $spacing-s;
+  gap: var(--edatos-spacing-y-sm);
   display: flex;
   flex-direction: column;
   text-align: center;

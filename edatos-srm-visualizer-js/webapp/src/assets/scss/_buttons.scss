@@ -1,5 +1,5 @@
 .text-icon-button, .menu-text-icon-button {
-    padding: $spacing-xs $spacing-s;
+    padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
     height: 30px;
     border: 1px solid var(--edatos-color-secondary-100);
     border-radius: var(--edatos-border-radius-sm);

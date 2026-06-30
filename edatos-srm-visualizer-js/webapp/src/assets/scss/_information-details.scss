@@ -2,8 +2,8 @@
 .general-buttons {
     height: 60px;
     align-items: center;
-    padding: 0 $spacing-l;
-    gap: $spacing-s;
+    padding: 0 var(--edatos-spacing-x-lg);
+    gap: var(--edatos-spacing-x-sm);
     &.row {
         margin: 0px;
         .row-large {
@@ -25,7 +25,7 @@
     .p-dropdown-label.p-placeholder {
         color: var(--edatos-color-secondary-100);
         font-weight: var(--edatos-font-weight-regular);
-        padding: $spacing-xs $spacing-s;
+        padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
         font-size: var(--edatos-font-size-sm);
     }
     
@@ -65,7 +65,7 @@
         background-color: var(--edatos-color-primary-5);
         
         .p-dropdown-header {
-            padding: $spacing-xxs;
+            padding: var(--edatos-spacing-x-2xs);
             background-color: var(--edatos-color-primary-5);
             border-bottom: none;
            .p-dropdown-filter.p-inputtext {
@@ -81,11 +81,11 @@
            }
         }
         .p-dropdown-items {
-            padding: $spacing-xxs;
+            padding: var(--edatos-spacing-x-2xs);
         }
         .p-dropdown-item  {
             font-size: var(--edatos-font-size-xs);
-            padding: $spacing-xxs;
+            padding: var(--edatos-spacing-x-2xs);
             font-weight: var(--edatos-font-weight-light);
             line-height: 24px;
             color: var(--edatos-color-secondary-100);
@@ -112,7 +112,7 @@
     .p-menu.p-menu-overlay {
         background: var(--edatos-color-primary-100);
         left:unset !important;
-        padding: $spacing-xs;
+        padding: var(--edatos-spacing-x-xs);
         
     }
     .p-menu {
@@ -122,10 +122,10 @@
             border-radius: 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) var(--edatos-border-radius-sm);
         }
         .p-menu-list, .p-menuitem {
-            padding: $spacing-xxs;
+            padding: var(--edatos-spacing-x-2xs);
         }
         .p-menuitem-link  {
-            padding: $spacing-xxs;
+            padding: var(--edatos-spacing-x-2xs);
             .p-menuitem-icon {
                 display: flex;
                 justify-content: center;
@@ -154,10 +154,10 @@
 }
 
 .detail-info {
-    padding: 0 $spacing-l;
+    padding: 0 var(--edatos-spacing-x-lg);
     display: flex;
     flex-direction: column;
-    gap: $spacing-s;
+    gap: var(--edatos-spacing-y-sm);
     .title {
         font-weight: var(--edatos-font-weight-semibold);
         line-height: 25px;
@@ -187,21 +187,21 @@
     .annotations {
         display: flex;
         flex-direction: column;
-        gap: $spacing-xs;
-        padding-top: $spacing-s;
+        gap: var(--edatos-spacing-y-xs);
+        padding-top: var(--edatos-spacing-y-sm);
     }
 }
 
 .info-link {
     display: flex;
     flex-direction: row;
-    gap: $spacing-xs;
+    gap: var(--edatos-spacing-x-xs);
     align-items: center;
     color: #231F20;
     &.background {
         background: var(--edatos-color-gray-5);
         height: 40px;
-        padding: $spacing-s;
+        padding: var(--edatos-spacing-x-sm);
         border-radius: var(--edatos-border-radius-sm);
         button:hover {
             text-decoration: none;
@@ -222,7 +222,7 @@
 .element-link-actions {
     display: flex;
     flex-direction: row;
-    gap: $spacing-xs;
+    gap: var(--edatos-spacing-x-xs);
     button {
         width: 1.25rem;
         color: var(--edatos-color-secondary-100);
@@ -241,7 +241,7 @@
 }
 
 .detail-table {
-    padding: $spacing-l;
+    padding: var(--edatos-spacing-x-lg);
     table {
         box-shadow: none;
     }

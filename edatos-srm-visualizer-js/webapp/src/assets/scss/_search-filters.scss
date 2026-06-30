@@ -1,7 +1,7 @@
 .general-search {
     height: $height-general-search;
     align-items: center;
-    padding: 0 $spacing-l;
+    padding: 0 var(--edatos-spacing-x-lg);
     .title {
         font-weight: var(--edatos-font-weight-semibold);
     }
@@ -18,7 +18,7 @@
 }
 
 .search-results-container {
-    padding: 0 $spacing-l;
+    padding: 0 var(--edatos-spacing-x-lg);
 }
 
 
@@ -38,7 +38,7 @@
     .p-multiselect-label.p-placeholder {
         color: var(--edatos-color-secondary-100);
         font-weight: var(--edatos-font-weight-regular);
-        padding: $spacing-xs $spacing-s;
+        padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
     }
     
     .p-multiselect .p-multiselect-trigger {
@@ -57,7 +57,7 @@
         .p-multiselect-item {
             color: var(--edatos-color-white-100);
             font-weight: var(--edatos-font-weight-light);
-            padding: $spacing-xxs $spacing-m ;
+            padding: $spacing-xxs var(--edatos-spacing-x-lg);
         }
     }
     .p-multiselect.p-component {
@@ -126,10 +126,10 @@
 .custom-switch  {
     color: var(--edatos-color-secondary-100);
     font-weight: var(--edatos-font-weight-light);
-    gap: $spacing-s;
+    gap: var(--edatos-spacing-x-xs);
     display: flex;
     align-items: center;
-    padding-left: $spacing-m;
+    padding-left: var(--edatos-spacing-x-lg);
     label {
         margin-bottom: 0;
     }
@@ -283,16 +283,15 @@
 .filter-section-title {
     font-size: var(--edatos-font-size-s);
     font-weight: var(--edatos-font-weight-semibold);
-    padding: $spacing-xxs $spacing-m;
+    padding: $spacing-xxs var(--edatos-spacing-x-lg);
     color: var(--edatos-color-white-100);
 }
 
 .filter-option {
     display: flex;
     align-items: center;
-    gap: $spacing-xs;
-    padding: $spacing-xxs $spacing-m;
-
+    gap: var(--edatos-spacing-x-xs);
+    padding: $spacing-xxs var(--edatos-spacing-x-lg);
     label {
         font-size: var(--edatos-font-size-s);
         color: var(--edatos-color-white-100);

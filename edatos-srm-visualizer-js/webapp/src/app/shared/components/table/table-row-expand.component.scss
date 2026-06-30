@@ -2,7 +2,7 @@
 .element-header { //Cabecera de la tabla de resultados
   height: 30px;
   th {
-    padding: $spacing-xs $spacing-s;
+    padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
     line-height: 19px;
     font-weight: var(--edatos-font-weight-semibold);
     background: var(--edatos-color-gray-5);
@@ -18,10 +18,10 @@
   }
   &.filter {
     th {
-      padding: $spacing-s;
+      padding: var(--edatos-spacing-x-sm);
     }
     div:not(:first-child) {
-      padding-top: $spacing-xs;
+      padding-top: var(--edatos-spacing-y-xs);
     }
   }
 }
@@ -34,8 +34,8 @@
     text-overflow: ellipsis;
   }
   td {
-    max-width: calc($container-2columns-max-width/2 - $spacing-s - $scroll-width-default);
-    padding: $spacing-s;
+    max-width: calc($container-2columns-max-width/2 - var(--edatos-spacing-x-sm) - $scroll-width-default);
+    padding: var(--edatos-spacing-x-sm);
     line-height: 16px;
     font-size: var(--edatos-font-size-xs);
     border-bottom: 1px solid var(--edatos-color-gray-5);
@@ -50,10 +50,10 @@
     > td:last-child {
       border-radius: 0px 5px 0px 0px;
       text-align: end;
-      padding-right: calc(2*$spacing-s);
+      padding-right: var(--edatos-spacing-x-lg);
     }
     td {
-      padding: 0 $spacing-s;
+      padding: 0 var(--edatos-spacing-x-sm);
       background: var(--edatos-color-primary-100);
       color: var(--edatos-color-white-100);
       border-bottom: none;
@@ -76,7 +76,7 @@ tr.detail-row {
 
 th > div {
   display: flex;
-  gap: 10px;
+  gap: var(--edatos-spacing-x-sm);
   align-items: center;
   .element-actions {
     color: var(--edatos-color-secondary-100);
@@ -113,7 +113,7 @@ th > div {
 }
 
 .element-description {
-  padding: $spacing-s;
+  padding: var(--edatos-spacing-x-sm);
   width: $container-max-width-descriptions;
   font-size: var(--edatos-font-size-xs);
   line-height: 16px;
@@ -136,7 +136,7 @@ th > div {
 
 
 .element-link {
-  padding: $spacing-s $spacing-s $spacing-l;
+  padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-sm) var(--edatos-spacing-x-lg);
   font-size: var(--edatos-font-size-xs);
   line-height: 16px;
 }
@@ -144,8 +144,8 @@ th > div {
 .element-link-attribution {
   display: flex;
   flex-direction: row;
-  padding: $spacing-s;
-  gap: $spacing-xs;
+  padding: var(--edatos-spacing-x-sm);
+  gap: var(--edatos-spacing-x-xs);
   height: 40px;
   background: var(--edatos-color-gray-5);
   border-radius: 5px;
@@ -183,8 +183,7 @@ th > div {
 
 .empty-td {
   width: $container-max-widths;
-  padding: 32px 10px;
-  padding: 32px calc($container-max-widths/2 - ($empty-td-container-width)/2 - 2*$spacing-s);
+  padding: var(--edatos-spacing-y-xl) calc($container-max-widths/2 - ($empty-td-container-width)/2 - var(--edatos-spacing-x-lg));
 }
 
 
@@ -192,7 +191,7 @@ th > div {
   display: flex;
   flex-direction: column;
   margin-left: 35%;
-  gap: $spacing-s;
+  gap: var(--edatos-spacing-y-sm);
   justify-content: center;
   align-items: center;
   height: 100%;
