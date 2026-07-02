@@ -19,11 +19,11 @@
 }
 
 .section-tab .nav.nav-pills {
-    padding: 13px var(--edatos-spacing-x-m);
+    padding: var(--edatos-spacing-y-lg) var(--edatos-spacing-x-lg);
 }
 
 .subsection-tab .nav.nav-tabs {
-    padding: 9px var(--edatos-spacing-x-m);
+    padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-lg);
 }
 
 .section-tab .nav.nav-pills, .subsection-tab .nav.nav-tabs {
@@ -34,8 +34,6 @@
 .section-tab .nav-pills .nav-link, .subsection-tab .nav-tabs .nav-link {
     font-weight: var(--edatos-font-weight-light);
     color: var(--edatos-color-secondary-100);
-    /* identical to box height */
-    line-height: 20px;
 }
 
 .section-tab .nav-pills .nav-link.active {
