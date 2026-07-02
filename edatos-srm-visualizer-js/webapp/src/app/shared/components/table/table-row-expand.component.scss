@@ -45,10 +45,10 @@
   }
   &.expanded-row, &.expanded-row:hover {
     > td:first-child {
-      border-radius: 5px 0px 0px 0px;
+      border-radius: var(--edatos-border-radius-sm) 0px 0px 0px;
     }
     > td:last-child {
-      border-radius: 0px 5px 0px 0px;
+      border-radius: 0px var(--edatos-border-radius-sm) 0px 0px;
       text-align: end;
       padding-right: var(--edatos-spacing-x-lg);
     }
@@ -105,7 +105,7 @@ th > div {
 .element-detail {
   display: flex;
   flex-direction: column;
-  border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm);
   border: 1px solid var(--edatos-color-primary-100);
 }
 .element-detail.large {
@@ -148,7 +148,7 @@ th > div {
   gap: var(--edatos-spacing-x-xs);
   height: 40px;
   background: var(--edatos-color-gray-5);
-  border-radius: 5px;
+  border-radius: var(--edatos-border-radius-sm);
   align-items: center;
   color: #231F20;
   width: $container-max-width-descriptions;
