@@ -57,7 +57,7 @@
         .p-multiselect-item {
             color: var(--edatos-color-white-100);
             font-weight: var(--edatos-font-weight-light);
-            padding: $spacing-xxs var(--edatos-spacing-x-lg);
+            padding: var(--edatos-spacing-y-2xs) var(--edatos-spacing-x-lg);
         }
     }
     .p-multiselect.p-component {
@@ -283,7 +283,7 @@
 .filter-section-title {
     font-size: var(--edatos-font-size-s);
     font-weight: var(--edatos-font-weight-semibold);
-    padding: $spacing-xxs var(--edatos-spacing-x-lg);
+    padding: var(--edatos-spacing-y-2xs) var(--edatos-spacing-x-lg);
     color: var(--edatos-color-white-100);
 }
 
@@ -291,7 +291,7 @@
     display: flex;
     align-items: center;
     gap: var(--edatos-spacing-x-xs);
-    padding: $spacing-xxs var(--edatos-spacing-x-lg);
+    padding: var(--edatos-spacing-y-2xs) var(--edatos-spacing-x-lg);
     label {
         font-size: var(--edatos-font-size-s);
         color: var(--edatos-color-white-100);
