@@ -77,6 +77,9 @@ input.form-control:hover {
             box-shadow: none;
             border-color: var(--edatos-color-secondary-100);
         }
+        &:not(.p-multiselect-open).p-focus {
+            box-shadow: inset 0 0 0 var(--edatos-border-width-sm) var(--edatos-color-accent-100);
+        }
         &:not(.p-disabled):hover {
             border-color: var(--edatos-color-secondary-100);
             &:not(.p-multiselect-open) {
