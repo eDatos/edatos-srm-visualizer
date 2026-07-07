@@ -21,6 +21,14 @@
     padding: 0 var(--edatos-spacing-x-lg);
 }
 
+input.form-control:active {
+    border-color: var(--edatos-color-secondary-100);
+}
+
+input.form-control:hover {
+    background-color: var(--edatos-color-gray-5);
+}
+
 
 //primeng multiselect
 .multiselect-custom-search .p-multiselect {
@@ -175,6 +183,21 @@
 
 //primeng autocomplete
 .p-autocomplete-custom {
+    .p-autocomplete:hover .p-inputtext,
+    .p-autocomplete:hover .p-autocomplete-dropdown {
+        background-color: var(--edatos-color-gray-5);
+        border-color: var(--edatos-color-gray-60);
+    }
+    .p-autocomplete:active .p-inputtext,
+    .p-autocomplete:active .p-autocomplete-dropdown {
+        border-color: var(--edatos-color-secondary-100);
+    }
+    &.p-inputwrapper-focus .p-inputtext,
+    &.p-inputwrapper-focus .p-autocomplete-dropdown {
+        border-color: var(--edatos-color-accent-100);
+        box-shadow: none;
+    }
+    
     .p-inputtext {
         height: 30px;
         border: 1px solid var(--edatos-color-gray-60);
@@ -183,10 +206,6 @@
         font-size: var(--edatos-font-size-xs);
         font-family: $font-family-sans-serif;
         padding: 7px;
-        &:focus, &:hover {
-            border-color: var(--edatos-color-gray-60);
-            box-shadow: none;
-        }
     }
 
     .p-autocomplete-panel {
