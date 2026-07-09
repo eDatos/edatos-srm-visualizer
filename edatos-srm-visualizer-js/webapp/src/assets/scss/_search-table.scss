@@ -3,7 +3,10 @@
     min-height: 350px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--edatos-color-secondary-100) var(--edatos-color-white-100);
+    scrollbar-color: var(--edatos-color-gray-40) var(--edatos-color-white-100);
+    &:hover {
+        scrollbar-color: var(--edatos-color-gray-60) var(--edatos-color-white-100);
+    }
     table {
         box-shadow: none;
         th, td {
@@ -29,5 +32,8 @@
 
 .search-results-table::-webkit-scrollbar-thumb, .search-results-table-detail::-webkit-scrollbar-thumb {
     border-radius: var(--edatos-border-radius-sm);
-    background-color: var(--edatos-color-secondary-100);
+    background-color: var(--edatos-color-gray-40);
+    &:hover {
+        background-color: var(--edatos-color-gray-60);
+    }
 }

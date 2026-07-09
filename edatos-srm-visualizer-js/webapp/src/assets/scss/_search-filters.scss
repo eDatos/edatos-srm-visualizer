@@ -216,13 +216,20 @@ input.form-control:hover {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         
         scrollbar-width: thin;
-        scrollbar-color: var(--edatos-color-secondary-100) var(--edatos-color-white-100);
+        scrollbar-color: var(--edatos-color-gray-40) var(--edatos-color-white-100);
+        &:hover {
+            scrollbar-color: var(--edatos-color-gray-60) var(--edatos-color-white-100);
+        }
+
         &::-webkit-scrollbar {
             width: $scroll-width-default;
         }
         &::-webkit-scrollbar-thumb {
             border-radius: var(--edatos-border-radius-sm);
-            background-color: var(--edatos-color-secondary-100);
+            background-color: var(--edatos-color-gray-40);
+            &:hover {
+                background-color: var(--edatos-color-gray-60);
+            }
         }
         
         .p-autocomplete-items {
