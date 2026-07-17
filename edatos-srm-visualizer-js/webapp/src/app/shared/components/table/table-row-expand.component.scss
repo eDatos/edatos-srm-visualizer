@@ -3,7 +3,7 @@
   height: 30px;
   th {
     padding: var(--edatos-spacing-y-xs) var(--edatos-spacing-x-sm);
-    line-height: 19px;
+    line-height: var(--edatos-line-height-xs);
     font-weight: var(--edatos-font-weight-semibold);
     background: var(--edatos-color-gray-5);
     border: none;
@@ -36,7 +36,7 @@
   td {
     max-width: calc($container-2columns-max-width/2 - var(--edatos-spacing-x-sm) - $scroll-width-default);
     padding: var(--edatos-spacing-x-sm);
-    line-height: 16px;
+    line-height: var(--edatos-line-height-xs);
     font-size: var(--edatos-font-size-xs);
     border-bottom: var(--edatos-border-width-xs) solid var(--edatos-color-gray-5);
   }
@@ -116,7 +116,7 @@ th > div {
   padding: var(--edatos-spacing-x-sm);
   width: $container-max-width-descriptions;
   font-size: var(--edatos-font-size-xs);
-  line-height: 16px;
+  line-height: var(--edatos-line-height-md);
   p {
     margin: 0;
   }
@@ -138,7 +138,7 @@ th > div {
 .element-link {
   padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-sm) var(--edatos-spacing-x-lg);
   font-size: var(--edatos-font-size-xs);
-  line-height: 16px;
+  line-height: var(--edatos-line-height-md);
 }
 
 .element-link-attribution {

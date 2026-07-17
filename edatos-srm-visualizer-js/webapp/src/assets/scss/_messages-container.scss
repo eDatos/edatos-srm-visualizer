@@ -11,11 +11,10 @@
     &.text-no-result {
       font-weight: var(--edatos-font-weight-semibold);
       font-size: var(--edatos-font-size-md);
-      line-height: 22px;
+      line-height: var(--edatos-line-height-md);
     }
     &.text-retry {
       font-weight: var(--edatos-font-weight-light);
-      line-height: 19px;
     }
   }
 }
