@@ -6,7 +6,7 @@
     background: var(--edatos-color-white-100);
     color: var(--edatos-color-secondary-100);
     font-size: var(--edatos-font-size-sm);
-    line-height: 16px;
+    line-height: var(--edatos-line-height-xs);
     span {
         font-size: var(--edatos-font-size-sm);
         font-weight: var(--edatos-font-weight-regular);

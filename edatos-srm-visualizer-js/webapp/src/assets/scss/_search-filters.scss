@@ -240,7 +240,7 @@ input.form-control:hover {
                 font-family: $font-family-sans-serif;
                 padding: var(--edatos-spacing-y-2xs);
                 font-weight: var(--edatos-font-weight-light);
-                line-height: 24px;
+                line-height: var(--edatos-line-height-lg);
                 color: var(--edatos-color-secondary-100);
                 &:hover {
                     background: var(--edatos-color-gray-5);
