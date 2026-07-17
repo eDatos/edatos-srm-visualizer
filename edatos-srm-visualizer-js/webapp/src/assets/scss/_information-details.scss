@@ -16,7 +16,7 @@
 //primeng dropdown - OTHER VERSIONS
 .p-dropdown-custom .p-dropdown {
     height: 30px;
-    border: 1px solid var(--edatos-color-secondary-100);
+    border: var(--edatos-border-width-xs) solid var(--edatos-color-secondary-100);
     border-radius: var(--edatos-border-radius-sm);
     align-items: center;
 }
@@ -70,7 +70,7 @@
             border-bottom: none;
            .p-dropdown-filter.p-inputtext {
                 height: 30px;
-                border: 1px solid var(--edatos-color-gray-60);
+                border: var(--edatos-border-width-xs) solid var(--edatos-color-gray-60);
                 border-radius: var(--edatos-border-radius-sm);
                 font-size: var(--edatos-font-size-xs);
                 color: var(--edatos-color-gray-60);

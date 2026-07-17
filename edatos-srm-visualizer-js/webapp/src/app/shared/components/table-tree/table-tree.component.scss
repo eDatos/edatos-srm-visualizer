@@ -3,7 +3,7 @@
 .mat-tree-node {
   padding: var(--edatos-spacing-x-sm);
   min-height: 40px;
-  border-bottom: 1px solid var(--edatos-color-gray-5);
+  border-bottom: var(--edatos-border-width-xs) solid var(--edatos-color-gray-5);
   .text-icon-button {
     font-family: $font-family-sans-serif;
   }

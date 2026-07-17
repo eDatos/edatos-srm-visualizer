@@ -38,7 +38,7 @@
     padding: var(--edatos-spacing-x-sm);
     line-height: 16px;
     font-size: var(--edatos-font-size-xs);
-    border-bottom: 1px solid var(--edatos-color-gray-5);
+    border-bottom: var(--edatos-border-width-xs) solid var(--edatos-color-gray-5);
   }
   &:not(.expanded-row):hover {
     background: var(--edatos-color-primary-5);
@@ -106,7 +106,7 @@ th > div {
   display: flex;
   flex-direction: column;
   border-radius: 0px 0px var(--edatos-border-radius-sm) var(--edatos-border-radius-sm);
-  border: 1px solid var(--edatos-color-primary-100);
+  border: var(--edatos-border-width-xs) solid var(--edatos-color-primary-100);
 }
 .element-detail.large {
   display: block;
