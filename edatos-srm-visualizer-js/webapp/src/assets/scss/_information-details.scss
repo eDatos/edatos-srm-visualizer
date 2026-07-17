@@ -197,7 +197,7 @@
     flex-direction: row;
     gap: var(--edatos-spacing-x-xs);
     align-items: center;
-    color: #231F20;
+    color: var(--edatos-color-black-100);
     &.background {
         background: var(--edatos-color-gray-5);
         height: 40px;
