@@ -34,8 +34,8 @@ $input-placeholder-color:       var(--edatos-color-gray-40);
 $input-color:                   var(--edatos-color-black-100);
 $input-focus-border-color:      var(--edatos-color-accent-100);
 $input-focus-box-shadow:        none;
-$link-color:                    var(--edatos-color-primary-100);
-$link-hover-color:              var(--edatos-color-primary-100);
+$link-color:                    var(--edatos-links-color);
+$link-hover-color:              var(--edatos-links-color);
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
