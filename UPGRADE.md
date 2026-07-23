@@ -9,7 +9,7 @@
 *Se deberá realizar primero la actualización de la versión 1.0.0 a la 2.0.0 y luego desde la 2.0.0 a la 3.0.0*
 
 ## 1.12.0 a 1.12.1-SNAPSHOT
-* Esta versión depende de la versión 8.27.1-SNAPSHOT de complementos-apps, ya que se hace uso de unas variables de estilos que son necesarias para el correcto funcionamiento de la aplicación.
+* Esta versión depende de la versión 8.27.2-SNAPSHOT de complementos-apps, ya que se hace uso de unas variables de estilos que son necesarias para el correcto funcionamiento de la aplicación.
 
 ## 1.9.0 a 1.10.0
 - Es necesario ejecutar el siguiente script SQL, donde se incluye la api-key para llamadas a apis:
