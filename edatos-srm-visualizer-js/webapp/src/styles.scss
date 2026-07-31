@@ -13,9 +13,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100%;
     padding-right: 0px;
     padding-left: 0px;
-    margin-top: var(--edatos-spacing-y-l);
+    margin-top: var(--edatos-spacing-y-lg);
     background: white;
-    box-shadow: 0px $spacing-s $spacing-l rgba(0, 0, 0, 0.16);
+    box-shadow: 0px var(--edatos-spacing-y-sm) var(--edatos-spacing-x-lg) rgba(0, 0, 0, 0.16);
 }
 
 .in-line-center {

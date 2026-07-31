@@ -1,9 +1,9 @@
 @import 'src/assets/scss/variables.scss';
 
 .mat-tree-node {
-  padding: $spacing-s;
+  padding: var(--edatos-spacing-x-sm);
   min-height: 40px;
-  border-bottom: 1px solid var(--edatos-color-gray-5);
+  border-bottom: var(--edatos-border-width-xs) solid var(--edatos-color-gray-5);
   .text-icon-button {
     font-family: $font-family-sans-serif;
   }
@@ -31,16 +31,16 @@
 
 .element-actions {
   color: var(--edatos-color-secondary-100);
-  font-size: var(--edatos-font-size-m);
+  font-size: var(--edatos-font-size-md);
   background: transparent;
   border: none;
-  padding: 0 $spacing-s;
+  padding: 0 var(--edatos-spacing-x-sm);
 }
 
 .sipnner-td-container {
   display: flex;
   flex-direction: column;
-  gap: $spacing-s;
+  gap: var(--edatos-spacing-y-sm);
   justify-content: center;
   align-items: center;
   height: 100%;

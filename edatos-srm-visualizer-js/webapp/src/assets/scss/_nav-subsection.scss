@@ -8,7 +8,7 @@
 }
 
 .subsection-tab.detail-tab .nav {
-    margin-top: var(--edatos-spacing-x-m);
+    margin-top: var(--edatos-spacing-y-lg);
     .nav-link {
         cursor: pointer;
     }
@@ -19,11 +19,11 @@
 }
 
 .section-tab .nav.nav-pills {
-    padding: 13px var(--edatos-spacing-x-m);
+    padding: var(--edatos-spacing-y-lg) var(--edatos-spacing-x-lg);
 }
 
 .subsection-tab .nav.nav-tabs {
-    padding: 9px var(--edatos-spacing-x-m);
+    padding: var(--edatos-spacing-y-sm) var(--edatos-spacing-x-lg);
 }
 
 .section-tab .nav.nav-pills, .subsection-tab .nav.nav-tabs {
@@ -34,8 +34,6 @@
 .section-tab .nav-pills .nav-link, .subsection-tab .nav-tabs .nav-link {
     font-weight: var(--edatos-font-weight-light);
     color: var(--edatos-color-secondary-100);
-    /* identical to box height */
-    line-height: 20px;
 }
 
 .section-tab .nav-pills .nav-link.active {
@@ -48,20 +46,20 @@
 }
 
 .subsection-tab .nav-tabs .nav-link:hover {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .subsection-tab .nav-tabs .nav-link.active {
     font-weight: var(--edatos-font-weight-semibold);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .subsection-tab .nav-tabs .nav-link:hover {
     background-color: var(--edatos-color-primary-10);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 .subsection-tab a.nav-link:focus {
-    border-radius: 5px 5px 0px 0px;
+    border-radius: var(--edatos-border-radius-sm) var(--edatos-border-radius-sm) 0px 0px;
 }
 
 .section-tab a.nav-link:focus-visible, .subsection-tab a.nav-link:focus-visible {

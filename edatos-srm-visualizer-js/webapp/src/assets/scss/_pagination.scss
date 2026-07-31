@@ -1,7 +1,6 @@
 .pagination {
-    margin-top:var(--edatos-spacing-y-l);
-    padding-top: var(--edatos-spacing-y-l);
-    font-size: var(--edatos-font-size-s);
+    padding-top: var(--edatos-spacing-y-xl);
+    font-size: var(--edatos-font-size-sm);
 
     ul {
         display: flex;
@@ -18,23 +17,23 @@
             justify-content: center;
             min-width: 2rem;
             text-decoration: none;
-            border: 1px solid var(--edatos-color-gray-40);
+            border: var(--edatos-border-width-xs) solid var(--edatos-color-gray-40);
             color: var(--edatos-color-gray-40);
             margin: 0 var(--edatos-spacing-x-xs);
             border-radius: var(--border-radius-sm);
             cursor: pointer;
             transition: all 0.2s ease;
-            line-height: 1;
+            line-height: var(--edatos-line-height-xs);
         }
 
         &:not(.active) a:hover {
             background-color: var(--edatos-color-primary-5);
-            border: 1px solid var(--edatos-color-primary-100);
+            border: var(--edatos-border-width-xs) solid var(--edatos-color-primary-100);
             color: var(--edatos-color-primary-100);
         }
 
         &.active a {
-            border: 1px solid var(--edatos-color-primary-100);
+            border: var(--edatos-border-width-xs) solid var(--edatos-color-primary-100);
             color: var(--edatos-color-primary-100);
             font-weight: var(--edatos-font-weight-semibold);
             pointer-events: none;
@@ -43,7 +42,7 @@
 
         &.disabled a {
             display: none;
-            border: 1px solid var(--edatos-color-gray-20);
+            border: var(--edatos-border-width-xs) solid var(--edatos-color-gray-20);
             color: var(--edatos-color-gray-20);
             cursor: not-allowed;
             pointer-events: none;

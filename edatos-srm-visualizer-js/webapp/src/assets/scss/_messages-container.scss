@@ -1,31 +1,30 @@
 /*messages*/
 .empty-td-container, .error-td-container {
-  gap: $spacing-s;
+  gap: var(--edatos-spacing-y-sm);
   display: flex;
   flex-direction: column;
   text-align: center;
-  border-radius: 3px;
+  border-radius: var(--edatos-border-radius-xs);
   width: $empty-td-container-width;
   padding: var(--edatos-spacing-x-m);
   span {
     &.text-no-result {
       font-weight: var(--edatos-font-weight-semibold);
-      font-size: var(--edatos-font-size-m);
-      line-height: 22px;
+      font-size: var(--edatos-font-size-md);
+      line-height: var(--edatos-line-height-md);
     }
     &.text-retry {
       font-weight: var(--edatos-font-weight-light);
-      line-height: 19px;
     }
   }
 }
 
 .error-td-container {
-  background: var(--edatos-color-red-25);
+  background: var(--edatos-color-danger-25);
 }
 
 .empty-td-container {
-  background: var(--edatos-color-yellow-25);
+  background:  var(--edatos-color-warning-25);
 }
 
 .no-data-container{
