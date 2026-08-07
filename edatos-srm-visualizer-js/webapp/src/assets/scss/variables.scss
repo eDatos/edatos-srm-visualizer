@@ -5,17 +5,11 @@ $size-28: 28px;
 $height-nav: 45px;
 $height-general-search: 60px;
 
-$spacing-xxs: 3px;
-$spacing-xs: 5px;
-$spacing-s: 10px;
-$spacing-m: 15px;
-$spacing-l: 20px;
-$spacing-xl: 30px;
 
 $container-max-widths: 1280px;
-$container-2columns-max-width: calc($container-max-widths/2 - 3*$spacing-s);
-$empty-td-container-width: calc($container-max-widths/4 + $spacing-s);
-$container-max-width-descriptions: calc(2*$container-max-widths/3 - 2*$spacing-l);
+$container-2columns-max-width: calc($container-max-widths/2 - 3*var(--edatos-spacing-x-sm));
+$empty-td-container-width: calc($container-max-widths/4 + var(--edatos-spacing-x-sm));
+$container-max-width-descriptions: calc(2*$container-max-widths/3 - 2*var(--edatos-spacing-x-lg));
 
 $scroll-width-default: 8px;
 
