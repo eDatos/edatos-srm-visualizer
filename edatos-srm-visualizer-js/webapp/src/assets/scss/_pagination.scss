@@ -17,8 +17,8 @@
             justify-content: center;
             min-width: 2rem;
             text-decoration: none;
-            border: var(--edatos-border-width-xs) solid var(--edatos-color-gray-40);
-            color: var(--edatos-color-gray-40);
+            border: var(--edatos-border-width-xs) solid var(--edatos-color-gray-60);
+            color: var(--edatos-color-gray-60);
             margin: 0 var(--edatos-spacing-x-xs);
             border-radius: var(--border-radius-sm);
             cursor: pointer;
@@ -53,7 +53,7 @@
         align-items: center;
         justify-content: center;
         min-width: 2rem;
-        color: var(--edatos-color-gray-40);
+        color: var(--edatos-color-gray-60);
     }
 
     .page-link i {
