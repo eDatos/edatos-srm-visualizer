@@ -14,6 +14,7 @@ import { AVAILABLE_LANGUAGES, DEFAULT_LANG } from './app.constants';
 import { ConfigService } from './core/services/config/config.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { catchError, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { MissingTranslationCustomHandler } from './core/handler/missing-translation-custom-handler';
 import { ScriptLoaderModule } from 'ngx-script-loader';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,8 +49,10 @@ export function initTranslations(translateService: TranslateService, cookieServi
             const currentLang: string = cookieService.get(languageCookie) || DEFAULT_LANG;
             translateService.setDefaultLang(DEFAULT_LANG);
             translateService.addLangs(AVAILABLE_LANGUAGES);
-            translateService.use(currentLang);
-            resolve();
+            translateService.use(currentLang).pipe(take(1)).subscribe({
+                next: () => resolve(null),
+                error: () => resolve(null)
+            });
         });
     });
 }
